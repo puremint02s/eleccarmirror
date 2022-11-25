@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+const Login = lazy(() => import('./components/Pages/LoginPage'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <a>
-          My Elec Car
-        </a>
-      </header>
-    </div>
+    <Suspense>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/login' element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 
