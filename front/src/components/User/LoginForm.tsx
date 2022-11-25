@@ -1,6 +1,18 @@
 import React from "react";
+import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 
-function LoginForm() {
+interface CommonType {
+  email: string;
+  password: string;
+}
+
+interface LoginFormProps {
+  register: UseFormRegister<CommonType>;
+  errors: Partial<FieldErrorsImpl<CommonType>>;
+  onLoginSubmitEvent: () => void;
+}
+
+function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
   return (
     <div>
       <img
@@ -8,11 +20,27 @@ function LoginForm() {
         src="img/MyElecCar logo.png"
         alt="서비스 로고"
       />
-      <form>
+      <form onSubmit={onLoginSubmitEvent}>
         <p>이메일</p>
-        <input placeholder="이메일을 입력해주세요." />
+        <input
+          {...register("email", {
+            required: true,
+            pattern: /^\S+@\S+$/i,
+          })}
+          placeholder="이메일을 입력해주세요."
+        />
+        {errors.email && <p>이메일을 다시 확인해주세요.</p>}
         <p>비밀번호</p>
-        <input placeholder="비밀번호를 입력해주세요." />
+        <input
+          {...register("password", {
+            required: true,
+            minLength: 7,
+            maxLength: 20,
+            pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+          })}
+          placeholder="비밀번호를 입력해주세요."
+        />
+        {errors.password && <p>비밀번호를 다시 확인해주세요.</p>}
         <div>
           <input type="checkbox" /> remember me
           <p>아이디/비밀번호 찾기</p>
