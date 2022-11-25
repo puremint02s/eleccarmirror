@@ -5,7 +5,10 @@ import LoginHook from "../User/LoginHook";
 function LoginPage() {
   const { register, errors, handleSubmit, handleLoginSubmit } = LoginHook();
   return (
-    <LoginForm register={register} errors={errors} onLoginSubmitEvent={handleSubmit(handleLoginSubmit)}
+    <LoginForm
+      register={register}
+      errors={errors}
+      onLoginSubmitEvent={handleSubmit(handleLoginSubmit)}
     />
   );
 }
