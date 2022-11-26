@@ -1,11 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const Login = lazy(() => import("./components/Pages/LoginPage"));
+const Login = lazy(() => import("./Pages/LoginPage"));
 // const MainPage = lazy(() => import("./components/Pages/MainPage"));
-import Main from "./components/Pages/MainPage";
-import SignUp from "./components/Pages/SignUpPage";
-import Community from "./components/Pages/Community";
+import Main from "./Pages/MainPage";
+import SignUp from "./Pages/SignUpPage";
+import Community from "./Pages/Community";
 
 function App() {
   return (
