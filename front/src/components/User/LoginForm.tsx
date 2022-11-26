@@ -1,9 +1,14 @@
 import React from "react";
 import {
+  LoginFormBox,
   LogoWrapper,
   LoginFormWrapper,
   LoginInputTitle,
   LoginInput,
+  FootBox,
+  RememberMeTitle,
+  FindEmailPwdButton,
+  ButtonBox,
   LoginButton,
   KakaoLoginButton,
   GoogleLoginButton,
@@ -23,11 +28,11 @@ interface LoginFormProps {
 
 function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
   return (
-    <div>
+    <LoginFormBox>
       <LogoWrapper>
         <a href="/">
           <img
-            style={{ width: 320 }}
+            style={{ width: 200 }}
             src="img/MyElecCar logo.png"
             alt="서비스 로고"
           />
@@ -54,17 +59,20 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
           placeholder="비밀번호를 입력해주세요."
         />
         {errors.password && <p>비밀번호를 다시 확인해주세요.</p>}
-        <div>
-          <input type="checkbox" /> remember me
-          <p>아이디/비밀번호 찾기</p>
-        </div>
-        <div>
+        <FootBox>
+          <input type="checkbox" />
+          <RememberMeTitle>remember me</RememberMeTitle>
+          <a href="/find">
+            <FindEmailPwdButton>아이디/비밀번호 찾기</FindEmailPwdButton>
+          </a>
+        </FootBox>
+        <ButtonBox>
           <LoginButton type="submit">로그인</LoginButton>
           <KakaoLoginButton>카카오톡으로 시작</KakaoLoginButton>
           <GoogleLoginButton>구글로 시작</GoogleLoginButton>
-        </div>
+        </ButtonBox>
       </LoginFormWrapper>
-    </div>
+    </LoginFormBox>
   );
 }
 
