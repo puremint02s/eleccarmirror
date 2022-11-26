@@ -1,8 +1,8 @@
 import React from "react";
 //⛔issue
 //👉절대 경로 설정 했는데, @ 로 접근하는게 안됩니다
-import Header from "../common/Header";
-import Main from "../common/Main";
+import Header from "../components/common/Header";
+import Main from "../components/common/Main";
 import styled from "styled-components";
 
 //⛔issue
