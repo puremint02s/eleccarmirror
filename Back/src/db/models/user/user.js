@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config/db");
+const sequelize = require("../../config/db");
 
 const User = sequelize.define(
   "User",
@@ -13,9 +13,12 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true
+      }
     },
     nickname: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(10),
       allowNull: false,
       unique: true,
     },
@@ -34,20 +37,12 @@ const User = sequelize.define(
     car_owned: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false
     },
     elec_car_owned: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-    },
-    test_type: {
-      type: DataTypes.INTEGER,
-    },
-    car_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "Car",
-        key: "id"
-      }
+      defaultValue: false
     },
     average_mileage: {
       type: DataTypes.FLOAT,

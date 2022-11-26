@@ -6,7 +6,7 @@ const ConnectDB = async() => {
       await sequelize.authenticate();
       console.log("✅DB 연결 완료");
   
-      await sequelize.sync({force: false});
+      await sequelize.sync({alter: true});
       console.log("✅DB 동기화 완료")
   
     } catch(err) {
