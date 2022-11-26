@@ -1,20 +1,24 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+const Login = lazy(() => import("./components/Pages/LoginPage"));
+// const MainPage = lazy(() => import("./components/Pages/MainPage"));
+import Main from "./components/Pages/MainPage";
+import SignUp from "./components/Pages/SignUpPage";
 import Community from "./components/Pages/Community";
-// import GlobalStyle from "@/styles/global-style";
 
 function App() {
   return (
-    <div>
+    <Suspense>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/community" element={<Community />} />
         </Routes>
       </BrowserRouter>
-      {/* <header>
-        <a href="/">My Elec Car</a>
-      </header> */}
-    </div>
+    </Suspense>
   );
 }
 
