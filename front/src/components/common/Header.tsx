@@ -34,6 +34,16 @@ const H1 = styled.h1`
   width: 250px;
   height: 100%;
   /* background-color: #cbcbcb; */
+  display: flex;
+  align-items: center;
+
+  a {
+    display: block;
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
 `;
 
 const Nav = styled.nav`
@@ -62,7 +72,7 @@ function Header() {
         <div>
           <H1>
             <a href="/">
-              <img alt="my elec car" />
+              <img src="img/MyElecCar logo.png" alt="my elec car" />
             </a>
           </H1>
           <Nav>

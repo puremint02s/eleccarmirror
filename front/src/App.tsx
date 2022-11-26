@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Community from "./pages/Community";
+import Community from "./components/Pages/Community";
 // import GlobalStyle from "@/styles/global-style";
 
 function App() {
