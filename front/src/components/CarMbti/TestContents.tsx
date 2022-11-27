@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { TestContents as tests } from "./Contents/test";
 import { CAR } from "./Contents/result";
 import Loading from "./Loading";
+import {
+  TitleWrapper,
+  TestButtonWrapper,
+  TestUpButton,
+  TestDownButton,
+} from "../../style/CarMbtiStyle";
 
 function TestContents() {
   const [q, setQ] = useState<number>(0);
@@ -56,18 +62,27 @@ function TestContents() {
       {/* <div>
           <div style={{ width: `${Math.round((q / tests.length) * 100)}%` }} />
         </div> */}
-      <div>
-        <p>질문 {q + 1}</p>
+      <TitleWrapper>
         <p>{tests[q].question}</p>
-      </div>
-      <div>
-        <button onClick={handleOnSelect} value={tests[q].selection[0].value}>
-          {tests[q].selection[0].answer}
-        </button>
-        <button onClick={handleOnSelect} value={tests[q].selection[1].value}>
-          {tests[q].selection[1].answer}
-        </button>
-      </div>
+      </TitleWrapper>
+      <TestButtonWrapper>
+        <div style={{ display: "inline-block" }}>
+          <TestUpButton
+            onClick={handleOnSelect}
+            value={tests[q].selection[0].value}
+          >
+            {tests[q].selection[0].answer}
+          </TestUpButton>
+        </div>
+        <div style={{ display: "inline-block" }}>
+          <TestDownButton
+            onClick={handleOnSelect}
+            value={tests[q].selection[1].value}
+          >
+            {tests[q].selection[1].answer}
+          </TestDownButton>
+        </div>
+      </TestButtonWrapper>
     </div>
   );
 }
