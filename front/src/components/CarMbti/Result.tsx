@@ -9,6 +9,7 @@ import {
   NextTestButton,
   ResultButtonWrapper,
   ResultMbtiWrapper,
+  ResultListWrapper,
 } from "../../style/CarMbtiStyle";
 
 function Result() {
@@ -33,17 +34,23 @@ function Result() {
       <TitleWrapper>당신의 유형은...</TitleWrapper>
       <MbtiTitleWrapper>{RESULT_CAR[carName].name}</MbtiTitleWrapper>
       <div>
-        <ul>
+        <ResultListWrapper>
           {RESULT_CAR[carName].desc
             .split("/")
             .filter((item) => item !== "/")
             .map((item, idx) => (
               <li key={item + idx}>{item}</li>
             ))}
-        </ul>
+        </ResultListWrapper>
       </div>
       <div>
-        <p>친구에게 공유하기</p>
+        <p style={{ textAlign: "center", marginTop: 30 }}>친구에게 공유하기</p>
+        <ResultButtonWrapper>
+          <button>페이스북</button>
+          <button>카카오톡</button>
+          <button>트위터</button>
+          <button>링크 복사</button>
+        </ResultButtonWrapper>
       </div>
       <ResultButtonWrapper>
         <TestRetryButton onClick={handleClickRetry}>

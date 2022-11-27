@@ -8,12 +8,13 @@ import {
   TestButtonWrapper,
   TestUpButton,
   TestDownButton,
+  Status,
+  StatusBar,
 } from "../../style/CarMbtiStyle";
 
 function TestContents() {
   const [q, setQ] = useState<number>(0);
   const [userAns, setUserAns] = useState<string[]>([]);
-
   const navigate = useNavigate();
 
   const handleOnSelect = (e: MouseEvent<HTMLButtonElement>) => {
@@ -59,9 +60,6 @@ function TestContents() {
   if (!tests[q]) return handleMoveToResult();
   return (
     <div>
-      {/* <div>
-          <div style={{ width: `${Math.round((q / tests.length) * 100)}%` }} />
-        </div> */}
       <TitleWrapper>
         <p>{tests[q].question}</p>
       </TitleWrapper>
@@ -83,6 +81,9 @@ function TestContents() {
           </TestDownButton>
         </div>
       </TestButtonWrapper>
+      <StatusBar>
+        <Status style={{ width: `${Math.round((q / tests.length) * 100)}%` }} />
+      </StatusBar>
     </div>
   );
 }

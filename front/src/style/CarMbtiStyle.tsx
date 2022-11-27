@@ -100,8 +100,31 @@ export const ResultButtonWrapper = styled.div`
   text-align: center;
 `;
 
+export const ResultListWrapper = styled.ul`
+  text-align: center;
+  margin-top: 1rem;
+`;
+
 export const ResultMbtiWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+export const StatusBar = styled.div`
+  margin-top: 1rem;
+  width: 100%;
+  height: 0.7rem;
+  background-color: #d9d9d9;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+`;
+
+export const Status = styled.div`
+  height: 0.7rem;
+  background-color: #0a84ff;
+  display: flex;
+  position: fixed;
+  bottom: 0;
 `;
