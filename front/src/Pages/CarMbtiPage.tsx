@@ -1,13 +1,23 @@
 import React from "react";
+import {
+  TitleWrapper,
+  SubTitleWrapper,
+  TestStartButtonWrapper,
+  TestStartButton,
+} from "../style/CarMbtiStyle";
 
 function CarMbti() {
   return (
     <div>
-      <p>전기차 성향 테스트</p>
-      <p>성향을 파악하여 전기차 추천을 해드리겠습니다.</p>
-      <a href="/test">
-        <button>테스트 시작하기</button>
-      </a>
+      <TitleWrapper>전기차 성향 테스트</TitleWrapper>
+      <SubTitleWrapper>
+        성향을 파악하여 전기차 추천을 해드리겠습니다.
+      </SubTitleWrapper>
+      <TestStartButtonWrapper>
+        <a href="/test">
+          <TestStartButton>테스트 시작하기</TestStartButton>
+        </a>
+      </TestStartButtonWrapper>
     </div>
   );
 }

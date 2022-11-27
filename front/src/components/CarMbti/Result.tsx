@@ -2,6 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { CAR, RESULT_CAR } from "./Contents/result";
+import {
+  TitleWrapper,
+  MbtiTitleWrapper,
+  TestRetryButton,
+  NextTestButton,
+  ResultButtonWrapper,
+  ResultMbtiWrapper,
+} from "../../style/CarMbtiStyle";
 
 function Result() {
   const navigate = useNavigate();
@@ -21,25 +29,29 @@ function Result() {
 
   if (!carName) return <></>;
   return (
-    <div>
+    <ResultMbtiWrapper>
+      <TitleWrapper>당신의 유형은...</TitleWrapper>
+      <MbtiTitleWrapper>{RESULT_CAR[carName].name}</MbtiTitleWrapper>
       <div>
-        <div>
-          <p>{RESULT_CAR[carName].name}</p>
-        </div>
-        <div>
-          <ul>
-            {RESULT_CAR[carName].desc
-              .split("/")
-              .filter((item) => item !== "/")
-              .map((item, idx) => (
-                <li key={item + idx}>{item}</li>
-              ))}
-          </ul>
-        </div>
-        <button onClick={handleClickRetry}>테스트 다시 하기</button>
-        <button>다음 테스트</button>
+        <ul>
+          {RESULT_CAR[carName].desc
+            .split("/")
+            .filter((item) => item !== "/")
+            .map((item, idx) => (
+              <li key={item + idx}>{item}</li>
+            ))}
+        </ul>
       </div>
-    </div>
+      <div>
+        <p>친구에게 공유하기</p>
+      </div>
+      <ResultButtonWrapper>
+        <TestRetryButton onClick={handleClickRetry}>
+          테스트 다시 하기
+        </TestRetryButton>
+        <NextTestButton>다음 테스트</NextTestButton>
+      </ResultButtonWrapper>
+    </ResultMbtiWrapper>
   );
 }
 
