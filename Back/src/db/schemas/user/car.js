@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../config/db");
+import { DataTypes } from "sequelize";
+import sequelize from "../../../config/db";
 
 const Car = sequelize.define(
     "Car",
@@ -16,7 +16,6 @@ const Car = sequelize.define(
       model: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        unique: true,
       },
       car_image: {
         type: DataTypes.STRING,
@@ -24,6 +23,11 @@ const Car = sequelize.define(
       }
     },
     {
+
+    indexes: [{
+      unique: true,
+      fields: ["model"]
+    }],
     tableName: "cars",
     charset: "utf8",
     collate: "utf8_general_ci",
@@ -31,5 +35,5 @@ const Car = sequelize.define(
     }
   );
   
-  module.exports = Car;
+  export default Car;
   

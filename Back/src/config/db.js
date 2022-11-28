@@ -1,5 +1,6 @@
-require("dotenv").config();
-const { Sequelize } = require("sequelize");
+import dotenv from "dotenv"
+dotenv.config();
+import { Sequelize } from "sequelize";
 
 const sequelize = new Sequelize(
   "elicewebproject3",
@@ -8,7 +9,8 @@ const sequelize = new Sequelize(
   {
     host: "localhost",
     dialect: "mysql",
+    logging: false
   }
 );
 
-module.exports = sequelize;
+export default sequelize;

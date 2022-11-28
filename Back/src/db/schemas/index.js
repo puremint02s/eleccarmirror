@@ -1,11 +1,11 @@
-const { Sequelize } = require("sequelize");
-const sequelize = require("../config/db");
-const User = require("./user/user");
-const Car = require("./user/car");
-const TestType = require("./user/testType");
-const Post = require("./community/post");
-const Comment = require("./community/comment");
-const Tag = require("./community/tag")
+import { Sequelize } from "sequelize";
+import sequelize from "../../config/db";
+import User from "./user/user";
+import Car from "./user/car";
+import TestType from "./user/testType"
+import Post from "./community/post";
+import Comment from "./community/comment";
+import Tag from "./community/tag";
 
 const db = {};
 
@@ -44,5 +44,5 @@ db.Post.hasMany(db.Comment, {
 db.Tag.belongsToMany(db.Post, {through: "write_tags"});
 db.Post.belongsToMany(db.Tag, {through: "write_tags"})
 
-module.exports = db;
+export default db;
 

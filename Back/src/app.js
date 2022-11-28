@@ -1,29 +1,16 @@
-const express = require("express");
-const { sequelize } = require("./db/models");
-
-const ConnectDB = async() => {
-    try {
-      await sequelize.authenticate();
-      console.log("✅DB 연결 완료");
-  
-      await sequelize.sync({alter: true});
-      console.log("✅DB 동기화 완료")
-  
-    } catch(err) {
-      console.log("⛔DB 연결 및 동기화 실패", err)
-    }
-  }
-
-ConnectDB();
+import express from "express";
+import connectDB from "./db";
+import errorMiddleware from "./middlewares/errorMiddleware";
+import userRouter from "./router/userRouter";
 
 const app = express();
+connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.get("/", (req, res) => {
-    res.send("Hello!");
-});
+app.use("/users", userRouter)
 
+app.use(errorMiddleware);
 
-module.exports = app;
+export default app;
