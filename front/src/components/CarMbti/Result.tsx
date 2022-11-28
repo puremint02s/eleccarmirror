@@ -5,11 +5,16 @@ import { CAR, RESULT_CAR } from "./Contents/result";
 import {
   TitleWrapper,
   MbtiTitleWrapper,
+  ResultImageWrapper,
   TestRetryButton,
   NextTestButton,
   ResultButtonWrapper,
   ResultMbtiWrapper,
   ResultListWrapper,
+  ResultListComponentWrapper,
+  ShareButtonWrapper,
+  ShareButtonTitle,
+  ShareButton,
 } from "../../style/CarMbtiStyle";
 
 function Result() {
@@ -32,6 +37,7 @@ function Result() {
   return (
     <ResultMbtiWrapper>
       <TitleWrapper>당신의 유형은...</TitleWrapper>
+      <ResultImageWrapper>테스트 결과 이미지 자리</ResultImageWrapper>
       <MbtiTitleWrapper>{RESULT_CAR[carName].name}</MbtiTitleWrapper>
       <div>
         <ResultListWrapper>
@@ -39,19 +45,21 @@ function Result() {
             .split("/")
             .filter((item) => item !== "/")
             .map((item, idx) => (
-              <li key={item + idx}>{item}</li>
+              <ResultListComponentWrapper key={item + idx}>
+                {item}
+              </ResultListComponentWrapper>
             ))}
         </ResultListWrapper>
       </div>
-      <div>
-        <p style={{ textAlign: "center", marginTop: 30 }}>친구에게 공유하기</p>
+      <ShareButtonWrapper>
+        <ShareButtonTitle>친구에게 공유하기</ShareButtonTitle>
         <ResultButtonWrapper>
-          <button>페이스북</button>
-          <button>카카오톡</button>
-          <button>트위터</button>
-          <button>링크 복사</button>
+          <ShareButton>F</ShareButton> {/* 페이스북 공유 버튼 */}
+          <ShareButton>K</ShareButton> {/* 카카오톡 공유 버튼 */}
+          <ShareButton>T</ShareButton> {/* 트위터 공유 버튼 */}
+          <ShareButton>L</ShareButton> {/* 링크복사 버튼 */}
         </ResultButtonWrapper>
-      </div>
+      </ShareButtonWrapper>
       <ResultButtonWrapper>
         <TestRetryButton onClick={handleClickRetry}>
           테스트 다시 하기

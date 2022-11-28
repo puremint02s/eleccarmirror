@@ -21,14 +21,14 @@ export const LoginFormWrapper = styled.form`
 
 export const LoginInputTitle = styled.div`
   float: left;
-  color: #a4a4a4;
-  font-size: 13px;
+  color: #898989;
+  font-size: 14px;
   padding-top: 15px;
 `;
 
 export const LoginInput = styled.input`
   width: 100%;
-  color: #a8a8a8;
+  color: #ababab;
   background-color: #f6f6f6;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -54,8 +54,8 @@ export const RememberMeTitle = styled.p`
 `;
 
 export const FindEmailPwdButton = styled.p`
-  color: #a7a7a7;
-  font-size: 13px;
+  color: #898989;
+  font-size: 14px;
   float: right;
 `;
 
