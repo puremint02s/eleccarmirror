@@ -32,6 +32,7 @@ function Result() {
   }, [car, navigate]);
 
   const handleClickRetry = () => navigate("/test");
+  const handleClickCalcEfficiency = () => navigate("/calcefficency");
 
   if (!carName) return <></>;
   return (
@@ -64,7 +65,9 @@ function Result() {
         <TestRetryButton onClick={handleClickRetry}>
           테스트 다시 하기
         </TestRetryButton>
-        <NextTestButton>다음 테스트</NextTestButton>
+        <NextTestButton onClick={handleClickCalcEfficiency}>
+          다음 테스트
+        </NextTestButton>
       </ResultButtonWrapper>
     </ResultMbtiWrapper>
   );
