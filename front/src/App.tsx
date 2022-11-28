@@ -2,20 +2,26 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const Login = lazy(() => import("./Pages/LoginPage"));
-// const MainPage = lazy(() => import("./components/Pages/MainPage"));
-import Main from "./Pages/MainPage";
-import SignUp from "./Pages/SignUpPage";
-import Community from "./Pages/Community";
+const Main = lazy(() => import("./Pages/MainPage"));
+const SignUp = lazy(() => import("./Pages/SignUpPage"));
+const Community = lazy(() => import("./Pages/Community"));
+
+const ROUTE = {
+  MAIN: "/",
+  LOGIN: "/login",
+  SIGNUP: "/signup",
+  COMMUNITY: "/community",
+};
 
 function App() {
   return (
     <Suspense>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/community" element={<Community />} />
+          <Route path={ROUTE.MAIN} element={<Main />} />
+          <Route path={ROUTE.LOGIN} element={<Login />} />
+          <Route path={ROUTE.SIGNUP} element={<SignUp />} />
+          <Route path={ROUTE.COMMUNITY} element={<Community />} />
         </Routes>
       </BrowserRouter>
     </Suspense>
