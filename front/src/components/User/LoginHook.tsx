@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 
-interface CommonType {
+interface CommonUserData {
   email: string;
   password: string;
 }
@@ -11,7 +11,7 @@ const LoginHook = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CommonType>({
+  } = useForm<CommonUserData>({
     mode: "onChange",
     defaultValues: {
       email: "",
@@ -19,7 +19,7 @@ const LoginHook = () => {
     },
   });
 
-  const handleLoginSubmit = useCallback(async (userData: CommonType) => {
+  const handleLoginSubmit = useCallback(async (userData: CommonUserData) => {
     console.log(userData);
   }, []);
 
