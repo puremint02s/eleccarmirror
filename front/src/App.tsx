@@ -8,7 +8,7 @@ const FindPwd = lazy(() => import("./Pages/FindPwdPage"));
 const CarMbti = lazy(() => import("./Pages/CarMbtiPage"));
 const TestContents = lazy(() => import("./components/CarMbti/TestContents"));
 const Loading = lazy(() => import("./components/CarMbti/Loading"));
-const Result = lazy(() => import("./components/CarMbti/Result"));
+const MbtiResult = lazy(() => import("./components/CarMbti/MbtiResult"));
 const CalcEfficency = lazy(() => import("./Pages/CalcEfficiencyPage"));
 
 import Main from "./Pages/MainPage";
@@ -30,7 +30,7 @@ function App() {
           <Route path="/carmbti" element={<CarMbti />} />
           <Route path="/test" element={<TestContents />} />
           <Route path="/loading" element={<Loading />} />
-          <Route path="/result/:car" element={<Result />} />
+          <Route path="/mbtiresult/:car" element={<MbtiResult />} />
           <Route path="/calcefficency" element={<CalcEfficency />} />
         </Routes>
       </BrowserRouter>

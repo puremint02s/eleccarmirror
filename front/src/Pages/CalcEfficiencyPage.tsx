@@ -12,6 +12,11 @@ import {
   CalcButtonWrapper,
 } from "../style/CalcEfficiencyStyle";
 
+// interface GasOption {
+//   value: string;
+//   name: string;
+// }
+
 function CalcEfficiencyPage() {
   const [startDate, setStartDate] = useState(new Date());
   const OPTIONS = [
