@@ -12,17 +12,29 @@ export const SubTitleWrapper = styled.div`
   padding-top: 1rem;
   padding-bottom: 1px;
   font-size: 13px;
-  color: #a8a8a8;
+  color: #898989;
 `;
+
 export const TestStartButtonWrapper = styled.div`
   text-align: center;
 `;
 
 export const TestStartButton = styled.button`
   padding: 5rem;
-  font-size: 20px;
+  font-size: 18px;
   margin-top: 3rem;
   cursor: pointer;
+  border-radius: 28px;
+  background-color: #f6f6f6;
+`;
+
+export const TestImageWrapper = styled.div`
+  text-align: center;
+  padding: 5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 13px;
+  color: #a8a8a8;
 `;
 
 export const TestButtonWrapper = styled.div`
@@ -41,7 +53,7 @@ export const TestUpButton = styled.button`
   width: 320px;
   cursor: pointer;
   margin-top: 1rem;
-  border-radius: 20px;
+  border-radius: 28px;
 `;
 
 export const TestDownButton = styled.button`
@@ -53,7 +65,7 @@ export const TestDownButton = styled.button`
   color: white;
   background-color: #0a84ff;
   margin-top: 1rem;
-  border-radius: 20px;
+  border-radius: 28px;
 `;
 
 export const LoadingWrapper = styled.div`
@@ -63,9 +75,17 @@ export const LoadingWrapper = styled.div`
   min-height: 100vh;
 `;
 
+export const ResultImageWrapper = styled.div`
+  text-align: center;
+  padding: 5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 13px;
+  color: #a8a8a8;
+`;
+
 export const MbtiTitleWrapper = styled.div`
   text-align: center;
-  padding-top: 7rem;
   padding-bottom: 1px;
   font-size: 25px;
 `;
@@ -73,9 +93,10 @@ export const MbtiTitleWrapper = styled.div`
 export const TestRetryButton = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
-  font-size: 15px;
+  color: #898989;
+  font-size: 14px;
   text-align: center;
-  width: 150px;
+  width: 130px;
   cursor: pointer;
   background-color: #f6f6f6;
   margin-top: 1rem;
@@ -86,9 +107,9 @@ export const TestRetryButton = styled.div`
 export const NextTestButton = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
-  font-size: 15px;
+  font-size: 14px;
   text-align: center;
-  width: 150px;
+  width: 130px;
   cursor: pointer;
   color: white;
   background-color: #0a84ff;
@@ -103,12 +124,43 @@ export const ResultButtonWrapper = styled.div`
 export const ResultListWrapper = styled.ul`
   text-align: center;
   margin-top: 1rem;
+  font-size: 15px;
+  color: #898989;
+`;
+
+export const ResultListComponentWrapper = styled.li`
+  text-align: center;
+  margin: 1rem;
+  background-color: #f6f6f6;
+  width: 15vh;
+  height: 5vh;
+  display: inline-block;
 `;
 
 export const ResultMbtiWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+export const ShareButtonWrapper = styled.div`
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+`;
+
+export const ShareButtonTitle = styled.p`
+  text-align: center;
+  font: 15px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+`;
+
+export const ShareButton = styled.button`
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  margin: 0.5rem;
+  cursor: pointer;
 `;
 
 export const StatusBar = styled.div`

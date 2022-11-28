@@ -5,6 +5,7 @@ import { CAR } from "./Contents/result";
 import Loading from "./Loading";
 import {
   TitleWrapper,
+  TestImageWrapper,
   TestButtonWrapper,
   TestUpButton,
   TestDownButton,
@@ -63,6 +64,7 @@ function TestContents() {
       <TitleWrapper>
         <p>{tests[q].question}</p>
       </TitleWrapper>
+      <TestImageWrapper>이미지 자리</TestImageWrapper>
       <TestButtonWrapper>
         <div style={{ display: "inline-block" }}>
           <TestUpButton
