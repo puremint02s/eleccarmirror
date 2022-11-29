@@ -20,8 +20,8 @@ export const TestStartButtonWrapper = styled.div`
 `;
 
 export const TestStartButton = styled.button`
-  padding: 5rem;
-  font-size: 18px;
+  padding: 3rem;
+  font-size: 16px;
   margin-top: 3rem;
   cursor: pointer;
   border-radius: 28px;

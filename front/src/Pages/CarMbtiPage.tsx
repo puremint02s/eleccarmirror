@@ -14,7 +14,10 @@ function CarMbti() {
       </SubTitleWrapper>
       <TestStartButtonWrapper>
         <a href="/test">
-          <TestStartButton>테스트 시작하기</TestStartButton>
+          <TestStartButton>
+            <img src="img/QuestionCar.png" style={{ width: 200 }} /> <br />
+            <br /> 테스트 시작하기
+          </TestStartButton>
         </a>
       </TestStartButtonWrapper>
     </div>
