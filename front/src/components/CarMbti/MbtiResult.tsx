@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { copyClipboard } from "components/common/CopyClipboard";
 import { CAR, RESULT_CAR } from "./Contents/result";
 import {
   TitleWrapper,
@@ -33,6 +33,7 @@ function Result() {
 
   const handleClickRetry = () => navigate("/test");
   const handleClickCalcEfficiency = () => navigate("/calcefficency");
+  const resultLink = `http://localhost:3000/mbtiresult/${carName}`;
 
   if (!carName) return <></>;
   return (
@@ -58,7 +59,18 @@ function Result() {
           <ShareButton>F</ShareButton> {/* 페이스북 공유 버튼 */}
           <ShareButton>K</ShareButton> {/* 카카오톡 공유 버튼 */}
           <ShareButton>T</ShareButton> {/* 트위터 공유 버튼 */}
-          <ShareButton>L</ShareButton> {/* 링크복사 버튼 */}
+          <ShareButton
+            onClick={() =>
+              copyClipboard(
+                resultLink,
+                () => console.log("success"),
+                () => console.log("fail"),
+              )
+            }
+          >
+            L
+          </ShareButton>{" "}
+          {/* 링크복사 버튼 */}
         </ResultButtonWrapper>
       </ShareButtonWrapper>
       <ResultButtonWrapper>
