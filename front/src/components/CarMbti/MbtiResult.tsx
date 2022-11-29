@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { CAR, RESULT_CAR } from "./Contents/result";
@@ -26,7 +26,7 @@ function Result() {
   }>();
 
   useEffect(() => {
-    const carName = Object.values(CAR).find((value) => value === car);
+    const carName = Object.values(CAR).find(value => value === car);
     if (!carName) return navigate("/404");
     setCarName(carName);
   }, [car, navigate]);
@@ -44,7 +44,7 @@ function Result() {
         <ResultListWrapper>
           {RESULT_CAR[carName].desc
             .split("/")
-            .filter((item) => item !== "/")
+            .filter(item => item !== "/")
             .map((item, idx) => (
               <ResultListComponentWrapper key={item + idx}>
                 {item}
