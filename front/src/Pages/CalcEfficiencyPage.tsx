@@ -39,6 +39,7 @@ function CalcEfficiencyPage() {
   };
 
   const SkipCalcAndGoFinalResult = () => navigate("/finalresult"); // 연비계산 없이 최종 결과 페이지
+  // 연비 계산하는 버튼
 
   return (
     <div>
