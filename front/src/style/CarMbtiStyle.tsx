@@ -156,11 +156,13 @@ export const ShareButtonTitle = styled.p`
 `;
 
 export const ShareButton = styled.button`
-  height: 45px;
-  width: 45px;
+  height: 48px;
+  width: 48px;
   border-radius: 50%;
-  margin: 0.5rem;
   cursor: pointer;
+  border: 0px;
+  font: 18px;
+  font-weight: 800;
 `;
 
 export const StatusBar = styled.div`
