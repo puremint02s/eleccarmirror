@@ -6,10 +6,11 @@ const Find = lazy(() => import("./Pages/FindPage"));
 const FindEmail = lazy(() => import("./Pages/FindEmailPage"));
 const FindPwd = lazy(() => import("./Pages/FindPwdPage"));
 const CarMbti = lazy(() => import("./Pages/CarMbtiPage"));
-const TestContents = lazy(() => import("./components/CarMbti/TestContents"));
+// const TestContents = lazy(() => import("./components/CarMbti/TestContents"));
 const Loading = lazy(() => import("./components/CarMbti/Loading"));
-const Result = lazy(() => import("./components/CarMbti/Result"));
+// const Result = lazy(() => import("./components/CarMbti/Result"));
 const CalcEfficency = lazy(() => import("./Pages/CalcEfficiencyPage"));
+const CarRegister = lazy(() => import("./Pages/CarRegisterPage"));
 
 import Main from "./Pages/MainPage";
 import SignUp from "./Pages/SignUpPage";
@@ -28,9 +29,10 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/community" element={<Community />} />
           <Route path="/carmbti" element={<CarMbti />} />
-          <Route path="/test" element={<TestContents />} />
+          <Route path="/carregister" element={<CarRegister />} />
+          {/* <Route path="/test" element={<TestContents />} /> */}
           <Route path="/loading" element={<Loading />} />
-          <Route path="/result/:car" element={<Result />} />
+          {/* <Route path="/result/:car" element={<Result />} /> */}
           <Route path="/calcefficency" element={<CalcEfficency />} />
         </Routes>
       </BrowserRouter>
