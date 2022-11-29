@@ -35,7 +35,9 @@ function Result() {
   return (
     <ResultMbtiWrapper>
       <TitleWrapper>당신의 유형은...</TitleWrapper>
-      <ResultImageWrapper>테스트 결과 이미지 자리</ResultImageWrapper>
+      <ResultImageWrapper>
+        <img src="img/BlueCar.png" style={{ width: 200 }} />
+      </ResultImageWrapper>
       <MbtiTitleWrapper>{RESULT_CAR[carName].name}</MbtiTitleWrapper>
       <div>
         <ResultListWrapper>

@@ -64,7 +64,9 @@ function TestContents() {
       <TitleWrapper>
         <p>{tests[q].question}</p>
       </TitleWrapper>
-      <TestImageWrapper>이미지 자리</TestImageWrapper>
+      <TestImageWrapper>
+        <img src="img/GreyQuestionCar.png" style={{ width: 200 }} />
+      </TestImageWrapper>
       <TestButtonWrapper>
         <div style={{ display: "inline-block" }}>
           <TestUpButton

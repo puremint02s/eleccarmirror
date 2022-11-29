@@ -10,6 +10,7 @@ import {
   ShareButtonTitle,
   ShareButton,
 } from "style/ShareButtonStyle";
+import "remixicon/fonts/remixicon.css";
 
 function SocialShare() {
   const currentUrl = window.location.href;
@@ -33,7 +34,7 @@ function SocialShare() {
           )
         }
       >
-        L
+        <i className="ri-link" />
       </ShareButton>
     </ShareButtonWrapper>
   );
