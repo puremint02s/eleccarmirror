@@ -1,8 +1,7 @@
-import React from "react";
 import "../style/app.css";
 import { Link } from "react-router-dom";
 
-const MainPage = () => {
+const StartPage = () => {
   return (
     <>
       <div style={{ display: "flex", width: "100vw", height: "100vh" }}>
@@ -95,4 +94,4 @@ const MainPage = () => {
     </>
   );
 };
-export default MainPage;
+export default StartPage;

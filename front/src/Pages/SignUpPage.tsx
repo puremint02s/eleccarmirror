@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../style/app.css";
 // import { useForm } from "react-hook-form";
-import AddressPopUp from "../components/common/AddressPopUp";
-//import { Link } from "react-router-dom";
+import AddressPopUp from "components/SignUp/AddressPopUp";
+import SignUpCodePopUp from "components/SignUp/SignUpCodePopUp";
 
 const SignUpPage = () => {
-  const [addressPopUp, setAddressPopUp] = useState(false);
-  const clickFindAddressBtn = (e: React.MouseEvent) => {
+  const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
+  const [signUpCodePopUpOpen, setSignUpCodePopUpOpen] = useState(false);
+  const popUpOpen = (e: React.MouseEvent) => {
     e.preventDefault();
-    setAddressPopUp(true);
+    setAddressPopUpOpen(true);
+  };
+  const signUp = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setSignUpCodePopUpOpen(true);
   };
   return (
     <>
-      {addressPopUp && <AddressPopUp />}
+      {addressPopUpOpen && (
+        <AddressPopUp setAddressPopUpOpen={setAddressPopUpOpen} />
+      )}
+      {signUpCodePopUpOpen && (
+        <SignUpCodePopUp setSignUpCodePopUpOpen={setSignUpCodePopUpOpen} />
+      )}
       <div
         style={{
           width: "100vw",
@@ -162,7 +172,22 @@ const SignUpPage = () => {
               }}
             >
               <label htmlFor="email">나이</label>
-              <select></select>
+              <select
+                style={{
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#F6F6F6",
+                  paddingLeft: "10px",
+                  boxSizing: "border-box",
+                  margin: "10px 10px 10px 0px",
+                }}
+              >
+                <option value={2}>20대</option>
+                <option value={3}>30대</option>
+                <option value={4}>40대</option>
+                <option value={5}>50대</option>
+                <option value={6}>60대 이상</option>
+              </select>
             </div>
             <div
               style={{
@@ -185,13 +210,13 @@ const SignUpPage = () => {
                     boxSizing: "border-box",
                     margin: "10px 10px 10px 0px",
                   }}
-                  id="email"
-                  type="email"
-                  name="email"
-                  placeholder="test@email.com"
+                  id="address"
+                  type="address"
+                  name="address"
+                  placeholder="주소"
                 />
                 <button
-                  onClick={clickFindAddressBtn}
+                  onClick={popUpOpen}
                   style={{
                     width: "100%",
                     height: "40px",
@@ -205,6 +230,7 @@ const SignUpPage = () => {
               </div>
             </div>
             <button
+              onClick={signUp}
               style={{
                 width: "100%",
                 height: "40px",
