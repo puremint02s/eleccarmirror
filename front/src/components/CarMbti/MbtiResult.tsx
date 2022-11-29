@@ -3,6 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { copyClipboard } from "components/common/CopyClipboard";
 import { CAR, RESULT_CAR } from "./Contents/result";
 import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  TwitterShareButton,
+} from "react-share";
+import {
   TitleWrapper,
   MbtiTitleWrapper,
   ResultImageWrapper,
@@ -33,7 +39,7 @@ function Result() {
 
   const handleClickRetry = () => navigate("/test");
   const handleClickCalcEfficiency = () => navigate("/calcefficency");
-  const resultLink = `http://localhost:3000/mbtiresult/${carName}`;
+  const currentUrl = window.location.href;
 
   if (!carName) return <></>;
   return (
@@ -56,21 +62,24 @@ function Result() {
       <ShareButtonWrapper>
         <ShareButtonTitle>친구에게 공유하기</ShareButtonTitle>
         <ResultButtonWrapper>
-          <ShareButton>F</ShareButton> {/* 페이스북 공유 버튼 */}
-          <ShareButton>K</ShareButton> {/* 카카오톡 공유 버튼 */}
-          <ShareButton>T</ShareButton> {/* 트위터 공유 버튼 */}
+          <FacebookShareButton url={currentUrl}>
+            <FacebookIcon size={48} round={true} borderRadius={24} />
+          </FacebookShareButton>
+          <ShareButton>K</ShareButton>
+          <TwitterShareButton url={currentUrl}>
+            <TwitterIcon size={48} round={true} borderRadius={24} />
+          </TwitterShareButton>
           <ShareButton
             onClick={() =>
               copyClipboard(
-                resultLink,
-                () => console.log("success"),
-                () => console.log("fail"),
+                currentUrl,
+                () => console.log("link copy success"),
+                () => console.log("link copy fail"),
               )
             }
           >
             L
-          </ShareButton>{" "}
-          {/* 링크복사 버튼 */}
+          </ShareButton>
         </ResultButtonWrapper>
       </ShareButtonWrapper>
       <ResultButtonWrapper>
