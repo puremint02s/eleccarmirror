@@ -6,6 +6,8 @@ const Start = lazy(() => import("Pages/StartPage"));
 const SignUp = lazy(() => import("./Pages/SignUpPage"));
 const Community = lazy(() => import("./Pages/Community"));
 
+import Test from "Pages/Test";
+
 const ROUTE = {
   START: "/",
   LOGIN: "/login",
@@ -22,6 +24,7 @@ function App() {
           <Route path={ROUTE.LOGIN} element={<Login />} />
           <Route path={ROUTE.SIGNUP} element={<SignUp />} />
           <Route path={ROUTE.COMMUNITY} element={<Community />} />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </Suspense>

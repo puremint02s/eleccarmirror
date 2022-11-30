@@ -1,4 +1,5 @@
 import DaumPostcode from "react-daum-postcode";
+import styled from "styled-components";
 
 interface address {
   address: string;
@@ -12,6 +13,15 @@ interface propsTypes {
 }
 
 const AddressPopUp = ({ setAddressPopUpOpen }: propsTypes) => {
+  const TansitionBackground = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+  `;
+
   const setAddress = (data: address) => {
     let fullAddress = data.address;
     let extraAddress = "";
@@ -33,34 +43,22 @@ const AddressPopUp = ({ setAddressPopUpOpen }: propsTypes) => {
   };
   return (
     <>
-      <div
+      <TansitionBackground
         onClick={() => {
           setAddressPopUpOpen(false);
-        }}
-        style={{
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "rgba(0,0,0,0.3)",
-          position: "fixed",
-          top: "0px",
-          left: "0px",
         }}
       >
         <DaumPostcode
           style={{
             width: "600px",
             transform: "translate(-50%, -50%)",
-            // -webkit-transform: translate(-50%, -50%);
-            // -moz-transform: translate(-50%, -50%);
-            // -ms-transform: translate(-50%, -50%);
-            // -o-transform: translate(-50%, -50%);
             position: "fixed",
             top: "50%",
             left: "50%",
           }}
           onComplete={setAddress}
         />
-      </div>
+      </TansitionBackground>
     </>
   );
 };
