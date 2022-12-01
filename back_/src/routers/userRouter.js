@@ -1,6 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { userAuthService } from "../services/userAuthService.js";
+import { mongoDBConnect } from "../middlewares/mongoDBConnect.js";
 
 const userRouter = Router();
 
@@ -13,15 +14,13 @@ userRouter.post("/user/register", async function (req, res, next) {
         }
         const { email, nickname, password } = req.body;
 
+        console.log("email", email, "pw", password);
+
         const newUser = await userAuthService.addUser({
             email,
             nickname,
             password,
         });
-
-        // if (newUser.errorMessage) {
-        //     throw new Error(newUser.errorMessage);
-        // }
 
         console.log("newUser Router", newUser);
 

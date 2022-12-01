@@ -1,32 +1,20 @@
 import { UserModel } from "../schemas/user.js";
+import mongoose from "mongoose";
 
 class User {
     static async create({ user_id, email, nickname, password }) {
-        // const createdNewUser = await UserModel.create({
-        //     email,
-        //     nickname,
-        //     password,
-        // });
+        try {
+            const createdNewUser = UserModel.create({
+                user_id,
+                email,
+                nickname,
+                password,
+            });
 
-        // return createdNewUser;
-
-        const createdNewUser = new UserModel({
-            user_id,
-            email,
-            nickname,
-            password,
-        });
-
-        createdNewUser.markModified();
-
-        createdNewUser.save(function (err, res) {
-            if (err) throw err;
-            console.log(res);
-        });
-
-        console.log("result", createdNewUser);
-
-        return createdNewUser;
+            return createdNewUser;
+        } catch (err) {
+            console.log("이것이 바로 에러", err);
+        }
     }
 }
 
