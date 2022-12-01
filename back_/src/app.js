@@ -7,12 +7,10 @@ import BodyParser from "body-parser";
 
 const app = express();
 
-const PORT = 4003;
-
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(BodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+// app.use(BodyParser.urlencoded({ extended: false }));
 
 app.use(userRouter);
 
@@ -22,8 +20,8 @@ app.get("/", (req, res) => {
     return res.send("hi?");
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.SERVER_PORT, () => {
     console.log(
-        `app is listening on ${PORT}, DB_URL : ${process.env.MONGODB_URL}`
+        `app is listening on ${process.env.SERVER_PORT}, DB_URL : ${process.env.MONGODB_URL}`
     );
 });
