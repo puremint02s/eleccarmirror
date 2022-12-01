@@ -34,6 +34,7 @@ function App() {
           <Route path="/mbtiresult/:car" element={<MbtiResult />} />
           <Route path="/calcefficency" element={<CalcEfficency />} />
           <Route path="/finalresult" element={<FinalResultPage />} />
+          <Route path="/community/upload" element={<CommunityUpload />} />
         </Routes>
       </BrowserRouter>
     </Suspense>
