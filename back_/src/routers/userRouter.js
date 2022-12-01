@@ -1,3 +1,4 @@
+import is from "@sindresorhus/is";
 import { Router } from "express";
 import { userAuthService } from "../services/userAuthService.js";
 
@@ -5,11 +6,11 @@ const userRouter = Router();
 
 userRouter.post("/user/register", async function (req, res, next) {
     try {
-        // if (is.emptyObject(req.body)) {
-        //     throw new Error(
-        //         "headers의 Content-Type을 application/json으로 설정해주세요"
-        //     );
-        // }
+        if (is.emptyObject(req.body)) {
+            throw new Error(
+                "headers의 Content-Type을 application/json으로 설정해주세요"
+            );
+        }
         const { email, nickname, password } = req.body;
 
         const newUser = await userAuthService.addUser({
@@ -18,9 +19,9 @@ userRouter.post("/user/register", async function (req, res, next) {
             password,
         });
 
-        if (newUser.errorMessage) {
-            throw new Error(newUser.errorMessage);
-        }
+        // if (newUser.errorMessage) {
+        //     throw new Error(newUser.errorMessage);
+        // }
 
         console.log("newUser Router", newUser);
 
