@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from "react";
+import { useState, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { TestContents as tests } from "./Contents/test";
 import { CAR } from "./Contents/result";
@@ -20,8 +20,8 @@ function TestContents() {
 
   const handleOnSelect = (e: MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.value;
-    setUserAns((prev) => [...prev, value]);
-    setQ((prev) => prev + 1);
+    setUserAns(prev => [...prev, value]);
+    setQ(prev => prev + 1);
   };
 
   const handleMoveToResult = () => {
@@ -31,7 +31,7 @@ function TestContents() {
           [index: string]: any;
         },
         ans,
-        index
+        index,
       ) => {
         acc[ans] = ++acc[ans];
         if (index === userAns.length - 1) {
@@ -50,10 +50,10 @@ function TestContents() {
         }
         return acc;
       },
-      { c: 0, e: 0, f: 0, w: 0, b: 0, a: 0, h: 0, n: 0, result: "" }
+      { c: 0, e: 0, f: 0, w: 0, b: 0, a: 0, h: 0, n: 0, result: "" },
     );
     setTimeout(() => {
-      navigate(`/result/${CAR[result]}`);
+      navigate(`/mbtiresult/${CAR[result]}`);
     }, Math.floor(Math.random() * 1000 + 2000));
     return <Loading />;
   };
@@ -64,7 +64,9 @@ function TestContents() {
       <TitleWrapper>
         <p>{tests[q].question}</p>
       </TitleWrapper>
-      <TestImageWrapper>이미지 자리</TestImageWrapper>
+      <TestImageWrapper>
+        <img src="img/GreyQuestionCar.png" style={{ width: 200 }} />
+      </TestImageWrapper>
       <TestButtonWrapper>
         <div style={{ display: "inline-block" }}>
           <TestUpButton

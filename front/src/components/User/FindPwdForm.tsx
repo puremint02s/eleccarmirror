@@ -1,5 +1,3 @@
-import React from "react";
-
 const FindPwdForm = () => {
   return <>비밀번호 찾기</>;
 };
