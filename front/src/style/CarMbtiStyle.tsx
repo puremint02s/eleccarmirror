@@ -26,6 +26,7 @@ export const TestStartButton = styled.button`
   cursor: pointer;
   border-radius: 28px;
   background-color: #f6f6f6;
+  border: none;
 `;
 
 export const TestImageWrapper = styled.div`
@@ -54,6 +55,7 @@ export const TestUpButton = styled.button`
   cursor: pointer;
   margin-top: 1rem;
   border-radius: 28px;
+  border: none;
 `;
 
 export const TestDownButton = styled.button`
@@ -66,6 +68,7 @@ export const TestDownButton = styled.button`
   background-color: #0a84ff;
   margin-top: 1rem;
   border-radius: 28px;
+  border: none;
 `;
 
 export const LoadingWrapper = styled.div`

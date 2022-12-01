@@ -4,6 +4,7 @@ import {
   TestStartButtonWrapper,
   TestStartButton,
 } from "../style/CarMbtiStyle";
+import QuestionCarImg from "assets/img/QuestionCar.png";
 
 function CarMbti() {
   return (
@@ -15,7 +16,7 @@ function CarMbti() {
       <TestStartButtonWrapper>
         <a href="/test">
           <TestStartButton>
-            <img src="img/QuestionCar.png" style={{ width: 200 }} /> <br />
+            <img src={QuestionCarImg} style={{ width: 200 }} /> <br />
             <br /> 테스트 시작하기
           </TestStartButton>
         </a>

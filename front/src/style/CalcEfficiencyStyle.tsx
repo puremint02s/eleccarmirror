@@ -40,6 +40,16 @@ export const CalcInput = styled.input`
   padding-bottom: 1rem;
   padding-left: 1rem;
   margin-top: 0.5rem;
+  border: none;
+`;
+
+export const Select = styled.select`
+  width: 370px;
+  height: 45px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  margin: 10px 10px 10px 0px;
+  color: #898989;
 `;
 
 export const CalcSkipButton = styled.div`

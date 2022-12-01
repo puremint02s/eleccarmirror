@@ -13,6 +13,7 @@ import {
   ResultListWrapper,
   ResultListComponentWrapper,
 } from "../../style/CarMbtiStyle";
+import BlueCarImg from "assets/img/BlueCar.png";
 
 function Result() {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function Result() {
     <ResultMbtiWrapper>
       <TitleWrapper>당신의 유형은...</TitleWrapper>
       <ResultImageWrapper>
-        <img src="img/BlueCar.png" style={{ width: 200 }} />
+        <img src={BlueCarImg} style={{ width: 200 }} />
       </ResultImageWrapper>
       <MbtiTitleWrapper>{RESULT_CAR[carName].name}</MbtiTitleWrapper>
       <div>
@@ -59,7 +60,7 @@ function Result() {
           테스트 다시 하기
         </TestRetryButton>
         <NextTestButton onClick={handleClickCalcEfficiency}>
-          다음 테스트
+          연비 계산하기
         </NextTestButton>
       </ResultButtonWrapper>
     </ResultMbtiWrapper>
