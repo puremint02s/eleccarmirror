@@ -14,7 +14,7 @@ import {
   GoogleLoginButton,
 } from "../../style/LoginFormStyle";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
-
+import LogoImg from "assets/img/MyElecCar logo.png";
 interface CommonType {
   email: string;
   password: string;
@@ -31,11 +31,7 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
     <LoginFormBox>
       <LogoWrapper>
         <a href="/">
-          <img
-            style={{ width: 200 }}
-            src="img/MyElecCar logo.png"
-            alt="서비스 로고"
-          />
+          <img style={{ width: 200 }} src={LogoImg} alt="서비스 로고" />
         </a>
       </LogoWrapper>
       <LoginFormWrapper onSubmit={onLoginSubmitEvent}>
