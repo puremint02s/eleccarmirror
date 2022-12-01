@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 // import { Logo } from "@/styles/index.ts";
 import { createGlobalStyle } from "styled-components";
+import LogoImg from "assets/img/MyElecCar logo.png";
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -64,6 +65,10 @@ const Nav = styled.nav`
   }
 `;
 
+const Logo = styled.img.attrs({ src: LogoImg })`
+  width: 100px;
+`;
+
 function Header() {
   return (
     <>
@@ -72,7 +77,7 @@ function Header() {
         <div>
           <H1>
             <a href="/">
-              <img src="img/MyElecCar logo.png" alt="my elec car" />
+              <Logo />
             </a>
           </H1>
           <Nav>

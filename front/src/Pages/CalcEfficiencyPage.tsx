@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -12,8 +13,14 @@ import {
   CalcButtonWrapper,
 } from "../style/CalcEfficiencyStyle";
 
+// interface GasOption {
+//   value: string;
+//   name: string;
+// }
+
 function CalcEfficiencyPage() {
   const [startDate, setStartDate] = useState(new Date());
+  const navigate = useNavigate();
   const OPTIONS = [
     { value: "none", name: "선택해주세요" },
     { value: "gasoline", name: "휘발유" },
@@ -30,6 +37,10 @@ function CalcEfficiencyPage() {
       </select>
     );
   };
+
+  const SkipCalcAndGoFinalResult = () => navigate("/finalresult"); // 연비계산 없이 최종 결과 페이지
+  // 연비 계산하는 버튼
+
   return (
     <div>
       <CalcTitleWrapper>내 차의 평균 연비 계산하기</CalcTitleWrapper>
@@ -49,7 +60,9 @@ function CalcEfficiencyPage() {
         <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
         <CalcInput placeholder="15000"></CalcInput>
         <CalcButtonWrapper>
-          <CalcSkipButton>건너뛰기</CalcSkipButton>
+          <CalcSkipButton onClick={SkipCalcAndGoFinalResult}>
+            건너뛰기
+          </CalcSkipButton>
           <CalcButton>등록하기</CalcButton>
         </CalcButtonWrapper>
       </CalcFormWrapper>

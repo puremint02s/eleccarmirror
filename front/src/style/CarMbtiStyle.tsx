@@ -20,8 +20,8 @@ export const TestStartButtonWrapper = styled.div`
 `;
 
 export const TestStartButton = styled.button`
-  padding: 5rem;
-  font-size: 18px;
+  padding: 3rem;
+  font-size: 16px;
   margin-top: 3rem;
   cursor: pointer;
   border-radius: 28px;
@@ -141,26 +141,6 @@ export const ResultMbtiWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
-
-export const ShareButtonWrapper = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-`;
-
-export const ShareButtonTitle = styled.p`
-  text-align: center;
-  font: 15px;
-  margin-top: 30px;
-  margin-bottom: 15px;
-`;
-
-export const ShareButton = styled.button`
-  height: 45px;
-  width: 45px;
-  border-radius: 50%;
-  margin: 0.5rem;
-  cursor: pointer;
 `;
 
 export const StatusBar = styled.div`

@@ -5,10 +5,11 @@ export const BlueLargeButton = styled.button`
   height: 58.12px;
   background: #0a84ff;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 20px;
   text-align: center;
   color: #ffffff;
+  margin: 0 auto;
 `;
 
 export const BlueSmallButton = styled.button`
