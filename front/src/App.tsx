@@ -17,9 +17,11 @@ const CarRegister = lazy(() => import("./Pages/CarRegisterPage"));
 const SignUp = lazy(() => import("./Pages/SignUpPage"));
 const Community = lazy(() => import("./Pages/Community"));
 const CommunityUpload = lazy(() => import("./Pages/CommunityUpload"));
+const MainPage = lazy(() => import("./Pages/MainPage"));
 
 const ROUTE = {
   START: "/",
+  MAIN: "/main",
   LOGIN: "/login",
   FIND: "/find",
   FINDEMAIL: "/find/email",
@@ -43,6 +45,7 @@ function App() {
         <GlobalStyle />
         <Routes>
           <Route path={ROUTE.START} element={<Start />} />
+          <Route path={ROUTE.MAIN} element={<MainPage />} />
           <Route path={ROUTE.LOGIN} element={<Login />} />
           <Route path={ROUTE.FIND} element={<Find />} />
           <Route path={ROUTE.FINDEMAIL} element={<FindEmail />} />
