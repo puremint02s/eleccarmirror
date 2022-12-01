@@ -1,8 +1,7 @@
-import React from "react";
-import "style/app.css";
+import "../style/app.css";
 import { Link } from "react-router-dom";
 
-const MainPage = () => {
+const StartPage = () => {
   return (
     <>
       <div style={{ display: "flex", width: "100vw", height: "100vh" }}>
@@ -22,6 +21,8 @@ const MainPage = () => {
               height: "90%",
               display: "flex",
               flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <img
@@ -32,7 +33,7 @@ const MainPage = () => {
             <span
               style={{
                 fontSize: "30px",
-                marginTop: "100px",
+                marginTop: "150px",
                 marginBottom: "20px",
               }}
             >
@@ -58,7 +59,7 @@ const MainPage = () => {
                   backgroundColor: "#0A84FF",
                   border: "1px solid #0A84FF",
                   borderRadius: "28px",
-                  marginBottom: "30px",
+                  margin: "15px",
                 }}
               >
                 로그인
@@ -74,6 +75,7 @@ const MainPage = () => {
                   backgroundColor: "white",
                   border: "1px solid #0A84FF",
                   borderRadius: "28px",
+                  margin: "15px",
                 }}
               >
                 5초 회원가입 후 찾으러 가기
@@ -92,4 +94,4 @@ const MainPage = () => {
     </>
   );
 };
-export default MainPage;
+export default StartPage;
