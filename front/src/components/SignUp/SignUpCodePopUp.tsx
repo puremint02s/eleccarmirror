@@ -1,3 +1,6 @@
+import logo from "assets/img/MyElecCar logo.png";
+import emailIcon from "assets/img/email_img.png";
+
 interface propsTypes {
   setSignUpCodePopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -41,13 +44,13 @@ const SignUpCodePopUp = ({ setSignUpCodePopUpOpen }: propsTypes) => {
         >
           <img
             style={{ width: 180, height: "auto", marginBottom: "50px" }}
-            src="img/MyElecCar logo.png"
+            src={logo}
             alt="서비스 로고"
           />
           <img
             style={{ width: 180, height: "auto" }}
-            src="img/email_img.png"
-            alt="서비스 로고"
+            src={emailIcon}
+            alt="이메일 아이콘"
           />
           <span
             style={{

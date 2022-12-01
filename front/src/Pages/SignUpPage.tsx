@@ -4,6 +4,8 @@ import "../style/app.css";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import SignUpCodePopUp from "components/SignUp/SignUpCodePopUp";
 
+import logo from "assets/img/MyElecCar logo.png";
+
 const SignUpPage = () => {
   const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
   const [signUpCodePopUpOpen, setSignUpCodePopUpOpen] = useState(false);
@@ -43,11 +45,7 @@ const SignUpPage = () => {
             alignItems: "center",
           }}
         >
-          <img
-            style={{ width: 180 }}
-            src="img/MyElecCar logo.png"
-            alt="서비스 로고"
-          />
+          <img style={{ width: 180 }} src={logo} alt="서비스 로고" />
           <form
             style={{
               display: "flex",
