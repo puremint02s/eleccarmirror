@@ -4,6 +4,7 @@ import cors from "cors";
 import { userRouter } from "./routers/userRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import BodyParser from "body-parser";
+import { communityRouter } from "./routers/CommunityRouter.js";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(BodyParser.urlencoded({ extended: false }));
 
 app.use(userRouter);
+app.use(communityRouter);
 
 app.use(errorMiddleware);
 

@@ -1,7 +1,11 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const CommunitySchema = new Schema(
     {
+        user_id: {
+            type: String,
+            required: true,
+        },
         title: {
             type: String,
             required: true,
@@ -13,6 +17,11 @@ const CommunitySchema = new Schema(
         hashtags: {
             type: String,
             trim: true,
+        },
+        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comments" }],
+        creator: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
         },
     },
     {

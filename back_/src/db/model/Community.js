@@ -1,9 +1,19 @@
-import { CommunityModel } from "../schemas/community";
+import { CommunityModel } from "../schemas/community.js";
 
 class Community {
-    static async function(newContent) {
+    static async create(data) {
         try {
-            const createdContent = CommunityModel.create(newContent);
+            const createdContent = CommunityModel.create(data);
+
+            return createdContent;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    static async findAll() {
+        try {
+            const createdContent = CommunityModel.find({});
 
             return createdContent;
         } catch (err) {
@@ -11,3 +21,5 @@ class Community {
         }
     }
 }
+
+export { Community };
