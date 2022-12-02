@@ -1,11 +1,14 @@
 import logo from "assets/img/MyElecCar logo.png";
 import emailIcon from "assets/img/email_img.png";
+import { useNavigate } from "react-router-dom";
 
 interface propsTypes {
   setSignUpCodePopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SignUpCodePopUp = ({ setSignUpCodePopUpOpen }: propsTypes) => {
+  const navigate = useNavigate();
+  const handleClickMain = () => navigate("/main"); // 임시
   return (
     <>
       <div
@@ -73,7 +76,7 @@ const SignUpCodePopUp = ({ setSignUpCodePopUpOpen }: propsTypes) => {
             placeholder="회원가입 인증코드를 입력해주세요"
           />
           <button
-            // onClick={signUp}
+            onClick={handleClickMain}
             style={{
               width: "320px",
               height: "40px",

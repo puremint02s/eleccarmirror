@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface propsTypes {
   userName: string;
 }
 
 const UserWelcome = ({ userName }: propsTypes) => {
+  const navigate = useNavigate();
+  const handleAddRefuelRecord = () => navigate("/mypage");
   return (
     <>
       <div
@@ -29,7 +32,7 @@ const UserWelcome = ({ userName }: propsTypes) => {
             fontWeight: "600",
           }}
         >
-          최근의 주유 하셨나요?
+          최근에 주유 하셨나요?
         </div>
         <button
           style={{
@@ -41,7 +44,9 @@ const UserWelcome = ({ userName }: propsTypes) => {
             padding: "8px 15px",
             width: "160px",
             fontWeight: "600",
+            cursor: "pointer",
           }}
+          onClick={handleAddRefuelRecord}
         >
           주유 기록 하러 가기
         </button>

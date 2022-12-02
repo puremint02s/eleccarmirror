@@ -36,7 +36,17 @@ const HotPosts = ({ dummyPosts }: propsTypes) => {
           >
             HOT! 게시물
           </span>
-          <span style={{ fontSize: "1.2em", fontWeight: "600" }}>더보기</span>
+          <a href="/community">
+            <span
+              style={{
+                fontSize: "1.2em",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              더보기
+            </span>
+          </a>
         </div>
         <div
           style={{
