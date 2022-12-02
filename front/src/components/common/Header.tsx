@@ -81,7 +81,7 @@ function Header() {
       <HeaderTag>
         <div>
           <H1>
-            <a href="/">
+            <a href="/main">
               <Logo />
             </a>
           </H1>

@@ -27,9 +27,17 @@ const ElecCarReport = () => {
           >
             전기차 추천 리포트
           </span>
-          <span style={{ fontSize: "1.2em", fontWeight: "600" }}>
-            더 자세한 추천 받기
-          </span>
+          <a href="/carregister">
+            <span
+              style={{
+                fontSize: "1.2em",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              더 자세한 추천 받기
+            </span>
+          </a>
         </div>
         <div
           style={{
