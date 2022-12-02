@@ -17,6 +17,8 @@ const CarRegister = lazy(() => import("./Pages/CarRegisterPage"));
 const SignUp = lazy(() => import("./Pages/SignUpPage"));
 const Community = lazy(() => import("./Pages/Community"));
 const CommunityUpload = lazy(() => import("./Pages/CommunityUpload"));
+const MyPage = lazy(() => import("./Pages/MyPage"));
+const ModifyInfo = lazy(() => import("./components/MyPage/ModifyInfo"));
 const MainPage = lazy(() => import("./Pages/MainPage"));
 
 const ROUTE = {
@@ -36,6 +38,8 @@ const ROUTE = {
   CALCEFFICENCY: "/calcefficency",
   FINALRESULT: "/finalresult",
   COMMUNITYUPLOAD: "/community/upload",
+  MYPAGE: "/mypage",
+  MODIFYINFO: "/mypage/modifyinfo",
 };
 
 function App() {
@@ -60,6 +64,8 @@ function App() {
           <Route path={ROUTE.CALCEFFICENCY} element={<CalcEfficency />} />
           <Route path={ROUTE.FINALRESULT} element={<FinalResultPage />} />
           <Route path={ROUTE.COMMUNITYUPLOAD} element={<CommunityUpload />} />
+          <Route path={ROUTE.MYPAGE} element={<MyPage />} />
+          <Route path={ROUTE.MODIFYINFO} element={<ModifyInfo />} />
         </Routes>
       </BrowserRouter>
     </Suspense>

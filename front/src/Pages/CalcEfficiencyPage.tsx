@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Header from "components/common/Header";
 import {
   CalcTitleWrapper,
   CalcSubTitleWrapper,
   CalcFormWrapper,
   CalcInputTitle,
   CalcInput,
+  Select,
   CalcSkipButton,
   CalcButton,
   CalcButtonWrapper,
@@ -28,21 +30,22 @@ function CalcEfficiencyPage() {
   ];
   const SelectBox = (props: any) => {
     return (
-      <select>
+      <Select>
         {props.options.map((option: any) => (
           <option key={option.value} value={option.value}>
             {option.name}
           </option>
         ))}
-      </select>
+      </Select>
     );
   };
 
-  const SkipCalcAndGoFinalResult = () => navigate("/finalresult"); // 연비계산 없이 최종 결과 페이지
-  // 연비 계산하는 버튼
+  const SkipCalcAndGoFinalResult = () => navigate("/finalresult"); // 연비계산 없이 최종 결과 페이지 연결 함수
+  // 연비 계산하는 버튼 연결 함수
 
   return (
     <div>
+      <Header />
       <CalcTitleWrapper>내 차의 평균 연비 계산하기</CalcTitleWrapper>
       <CalcSubTitleWrapper>
         계산된 평균 연비로 나에게 알맞은 전기차를 추천해드리겠습니다.
@@ -52,6 +55,9 @@ function CalcEfficiencyPage() {
         <DatePicker
           selected={startDate}
           onChange={(date: Date) => setStartDate(date)}
+          locale="ko"
+          dateFormatCalendar="yyyy.MM"
+          customInput={<CalcInput />}
         />
         <CalcInputTitle>유종</CalcInputTitle>
         <SelectBox options={OPTIONS} />
@@ -63,7 +69,7 @@ function CalcEfficiencyPage() {
           <CalcSkipButton onClick={SkipCalcAndGoFinalResult}>
             건너뛰기
           </CalcSkipButton>
-          <CalcButton>등록하기</CalcButton>
+          <CalcButton>계산하기</CalcButton>
         </CalcButtonWrapper>
       </CalcFormWrapper>
     </div>

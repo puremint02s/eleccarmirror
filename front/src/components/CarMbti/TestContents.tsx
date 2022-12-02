@@ -1,5 +1,6 @@
 import { useState, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "components/common/Header";
 import { TestContents as tests } from "./Contents/test";
 import { CAR } from "./Contents/result";
 import Loading from "./Loading";
@@ -12,6 +13,7 @@ import {
   Status,
   StatusBar,
 } from "../../style/CarMbtiStyle";
+import GreyQuestionCarImg from "assets/img/GreyQuestionCar.png";
 
 function TestContents() {
   const [q, setQ] = useState<number>(0);
@@ -61,11 +63,12 @@ function TestContents() {
   if (!tests[q]) return handleMoveToResult();
   return (
     <div>
+      <Header />
       <TitleWrapper>
         <p>{tests[q].question}</p>
       </TitleWrapper>
       <TestImageWrapper>
-        <img src="img/GreyQuestionCar.png" style={{ width: 200 }} />
+        <img src={GreyQuestionCarImg} style={{ width: 200 }} />
       </TestImageWrapper>
       <TestButtonWrapper>
         <div style={{ display: "inline-block" }}>
