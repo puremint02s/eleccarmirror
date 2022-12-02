@@ -17,6 +17,7 @@ const CarRegister = lazy(() => import("./Pages/CarRegisterPage"));
 const SignUp = lazy(() => import("./Pages/SignUpPage"));
 const Community = lazy(() => import("./Pages/Community"));
 const CommunityUpload = lazy(() => import("./Pages/CommunityUpload"));
+const CarConfirmPage = lazy(() => import("./Pages/CarConfirmPage"));
 const MyPage = lazy(() => import("./Pages/MyPage"));
 const ModifyInfo = lazy(() => import("./components/MyPage/ModifyInfo"));
 const MainPage = lazy(() => import("./Pages/MainPage"));
@@ -40,6 +41,7 @@ const ROUTE = {
   COMMUNITYUPLOAD: "/community/upload",
   MYPAGE: "/mypage",
   MODIFYINFO: "/mypage/modifyinfo",
+  CARCONFIRM: "/carconfirm",
 };
 
 function App() {
@@ -66,6 +68,7 @@ function App() {
           <Route path={ROUTE.COMMUNITYUPLOAD} element={<CommunityUpload />} />
           <Route path={ROUTE.MYPAGE} element={<MyPage />} />
           <Route path={ROUTE.MODIFYINFO} element={<ModifyInfo />} />
+          <Route path={ROUTE.CARCONFIRM} element={<CarConfirmPage />} />
         </Routes>
       </BrowserRouter>
     </Suspense>
