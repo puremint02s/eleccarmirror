@@ -47,7 +47,6 @@ const CarImageForm = () => {
       <form onSubmit={onSubmit}>
         <C.centerWrapperTop>
           <B.BlueBorderLargeButton id="uploadDiv">
-            이미지업로드
             <input
               type="file"
               name="file"
@@ -55,7 +54,6 @@ const CarImageForm = () => {
               accept="image/*"
               ref={imageInput}
               onChange={onChange}
-              style={{ display: "none" }}
             />
           </B.BlueBorderLargeButton>
         </C.centerWrapperTop>
