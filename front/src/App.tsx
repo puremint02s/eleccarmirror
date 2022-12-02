@@ -17,6 +17,7 @@ const CarRegister = lazy(() => import("./Pages/CarRegisterPage"));
 const SignUp = lazy(() => import("./Pages/SignUpPage"));
 const Community = lazy(() => import("./Pages/Community"));
 const CommunityUpload = lazy(() => import("./Pages/CommunityUpload"));
+const CarConfirmPage = lazy(() => import("./Pages/CarConfirmPage"));
 
 const ROUTE = {
   START: "/",
@@ -34,6 +35,7 @@ const ROUTE = {
   CALCEFFICENCY: "/calcefficency",
   FINALRESULT: "/finalresult",
   COMMUNITYUPLOAD: "/community/upload",
+  CARCONFIRM: "/carconfirm",
 };
 
 function App() {
@@ -57,6 +59,7 @@ function App() {
           <Route path={ROUTE.CALCEFFICENCY} element={<CalcEfficency />} />
           <Route path={ROUTE.FINALRESULT} element={<FinalResultPage />} />
           <Route path={ROUTE.COMMUNITYUPLOAD} element={<CommunityUpload />} />
+          <Route path={ROUTE.CARCONFIRM} element={<CarConfirmPage />} />
         </Routes>
       </BrowserRouter>
     </Suspense>
