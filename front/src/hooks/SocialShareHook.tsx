@@ -23,7 +23,7 @@ function SocialShare() {
 
   return (
     <ShareButtonWrapper>
-      <ShareButtonTitle>친구에게 공유하기</ShareButtonTitle>
+      <ShareButtonTitle>결과 공유하기</ShareButtonTitle>
       <FacebookShareButton url={currentUrl}>
         <FacebookIcon size={48} round={true} borderRadius={24} />
       </FacebookShareButton>
@@ -42,7 +42,7 @@ function SocialShare() {
       >
         <i className="ri-link" />
       </ShareButton>
-      <KakaoShareButton />
+      {/* <KakaoShareButton /> */}
     </ShareButtonWrapper>
   );
 }
