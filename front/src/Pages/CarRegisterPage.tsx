@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as C from "../style/CarRegisterStyle";
 import * as B from "components/common/Button";
+import CarImageForm from "components/CarRegister/CarImageForm";
 
 function CarRegisterPage() {
   return (
@@ -12,9 +13,7 @@ function CarRegisterPage() {
       <C.textWrapper>자동차 전체사진을 올려주세요!</C.textWrapper>
       <C.textBox />
       <C.imageBox />
-      <C.centerWrapper>
-        <B.BlueLargeButton>등록하기</B.BlueLargeButton>
-      </C.centerWrapper>
+      <CarImageForm />
     </div>
   );
 }
