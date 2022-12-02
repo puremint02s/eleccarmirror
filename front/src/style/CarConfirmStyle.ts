@@ -44,7 +44,7 @@ export const textBox = styled.div`
 export const imageBox = styled.div`
   width: 305.66px;
   height: 284.92px;
-  background: #f6f6f6;
+  background: #ffffff;
   border-radius: 28px;
   margin: 0 auto;
   margin-top: 1rem;

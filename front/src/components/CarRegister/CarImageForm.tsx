@@ -7,8 +7,7 @@ const CarImageForm = () => {
   const imageInput = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState<Blob>();
   const [uploadedImg, setUploadedImg] = useState({
-    fileName: "",
-    filePath: "",
+    filename: "",
   });
 
   const fileAdd = () => {
@@ -26,11 +25,11 @@ const CarImageForm = () => {
     const formData = new FormData();
     content && formData.append("image", content);
     axios
-      .post("/images", formData)
+      .post("http://localhost:4003/images", formData)
       .then(res => {
-        const { fileName, filePath } = res.data;
-        console.log(fileName);
-        setUploadedImg({ fileName, filePath });
+        const { filename } = res.data;
+        console.log(filename);
+        setUploadedImg({ filename });
         alert("The file is successfully uploaded");
       })
       .catch(err => {
@@ -46,17 +45,20 @@ const CarImageForm = () => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <div onClick={fileAdd} id="uploadDiv">
-          <input
-            type="file"
-            name="file"
-            id="fileAdd"
-            accept="image/*"
-            ref={imageInput}
-            onChange={onChange}
-            style={{ display: "none" }}
-          />
-        </div>
+        <C.centerWrapperTop>
+          <B.BlueBorderLargeButton id="uploadDiv">
+            이미지업로드
+            <input
+              type="file"
+              name="file"
+              id="fileAdd"
+              accept="image/*"
+              ref={imageInput}
+              onChange={onChange}
+              style={{ display: "none" }}
+            />
+          </B.BlueBorderLargeButton>
+        </C.centerWrapperTop>
         <C.centerWrapper>
           <B.BlueLargeButton type="submit">등록하기</B.BlueLargeButton>
         </C.centerWrapper>

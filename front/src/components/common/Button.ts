@@ -12,6 +12,19 @@ export const BlueLargeButton = styled.button`
   margin: 0 auto;
 `;
 
+export const BlueBorderLargeButton = styled.button`
+  width: 394.83px;
+  height: 58.12px;
+  border: 2px solid #0a84ff;
+  background: none;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  color: #0a84ff;
+  margin: 0 auto;
+`;
+
 export const BlueSmallButton = styled.button`
   width: 173.04px;
   height: 58.12px;
