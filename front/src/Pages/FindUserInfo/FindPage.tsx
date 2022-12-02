@@ -3,7 +3,7 @@ import {
   FindButtonWrapper,
   BlueButton,
   GreyButton,
-} from "../style/LoginFormStyle";
+} from "../../style/LoginFormStyle";
 
 function FindEmailPwdPage() {
   return (

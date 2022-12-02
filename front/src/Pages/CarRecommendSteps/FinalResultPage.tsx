@@ -33,7 +33,7 @@ const dummyCarData: CarData = {
 function FinalResultPage() {
   const navigate = useNavigate();
   const handleClickBrandHomepage = () => window.open(dummyCarData.homepage);
-  const handleClickMain = () => navigate("/"); // 메인 페이지로 수정하기
+  const handleClickMain = () => navigate("/main"); // 메인 페이지로 수정하기
 
   return (
     <>
