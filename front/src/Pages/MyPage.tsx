@@ -20,14 +20,14 @@ function MyPage() {
   return (
     <>
       <Header />
-      <TitleWrapper>마이페이지</TitleWrapper>
+      <TitleWrapper>마이 페이지</TitleWrapper>
       <MyPageWrapper>
         <Sidebar />
         <MyPageContentWrapper>
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               나의 차량 정보
-              <button style={{ float: "right" }}>수정</button>
+              <ModifyCarInfoButton>수정</ModifyCarInfoButton>
             </MyPageContentTitle>
             <MyPageContent>
               <ul>
@@ -49,7 +49,7 @@ function MyPage() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               이전 주유 기록 (최근 3개월)
-              <button style={{ float: "right" }}>+ 주유내역</button>
+              <AddRefuelButton>+ 주유내역</AddRefuelButton>
             </MyPageContentTitle>
             <RefuelWrap>
               <table>
@@ -111,6 +111,7 @@ const TitleWrapper = styled.div`
   padding-top: 7rem;
   padding-bottom: 1px;
   font-size: 25px;
+  font-weight: 500;
 `;
 
 const MyPageWrapper = styled.div`
@@ -128,6 +129,17 @@ const MyPageContentWrapper = styled.div`
 const MyPageContentTitle = styled.p`
   text-align: left;
   padding-bottom: 15px;
+  font-weight: 500;
+`;
+
+const ModifyCarInfoButton = styled.button`
+  float: right;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  border-radius: 28px;
+  border: none;
+  font-size: 12px;
+  color: #636363;
 `;
 
 const MyPageContent = styled.div`
@@ -160,9 +172,20 @@ const MyPageContent = styled.div`
         text-align: center;
         font-size: 14px;
         padding-top: 15px;
+        font-weight: 500;
       }
     }
   }
+`;
+
+const AddRefuelButton = styled.button`
+  float: right;
+  padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  border-radius: 28px;
+  border: none;
+  font-size: 12px;
+  color: #636363;
 `;
 
 const RefuelWrap = styled.div`
@@ -180,6 +203,7 @@ const RefuelWrap = styled.div`
       th {
         font-size: 14px;
         padding-top: 18px;
+        font-weight: 600;
       }
     }
 
@@ -191,6 +215,7 @@ const RefuelWrap = styled.div`
           text-align: center;
           font-size: 14px;
           padding-top: 14px;
+          color: #696969;
         }
       }
     }
