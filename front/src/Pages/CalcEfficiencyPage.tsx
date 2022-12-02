@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Header from "components/common/Header";
 import {
   CalcTitleWrapper,
   CalcSubTitleWrapper,
@@ -44,6 +45,7 @@ function CalcEfficiencyPage() {
 
   return (
     <div>
+      <Header />
       <CalcTitleWrapper>내 차의 평균 연비 계산하기</CalcTitleWrapper>
       <CalcSubTitleWrapper>
         계산된 평균 연비로 나에게 알맞은 전기차를 추천해드리겠습니다.

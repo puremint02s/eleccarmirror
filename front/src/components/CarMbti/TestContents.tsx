@@ -1,5 +1,6 @@
 import { useState, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "components/common/Header";
 import { TestContents as tests } from "./Contents/test";
 import { CAR } from "./Contents/result";
 import Loading from "./Loading";
@@ -62,6 +63,7 @@ function TestContents() {
   if (!tests[q]) return handleMoveToResult();
   return (
     <div>
+      <Header />
       <TitleWrapper>
         <p>{tests[q].question}</p>
       </TitleWrapper>

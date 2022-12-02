@@ -1,3 +1,4 @@
+import Header from "components/common/Header";
 import {
   TitleWrapper,
   SubTitleWrapper,
@@ -9,6 +10,7 @@ import QuestionCarImg from "assets/img/QuestionCar.png";
 function CarMbti() {
   return (
     <div>
+      <Header />
       <TitleWrapper>전기차 성향 테스트</TitleWrapper>
       <SubTitleWrapper>
         성향을 파악하여 전기차 추천을 해드리겠습니다.

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "components/common/Header";
 import SocialShare from "hooks/SocialShareHook";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
@@ -36,6 +37,7 @@ function FinalResultPage() {
 
   return (
     <>
+      <Header />
       <TitleWrapper>나에게 맞는 전기차는?</TitleWrapper>
       <ResultWrapper>
         <ResultButtonWrapper>
