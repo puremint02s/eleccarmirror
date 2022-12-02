@@ -1,12 +1,16 @@
-import { Community } from "../db/model/Community";
+import { Community } from "../db/model/Community.js";
 
 class communityService {
-    static async addContents({ title, content, hashtags }) {
-        const newContent = { title, content, hashtags };
-
-        await Community.addContents(newContent);
+    static async addContent(data) {
+        const newContent = await Community.create(data);
 
         return newContent;
+    }
+
+    static async getContents() {
+        const getContents = await Community.findAll();
+
+        return getContents;
     }
 }
 

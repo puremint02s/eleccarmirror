@@ -1,6 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
 
-const CarSchema = new Schema(
+const GasSchema = new Schema(
     {
         id: {
             type: Number,
@@ -27,6 +27,6 @@ const CarSchema = new Schema(
     }
 );
 
-const CarModel = model("car", CarSchema);
+const GasModel = model("gas", GasSchema);
 
-export { CarModel };
+export { GasModel };

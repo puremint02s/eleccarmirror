@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 
 const UserSchema = new Schema(
     {
@@ -38,6 +38,18 @@ const UserSchema = new Schema(
         elec_car_owned: {
             type: Boolean,
             default: false,
+        },
+        gas: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "gas",
+        },
+        car: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "car",
+        },
+        community: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "community",
         },
         // car_id: {
         //     type: Number,
