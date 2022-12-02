@@ -5,6 +5,7 @@ export const CalcTitleWrapper = styled.div`
   padding-top: 7rem;
   padding-bottom: 1px;
   font-size: 25px;
+  font-weight: 500;
 `;
 
 export const CalcSubTitleWrapper = styled.div`

@@ -6,7 +6,7 @@ function ModifyInfo() {
   return (
     <>
       <Header />
-      <TitleWrapper>마이페이지</TitleWrapper>
+      <TitleWrapper>마이 페이지</TitleWrapper>
       <MyPageWrapper>
         <Sidebar />
         <MyPageContentWrapper>
@@ -27,6 +27,7 @@ const TitleWrapper = styled.div`
   padding-top: 7rem;
   padding-bottom: 1px;
   font-size: 25px;
+  font-weight: 500;
 `;
 
 const MyPageWrapper = styled.div`

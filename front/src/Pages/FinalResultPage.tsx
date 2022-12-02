@@ -118,6 +118,7 @@ const TitleWrapper = styled.div`
   padding-top: 7rem;
   padding-bottom: 1px;
   font-size: 25px;
+  font-weight: 500;
 `;
 
 const ResultWrapper = styled.div`
