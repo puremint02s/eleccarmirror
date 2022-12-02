@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../components/common/Header";
-import Main from "../components/common/Main";
+import Header from "../../components/common/Header";
+import Main from "../../components/common/Main";
 import styled from "styled-components";
 import Pagination from "components/common/Pagination";
 import { useNavigate } from "react-router-dom";

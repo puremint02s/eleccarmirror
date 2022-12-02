@@ -4,20 +4,24 @@ import GlobalStyle from "style/global-style";
 
 const Login = lazy(() => import("./Pages/LoginPage"));
 const Start = lazy(() => import("Pages/StartPage"));
-const Find = lazy(() => import("./Pages/FindPage"));
-const FindEmail = lazy(() => import("./Pages/FindEmailPage"));
-const FindPwd = lazy(() => import("./Pages/FindPwdPage"));
-const CarMbti = lazy(() => import("./Pages/CarMbtiPage"));
+const Find = lazy(() => import("./Pages/FindUserInfo/FindPage"));
+const FindEmail = lazy(() => import("./Pages/FindUserInfo/FindEmailPage"));
+const FindPwd = lazy(() => import("./Pages/FindUserInfo/FindPwdPage"));
+const CarMbti = lazy(() => import("./Pages/CarRecommendSteps/CarMbtiPage"));
 const TestContents = lazy(() => import("./components/CarMbti/TestContents"));
 const Loading = lazy(() => import("./components/CarMbti/Loading"));
 const MbtiResult = lazy(() => import("./components/CarMbti/MbtiResult"));
-const CalcEfficency = lazy(() => import("./Pages/CalcEfficiencyPage"));
-const FinalResultPage = lazy(() => import("./Pages/FinalResultPage"));
-const CarRegister = lazy(() => import("./Pages/CarRegisterPage"));
+const CalcEfficency = lazy(
+  () => import("./Pages/CarRecommendSteps/CalcEfficiencyPage"),
+);
+const FinalResultPage = lazy(
+  () => import("./Pages/CarRecommendSteps/FinalResultPage"),
+);
+const CarRegister = lazy(() => import("./Pages/CarRegister/CarRegisterPage"));
 const SignUp = lazy(() => import("./Pages/SignUpPage"));
-const Community = lazy(() => import("./Pages/Community"));
-const CommunityUpload = lazy(() => import("./Pages/CommunityUpload"));
-const CarConfirmPage = lazy(() => import("./Pages/CarConfirmPage"));
+const Community = lazy(() => import("./Pages/Community/Community"));
+const CommunityUpload = lazy(() => import("./Pages/Community/CommunityUpload"));
+const CarConfirmPage = lazy(() => import("./Pages/CarRegister/CarConfirmPage"));
 const MyPage = lazy(() => import("./Pages/MyPage"));
 const ModifyInfo = lazy(() => import("./components/MyPage/ModifyInfo"));
 const MainPage = lazy(() => import("./Pages/MainPage"));

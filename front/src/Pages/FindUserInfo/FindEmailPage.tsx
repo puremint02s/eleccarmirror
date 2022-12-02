@@ -1,4 +1,4 @@
-import FindEmailForm from "../components/User/FindEmailForm";
+import FindEmailForm from "../../components/User/FindEmailForm";
 
 function FindEmailPage() {
   return <FindEmailForm />;

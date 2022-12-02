@@ -1,4 +1,4 @@
-import FindPwdForm from "../components/User/FindPwdForm";
+import FindPwdForm from "../../components/User/FindPwdForm";
 
 function FindPwdPage() {
   return <FindPwdForm />;

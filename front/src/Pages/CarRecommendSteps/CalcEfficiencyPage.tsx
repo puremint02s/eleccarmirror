@@ -13,7 +13,7 @@ import {
   CalcSkipButton,
   CalcButton,
   CalcButtonWrapper,
-} from "../style/CalcEfficiencyStyle";
+} from "style/CalcEfficiencyStyle";
 
 // interface GasOption {
 //   value: string;
