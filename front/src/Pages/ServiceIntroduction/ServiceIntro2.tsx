@@ -1,10 +1,14 @@
 import styled from "styled-components";
+import ReportIcon from "assets/img/report.png";
+import CarIcon from "assets/img/car.png";
+import DiagramIcon from "assets/img/diagram.png";
 
 function ServiceIntro2() {
   return (
     <Section2Background>
       <ContentBoxWrapper>
         <ContentBox>
+          <IconWrapper src={ReportIcon} />
           <ContentTitle>
             연비 측정 <br /> ——{" "}
           </ContentTitle>
@@ -15,6 +19,7 @@ function ServiceIntro2() {
           </ContentParagraph>
         </ContentBox>
         <ContentBox>
+          <IconWrapper src={CarIcon} />
           <ContentTitle>
             이미지를 통한 추천 <br /> ——{" "}
           </ContentTitle>
@@ -25,6 +30,7 @@ function ServiceIntro2() {
           </ContentParagraph>
         </ContentBox>
         <ContentBox>
+          <IconWrapper src={DiagramIcon} />
           <ContentTitle>
             전기차 성향 테스트 <br /> ——{" "}
           </ContentTitle>
@@ -64,8 +70,13 @@ const ContentBox = styled.div`
   border-radius: 7px;
 `;
 
+const IconWrapper = styled.img`
+  margin-top: 7vh;
+  width: 4vw;
+`;
+
 const ContentTitle = styled.p`
-  margin-top: 15vh;
+  margin-top: 4vh;
   font-size: 20px;
   line-height: 4vh;
 `;
