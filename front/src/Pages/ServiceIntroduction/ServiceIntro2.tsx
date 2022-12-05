@@ -1,9 +1,28 @@
+import { useState } from "react";
 import styled from "styled-components";
 import ReportIcon from "assets/img/report.png";
 import CarIcon from "assets/img/car.png";
 import DiagramIcon from "assets/img/diagram.png";
 
 function ServiceIntro2() {
+  const [firstDescription, setFirstDescription] = useState(false);
+  const [secondDescription, setSecondDescription] = useState(false);
+  const [thirdDescription, setThirdDescription] = useState(false);
+
+  function Modal(props: any): any {
+    function closeModal(): void {
+      props.closeModal();
+    }
+    return (
+      <ModalOutside onClick={closeModal}>
+        <ModalBody onClick={e => e.stopPropagation()}>
+          <ModalCloseBtn onClick={closeModal}>✖</ModalCloseBtn>
+          {props.children}
+        </ModalBody>
+      </ModalOutside>
+    );
+  }
+
   return (
     <Section2Background>
       <ContentBoxWrapper>
@@ -17,6 +36,14 @@ function ServiceIntro2() {
             연비를 측정하여 그에 맞는 전비의 <br />
             전기차를 추천해드립니다.
           </ContentParagraph>
+          <ModalOpenBtn onClick={() => setFirstDescription(!firstDescription)}>
+            +
+          </ModalOpenBtn>
+          {firstDescription && (
+            <Modal closeModal={() => setFirstDescription(!firstDescription)}>
+              테스트테스트테스트
+            </Modal>
+          )}
         </ContentBox>
         <ContentBox>
           <IconWrapper src={CarIcon} />
@@ -28,6 +55,16 @@ function ServiceIntro2() {
             연비를 측정하여 그에 맞는 전비의 <br />
             전기차를 추천해드립니다.
           </ContentParagraph>
+          <ModalOpenBtn
+            onClick={() => setSecondDescription(!secondDescription)}
+          >
+            +
+          </ModalOpenBtn>
+          {secondDescription && (
+            <Modal closeModal={() => setSecondDescription(!secondDescription)}>
+              테스트테스트테스트222
+            </Modal>
+          )}
         </ContentBox>
         <ContentBox>
           <IconWrapper src={DiagramIcon} />
@@ -39,6 +76,14 @@ function ServiceIntro2() {
             연비를 측정하여 그에 맞는 전비의 <br />
             전기차를 추천해드립니다.
           </ContentParagraph>
+          <ModalOpenBtn onClick={() => setThirdDescription(!thirdDescription)}>
+            +
+          </ModalOpenBtn>
+          {thirdDescription && (
+            <Modal closeModal={() => setThirdDescription(!thirdDescription)}>
+              테스트테스트테스트333
+            </Modal>
+          )}
         </ContentBox>
       </ContentBoxWrapper>
     </Section2Background>
@@ -83,6 +128,50 @@ const ContentTitle = styled.p`
 
 const ContentParagraph = styled.p`
   margin-top: 2vh;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 3vh;
+`;
+
+const ModalOutside = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalBody = styled.div`
+  position: absolute;
+  width: 300px;
+  height: 500px;
+  padding: 40px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  color: black;
+`;
+
+const ModalCloseBtn = styled.button`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: transparent;
+  font-size: 20px;
+  cursor: pointer;
+`;
+
+const ModalOpenBtn = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding-top: 1.5vh;
+  font-size: 20px;
 `;
