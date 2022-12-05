@@ -17,7 +17,7 @@ function ServiceIntro3() {
           </Postbox>
           <Postbox2>
             <PostboxTitle>고속도로에서 방전됐을 때 꿀팁</PostboxTitle>
-            <PostboxWriter>전기차 박사</PostboxWriter>
+            <PostboxWriter>피카츄 주인</PostboxWriter>
           </Postbox2>
           <Postbox3>
             <PostboxTitle>고속도로에서 방전됐을 때 꿀팁</PostboxTitle>
@@ -29,7 +29,7 @@ function ServiceIntro3() {
           다른 사람들은 어떤 전기차를 추천 받았는지 <br />
           둘러보고 전기차에 관해 정보 나눔도 <br />
           가질 수 있는 커뮤니티가 있습니다. <br />
-          <Link to="/">
+          <Link to="/main">
             <Section3Button>테스트 후 커뮤니티 둘러보기</Section3Button>
           </Link>
         </Section3Paragraph>
