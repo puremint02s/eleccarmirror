@@ -2,13 +2,20 @@ import { useCallback, useState, useRef, useEffect } from "react";
 import * as C from "style/CarRegisterStyle";
 import * as B from "components/common/Button";
 import axios from "axios";
+import { useQuery } from "react-query";
 
 const CarImageForm = () => {
+  const BASE_URL = "http://localhost:4003";
   const imageInput = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState<Blob>();
   const [uploadedImg, setUploadedImg] = useState({
     filename: "",
+    filePath: "",
   });
+
+  const onClickImageUpload = useCallback(() => {
+    imageInput?.current?.click();
+  }, [imageInput]);
 
   const fileAdd = () => {
     const file = document.getElementById("fileAdd");
@@ -25,11 +32,14 @@ const CarImageForm = () => {
     const formData = new FormData();
     content && formData.append("image", content);
     axios
-      .post("http://localhost:4003/images", formData)
+      .post(`${BASE_URL}/images`, formData)
       .then(res => {
         const { filename } = res.data;
         console.log(filename);
-        setUploadedImg({ filename });
+        setUploadedImg({
+          filename,
+          filePath: `${BASE_URL}/uploads/${filename}`,
+        });
         alert("The file is successfully uploaded");
       })
       .catch(err => {
@@ -46,15 +56,26 @@ const CarImageForm = () => {
     <>
       <form onSubmit={onSubmit}>
         <C.centerWrapperTop>
-          <B.BlueBorderLargeButton id="uploadDiv">
-            <input
-              type="file"
-              name="file"
-              id="fileAdd"
-              accept="image/*"
-              ref={imageInput}
-              onChange={onChange}
-            />
+          {uploadedImg ? (
+            <>
+              <img src={uploadedImg.filePath} alt="" />
+              <h3>{uploadedImg.filename}</h3>
+            </>
+          ) : (
+            ""
+          )}
+
+          <input
+            type="file"
+            name="file"
+            id="fileAdd"
+            accept="image/*"
+            ref={imageInput}
+            onChange={onChange}
+            hidden
+          />
+          <B.BlueBorderLargeButton id="uploadDiv" onClick={onClickImageUpload}>
+            이미지 업로드
           </B.BlueBorderLargeButton>
         </C.centerWrapperTop>
         <C.centerWrapper>
