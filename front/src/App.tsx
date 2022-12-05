@@ -25,6 +25,9 @@ const CarConfirmPage = lazy(() => import("./Pages/CarRegister/CarConfirmPage"));
 const MyPage = lazy(() => import("./Pages/MyPage"));
 const ModifyInfo = lazy(() => import("./components/MyPage/ModifyInfo"));
 const MainPage = lazy(() => import("./Pages/MainPage"));
+const ServiceIntro = lazy(
+  () => import("./Pages/ServiceIntroduction/ServiceIntroduction"),
+);
 
 const ROUTE = {
   START: "/",
@@ -39,14 +42,21 @@ const ROUTE = {
   CARMBTI: "/carmbti",
   CARMBTITEST: "/test",
   LOADING: "/loading",
-  CARMBTIRESULT: "/mbtiresult/:car",
+  CARMBTIRESULT: "/mbtiresult",
   CALCEFFICENCY: "/calcefficency",
   FINALRESULT: "/finalresult",
   COMMUNITYUPLOAD: "/community/upload",
   MYPAGE: "/mypage",
   MODIFYINFO: "/mypage/modifyinfo",
   CARCONFIRM: "/carconfirm",
+  SERVICEINTRO: "/serviceintro",
 };
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 function App() {
   return (
@@ -56,6 +66,7 @@ function App() {
         <Routes>
           <Route path={ROUTE.START} element={<Start />} />
           <Route path={ROUTE.MAIN} element={<MainPage />} />
+          <Route path={ROUTE.SERVICEINTRO} element={<ServiceIntro />} />
           <Route path={ROUTE.LOGIN} element={<Login />} />
           <Route path={ROUTE.FIND} element={<Find />} />
           <Route path={ROUTE.FINDEMAIL} element={<FindEmail />} />
@@ -66,7 +77,10 @@ function App() {
           <Route path={ROUTE.CARMBTI} element={<CarMbti />} />
           <Route path={ROUTE.CARMBTITEST} element={<TestContents />} />
           <Route path={ROUTE.LOADING} element={<Loading />} />
-          <Route path={ROUTE.CARMBTIRESULT} element={<MbtiResult />} />
+          <Route
+            path={`${ROUTE.CARMBTIRESULT}/:car`}
+            element={<MbtiResult />}
+          />
           <Route path={ROUTE.CALCEFFICENCY} element={<CalcEfficency />} />
           <Route path={ROUTE.FINALRESULT} element={<FinalResultPage />} />
           <Route path={ROUTE.COMMUNITYUPLOAD} element={<CommunityUpload />} />

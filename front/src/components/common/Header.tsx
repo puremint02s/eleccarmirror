@@ -87,7 +87,9 @@ function Header() {
           </H1>
           <Nav>
             <ul>
-              <li>서비스 소개</li>
+              <a href="/serviceintro">
+                <li>서비스 소개</li>
+              </a>
               <a
                 style={{ textDecoration: "none", color: "black" }}
                 href="/mypage"

@@ -12,11 +12,6 @@ import {
 } from "style/ShareButtonStyle";
 import "remixicon/fonts/remixicon.css";
 import KakaoShareButton from "./KakaoShareButton";
-declare global {
-  interface Window {
-    Kakao: any;
-  }
-}
 
 function SocialShare() {
   const currentUrl = window.location.href;

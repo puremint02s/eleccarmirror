@@ -16,27 +16,27 @@ import {
 import GreyQuestionCarImg from "assets/img/GreyQuestionCar.png";
 
 function TestContents() {
-  const [q, setQ] = useState<number>(0);
-  const [userAns, setUserAns] = useState<string[]>([]);
+  const [question, setQuestion] = useState<number>(0);
+  const [userAnswer, setUserAnswer] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const handleOnSelect = (e: MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.value;
-    setUserAns(prev => [...prev, value]);
-    setQ(prev => prev + 1);
+    setUserAnswer(prev => [...prev, value]);
+    setQuestion(prev => prev + 1);
   };
 
   const handleMoveToResult = () => {
-    const { result } = userAns.reduce(
+    const { result } = userAnswer.reduce(
       (
         acc: {
           [index: string]: any;
         },
-        ans,
+        answer,
         index,
       ) => {
-        acc[ans] = ++acc[ans];
-        if (index === userAns.length - 1) {
+        acc[answer] = ++acc[answer];
+        if (index === userAnswer.length - 1) {
           // 개수 비교해서 내보내기
           if (acc.c >= acc.e) acc["result"] = acc["result"].concat("c");
           else acc["result"] = acc["result"].concat("e");
@@ -60,12 +60,12 @@ function TestContents() {
     return <Loading />;
   };
 
-  if (!tests[q]) return handleMoveToResult();
+  if (!tests[question]) return handleMoveToResult();
   return (
     <div>
       <Header />
       <TitleWrapper>
-        <p>{tests[q].question}</p>
+        <p>{tests[question].question}</p>
       </TitleWrapper>
       <TestImageWrapper>
         <img src={GreyQuestionCarImg} style={{ width: 200 }} />
@@ -74,22 +74,24 @@ function TestContents() {
         <div style={{ display: "inline-block" }}>
           <TestUpButton
             onClick={handleOnSelect}
-            value={tests[q].selection[0].value}
+            value={tests[question].selection[0].value}
           >
-            {tests[q].selection[0].answer}
+            {tests[question].selection[0].answer}
           </TestUpButton>
         </div>
         <div style={{ display: "inline-block" }}>
           <TestDownButton
             onClick={handleOnSelect}
-            value={tests[q].selection[1].value}
+            value={tests[question].selection[1].value}
           >
-            {tests[q].selection[1].answer}
+            {tests[question].selection[1].answer}
           </TestDownButton>
         </div>
       </TestButtonWrapper>
       <StatusBar>
-        <Status style={{ width: `${Math.round((q / tests.length) * 100)}%` }} />
+        <Status
+          style={{ width: `${Math.round((question / tests.length) * 100)}%` }}
+        />
       </StatusBar>
     </div>
   );
