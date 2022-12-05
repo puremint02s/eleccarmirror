@@ -1,5 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import DownSrc from "assets/img/download.png";
+
+export interface ImageStyledProps {
+  back: string;
+  active?: boolean;
+}
 
 export const titleWrapper = styled.div`
   text-align: center;
@@ -41,24 +46,59 @@ export const textBox = styled.div`
   transform: rotate(90deg);
 `;
 
-export const imageBox = styled.div`
+export const imageBox = styled.div<ImageStyledProps>`
   width: 305.66px;
   height: 284.92px;
   background: #f6f6f6;
   border-radius: 28px;
   margin: 0 auto;
   margin-top: 1rem;
-  background-image: url(${DownSrc});
+  background-image: url(${props => `${props.back}`});
   background-repeat: no-repeat;
   background-position: center center;
+  background-size: auto;
+  ${({ active }) =>
+    active &&
+    css`
+      background-size: cover;
+    `}
 `;
 
 export const centerWrapperTop = styled.div`
   text-align: center;
+  margin: 0 auto;
   margin-top: 5rem;
+  display: flex;
+  width: 394.83px;
 `;
 
 export const centerWrapper = styled.div`
   text-align: center;
   margin-top: 1rem;
+`;
+
+export const BlueBorderLargeButton = styled.button`
+  width: 70%;
+  height: 58.12px;
+  border: 2px solid #0a84ff;
+  background: none;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  color: #0a84ff;
+  margin: 0 auto;
+`;
+
+export const DeleteButton = styled.button`
+  width: 20%;
+  height: 58.12px;
+  border: 2px solid #0a84ff;
+  background: none;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  color: #0a84ff;
+  margin: 0 auto;
 `;
