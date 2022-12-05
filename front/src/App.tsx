@@ -28,6 +28,7 @@ const MainPage = lazy(() => import("./Pages/MainPage"));
 const ServiceIntro = lazy(
   () => import("./Pages/ServiceIntroduction/ServiceIntroduction"),
 );
+const Error = lazy(() => import("./Pages/ErrorPage"));
 
 const ROUTE = {
   START: "/",
@@ -50,6 +51,7 @@ const ROUTE = {
   MODIFYINFO: "/mypage/modifyinfo",
   CARCONFIRM: "/carconfirm",
   SERVICEINTRO: "/serviceintro",
+  ERROR: "/404",
 };
 
 declare global {
@@ -87,6 +89,7 @@ function App() {
           <Route path={ROUTE.MYPAGE} element={<MyPage />} />
           <Route path={ROUTE.MODIFYINFO} element={<ModifyInfo />} />
           <Route path={ROUTE.CARCONFIRM} element={<CarConfirmPage />} />
+          <Route path={ROUTE.ERROR} element={<Error />} />
         </Routes>
       </BrowserRouter>
     </Suspense>
