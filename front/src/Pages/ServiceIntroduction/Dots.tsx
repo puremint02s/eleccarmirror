@@ -14,7 +14,7 @@ const Dot = ({ num, scrollIndex }: Dot) => {
         width: 10,
         height: 10,
         borderRadius: 999,
-        backgroundColor: scrollIndex === num ? "#d9d9d9" : "lightgrey",
+        backgroundColor: scrollIndex === num ? "#c9c9c9" : "#d9d9d9",
         transition: "background-color 0.5s",
       }}
     ></div>

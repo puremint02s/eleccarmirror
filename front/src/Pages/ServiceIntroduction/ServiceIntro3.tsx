@@ -120,4 +120,5 @@ const Section3Button = styled.button`
   color: white;
   background-color: #303030;
   border: none;
+  cursor: pointer;
 `;

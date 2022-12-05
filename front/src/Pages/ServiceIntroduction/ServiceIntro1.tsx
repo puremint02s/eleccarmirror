@@ -84,6 +84,7 @@ const Section1Button = styled.button`
   height: 60px;
   background-color: white;
   border: none;
+  cursor: pointer;
 `;
 
 const LogoWrapper = styled.img`
