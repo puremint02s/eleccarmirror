@@ -24,8 +24,6 @@ userRouter.post("/user/register", async function (req, res, next) {
             elec_car_owned,
         } = req.body;
 
-        console.log("email", email, "pw", password);
-
         const newUser = await userAuthService.addUser({
             email,
             nickname,
@@ -36,11 +34,8 @@ userRouter.post("/user/register", async function (req, res, next) {
             elec_car_owned,
         });
 
-        // console.log("newUser Router", newUser);
-
         return res.status(201).json(newUser);
     } catch (err) {
-        console.log(`지나갈수없다`);
         next(err);
     }
 });
@@ -77,5 +72,18 @@ userRouter.get(
 );
 
 //유저정보 수정
+
+//유저정보 모두 보기
+userRouter.get("/user/:id", login_required, async function (req, res, next) {
+    try {
+        const user_id = req.params.id;
+
+        const currentUser = await userAuthService.getUserInfo(user_id);
+
+        res.status(201).send(currentUser);
+    } catch (err) {
+        next(err);
+    }
+});
 
 export { userRouter };
