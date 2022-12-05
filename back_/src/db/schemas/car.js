@@ -8,15 +8,12 @@ const CarSchema = new Schema(
         },
         brand: {
             type: String,
-            unique: true,
         },
         model: {
             type: String,
-            unique: true,
         },
         year: {
             type: String,
-            unique: true,
         },
         car_image: {
             type: String,

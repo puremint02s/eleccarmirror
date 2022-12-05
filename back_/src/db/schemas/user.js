@@ -27,9 +27,9 @@ const UserSchema = new Schema(
             type: String,
             required: true,
         },
-        test_type: {
-            type: String,
-            default: "테스트 타입이 없습니다.",
+        testType: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "testType",
         },
         car_owned: {
             type: Boolean,
@@ -47,10 +47,10 @@ const UserSchema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "car",
         },
-        community: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "community",
-        },
+        // community: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: "community",
+        // },
         // car_id: {
         //     type: Number,
         //     default: "car id 가 없습니다.",
