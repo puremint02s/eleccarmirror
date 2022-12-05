@@ -37,4 +37,5 @@ const SideMenuUl = styled.ul`
 const SideMenuLi = styled.li`
   padding-top: 1rem;
   font-weight: 500;
+  cursor: pointer;
 `;

@@ -51,8 +51,8 @@ function ServiceIntro2() {
             이미지를 통한 추천 <br /> ——{" "}
           </ContentTitle>
           <ContentParagraph>
-            지금까지의 주유 내역으로 <br />
-            연비를 측정하여 그에 맞는 전비의 <br />
+            현재 자동차 이미지를 분석하여 <br />
+            해당 브랜드와 모델의 차량을 참고하여 <br />
             전기차를 추천해드립니다.
           </ContentParagraph>
           <ModalOpenBtn
@@ -72,9 +72,9 @@ function ServiceIntro2() {
             전기차 성향 테스트 <br /> ——{" "}
           </ContentTitle>
           <ContentParagraph>
-            지금까지의 주유 내역으로 <br />
-            연비를 측정하여 그에 맞는 전비의 <br />
-            전기차를 추천해드립니다.
+            간단한 테스트를 통해 <br />
+            나의 구매 성향을 알아보고 <br />
+            알맞은 전기차를 추천해드립니다.
           </ContentParagraph>
           <ModalOpenBtn onClick={() => setThirdDescription(!thirdDescription)}>
             +
