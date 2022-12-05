@@ -14,7 +14,7 @@ const Dot = ({ num, scrollIndex }: Dot) => {
         width: 10,
         height: 10,
         borderRadius: 999,
-        backgroundColor: scrollIndex === num ? "lightgrey" : "lightgrey",
+        backgroundColor: scrollIndex === num ? "#d9d9d9" : "lightgrey",
         transition: "background-color 0.5s",
       }}
     ></div>
@@ -23,7 +23,7 @@ const Dot = ({ num, scrollIndex }: Dot) => {
 
 const Dots = ({ scrollIndex }: Dots) => {
   return (
-    <div style={{ position: "fixed", top: "50%", right: 100 }}>
+    <div style={{ position: "fixed", top: "45%", right: 100 }}>
       <div
         style={{
           display: "flex",

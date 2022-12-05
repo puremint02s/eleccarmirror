@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import Dots from "./Dots";
 import ServiceIntro1 from "./ServiceIntro1";
+import ServiceIntro2 from "./ServiceIntro2";
+import ServiceIntro3 from "./ServiceIntro3";
 import styled from "styled-components";
 
 function ServiceIntroduction() {
@@ -76,8 +78,12 @@ function ServiceIntroduction() {
         <Section1>
           <ServiceIntro1 />
         </Section1>
-        <Section2>2</Section2>
-        <Section3>3</Section3>
+        <Section2>
+          <ServiceIntro2 />
+        </Section2>
+        <Section3>
+          <ServiceIntro3 />
+        </Section3>
       </Outer>
     </WholePage>
   );
@@ -101,14 +107,17 @@ const Outer = styled.div`
 const Section1 = styled.div`
   height: 100vh;
   display: flex;
+  justify-content: center;
 `;
 
 const Section2 = styled.div`
   height: 100vh;
   display: flex;
+  justify-content: center;
 `;
 
 const Section3 = styled.div`
   height: 100vh;
   display: flex;
+  justify-content: center;
 `;
