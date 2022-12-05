@@ -40,7 +40,7 @@ function Result() {
       <ResultMbtiWrapper>
         <TitleWrapper>당신의 유형은...</TitleWrapper>
         <ResultImageWrapper>
-          <img src={BlueCarImg} style={{ width: 200 }} />
+          <img src={BlueCarImg} style={{ width: 200 }} alt="유형 대표 차량" />
         </ResultImageWrapper>
         <MbtiTitleWrapper>{RESULT_CAR[carName].name}</MbtiTitleWrapper>
         <div>

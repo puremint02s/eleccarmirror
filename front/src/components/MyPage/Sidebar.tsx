@@ -5,15 +5,15 @@ function Sidebar() {
   return (
     <SideMenu>
       <SideMenuUl>
-        {SidebarMenu.map((val, key) => (
+        {SidebarMenu.map((menu, index) => (
           <SideMenuLi
-            key={key}
+            key={index}
             onClick={() => {
-              window.location.pathname = val.link;
+              window.location.pathname = menu.link;
             }}
           >
             {" "}
-            <div style={{ fontSize: 15 }}>{val.title}</div>{" "}
+            <div style={{ fontSize: 15 }}>{menu.title}</div>{" "}
           </SideMenuLi>
         ))}
       </SideMenuUl>
