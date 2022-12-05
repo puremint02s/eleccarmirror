@@ -6,6 +6,7 @@ import { CAR } from "./Contents/result";
 import Loading from "./Loading";
 import {
   TitleWrapper,
+  TestContentsWrapper,
   TestImageWrapper,
   TestButtonWrapper,
   TestUpButton,
@@ -62,7 +63,7 @@ function TestContents() {
 
   if (!tests[question]) return handleMoveToResult();
   return (
-    <div>
+    <TestContentsWrapper>
       <Header />
       <TitleWrapper>
         <p>{tests[question].question}</p>
@@ -93,7 +94,7 @@ function TestContents() {
           style={{ width: `${Math.round((question / tests.length) * 100)}%` }}
         />
       </StatusBar>
-    </div>
+    </TestContentsWrapper>
   );
 }
 

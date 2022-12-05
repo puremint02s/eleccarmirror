@@ -146,7 +146,7 @@ const ModalOutside = styled.div`
 
 const ModalBody = styled.div`
   position: absolute;
-  width: 300px;
+  width: 700px;
   height: 500px;
   padding: 40px;
   text-align: center;

@@ -100,6 +100,6 @@ const LoginWrapper = styled.div`
 
 const LoginButton = styled.div`
   font-size: 15px;
-  margin-top: 5vh;
+  margin-top: 6vh;
   margin-left: 25vw;
 `;

@@ -30,13 +30,15 @@ export const TestStartButton = styled.button`
   border: none;
 `;
 
+export const TestContentsWrapper = styled.div`
+  overflow-x: hidden;
+  overflow-y: auto;
+`;
+
 export const TestImageWrapper = styled.div`
   text-align: center;
-  padding: 5rem;
+  padding: 3rem;
   margin-top: 2rem;
-  margin-bottom: 1rem;
-  font-size: 13px;
-  color: #a8a8a8;
 `;
 
 export const TestButtonWrapper = styled.div`
@@ -54,7 +56,6 @@ export const TestUpButton = styled.button`
   font-size: 15px;
   width: 320px;
   cursor: pointer;
-  margin-top: 1rem;
   border-radius: 28px;
   border: none;
 `;
@@ -81,17 +82,22 @@ export const LoadingWrapper = styled.div`
 
 export const ResultImageWrapper = styled.div`
   text-align: center;
-  padding: 5rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  font-size: 13px;
-  color: #a8a8a8;
+  padding: 2rem;
+`;
+
+export const ResultImage = styled.img`
+  width: 150px;
 `;
 
 export const MbtiTitleWrapper = styled.div`
   text-align: center;
   padding-bottom: 1px;
   font-size: 25px;
+`;
+
+export const MbtiDivideLine = styled.p`
+  color: #0a84ff;
+  font-weight: bold;
 `;
 
 export const TestRetryButton = styled.div`
@@ -136,15 +142,19 @@ export const ResultListComponentWrapper = styled.li`
   text-align: center;
   margin: 1rem;
   background-color: #f6f6f6;
-  width: 15vh;
-  height: 5vh;
+  width: 130px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 25px;
   display: inline-block;
+  font-size: 14px;
 `;
 
 export const ResultMbtiWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 5rem;
 `;
 
 export const StatusBar = styled.div`
