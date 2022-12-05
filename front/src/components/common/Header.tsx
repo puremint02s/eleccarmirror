@@ -1,20 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import { Logo } from "@/styles/index.ts";
-import { createGlobalStyle } from "styled-components";
 import LogoImg from "assets/img/MyElecCar logo.png";
-
-const GlobalStyle = createGlobalStyle`
-    * {
-        margin:0;
-        padding:0;
-    }
-
-    li{
-      list-style: none;
-    }
-
-`;
 
 const HeaderTag = styled.header`
   width: 100%;
@@ -77,7 +63,6 @@ const Logo = styled.img.attrs({ src: LogoImg })`
 function Header() {
   return (
     <>
-      <GlobalStyle />
       <HeaderTag>
         <div>
           <H1>

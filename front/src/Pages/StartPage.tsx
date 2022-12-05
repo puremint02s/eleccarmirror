@@ -1,4 +1,3 @@
-import "../style/app.css";
 import { Link } from "react-router-dom";
 import LogoImg from "assets/img/MyElecCar logo.png";
 import StartBG from "assets/img/StartPage bg.png";
