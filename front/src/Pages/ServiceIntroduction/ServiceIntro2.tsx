@@ -4,6 +4,9 @@ import ReportIcon from "assets/img/report.png";
 import CarIcon from "assets/img/car.png";
 import DiagramIcon from "assets/img/diagram.png";
 import Modal from "components/common/Modal";
+import CalcEfficiencyRecommendDesc from "components/ServiceIntroduction/CalcEfficiencyRecommendDesc";
+import UserCarRecommendDesc from "components/ServiceIntroduction/UserCarRecommendDesc";
+import MbtiTestRecommendDesc from "components/ServiceIntroduction/MbtiTestRecommendDesc";
 
 function ServiceIntro2() {
   const [firstDescription, setFirstDescription] = useState(false);
@@ -28,7 +31,7 @@ function ServiceIntro2() {
           </ModalOpenBtn>
           {firstDescription && (
             <Modal closeModal={() => setFirstDescription(!firstDescription)}>
-              테스트테스트테스트
+              <CalcEfficiencyRecommendDesc />
             </Modal>
           )}
         </ContentBox>
@@ -49,7 +52,7 @@ function ServiceIntro2() {
           </ModalOpenBtn>
           {secondDescription && (
             <Modal closeModal={() => setSecondDescription(!secondDescription)}>
-              테스트테스트테스트222
+              <UserCarRecommendDesc />
             </Modal>
           )}
         </ContentBox>
@@ -68,7 +71,7 @@ function ServiceIntro2() {
           </ModalOpenBtn>
           {thirdDescription && (
             <Modal closeModal={() => setThirdDescription(!thirdDescription)}>
-              테스트테스트테스트333
+              <MbtiTestRecommendDesc />
             </Modal>
           )}
         </ContentBox>
