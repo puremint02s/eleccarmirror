@@ -53,23 +53,23 @@ userRouter.post("/user/login", async function (req, res, next) {
 });
 
 //로그인 유저정보 GET
-userRouter.get(
-    "/user/current",
-    login_required,
-    async function (req, res, next) {
-        try {
-            const user_id = req.currentUserId;
+// userRouter.get(
+//     "/user/current",
+//     login_required,
+//     async function (req, res, next) {
+//         try {
+//             const user_id = req.currentUserId;
 
-            console.log("currentUserId", user_id);
+//             console.log("currentUserId", user_id);
 
-            const currentUserInfo = await userAuthService.getUserInfo(user_id);
+//             const currentUserInfo = await userAuthService.getUserInfo(user_id);
 
-            res.status(200).send(currentUserInfo);
-        } catch (err) {
-            next(err);
-        }
-    }
-);
+//             res.status(200).send(currentUserInfo);
+//         } catch (err) {
+//             next(err);
+//         }
+//     }
+// );
 
 //유저정보 수정
 

@@ -7,6 +7,7 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import { communityRouter } from "./routers/communityRouter.js";
 import { gasRouter } from "./routers/gasRouter.js";
 import { typeRouter } from "./routers/typeRouter.js";
+import { commentRouter } from "./routers/commentRouter.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(userRouter);
 app.use(communityRouter);
 app.use(gasRouter);
 app.use(typeRouter);
+app.use(commentRouter);
 app.use(imageRouter);
 
 app.use(errorMiddleware);
