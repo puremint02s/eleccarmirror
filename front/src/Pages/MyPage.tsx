@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "components/common/Header";
 import Sidebar from "components/MyPage/Sidebar";
@@ -18,9 +18,6 @@ const dummyFillUpData = {
 };
 
 function MyPage() {
-  const navigate = useNavigate();
-  const GotoCarInfoModify = () => navigate("/mypage/modifyinfo");
-
   return (
     <>
       <Header />
@@ -31,9 +28,9 @@ function MyPage() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               나의 차량 정보
-              <ModifyCarInfoButton onClick={GotoCarInfoModify}>
-                수정
-              </ModifyCarInfoButton>
+              <Link to="/mypage/modifyinfo">
+                <ModifyCarInfoButton>수정</ModifyCarInfoButton>
+              </Link>
             </MyPageContentTitle>
             <MyPageContent>
               <ul>
@@ -55,7 +52,9 @@ function MyPage() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               이전 주유 기록 (최근 3개월)
-              <AddRefuelButton>+ 주유내역</AddRefuelButton>
+              <Link to="/mypage/addrefuelrecord">
+                <AddRefuelButton>+ 주유내역</AddRefuelButton>
+              </Link>
             </MyPageContentTitle>
             <RefuelWrap>
               <table>
@@ -75,27 +74,9 @@ function MyPage() {
                     <td>{dummyFillUpData.volume}L</td>
                     <td>{dummyFillUpData.distance}km</td>
                     <td>
-                      <button>수정</button>
-                      <button>삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{dummyFillUpData.date}</td>
-                    <td>{dummyFillUpData.gas}</td>
-                    <td>{dummyFillUpData.volume}L</td>
-                    <td>{dummyFillUpData.distance}km</td>
-                    <td>
-                      <button>수정</button>
-                      <button>삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{dummyFillUpData.date}</td>
-                    <td>{dummyFillUpData.gas}</td>
-                    <td>{dummyFillUpData.volume}L</td>
-                    <td>{dummyFillUpData.distance}km</td>
-                    <td>
-                      <button>수정</button>
+                      <Link to="/mypage/modifyrefuelrecord">
+                        <button>수정</button>
+                      </Link>
                       <button>삭제</button>
                     </td>
                   </tr>
@@ -223,6 +204,12 @@ const RefuelWrap = styled.div`
           font-size: 14px;
           padding-top: 14px;
           color: #696969;
+          button {
+            margin-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            cursor: pointer;
+          }
         }
       }
     }
