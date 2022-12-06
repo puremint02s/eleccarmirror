@@ -129,6 +129,7 @@ const MyPageContentWrapper = styled.div`
 const MyPageContentTitle = styled.p`
   text-align: left;
   padding-bottom: 15px;
+  font-size: 20px;
   font-weight: 500;
 `;
 
@@ -164,14 +165,14 @@ const MyPageContent = styled.div`
       span {
         display: block;
         text-align: center;
-        font-size: 13px;
+        font-size: 14px;
         color: #ababab;
       }
 
       p {
         text-align: center;
-        font-size: 14px;
-        padding-top: 15px;
+        font-size: 16px;
+        padding-top: 10px;
         font-weight: 500;
       }
     }
