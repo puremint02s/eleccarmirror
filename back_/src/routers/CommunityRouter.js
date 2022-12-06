@@ -53,7 +53,7 @@ communityRouter.get(
     }
 );
 
-//내가 쓴 커뮤니티 글
+//유저가 쓴 커뮤니티 글
 communityRouter.get(
     "/community/:id",
     login_required,

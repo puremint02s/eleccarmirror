@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 class User {
     static async create(newUser) {
         try {
-            const createdNewUser = UserModel.create(newUser);
+            const createdNewUser = await UserModel.create(newUser);
 
             return createdNewUser;
         } catch (err) {
@@ -13,14 +13,37 @@ class User {
     }
 
     static async findByEmail({ email }) {
-        const user = await UserModel.findOne({ email });
-        return user;
+        try {
+            const user = await UserModel.findOne({ email });
+            return user;
+        } catch (err) {
+            console.log("이것이 바로 에러", err);
+        }
     }
 
     static async findById(user_id) {
-        const user = await UserModel.findOne({ user_id: user_id });
-        return user;
+        try {
+            const user = await UserModel.findOne({ user_id: user_id }).populate(
+                "community"
+            );
+
+            return user;
+        } catch (err) {
+            console.log("이것이 바로 에러", err);
+        }
     }
+
+    // static async findAllCommunities(user_id) {
+    //     try {
+    //         const userCommunities = await UserModel.findOne({
+    //             user_id: user_id,
+    //         }).populate("community");
+
+    //         return userCommunities;
+    //     } catch (err) {
+    //         console.log("이것이 바로 에러", err);
+    //     }
+    // }
 }
 
 export { User };
