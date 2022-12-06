@@ -1,6 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
 
-const CommentsSchema = new Schema(
+const CommentSchema = new Schema(
     {
         user_id: {
             type: String,
@@ -10,12 +10,16 @@ const CommentsSchema = new Schema(
             type: String,
             required: true,
         },
+        community: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "community",
+        },
     },
     {
         timestamps: true,
     }
 );
 
-const CommentsModel = model("comments", CommentsSchema);
+const CommentModel = model("comment", CommentSchema);
 
-export { CommentsModel };
+export { CommentModel };

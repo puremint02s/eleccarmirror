@@ -23,9 +23,12 @@ class User {
 
     static async findById(user_id) {
         try {
-            const user = await UserModel.findOne({ user_id: user_id }).populate(
-                "community"
-            );
+            const user = await UserModel.findById({
+                _id: user_id,
+            }).populate("community");
+            // .exec(function (err, data) {
+            //     console.log("populate data", data);
+            // });
 
             return user;
         } catch (err) {
