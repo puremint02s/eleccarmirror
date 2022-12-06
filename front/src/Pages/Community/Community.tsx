@@ -1,17 +1,51 @@
 import React from "react";
-//⛔issue
-//👉절대 경로 설정 했는데, @ 로 접근하는게 안됩니다
-import Header from "../common/Header";
-import Main from "../common/Main";
+import Header from "../../components/common/Header";
+import Main from "../../components/common/Main";
 import styled from "styled-components";
-
-//⛔issue
-//👉style 파일 따로 나누고 싶은데 ts 파일 import 가 안되고 있습니다
+import Pagination from "components/common/Pagination";
+import { useNavigate } from "react-router-dom";
 
 const CommunityWrap = styled.div`
   padding-top: 130px;
   width: 100%;
   height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+const SearchBar = styled.div`
+  border: 1px solid #c5c5c5;
+  width: 190px;
+  height: 27px;
+  margin-bottom: 10px;
+
+  form {
+    width: 100%;
+    height: 100%;
+
+    fieldset {
+      display: flex;
+      justify-content: space-between;
+      height: 100%;
+      legend {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
+      input {
+        text-indent: 10px;
+      }
+      button {
+        background-color: #303030;
+        color: #fff;
+        border: none;
+        width: 45px;
+        cursor: pointer;
+      }
+    }
+  }
 `;
 
 const CommunityContent = styled.div`
@@ -103,14 +137,6 @@ const MyInfo = styled.div`
     }
 
     button {
-      width: 100%;
-      padding: 15px 0;
-      font-size: 18px;
-      background-color: #0a84ff;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-
       /* &:hover {
         background-color: hover 색상 정하기 ;
       } */
@@ -122,11 +148,12 @@ const BoardWrap = styled.div`
   width: calc(100% - 280px);
   margin-left: 20px;
   border-top: 2px solid #303030;
-  border-bottom: 5px solid #eaeaea;
 
   table {
     width: 100%;
     border-collapse: collapse;
+    border-bottom: 5px solid #eaeaea;
+    margin-bottom: 60px;
 
     thead {
       height: 45px;
@@ -156,13 +183,35 @@ const BoardWrap = styled.div`
   }
 `;
 
+const UploadButton = styled.button`
+  width: 100%;
+  padding: 15px 0;
+  font-size: 18px;
+  background-color: #0a84ff;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+`;
+
 function Community() {
+  const navigate = useNavigate();
+  const toUploadPage = () => {
+    navigate(`/community/upload`);
+  };
   return (
     <>
       <Header />
-      <Main>
+      <Main width="1850px">
         <CommunityWrap>
-          <div>검색바 들어갈 예정</div>
+          <SearchBar>
+            <form id="search">
+              <fieldset>
+                <legend>검색</legend>
+                <input type="text" />
+                <button>검색</button>
+              </fieldset>
+            </form>
+          </SearchBar>
           <CommunityContent>
             <MyInfo>
               <div className="myInfo-user">
@@ -199,7 +248,7 @@ function Community() {
                   </div>
                   <div className="count">0</div>
                 </div>
-                <button type="button">글쓰기</button>
+                <UploadButton onClick={toUploadPage}>글쓰기</UploadButton>
               </div>
             </MyInfo>
             <BoardWrap>
@@ -254,6 +303,7 @@ function Community() {
                   </tr>
                 </tbody>
               </table>
+              <Pagination />
             </BoardWrap>
           </CommunityContent>
         </CommunityWrap>

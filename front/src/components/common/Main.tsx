@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
-const Main = styled.main`
-  max-width: 1850px;
+type Props = {
+  width: string;
+};
+
+const Main = styled.main<Props>`
+  /* max-width:1850px; */
+  max-width: ${props => props.width};
   min-width: 1550px;
   height: auto;
-  /* background-color: #eee; */
   margin: 0 auto;
 `;
 

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 // import { Logo } from "@/styles/index.ts";
 import { createGlobalStyle } from "styled-components";
+import LogoImg from "assets/img/MyElecCar logo.png";
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -51,6 +52,8 @@ const Nav = styled.nav`
   min-width: 500px;
   display: flex;
   justify-content: flex-end;
+  padding-top: 3rem;
+  padding-right: 5rem;
 
   ul {
     width: 100%;
@@ -60,8 +63,15 @@ const Nav = styled.nav`
       height: 100%;
       display: flex;
       align-items: center;
+      font-size: 14px;
     }
   }
+`;
+
+const Logo = styled.img.attrs({ src: LogoImg })`
+  width: 100px;
+  padding-top: 3rem;
+  padding-left: 5rem;
 `;
 
 function Header() {
@@ -71,14 +81,19 @@ function Header() {
       <HeaderTag>
         <div>
           <H1>
-            <a href="/">
-              <img src="img/MyElecCar logo.png" alt="my elec car" />
+            <a href="/main">
+              <Logo />
             </a>
           </H1>
           <Nav>
             <ul>
               <li>서비스 소개</li>
-              <li>마이페이지</li>
+              <a
+                style={{ textDecoration: "none", color: "black" }}
+                href="/mypage"
+              >
+                <li>마이페이지</li>
+              </a>
               <li>로그아웃</li>
             </ul>
           </Nav>
