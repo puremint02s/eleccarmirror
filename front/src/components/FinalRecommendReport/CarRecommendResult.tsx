@@ -16,31 +16,22 @@ interface CarData {
 function CarRecommendResult({ ...props }: CarData) {
   const navigate = useNavigate();
   const handleClickBrandHomepage = () => window.open(props.homepage);
-  const handleClickMain = () => navigate("/main"); // 메인 페이지로 수정하기
+  const handleClickMain = () => navigate("/main");
 
   return (
     <>
       <RecommendResultWrapper>
         <RecommendResultContentWrapper>
-          <img style={{ width: 150 }} src={BlueCarImg} alt="추천 차량 이미지" />
-          <div style={{ paddingTop: 30, paddingBottom: 30 }}>
-            <RecommendResultContent>
-              제조사: {props.brand}
-            </RecommendResultContent>
-            <RecommendResultContent>모델: {props.model}</RecommendResultContent>
-            <RecommendResultContent>
-              주행거리: {props.distance}km
-            </RecommendResultContent>
-            <RecommendResultContent>
-              배터리용량: {props.battery}kWh
-            </RecommendResultContent>
-            <RecommendResultContent>
-              전비: {props.MPG}km/kWh
-            </RecommendResultContent>
-            <RecommendResultContent>
-              가격: {props.cost}만원
-            </RecommendResultContent>
-          </div>
+          <RecommendResultTitle>나에게 맞는 전기차는?</RecommendResultTitle>
+          <RecommendResultCarImage src={BlueCarImg} alt="추천 차량 이미지" />
+          <RecommendResultContent>
+            제조사: {props.brand} <br />
+            모델: {props.model} <br />
+            주행거리: {props.distance}km <br />
+            배터리용량: {props.battery}kWh <br />
+            전비: {props.MPG}km/kWh <br />
+            가격: {props.cost}만원
+          </RecommendResultContent>
           <GotoBrandHompageButton onClick={handleClickBrandHomepage}>
             공식 홈페이지 방문
           </GotoBrandHompageButton>
@@ -66,9 +57,21 @@ const RecommendResultContentWrapper = styled.div`
   display: inline-block;
 `;
 
+const RecommendResultTitle = styled.p`
+  font-size: 25px;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  font-weight: bold;
+`;
+
 const RecommendResultContent = styled.p`
-  padding-top: 0.5rem;
+  padding-top: 30px;
   text-align: left;
+  line-height: 1.8rem;
+`;
+
+const RecommendResultCarImage = styled.img`
+  width: 150px;
 `;
 
 const GotoBrandHompageButton = styled.div`
