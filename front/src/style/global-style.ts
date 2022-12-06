@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
         font-size: 100%;
         font: inherit;
         vertical-align: baseline;
+        list-style: none;
     }
     a {
         color : black;
