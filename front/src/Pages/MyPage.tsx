@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "components/common/Header";
@@ -18,6 +19,23 @@ const dummyFillUpData = {
 };
 
 function MyPage() {
+  function Modal(props: any): any {
+    function closeModal(): void {
+      props.closeModal();
+    }
+    return (
+      <ModalOutside onClick={closeModal}>
+        <ModalBody onClick={e => e.stopPropagation()}>
+          <ModalCloseBtn onClick={closeModal}>✖</ModalCloseBtn>
+          {props.children}
+        </ModalBody>
+      </ModalOutside>
+    );
+  }
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteConfirmModalOpen, setDeleteConfirmModalOpen] = useState(false);
+
   return (
     <>
       <Header />
@@ -77,7 +95,49 @@ function MyPage() {
                       <Link to="/mypage/modifyrefuelrecord">
                         <button>수정</button>
                       </Link>
-                      <button>삭제</button>
+                      <button
+                        onClick={() => setDeleteModalOpen(!deleteModalOpen)}
+                      >
+                        삭제
+                      </button>
+                      {deleteModalOpen && (
+                        <Modal
+                          closeModal={() =>
+                            setDeleteModalOpen(!deleteModalOpen)
+                          }
+                        >
+                          <DeleteModalParagraph>
+                            주유내역을 삭제하시겠습니까?
+                          </DeleteModalParagraph>
+                          <DeleteModalBtn
+                            onClick={() =>
+                              setDeleteConfirmModalOpen(!deleteConfirmModalOpen)
+                            }
+                          >
+                            삭제하기
+                          </DeleteModalBtn>
+                          {deleteConfirmModalOpen && (
+                            <Modal
+                              closeModal={() =>
+                                setDeleteModalOpen(!deleteModalOpen)
+                              }
+                            >
+                              <DeleteModalParagraph>
+                                주유내역이 삭제되었습니다.
+                              </DeleteModalParagraph>
+                              <DeleteModalBtn
+                                onClick={() =>
+                                  setDeleteConfirmModalOpen(
+                                    !deleteConfirmModalOpen,
+                                  )
+                                }
+                              >
+                                돌아가기
+                              </DeleteModalBtn>
+                            </Modal>
+                          )}
+                        </Modal>
+                      )}
                     </td>
                   </tr>
                 </tbody>
@@ -103,6 +163,7 @@ const TitleWrapper = styled.div`
 
 const MyPageWrapper = styled.div`
   display: flex;
+  padding-bottom: 5rem;
 `;
 
 const MyPageContentWrapper = styled.div`
@@ -214,4 +275,49 @@ const RefuelWrap = styled.div`
       }
     }
   }
+`;
+
+const ModalOutside = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalBody = styled.div`
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  color: black;
+`;
+
+const ModalCloseBtn = styled.button`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: transparent;
+  font-size: 20px;
+  cursor: pointer;
+`;
+
+const DeleteModalParagraph = styled.p`
+  font-size: 20px;
+  padding-top: 30%;
+`;
+
+const DeleteModalBtn = styled.button`
+  margin-top: 20px;
+  width: 100px;
+  height: 40px;
+  font-weight: bold;
 `;
