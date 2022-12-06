@@ -105,7 +105,6 @@ const ModifyButton = styled.button`
 const CancelButton = styled.button`
   padding-top: 1rem;
   padding-bottom: 1rem;
-  color: #898989;
   font-size: 14px;
   text-align: center;
   width: 130px;
