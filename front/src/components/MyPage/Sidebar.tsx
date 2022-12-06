@@ -26,7 +26,7 @@ export default Sidebar;
 const SideMenu = styled.div`
   height: 30rem;
   width: 10vw;
-  padding-left: 20vw;
+  padding-left: 15vw;
   display: inline;
 `;
 
