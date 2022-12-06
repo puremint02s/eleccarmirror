@@ -4,8 +4,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Header from "components/common/Header";
 import {
+  CalcEfficiencyWrapper,
   CalcTitleWrapper,
   CalcSubTitleWrapper,
+  CalcFormDiv,
   CalcFormWrapper,
   CalcInputTitle,
   CalcInput,
@@ -44,35 +46,55 @@ function CalcEfficiencyPage() {
   // 연비 계산하는 버튼 연결 함수
 
   return (
-    <div>
+    <CalcEfficiencyWrapper>
       <Header />
       <CalcTitleWrapper>내 차의 평균 연비 계산하기</CalcTitleWrapper>
       <CalcSubTitleWrapper>
         계산된 평균 연비로 나에게 알맞은 전기차를 추천해드리겠습니다.
       </CalcSubTitleWrapper>
-      <CalcFormWrapper>
-        <CalcInputTitle>주유 날짜</CalcInputTitle>
-        <DatePicker
-          selected={startDate}
-          onChange={(date: Date) => setStartDate(date)}
-          locale="ko"
-          dateFormatCalendar="yyyy.MM"
-          customInput={<CalcInput />}
-        />
-        <CalcInputTitle>유종</CalcInputTitle>
-        <SelectBox options={OPTIONS} />
-        <CalcInputTitle>주유량(L)</CalcInputTitle>
-        <CalcInput placeholder="10"></CalcInput>
-        <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
-        <CalcInput placeholder="15000"></CalcInput>
-        <CalcButtonWrapper>
-          <CalcSkipButton onClick={SkipCalcAndGoFinalResult}>
-            건너뛰기
-          </CalcSkipButton>
-          <CalcButton>계산하기</CalcButton>
-        </CalcButtonWrapper>
-      </CalcFormWrapper>
-    </div>
+      <CalcFormDiv>
+        <CalcFormWrapper>
+          <CalcInputTitle>주유 날짜</CalcInputTitle>
+          <DatePicker
+            selected={startDate}
+            onChange={(date: Date) => setStartDate(date)}
+            locale="ko"
+            dateFormatCalendar="yyyy.MM"
+            customInput={<CalcInput />}
+          />
+          <CalcInputTitle>유종</CalcInputTitle>
+          <SelectBox options={OPTIONS} />
+          <CalcInputTitle>주유량(L)</CalcInputTitle>
+          <CalcInput placeholder="10"></CalcInput>
+          <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
+          <CalcInput placeholder="15000"></CalcInput>
+        </CalcFormWrapper>
+      </CalcFormDiv>
+      <CalcFormDiv>
+        <CalcFormWrapper>
+          <CalcInputTitle>주유 날짜</CalcInputTitle>
+          <DatePicker
+            selected={startDate}
+            onChange={(date: Date) => setStartDate(date)}
+            locale="ko"
+            dateFormatCalendar="yyyy.MM"
+            customInput={<CalcInput />}
+          />
+          <CalcInputTitle>유종</CalcInputTitle>
+          <SelectBox options={OPTIONS} />
+          <CalcInputTitle>주유량(L)</CalcInputTitle>
+          <CalcInput placeholder="10"></CalcInput>
+          <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
+          <CalcInput placeholder="15000"></CalcInput>
+        </CalcFormWrapper>
+      </CalcFormDiv>
+      <CalcButtonWrapper>
+        <CalcSkipButton onClick={SkipCalcAndGoFinalResult}>
+          건너뛰기
+        </CalcSkipButton>
+        <CalcButton>계산하기</CalcButton>
+      </CalcButtonWrapper>
+    </CalcEfficiencyWrapper>
   );
 }
 
