@@ -3,18 +3,18 @@ import "dotenv/config";
 import cors from "cors";
 import { userRouter } from "./routers/userRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
-import BodyParser from "body-parser";
 import { communityRouter } from "./routers/CommunityRouter.js";
+import { gasRouter } from "./routers/gasRouter.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(BodyParser.urlencoded({ extended: false }));
 
 app.use(userRouter);
 app.use(communityRouter);
+app.use(gasRouter);
 
 app.use(errorMiddleware);
 

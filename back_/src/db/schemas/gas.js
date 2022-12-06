@@ -2,24 +2,26 @@ import mongoose, { Schema, model } from "mongoose";
 
 const GasSchema = new Schema(
     {
-        id: {
+        user_id: {
+            type: String,
+            required: true,
+        },
+        oiling_date: {
+            type: String,
+            required: true,
+        },
+        gas_type: {
+            type: String,
+            required: true,
+            enum: ["휘발유", "경유"],
+        },
+        gas_amount: {
             type: Number,
-            unique: true,
+            required: true,
         },
-        brand: {
-            type: String,
-            unique: true,
-        },
-        model: {
-            type: String,
-            unique: true,
-        },
-        year: {
-            type: String,
-            unique: true,
-        },
-        car_image: {
-            type: String,
+        odometer: {
+            type: Number,
+            required: true,
         },
     },
     {

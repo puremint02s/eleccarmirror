@@ -86,4 +86,22 @@ userRouter.get("/user/:id", login_required, async function (req, res, next) {
     }
 });
 
+//유저의 커뮤니티 리스트 불러오기
+// userRouter.get(
+//     "/user/:user_id/community",
+//     login_required,
+//     async function (req, res, next) {
+//         try {
+//             const { user_id } = req.params;
+
+//             const getUsersCommunities =
+//                 await userAuthService.getUsersCommunities(user_id);
+
+//             return res.status(201).json(getUsersCommunities);
+//         } catch (err) {
+//             next(err);
+//         }
+//     }
+// );
+
 export { userRouter };

@@ -86,6 +86,12 @@ class userAuthService {
 
         return user;
     }
+
+    // static async getUsersCommunities(user_id) {
+    //     const getUsersCommunities = await User.findAllCommunities(user_id);
+
+    //     return getUsersCommunities;
+    // }
 }
 
 export { userAuthService };
