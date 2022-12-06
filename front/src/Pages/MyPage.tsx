@@ -1,7 +1,8 @@
+import { useNavigate } from "react-router";
+import styled from "styled-components";
 import Header from "components/common/Header";
 import Sidebar from "components/MyPage/Sidebar";
 import Pagination from "components/common/Pagination";
-import styled from "styled-components";
 
 const dummyMyCarData = {
   model: "아반떼",
@@ -17,6 +18,9 @@ const dummyFillUpData = {
 };
 
 function MyPage() {
+  const navigate = useNavigate();
+  const GotoCarInfoModify = () => navigate("/mypage/modifyinfo");
+
   return (
     <>
       <Header />
@@ -27,7 +31,9 @@ function MyPage() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               나의 차량 정보
-              <ModifyCarInfoButton>수정</ModifyCarInfoButton>
+              <ModifyCarInfoButton onClick={GotoCarInfoModify}>
+                수정
+              </ModifyCarInfoButton>
             </MyPageContentTitle>
             <MyPageContent>
               <ul>

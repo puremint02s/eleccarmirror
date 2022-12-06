@@ -28,7 +28,7 @@ export const LoginInputTitle = styled.div`
 
 export const LoginInput = styled.input`
   width: 100%;
-  color: #ababab;
+  color: black;
   background-color: #f6f6f6;
   padding-top: 1rem;
   padding-bottom: 1rem;

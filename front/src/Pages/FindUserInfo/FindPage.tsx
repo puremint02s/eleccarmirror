@@ -1,31 +1,29 @@
+import { Link } from "react-router-dom";
 import {
   LogoWrapper,
   FindButtonWrapper,
   BlueButton,
   GreyButton,
 } from "../../style/LoginFormStyle";
+import LogoImg from "assets/img/MyElecCar logo.png";
 
 function FindEmailPwdPage() {
   return (
     <FindButtonWrapper>
       <LogoWrapper>
-        <a href="/">
-          <img
-            style={{ width: 200 }}
-            src="img/MyElecCar logo.png"
-            alt="서비스 로고"
-          />
-        </a>
+        <Link to="/">
+          <img style={{ width: 200 }} src={LogoImg} alt="서비스 로고" />
+        </Link>
       </LogoWrapper>
-      <a href="/find/email">
+      <Link to="/find/email">
         <GreyButton>이메일 찾기</GreyButton>
-      </a>
-      <a href="find/pwd">
+      </Link>
+      <Link to="/find/pwd">
         <GreyButton>비밀번호 찾기</GreyButton>
-      </a>
-      <a href="/login">
+      </Link>
+      <Link to="/login">
         <BlueButton>로그인하러 가기</BlueButton>
-      </a>
+      </Link>
     </FindButtonWrapper>
   );
 }
