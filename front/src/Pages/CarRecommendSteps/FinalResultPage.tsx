@@ -3,7 +3,7 @@ import Header from "components/common/Header";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
 import Modal from "../../components/common/Modal";
-import CarRecommendResult from "../../components/CarRecommendResult";
+import CarRecommendResult from "../../components/FinalRecommendReport/CarRecommendResult";
 
 interface CarData {
   brand: string;
