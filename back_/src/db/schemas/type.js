@@ -1,7 +1,11 @@
 import mongoose, { Schema, model } from "mongoose";
 
-const TestTypeSchema = new Schema(
+const TypeSchema = new Schema(
     {
+        user_id: {
+            type: String,
+            required: true,
+        },
         type: {
             type: String,
             required: true,
@@ -30,6 +34,6 @@ const TestTypeSchema = new Schema(
     }
 );
 
-const TestTypeModel = model("testType", TestTypeSchema);
+const TypeModel = model("type", TypeSchema);
 
-export { TestTypeModel };
+export { TypeModel };

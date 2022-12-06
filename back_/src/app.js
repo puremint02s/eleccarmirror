@@ -4,8 +4,9 @@ import cors from "cors";
 import { userRouter } from "./routers/userRouter.js";
 import { imageRouter } from "./routers/imageRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
-import { communityRouter } from "./routers/CommunityRouter.js";
+import { communityRouter } from "./routers/communityRouter.js";
 import { gasRouter } from "./routers/gasRouter.js";
+import { typeRouter } from "./routers/typeRouter.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(userRouter);
 
 app.use(communityRouter);
 app.use(gasRouter);
+app.use(typeRouter);
 app.use(imageRouter);
 
 app.use(errorMiddleware);
