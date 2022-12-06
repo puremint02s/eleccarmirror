@@ -63,7 +63,6 @@ const CancelButton = styled.button`
   text-align: center;
   background-color: #f6f6f6;
   border: 1px solid #f6f6f6;
-  color: #0a84ff;
   width: 100%;
   display: center;
   padding-top: 1rem;
