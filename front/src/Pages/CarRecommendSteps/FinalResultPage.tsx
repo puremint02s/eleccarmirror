@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Header from "components/common/Header";
-import SocialShare from "hooks/SocialShareHook";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
+import Modal from "../../components/common/Modal";
+import CarRecommendResult from "../../components/CarRecommendResult";
 
 interface CarData {
   brand: string;
@@ -18,6 +18,7 @@ interface CarData {
 const dummyUserData = {
   mbti: "CFBH",
   efficiency: 10,
+  currentCar: "아반떼",
 };
 
 const dummyCarData: CarData = {
@@ -31,9 +32,10 @@ const dummyCarData: CarData = {
 };
 
 function FinalResultPage() {
-  const navigate = useNavigate();
-  const handleClickBrandHomepage = () => window.open(dummyCarData.homepage);
-  const handleClickMain = () => navigate("/main"); // 메인 페이지로 수정하기
+  const [mbtiRecommendResult, setMbtiRecommendResult] = useState(false);
+  const [userCarRecommendResult, setUserCarRecommendResult] = useState(false);
+  const [calcEfficiencyRecommendResult, setCalcEfficiencyRecommendResult] =
+    useState(false);
 
   return (
     <>
@@ -44,7 +46,9 @@ function FinalResultPage() {
           <ResultButtonTitleWrapper>
             나의 성향으로 추천
           </ResultButtonTitleWrapper>
-          <ResultButton>
+          <ResultButton
+            onClick={() => setMbtiRecommendResult(!mbtiRecommendResult)}
+          >
             <img
               style={{ width: 100, paddingBottom: 15 }}
               src={BlueCarImg}
@@ -52,61 +56,87 @@ function FinalResultPage() {
             />
             <p>{dummyUserData.mbti}</p>
           </ResultButton>
+          {mbtiRecommendResult && (
+            <Modal
+              closeModal={() => setMbtiRecommendResult(!mbtiRecommendResult)}
+            >
+              <CarRecommendResult
+                brand={dummyCarData.brand}
+                model={dummyCarData.model}
+                distance={dummyCarData.distance}
+                battery={dummyCarData.battery}
+                MPG={dummyCarData.MPG}
+                cost={dummyCarData.cost}
+                homepage={dummyCarData.homepage}
+              />
+            </Modal>
+          )}
         </ResultButtonWrapper>
         <ResultButtonWrapper>
           <ResultButtonTitleWrapper>
-            나의 현재 차량으로 추천
+            현재 차량으로 추천
           </ResultButtonTitleWrapper>
-          <ResultButton>
+          <ResultButton
+            onClick={() => setUserCarRecommendResult(!userCarRecommendResult)}
+          >
             <img
-              style={{ width: 100 }}
+              style={{ width: 100, paddingBottom: 15 }}
               src={BlueCarImg}
-              alt="추천 차량 이미지"
+              alt="유형 이미지"
             />
+            <p>{dummyUserData.currentCar}</p>
           </ResultButton>
+          {userCarRecommendResult && (
+            <Modal
+              closeModal={() =>
+                setUserCarRecommendResult(!userCarRecommendResult)
+              }
+            >
+              <CarRecommendResult
+                brand={dummyCarData.brand}
+                model={dummyCarData.model}
+                distance={dummyCarData.distance}
+                battery={dummyCarData.battery}
+                MPG={dummyCarData.MPG}
+                cost={dummyCarData.cost}
+                homepage={dummyCarData.homepage}
+              />
+            </Modal>
+          )}
         </ResultButtonWrapper>
         <ResultButtonWrapper>
-          <ResultButtonTitleWrapper>
-            나의 운전 습관으로 추천
-          </ResultButtonTitleWrapper>
-          <ResultButton>
-            <p>평균연비</p>
+          <ResultButtonTitleWrapper>평균 연비로 추천</ResultButtonTitleWrapper>
+          <ResultButton
+            onClick={() =>
+              setCalcEfficiencyRecommendResult(!calcEfficiencyRecommendResult)
+            }
+          >
+            <img
+              style={{ width: 100, paddingBottom: 15 }}
+              src={BlueCarImg}
+              alt="유형 이미지"
+            />
             <p>{dummyUserData.efficiency} km/L</p>
           </ResultButton>
+          {calcEfficiencyRecommendResult && (
+            <Modal
+              closeModal={() =>
+                setCalcEfficiencyRecommendResult(!calcEfficiencyRecommendResult)
+              }
+            >
+              <CarRecommendResult
+                brand={dummyCarData.brand}
+                model={dummyCarData.model}
+                distance={dummyCarData.distance}
+                battery={dummyCarData.battery}
+                MPG={dummyCarData.MPG}
+                cost={dummyCarData.cost}
+                homepage={dummyCarData.homepage}
+              />
+            </Modal>
+          )}
         </ResultButtonWrapper>
       </ResultWrapper>
-      <RecommendResultWrapper>
-        <RecommendResultContentWrapper>
-          <img style={{ width: 150 }} src={BlueCarImg} alt="추천 차량 이미지" />
-          <div style={{ paddingTop: 30, paddingBottom: 30 }}>
-            <RecommendResultContent>
-              제조사: {dummyCarData.brand}
-            </RecommendResultContent>
-            <RecommendResultContent>
-              모델: {dummyCarData.model}
-            </RecommendResultContent>
-            <RecommendResultContent>
-              주행거리: {dummyCarData.distance}km
-            </RecommendResultContent>
-            <RecommendResultContent>
-              배터리용량: {dummyCarData.battery}kWh
-            </RecommendResultContent>
-            <RecommendResultContent>
-              전비: {dummyCarData.MPG}km/kWh
-            </RecommendResultContent>
-            <RecommendResultContent>
-              가격: {dummyCarData.cost}만원
-            </RecommendResultContent>
-          </div>
-          <GotoBrandHompageButton onClick={handleClickBrandHomepage}>
-            공식 홈페이지 방문
-          </GotoBrandHompageButton>
-          <GotoMainButton onClick={handleClickMain}>
-            메인으로 이동
-          </GotoMainButton>
-          <SocialShare />
-        </RecommendResultContentWrapper>
-      </RecommendResultWrapper>
     </>
   );
 }
