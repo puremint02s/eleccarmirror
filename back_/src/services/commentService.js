@@ -8,9 +8,21 @@ class commentService {
     }
 
     static async getComment(id) {
-        const getComment = await Comment.find(id);
+        const getEachComment = await Comment.findEach(id);
 
-        return getComment;
+        return getEachComment;
+    }
+
+    static async getCommunityComment(id) {
+        const getCommunityComment = await Comment.findCommunityOne(id);
+
+        return getCommunityComment;
+    }
+
+    static async getUserComment(id) {
+        const getUserComment = await Comment.findUserOne(id);
+
+        return getUserComment;
     }
 
     static async updateComment(newInput) {

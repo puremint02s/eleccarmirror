@@ -27,10 +27,22 @@ gasRouter.post("/gas", login_required, async function (req, res, next) {
 });
 
 //각 유저의 주유내역 가져오기
-gasRouter.get("/gas/:id", login_required, async function (req, res, next) {
+gasRouter.get("/gas/:id/user", login_required, async function (req, res, next) {
     try {
         const user_id = req.params.id;
-        const getContents = await gasService.getContents(user_id);
+        const getUserContents = await gasService.getUserContents(user_id);
+
+        return res.status(201).json(getUserContents);
+    } catch (err) {
+        next(err);
+    }
+});
+
+//해당 주유내역 가져오기
+gasRouter.get("/gas/:id", login_required, async function (req, res, next) {
+    try {
+        const obj_id = req.params.id;
+        const getContents = await gasService.getEachContent(obj_id);
 
         return res.status(201).json(getContents);
     } catch (err) {

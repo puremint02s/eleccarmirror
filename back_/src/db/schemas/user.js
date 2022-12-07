@@ -10,7 +10,7 @@ const UserSchema = new Schema(
             type: String,
             required: true,
         },
-        nickname: {
+        id: {
             type: String,
             required: true,
         },
@@ -47,22 +47,6 @@ const UserSchema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "car",
         },
-        community: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "community",
-            },
-        ],
-        // car_id: {
-        //     type: Number,
-        //     default: "car id 가 없습니다.",
-        //     required: false,
-        // },
-        // average_mileage: {
-        //     type: String,
-        //     default: "평균연비가 없습니다.",
-        //     required: false,
-        // },
     },
     {
         timestamps: true,

@@ -7,10 +7,16 @@ class gasService {
         return createNewGas;
     }
 
-    static async getContents(user_id) {
-        const getContents = await Gas.findAll(user_id);
+    static async getUserContents(user_id) {
+        const getUserContents = await Gas.find(user_id);
 
-        return getContents;
+        return getUserContents;
+    }
+
+    static async getEachContent(obj_id) {
+        const getEachContent = await Gas.findEach(obj_id);
+
+        return getEachContent;
     }
 
     static async update(obj_id, newGasInfo) {

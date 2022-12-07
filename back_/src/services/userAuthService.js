@@ -7,7 +7,7 @@ class userAuthService {
     //회원가입 - 유저 등록
     static async addUser({
         email,
-        nickname,
+        id,
         password,
         age,
         address,
@@ -20,7 +20,7 @@ class userAuthService {
         const newUser = {
             user_id,
             email,
-            nickname,
+            id,
             password: hashedPassword,
             age,
             address,
@@ -62,12 +62,12 @@ class userAuthService {
 
         // 반환할 loginuser 객체를 위한 변수 설정
         const user_id = user.user_id;
-        const nickname = user.nickname;
+        const id = user.id;
 
         const loginUser = {
             token,
             user_id,
-            nickname,
+            id,
             errorMessage: null,
         };
 
@@ -87,11 +87,23 @@ class userAuthService {
         return user;
     }
 
-    // static async getUsersCommunities(user_id) {
-    //     const getUsersCommunities = await User.findAllCommunities(user_id);
+    //유저정보 수정
+    static async updateUser(newInput) {
+        const { user_id } = newInput;
 
-    //     return getUsersCommunities;
-    // }
+        const user = await User.findById(user_id);
+
+        // db에서 찾지 못한 경우, 에러 메시지 반환
+        if (!user) {
+            const errorMessage =
+                "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+            return { errorMessage };
+        }
+
+        const updatedUser = await User.update(newInput);
+
+        return updatedUser;
+    }
 }
 
 export { userAuthService };

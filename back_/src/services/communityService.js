@@ -19,6 +19,12 @@ class communityService {
         return getContents;
     }
 
+    static async getEachContent(obj_id) {
+        const getEachContent = await Community.findEach(obj_id);
+
+        return getEachContent;
+    }
+
     static async updateContent(newInput) {
         const updateContent = await Community.update(newInput);
 

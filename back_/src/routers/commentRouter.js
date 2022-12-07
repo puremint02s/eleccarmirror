@@ -8,10 +8,11 @@ const commentRouter = Router();
 commentRouter.post("/comment", login_required, async function (req, res, next) {
     try {
         const user_id = req.currentUserId;
-        const { content } = req.body;
+        const { community_id, content } = req.body;
 
         const comment = {
             user_id,
+            community_id,
             content,
         };
 
@@ -44,9 +45,37 @@ commentRouter.get(
 
 //해당 커뮤니티 글의 전체 댓글 불러오기
 commentRouter.get(
-    "/comment",
+    "/community/comment/:id",
     login_required,
-    async function (req, res, next) {}
+    async function (req, res, next) {
+        try {
+            const { id } = req.params;
+
+            const getCommunityComment =
+                await commentService.getCommunityComment(id);
+
+            return res.status(201).json(getCommunityComment);
+        } catch (err) {
+            next(err);
+        }
+    }
+);
+
+//유저가 등록한 전체 댓글 불러오기
+commentRouter.get(
+    "/comment/:id/user",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const { id } = req.params;
+
+            const getUserComment = await commentService.getUserComment(id);
+
+            return res.status(201).json(getUserComment);
+        } catch (err) {
+            next(err);
+        }
+    }
 );
 
 //해당 댓글 수정하기

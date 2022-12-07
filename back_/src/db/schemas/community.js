@@ -19,10 +19,6 @@ const CommunitySchema = new Schema(
             trim: true,
         },
         comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comments" }],
-        creator: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "user",
-        },
     },
     {
         timestamps: true,
