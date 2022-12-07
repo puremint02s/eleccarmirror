@@ -11,17 +11,17 @@ function FindPwdPage() {
   return (
     <LoginFormBox>
       <LoginFormWrapper>
-        <FindEmailFormTitle>비밀번호 찾기</FindEmailFormTitle>
-        <LoginInputTitle>이름</LoginInputTitle>
-        <LoginInput placeholder="가입하신 이름을 적어주세요." />
+        <FindPwdFormTitle>비밀번호 찾기</FindPwdFormTitle>
+        <LoginInputTitle>아이디</LoginInputTitle>
+        <LoginInput placeholder="가입하신 아이디를 적어주세요." />
         <LoginInputTitle>이메일</LoginInputTitle>
         <LoginInput placeholder="가입하신 이메일을 적어주세요." />
-        <FindEmailBtnWrapper>
+        <FindPwdBtnWrapper>
           <SubmitButton type="submit">확인</SubmitButton>
           <Link to="/find">
             <CancelButton>취소</CancelButton>
           </Link>
-        </FindEmailBtnWrapper>
+        </FindPwdBtnWrapper>
       </LoginFormWrapper>
     </LoginFormBox>
   );
@@ -29,14 +29,14 @@ function FindPwdPage() {
 
 export default FindPwdPage;
 
-const FindEmailFormTitle = styled.div`
+const FindPwdFormTitle = styled.div`
   margin-top: 10rem;
   margin-bottom: 25px;
   text-align: center;
   font-size: 20px;
 `;
 
-const FindEmailBtnWrapper = styled.div`
+const FindPwdBtnWrapper = styled.div`
   width: 350px;
   display: flex;
   flex-direction: column;
