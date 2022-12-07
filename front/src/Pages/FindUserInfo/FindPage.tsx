@@ -15,8 +15,8 @@ function FindEmailPwdPage() {
           <img style={{ width: 200 }} src={LogoImg} alt="서비스 로고" />
         </Link>
       </LogoWrapper>
-      <Link to="/find/email">
-        <GreyButton>이메일 찾기</GreyButton>
+      <Link to="/find/id">
+        <GreyButton>아이디 찾기</GreyButton>
       </Link>
       <Link to="/find/pwd">
         <GreyButton>비밀번호 찾기</GreyButton>

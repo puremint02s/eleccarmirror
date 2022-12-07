@@ -7,36 +7,36 @@ import {
   LoginInput,
 } from "style/LoginFormStyle";
 
-function FindEmailPage() {
+function FindIdPage() {
   return (
     <LoginFormBox>
       <LoginFormWrapper>
-        <FindEmailFormTitle>이메일 찾기</FindEmailFormTitle>
+        <FindIdFormTitle>아이디 찾기</FindIdFormTitle>
         <LoginInputTitle>이름</LoginInputTitle>
         <LoginInput placeholder="가입하신 이름을 적어주세요." />
         <LoginInputTitle>이메일</LoginInputTitle>
-        <LoginInput />
-        <FindEmailBtnWrapper>
+        <LoginInput placeholder="가입하신 이메일을 적어주세요." />
+        <FindIdBtnWrapper>
           <SubmitButton type="submit">확인</SubmitButton>
           <Link to="/find">
             <CancelButton>취소</CancelButton>
           </Link>
-        </FindEmailBtnWrapper>
+        </FindIdBtnWrapper>
       </LoginFormWrapper>
     </LoginFormBox>
   );
 }
 
-export default FindEmailPage;
+export default FindIdPage;
 
-const FindEmailFormTitle = styled.div`
+const FindIdFormTitle = styled.div`
   margin-top: 10rem;
   margin-bottom: 25px;
   text-align: center;
   font-size: 20px;
 `;
 
-const FindEmailBtnWrapper = styled.div`
+const FindIdBtnWrapper = styled.div`
   width: 350px;
   display: flex;
   flex-direction: column;

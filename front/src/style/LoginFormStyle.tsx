@@ -55,7 +55,7 @@ export const RememberMeTitle = styled.p`
 
 export const FindEmailPwdButton = styled.p`
   color: #898989;
-  font-size: 14px;
+  font-size: 13px;
   float: right;
 `;
 

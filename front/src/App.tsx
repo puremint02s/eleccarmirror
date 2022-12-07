@@ -5,7 +5,7 @@ import GlobalStyle from "style/global-style";
 const Login = lazy(() => import("./Pages/LoginPage"));
 const Start = lazy(() => import("Pages/StartPage"));
 const Find = lazy(() => import("./Pages/FindUserInfo/FindPage"));
-const FindEmail = lazy(() => import("./Pages/FindUserInfo/FindEmailPage"));
+const FindId = lazy(() => import("./Pages/FindUserInfo/FindIdPage"));
 const FindPwd = lazy(() => import("./Pages/FindUserInfo/FindPwdPage"));
 const CarMbti = lazy(() => import("./Pages/CarRecommendSteps/CarMbtiPage"));
 const TestContents = lazy(() => import("./components/CarMbti/TestContents"));
@@ -41,7 +41,7 @@ const ROUTE = {
   MAIN: "/main",
   LOGIN: "/login",
   FIND: "/find",
-  FINDEMAIL: "/find/email",
+  FINDID: "/find/id",
   FINDPWD: "/find/pwd",
   SIGNUP: "/signup",
   COMMUNITY: "/community",
@@ -79,7 +79,7 @@ function App() {
           <Route path={ROUTE.SERVICEINTRO} element={<ServiceIntro />} />
           <Route path={ROUTE.LOGIN} element={<Login />} />
           <Route path={ROUTE.FIND} element={<Find />} />
-          <Route path={ROUTE.FINDEMAIL} element={<FindEmail />} />
+          <Route path={ROUTE.FINDID} element={<FindId />} />
           <Route path={ROUTE.FINDPWD} element={<FindPwd />} />
           <Route path={ROUTE.SIGNUP} element={<SignUp />} />
           <Route path={ROUTE.COMMUNITY} element={<Community />} />
