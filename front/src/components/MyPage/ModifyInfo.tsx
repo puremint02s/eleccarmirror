@@ -19,6 +19,28 @@ const dummyMyCarData = {
   MPG: 10,
 };
 
+const AgeOptions = [
+  { value: 2, age: "20대" },
+  { value: 3, age: "30대" },
+  { value: 4, age: "40대" },
+  { value: 5, age: "50대" },
+  { value: 6, age: "60대 이상" },
+];
+
+const CarOptions = [
+  { value: 1, brand: "현대", model: "아반떼" },
+  { value: 2, brand: "기아", model: "모닝" },
+  { value: 3, brand: "제네시스", model: "G80" },
+  { value: 4, brand: "르노코리아", model: "XM3" },
+  { value: 5, brand: "쉐보레", model: "스파크" },
+  { value: 6, brand: "쌍용", model: "렉스턴" },
+];
+
+interface AgeOption {
+  value: number;
+  age: string;
+}
+
 function ModifyInfo() {
   const navigate = useNavigate();
   const handleModifyInfoCancel = () => navigate("/mypage");
@@ -27,6 +49,36 @@ function ModifyInfo() {
   const popUpOpen = (e: React.MouseEvent) => {
     e.preventDefault();
     setAddressPopUpOpen(true);
+  };
+
+  const AgeSelectBox = (props: any) => {
+    return (
+      <ModifyInfoAgeSelect>
+        {props.options.map((option: AgeOption) => (
+          <option key={option.value}>{option.age}</option>
+        ))}
+      </ModifyInfoAgeSelect>
+    );
+  };
+
+  const BrandSelectBox = (props: any) => {
+    return (
+      <ModifyCarInfoModelSelect>
+        {props.options.map((option: { value: number; brand: string }) => (
+          <option key={option.value}>{option.brand}</option>
+        ))}
+      </ModifyCarInfoModelSelect>
+    );
+  };
+
+  const ModelSelectBox = (props: any) => {
+    return (
+      <ModifyCarInfoModelSelect>
+        {props.options.map((option: { value: number; model: string }) => (
+          <option key={option.value}>{option.model}</option>
+        ))}
+      </ModifyCarInfoModelSelect>
+    );
   };
 
   return (
@@ -77,13 +129,7 @@ function ModifyInfo() {
                 <ModifyInfoContentTr>
                   <ModifyInfoContentTitle>나이</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
-                    <ModifyInfoAgeSelect>
-                      <option value={2}>20대</option>
-                      <option value={3}>30대</option>
-                      <option value={4}>40대</option>
-                      <option value={5}>50대</option>
-                      <option value={6}>60대 이상</option>
-                    </ModifyInfoAgeSelect>
+                    <AgeSelectBox options={AgeOptions} />
                   </ModifyInfoContentInputWrapper>
                 </ModifyInfoContentTr>
                 <ModifyInfoContentTr>
@@ -116,11 +162,15 @@ function ModifyInfo() {
                   <ul>
                     <li>
                       <span>차종</span>
-                      <p>{dummyMyCarData.model}</p>
+                      <p>
+                        <ModelSelectBox options={CarOptions} />
+                      </p>
                     </li>
                     <li>
                       <span>제조사</span>
-                      <p>{dummyMyCarData.brand}</p>
+                      <p>
+                        <BrandSelectBox options={CarOptions} />
+                      </p>
                     </li>
                     <li>
                       <span>평균 연비</span>
@@ -264,6 +314,14 @@ const ModifyInfoCancelBtn = styled.button`
   margin-left: 0.5rem;
   cursor: pointer;
   display: inline;
+`;
+
+const ModifyCarInfoModelSelect = styled.select`
+  width: 100px;
+  height: 30px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  text-align: center;
 `;
 
 const MyPageContent = styled.div`
