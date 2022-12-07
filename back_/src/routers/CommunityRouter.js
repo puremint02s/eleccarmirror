@@ -55,12 +55,28 @@ communityRouter.get(
 
 //유저가 쓴 커뮤니티 글
 communityRouter.get(
-    "/community/:id",
+    "/community/:id/user",
     login_required,
     async function (req, res, next) {
         try {
             const user_id = req.params.id;
             const content = await communityService.getUserContents(user_id);
+
+            return res.status(201).json(content);
+        } catch (err) {
+            next(err);
+        }
+    }
+);
+
+//해당 커뮤니티 글
+communityRouter.get(
+    "/community/:id",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const obj_id = req.params.id;
+            const content = await communityService.getEachContent(obj_id);
 
             return res.status(201).json(content);
         } catch (err) {

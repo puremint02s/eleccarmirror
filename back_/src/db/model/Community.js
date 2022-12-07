@@ -1,4 +1,5 @@
 import { CommunityModel } from "../schemas/community.js";
+import { UserModel } from "../schemas/user.js";
 
 class Community {
     static async create(data) {
@@ -42,8 +43,16 @@ class Community {
     static async find(user_id) {
         try {
             const findContent = await CommunityModel.find({ user_id });
-
             return findContent;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    static async findEach(_id) {
+        try {
+            const findEachContent = await CommunityModel.find({ _id });
+            return findEachContent;
         } catch (err) {
             console.log(err);
         }

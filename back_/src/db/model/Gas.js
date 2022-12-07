@@ -11,10 +11,19 @@ class Gas {
         }
     }
 
-    static async findAll(user_id) {
+    static async find(user_id) {
         try {
-            const getContents = await GasModel.find({ user_id });
-            return getContents;
+            const getUserContents = await GasModel.find({ user_id });
+            return getUserContents;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    static async findEach(obj_id) {
+        try {
+            const getEachContent = await GasModel.find({ _id: obj_id });
+            return getEachContent;
         } catch (err) {
             console.log(err);
         }

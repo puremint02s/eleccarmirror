@@ -14,19 +14,12 @@ userRouter.post("/user/register", async function (req, res, next) {
                 "headers의 Content-Type을 application/json으로 설정해주세요"
             );
         }
-        const {
-            email,
-            nickname,
-            password,
-            age,
-            address,
-            car_owned,
-            elec_car_owned,
-        } = req.body;
+        const { email, id, password, age, address, car_owned, elec_car_owned } =
+            req.body;
 
         const newUser = await userAuthService.addUser({
             email,
-            nickname,
+            id,
             password,
             age,
             address,
@@ -53,27 +46,50 @@ userRouter.post("/user/login", async function (req, res, next) {
 });
 
 //로그인 유저정보 GET
-// userRouter.get(
-//     "/user/current",
-//     login_required,
-//     async function (req, res, next) {
-//         try {
-//             const user_id = req.currentUserId;
+userRouter.get(
+    "/user/current",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const user_id = req.currentUserId;
 
-//             console.log("currentUserId", user_id);
+            console.log("currentUserId", user_id);
 
-//             const currentUserInfo = await userAuthService.getUserInfo(user_id);
+            const currentUserInfo = await userAuthService.getUserInfo(user_id);
 
-//             res.status(200).send(currentUserInfo);
-//         } catch (err) {
-//             next(err);
-//         }
-//     }
-// );
+            res.status(200).send(currentUserInfo);
+        } catch (err) {
+            next(err);
+        }
+    }
+);
 
 //유저정보 수정
+userRouter.put("/user", login_required, async function (req, res, next) {
+    try {
+        const user_id = req.currentUserId;
+        const { email, id, password, age, address, car_owned, elec_car_owned } =
+            req.body;
+        const newInput = {
+            user_id,
+            email,
+            id,
+            password,
+            age,
+            address,
+            car_owned,
+            elec_car_owned,
+        };
 
-//유저정보 모두 보기
+        const updateUserInfo = await userAuthService.updateUser(newInput);
+
+        return res.status(201).json(updateUserInfo);
+    } catch (err) {
+        next(err);
+    }
+});
+
+//유저정보 보기
 userRouter.get("/user/:id", login_required, async function (req, res, next) {
     try {
         const user_id = req.params.id;
@@ -85,23 +101,5 @@ userRouter.get("/user/:id", login_required, async function (req, res, next) {
         next(err);
     }
 });
-
-//유저의 커뮤니티 리스트 불러오기
-// userRouter.get(
-//     "/user/:user_id/community",
-//     login_required,
-//     async function (req, res, next) {
-//         try {
-//             const { user_id } = req.params;
-
-//             const getUsersCommunities =
-//                 await userAuthService.getUsersCommunities(user_id);
-
-//             return res.status(201).json(getUsersCommunities);
-//         } catch (err) {
-//             next(err);
-//         }
-//     }
-// );
 
 export { userRouter };

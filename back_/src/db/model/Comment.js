@@ -11,11 +11,35 @@ class Comment {
         }
     }
 
-    static async find(id) {
+    static async findEach(id) {
         try {
-            const getComment = await CommentModel.findOne({ _id: id });
+            const getEachComment = await CommentModel.findOne({ _id: id });
 
-            return getComment;
+            return getEachComment;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    static async findCommunityOne(id) {
+        try {
+            const getCommunityComment = await CommentModel.find({
+                community_id: id,
+            });
+
+            return getCommunityComment;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    static async findUserOne(id) {
+        try {
+            const findUserOne = await CommentModel.find({
+                user_id: id,
+            });
+
+            return findUserOne;
         } catch (err) {
             console.log(err);
         }
