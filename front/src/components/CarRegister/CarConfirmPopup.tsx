@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as C from "../../style/CarConfirmStyle";
 import * as B from "components/common/Button";
 import CarImageForm from "components/CarRegister/CarImageForm";
+import Loading from "components/Loading/Loading";
 
 interface propsTypes {
   setConfirmPopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,7 +10,16 @@ interface propsTypes {
 }
 
 function CarRegisterPage({ setConfirmPopUpOpen, fileImage }: propsTypes) {
-  return (
+  const [ready, setReady] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setReady(false);
+    }, 1000);
+  }, []);
+  return ready ? (
+    <Loading />
+  ) : (
     <>
       <C.popDim
         onClick={() => {
