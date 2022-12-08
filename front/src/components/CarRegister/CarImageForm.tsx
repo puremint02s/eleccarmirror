@@ -4,8 +4,14 @@ import * as B from "components/common/Button";
 import axios from "axios";
 import { useQuery } from "react-query";
 import DownSrc from "assets/img/download.png";
+import CarConfirmPopup from "components/CarRegister/CarConfirmPopup";
 
 const CarImageForm = () => {
+  const [confirmPopUpOpen, setConfirmPopUpOpen] = useState(false);
+  const popUpOpen = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setConfirmPopUpOpen(true);
+  };
   const BASE_URL = "http://localhost:4003";
   const imageInput = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState<Blob>();
@@ -38,24 +44,32 @@ const CarImageForm = () => {
     e.preventDefault();
     const formData = new FormData();
     content && formData.append("image", content);
-    axios
-      .post(`${BASE_URL}/images`, formData)
-      .then(res => {
-        const { filename } = res.data;
-        console.log(filename);
-        setUploadedImg({
-          filename,
-          filePath: `${BASE_URL}/uploads/${filename}`,
+    fileImage &&
+      axios
+        .post(`${BASE_URL}/images`, formData)
+        .then(res => {
+          const { filename } = res.data;
+          console.log(filename);
+          setUploadedImg({
+            filename,
+            filePath: `${BASE_URL}/uploads/${filename}`,
+          });
+          alert("The file is successfully uploaded");
+        })
+        .catch(err => {
+          console.error(err);
         });
-        alert("The file is successfully uploaded");
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    fileImage && setConfirmPopUpOpen(true);
   };
 
   return (
     <>
+      {confirmPopUpOpen && (
+        <CarConfirmPopup
+          setConfirmPopUpOpen={setConfirmPopUpOpen}
+          fileImage={fileImage}
+        />
+      )}
       {fileImage ? (
         <C.imageBox back={fileImage} active={true} />
       ) : (
