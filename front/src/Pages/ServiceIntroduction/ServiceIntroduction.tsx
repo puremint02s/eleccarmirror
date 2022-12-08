@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Dots from "./Dots";
 import ServiceIntro1 from "./ServiceIntro1";
 import ServiceIntro2 from "./ServiceIntro2";
@@ -10,7 +10,7 @@ function ServiceIntroduction() {
   const [scrollIndex, setScrollIndex] = useState(1);
 
   useEffect(() => {
-    const wheelHandler = (e: any) => {
+    const wheelHandler = (e: React.WheelEvent) => {
       e.preventDefault();
       const { deltaY } = e;
       const { scrollTop } = outerDivRef.current;

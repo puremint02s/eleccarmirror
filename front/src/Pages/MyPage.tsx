@@ -19,7 +19,9 @@ const dummyFillUpData = {
 };
 
 function MyPage() {
-  const handleRefuelRecordDelete = async (e: any) => {
+  const handleRefuelRecordDelete = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -28,6 +30,7 @@ function MyPage() {
         title: "주유내역을 삭제하시겠습니까?",
         text: "한 번 삭제된 내역은 복구할 수 없습니다.",
         icon: "warning",
+        buttons: ["취소", "삭제"],
         dangerMode: true,
       }).then(async willDelete => {
         if (willDelete) {
