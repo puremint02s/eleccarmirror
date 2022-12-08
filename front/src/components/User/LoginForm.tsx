@@ -16,7 +16,7 @@ import {
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 import LogoImg from "assets/img/MyElecCar logo.png";
 interface CommonType {
-  email: string;
+  id: string;
   password: string;
 }
 
@@ -37,20 +37,20 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
       <LoginFormWrapper onSubmit={onLoginSubmitEvent}>
         <LoginInputTitle>아이디</LoginInputTitle>
         <LoginInput
-          {...register("email", {
+          {...register("id", {
             required: true,
-            pattern: /^\S+@\S+$/i,
+            pattern: /[A-Za-z0-9]{4,10}/,
           })}
           placeholder="아이디를 입력해주세요."
         />
-        {errors.email && <p>아이디를 다시 확인해주세요.</p>}
+        {errors.id && <p>아이디를 다시 확인해주세요.</p>}
         <LoginInputTitle>비밀번호</LoginInputTitle>
         <LoginInput
           {...register("password", {
             required: true,
-            minLength: 7,
-            maxLength: 20,
-            pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+            // minLength: 7,
+            // maxLength: 20,
+            // pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
           })}
           placeholder="비밀번호를 입력해주세요."
         />
