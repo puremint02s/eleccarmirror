@@ -53,6 +53,13 @@ export const RememberMeTitle = styled.p`
   float: left;
 `;
 
+export const InputErrorMessage = styled.p`
+  font-size: 13px;
+  color: red;
+  padding-top: 10px;
+  padding-left: 5px;
+`;
+
 export const FindEmailPwdButton = styled.p`
   color: #898989;
   font-size: 13px;
