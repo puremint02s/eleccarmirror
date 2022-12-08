@@ -22,7 +22,7 @@ class Gas {
 
     static async findEach(obj_id) {
         try {
-            const getEachContent = await GasModel.find({ _id: obj_id });
+            const getEachContent = await GasModel.findOne({ _id: obj_id });
             return getEachContent;
         } catch (err) {
             console.log(err);

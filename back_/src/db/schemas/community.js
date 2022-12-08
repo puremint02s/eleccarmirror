@@ -18,10 +18,10 @@ const CommunitySchema = new Schema(
             type: String,
             trim: true,
         },
-        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comments" }],
     },
     {
         timestamps: true,
+        versionKey: false,
     }
 );
 

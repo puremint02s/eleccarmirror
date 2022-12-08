@@ -51,7 +51,7 @@ class Community {
 
     static async findEach(_id) {
         try {
-            const findEachContent = await CommunityModel.find({ _id });
+            const findEachContent = await CommunityModel.findOne({ _id });
             return findEachContent;
         } catch (err) {
             console.log(err);

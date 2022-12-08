@@ -30,7 +30,7 @@ const TypeSchema = new Schema(
         },
     },
     {
-        timestamps: true,
+        versionKey: false,
     }
 );
 

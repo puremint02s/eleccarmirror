@@ -24,7 +24,7 @@ const CarSchema = new Schema(
         },
     },
     {
-        timestamps: true,
+        versionKey: false,
     }
 );
 

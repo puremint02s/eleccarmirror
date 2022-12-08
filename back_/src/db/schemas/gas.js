@@ -26,6 +26,7 @@ const GasSchema = new Schema(
     },
     {
         timestamps: true,
+        versionKey: false,
     }
 );
 
