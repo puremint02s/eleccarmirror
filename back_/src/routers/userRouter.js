@@ -36,9 +36,9 @@ userRouter.post("/user/register", async function (req, res, next) {
 //로그인
 userRouter.post("/user/login", async function (req, res, next) {
     try {
-        const { email, password } = req.body;
+        const { id, password } = req.body;
 
-        const user = await userAuthService.getUser({ email, password });
+        const user = await userAuthService.getUser({ id, password });
         res.status(200).send(user);
     } catch (err) {
         next(err);
