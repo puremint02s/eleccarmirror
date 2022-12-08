@@ -1,4 +1,3 @@
-import React from "react";
 import {
   LoginFormBox,
   LogoWrapper,
@@ -6,7 +5,7 @@ import {
   LoginInputTitle,
   LoginInput,
   FootBox,
-  RememberMeTitle,
+  // RememberMeTitle,
   FindEmailPwdButton,
   ButtonBox,
   InputErrorMessage,
@@ -54,6 +53,7 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
             // minLength: 7,
             // maxLength: 20,
             // pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+            // 테스트용 계정 비밀번호가 1111이라 임시로 조건 해제
           })}
           placeholder="비밀번호를 입력해주세요."
         />
@@ -61,8 +61,9 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
           <InputErrorMessage>비밀번호를 다시 확인해주세요.</InputErrorMessage>
         )}
         <FootBox>
-          <input type="checkbox" />
-          <RememberMeTitle>remember me</RememberMeTitle>
+          {/* <input type="checkbox" />
+          <RememberMeTitle>remember me</RememberMeTitle> */}
+          {/* 구현할지 안 할지 모르는 기능이라서 */}
           <a href="/find">
             <FindEmailPwdButton>아이디/비밀번호 찾기</FindEmailPwdButton>
           </a>

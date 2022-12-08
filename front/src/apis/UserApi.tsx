@@ -7,3 +7,13 @@ export const LoginRequest = async (id: string, password: string) => {
   });
   return res.data;
 };
+
+export const CurrentUserGet = async () => {
+  try {
+    const res = await axiosInstance.get("/user/current");
+    const currentUser = res.data;
+    console.log(currentUser);
+  } catch (err) {
+    console.log(err);
+  }
+};
