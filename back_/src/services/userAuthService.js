@@ -34,12 +34,12 @@ class userAuthService {
     }
 
     //로그인
-    static async getUser({ email, password }) {
-        const user = await User.findByEmail({ email });
+    static async getUser({ id, password }) {
+        const user = await User.findByEmail({ id });
 
         if (!user) {
             const errorMessage =
-                "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+                "해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
             return { errorMessage };
         }
 
@@ -62,12 +62,12 @@ class userAuthService {
 
         // 반환할 loginuser 객체를 위한 변수 설정
         const user_id = user.user_id;
-        const id = user.id;
+        // const id = user.id;
 
         const loginUser = {
             token,
             user_id,
-            id,
+            id: user.id,
             errorMessage: null,
         };
 
