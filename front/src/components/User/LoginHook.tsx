@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { LoginRequest } from "apis/LoginApi";
+import { LoginRequest } from "apis/UserApi";
 import SessionStorage from "apis/SessionStorage";
 
 interface CommonUserData {

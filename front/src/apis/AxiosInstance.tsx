@@ -1,7 +1,5 @@
 import axios from "axios";
 
-axios.defaults.timeout = 3000;
-axios.defaults.headers["Content-Type"] = "application/json";
 const backendPortNumber = "4005";
 const BASE_URL =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
