@@ -11,6 +11,14 @@ class SessionStorage {
   static setIdItem(Id: string) {
     sessionStorage.setItem("Id", Id);
   }
+
+  static getTokenItem() {
+    return sessionStorage.getItem(USER_TOKEN);
+  }
+
+  static clearAllItem() {
+    sessionStorage.clear();
+  }
 }
 
 Object.freeze(Storage);

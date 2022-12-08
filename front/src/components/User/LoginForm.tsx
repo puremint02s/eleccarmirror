@@ -9,6 +9,7 @@ import {
   RememberMeTitle,
   FindEmailPwdButton,
   ButtonBox,
+  InputErrorMessage,
   LoginButton,
   KakaoLoginButton,
   GoogleLoginButton,
@@ -43,7 +44,9 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
           })}
           placeholder="아이디를 입력해주세요."
         />
-        {errors.id && <p>아이디를 다시 확인해주세요.</p>}
+        {errors.id && (
+          <InputErrorMessage>아이디를 다시 확인해주세요.</InputErrorMessage>
+        )}
         <LoginInputTitle>비밀번호</LoginInputTitle>
         <LoginInput
           {...register("password", {
@@ -54,7 +57,9 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
           })}
           placeholder="비밀번호를 입력해주세요."
         />
-        {errors.password && <p>비밀번호를 다시 확인해주세요.</p>}
+        {errors.password && (
+          <InputErrorMessage>비밀번호를 다시 확인해주세요.</InputErrorMessage>
+        )}
         <FootBox>
           <input type="checkbox" />
           <RememberMeTitle>remember me</RememberMeTitle>
