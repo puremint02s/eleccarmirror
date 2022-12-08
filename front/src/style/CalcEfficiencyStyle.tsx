@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const CalcEfficiencyWrapper = styled.div`
+  text-align: center;
+`;
+
 export const CalcTitleWrapper = styled.div`
   text-align: center;
   padding-top: 7rem;
@@ -16,6 +20,11 @@ export const CalcSubTitleWrapper = styled.div`
   color: #898989;
 `;
 
+export const CalcFormDiv = styled.div`
+  display: inline-block;
+  margin: 15px;
+`;
+
 export const CalcFormWrapper = styled.form`
   margin: 0 auto;
   width: 350px;
@@ -26,7 +35,7 @@ export const CalcFormWrapper = styled.form`
 `;
 
 export const CalcInputTitle = styled.div`
-  float: left;
+  text-align: left;
   color: #898989;
   font-size: 14px;
   padding-top: 2rem;
@@ -82,5 +91,6 @@ export const CalcButton = styled.div`
 
 export const CalcButtonWrapper = styled.div`
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 5rem;
 `;

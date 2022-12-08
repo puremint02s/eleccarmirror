@@ -1,6 +1,4 @@
 import { useState } from "react";
-import "../style/app.css";
-// import { useForm } from "react-hook-form";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import SignUpCodePopUp from "components/SignUp/SignUpCodePopUp";
 

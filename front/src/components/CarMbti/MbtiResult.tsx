@@ -6,7 +6,9 @@ import SocialShare from "hooks/SocialShareHook";
 import {
   TitleWrapper,
   MbtiTitleWrapper,
+  MbtiDivideLine,
   ResultImageWrapper,
+  ResultImage,
   TestRetryButton,
   NextTestButton,
   ResultButtonWrapper,
@@ -40,9 +42,12 @@ function Result() {
       <ResultMbtiWrapper>
         <TitleWrapper>당신의 유형은...</TitleWrapper>
         <ResultImageWrapper>
-          <img src={BlueCarImg} style={{ width: 200 }} />
+          <ResultImage src={BlueCarImg} alt="유형 대표 차량" />
         </ResultImageWrapper>
-        <MbtiTitleWrapper>{RESULT_CAR[carName].name}</MbtiTitleWrapper>
+        <MbtiTitleWrapper>
+          {RESULT_CAR[carName].name}
+          <MbtiDivideLine>——</MbtiDivideLine>
+        </MbtiTitleWrapper>
         <div>
           <ResultListWrapper>
             {RESULT_CAR[carName].desc
