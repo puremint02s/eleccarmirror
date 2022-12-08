@@ -12,7 +12,7 @@ function CarRegisterPage() {
       </C.subTitleWrapper>
       <C.textWrapper>자동차 전체사진을 올려주세요!</C.textWrapper>
       <C.textBox />
-      <C.imageBox />
+
       <CarImageForm />
     </div>
   );

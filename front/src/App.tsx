@@ -21,7 +21,6 @@ const CarRegister = lazy(() => import("./Pages/CarRegister/CarRegisterPage"));
 const SignUp = lazy(() => import("./Pages/SignUpPage"));
 const Community = lazy(() => import("./Pages/Community/Community"));
 const CommunityUpload = lazy(() => import("./Pages/Community/CommunityUpload"));
-const CarConfirmPage = lazy(() => import("./Pages/CarRegister/CarConfirmPage"));
 const MyPage = lazy(() => import("./Pages/MyPage"));
 const ModifyInfo = lazy(() => import("./components/MyPage/ModifyInfo"));
 const ModifyRefuelRecord = lazy(
@@ -55,11 +54,14 @@ const ROUTE = {
   COMMUNITYUPLOAD: "/community/upload",
   MYPAGE: "/mypage",
   MODIFYINFO: "/mypage/modifyinfo",
+<<<<<<< HEAD
   MODIFYREFUELRECORD: "/mypage/modifyrefuelrecord",
   ADDREFUELRECORD: "/mypage/addrefuelrecord",
   CARCONFIRM: "/carconfirm",
   SERVICEINTRO: "/serviceintro",
   ERROR: "/404",
+=======
+>>>>>>> 7cbd6a9aeef170a6a4781e008f7061806c610490
 };
 
 declare global {
@@ -96,6 +98,7 @@ function App() {
           <Route path={ROUTE.COMMUNITYUPLOAD} element={<CommunityUpload />} />
           <Route path={ROUTE.MYPAGE} element={<MyPage />} />
           <Route path={ROUTE.MODIFYINFO} element={<ModifyInfo />} />
+<<<<<<< HEAD
           <Route
             path={ROUTE.MODIFYREFUELRECORD}
             element={<ModifyRefuelRecord />}
@@ -103,6 +106,8 @@ function App() {
           <Route path={ROUTE.ADDREFUELRECORD} element={<AddRefuelRecord />} />
           <Route path={ROUTE.CARCONFIRM} element={<CarConfirmPage />} />
           <Route path={ROUTE.ERROR} element={<Error />} />
+=======
+>>>>>>> 7cbd6a9aeef170a6a4781e008f7061806c610490
         </Routes>
       </BrowserRouter>
     </Suspense>
