@@ -17,15 +17,20 @@ import {
   CalcButtonWrapper,
 } from "style/CalcEfficiencyStyle";
 
-// interface GasOption {
-//   value: string;
-//   name: string;
-// }
+interface GasOption {
+  value: string;
+  name: string;
+}
+
+interface OptionsProps {
+  options: GasOption;
+}
 
 function CalcEfficiencyPage() {
   const [startDate, setStartDate] = useState(new Date());
   const navigate = useNavigate();
-  const OPTIONS = [
+
+  const OPTIONS: Array<GasOption> = [
     { value: "none", name: "선택해주세요" },
     { value: "gasoline", name: "휘발유" },
     { value: "diesel", name: "경유" },
@@ -33,7 +38,7 @@ function CalcEfficiencyPage() {
   const SelectBox = (props: any) => {
     return (
       <Select>
-        {props.options.map((option: any) => (
+        {props.options.map((option: GasOption) => (
           <option key={option.value} value={option.value}>
             {option.name}
           </option>
