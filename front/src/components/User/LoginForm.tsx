@@ -35,15 +35,15 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
         </a>
       </LogoWrapper>
       <LoginFormWrapper onSubmit={onLoginSubmitEvent}>
-        <LoginInputTitle>이메일</LoginInputTitle>
+        <LoginInputTitle>아이디</LoginInputTitle>
         <LoginInput
           {...register("email", {
             required: true,
             pattern: /^\S+@\S+$/i,
           })}
-          placeholder="이메일을 입력해주세요."
+          placeholder="아이디를 입력해주세요."
         />
-        {errors.email && <p>이메일을 다시 확인해주세요.</p>}
+        {errors.email && <p>아이디를 다시 확인해주세요.</p>}
         <LoginInputTitle>비밀번호</LoginInputTitle>
         <LoginInput
           {...register("password", {

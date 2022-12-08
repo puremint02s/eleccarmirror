@@ -5,7 +5,7 @@ import GlobalStyle from "style/global-style";
 const Login = lazy(() => import("./Pages/LoginPage"));
 const Start = lazy(() => import("Pages/StartPage"));
 const Find = lazy(() => import("./Pages/FindUserInfo/FindPage"));
-const FindEmail = lazy(() => import("./Pages/FindUserInfo/FindEmailPage"));
+const FindId = lazy(() => import("./Pages/FindUserInfo/FindIdPage"));
 const FindPwd = lazy(() => import("./Pages/FindUserInfo/FindPwdPage"));
 const CarMbti = lazy(() => import("./Pages/CarRecommendSteps/CarMbtiPage"));
 const TestContents = lazy(() => import("./components/CarMbti/TestContents"));
@@ -24,14 +24,24 @@ const CommunityUpload = lazy(() => import("./Pages/Community/CommunityUpload"));
 const CarConfirmPage = lazy(() => import("./Pages/CarRegister/CarConfirmPage"));
 const MyPage = lazy(() => import("./Pages/MyPage"));
 const ModifyInfo = lazy(() => import("./components/MyPage/ModifyInfo"));
+const ModifyRefuelRecord = lazy(
+  () => import("./components/MyPage/ModifyRefuelRecord"),
+);
+const AddRefuelRecord = lazy(
+  () => import("./components/MyPage/AddRefuelRecord"),
+);
 const MainPage = lazy(() => import("./Pages/MainPage"));
+const ServiceIntro = lazy(
+  () => import("./Pages/ServiceIntroduction/ServiceIntroduction"),
+);
+const Error = lazy(() => import("./Pages/ErrorPage"));
 
 const ROUTE = {
   START: "/",
   MAIN: "/main",
   LOGIN: "/login",
   FIND: "/find",
-  FINDEMAIL: "/find/email",
+  FINDID: "/find/id",
   FINDPWD: "/find/pwd",
   SIGNUP: "/signup",
   COMMUNITY: "/community",
@@ -39,14 +49,24 @@ const ROUTE = {
   CARMBTI: "/carmbti",
   CARMBTITEST: "/test",
   LOADING: "/loading",
-  CARMBTIRESULT: "/mbtiresult/:car",
+  CARMBTIRESULT: "/mbtiresult",
   CALCEFFICENCY: "/calcefficency",
   FINALRESULT: "/finalresult",
   COMMUNITYUPLOAD: "/community/upload",
   MYPAGE: "/mypage",
   MODIFYINFO: "/mypage/modifyinfo",
+  MODIFYREFUELRECORD: "/mypage/modifyrefuelrecord",
+  ADDREFUELRECORD: "/mypage/addrefuelrecord",
   CARCONFIRM: "/carconfirm",
+  SERVICEINTRO: "/serviceintro",
+  ERROR: "/404",
 };
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 function App() {
   return (
@@ -56,9 +76,10 @@ function App() {
         <Routes>
           <Route path={ROUTE.START} element={<Start />} />
           <Route path={ROUTE.MAIN} element={<MainPage />} />
+          <Route path={ROUTE.SERVICEINTRO} element={<ServiceIntro />} />
           <Route path={ROUTE.LOGIN} element={<Login />} />
           <Route path={ROUTE.FIND} element={<Find />} />
-          <Route path={ROUTE.FINDEMAIL} element={<FindEmail />} />
+          <Route path={ROUTE.FINDID} element={<FindId />} />
           <Route path={ROUTE.FINDPWD} element={<FindPwd />} />
           <Route path={ROUTE.SIGNUP} element={<SignUp />} />
           <Route path={ROUTE.COMMUNITY} element={<Community />} />
@@ -66,13 +87,22 @@ function App() {
           <Route path={ROUTE.CARMBTI} element={<CarMbti />} />
           <Route path={ROUTE.CARMBTITEST} element={<TestContents />} />
           <Route path={ROUTE.LOADING} element={<Loading />} />
-          <Route path={ROUTE.CARMBTIRESULT} element={<MbtiResult />} />
+          <Route
+            path={`${ROUTE.CARMBTIRESULT}/:car`}
+            element={<MbtiResult />}
+          />
           <Route path={ROUTE.CALCEFFICENCY} element={<CalcEfficency />} />
           <Route path={ROUTE.FINALRESULT} element={<FinalResultPage />} />
           <Route path={ROUTE.COMMUNITYUPLOAD} element={<CommunityUpload />} />
           <Route path={ROUTE.MYPAGE} element={<MyPage />} />
           <Route path={ROUTE.MODIFYINFO} element={<ModifyInfo />} />
+          <Route
+            path={ROUTE.MODIFYREFUELRECORD}
+            element={<ModifyRefuelRecord />}
+          />
+          <Route path={ROUTE.ADDREFUELRECORD} element={<AddRefuelRecord />} />
           <Route path={ROUTE.CARCONFIRM} element={<CarConfirmPage />} />
+          <Route path={ROUTE.ERROR} element={<Error />} />
         </Routes>
       </BrowserRouter>
     </Suspense>

@@ -28,7 +28,7 @@ export const LoginInputTitle = styled.div`
 
 export const LoginInput = styled.input`
   width: 100%;
-  color: #ababab;
+  color: black;
   background-color: #f6f6f6;
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -55,7 +55,7 @@ export const RememberMeTitle = styled.p`
 
 export const FindEmailPwdButton = styled.p`
   color: #898989;
-  font-size: 14px;
+  font-size: 13px;
   float: right;
 `;
 

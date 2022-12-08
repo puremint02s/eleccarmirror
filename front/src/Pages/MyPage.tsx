@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import Header from "components/common/Header";
 import Sidebar from "components/MyPage/Sidebar";
 import Pagination from "components/common/Pagination";
-import styled from "styled-components";
+import swal from "sweetalert";
 
 const dummyMyCarData = {
   model: "아반떼",
@@ -17,6 +19,31 @@ const dummyFillUpData = {
 };
 
 function MyPage() {
+  const handleRefuelRecordDelete = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      swal({
+        title: "주유내역을 삭제하시겠습니까?",
+        text: "한 번 삭제된 내역은 복구할 수 없습니다.",
+        icon: "warning",
+        buttons: ["취소", "삭제"],
+        dangerMode: true,
+      }).then(async willDelete => {
+        if (willDelete) {
+          swal("삭제 완료", "주유내역이 정상적으로 삭제되었습니다.", "success");
+        } else {
+          swal("삭제 취소", "사용자가 삭제를 취소하였습니다.", "info");
+        }
+      });
+    } catch (err) {
+      alert("오류가 발생했습니다.");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -27,7 +54,9 @@ function MyPage() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               나의 차량 정보
-              <ModifyCarInfoButton>수정</ModifyCarInfoButton>
+              <Link to="/mypage/modifyinfo">
+                <ModifyCarInfoButton>수정</ModifyCarInfoButton>
+              </Link>
             </MyPageContentTitle>
             <MyPageContent>
               <ul>
@@ -49,7 +78,9 @@ function MyPage() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               이전 주유 기록 (최근 3개월)
-              <AddRefuelButton>+ 주유내역</AddRefuelButton>
+              <Link to="/mypage/addrefuelrecord">
+                <AddRefuelButton>+ 주유내역</AddRefuelButton>
+              </Link>
             </MyPageContentTitle>
             <RefuelWrap>
               <table>
@@ -69,28 +100,10 @@ function MyPage() {
                     <td>{dummyFillUpData.volume}L</td>
                     <td>{dummyFillUpData.distance}km</td>
                     <td>
-                      <button>수정</button>
-                      <button>삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{dummyFillUpData.date}</td>
-                    <td>{dummyFillUpData.gas}</td>
-                    <td>{dummyFillUpData.volume}L</td>
-                    <td>{dummyFillUpData.distance}km</td>
-                    <td>
-                      <button>수정</button>
-                      <button>삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>{dummyFillUpData.date}</td>
-                    <td>{dummyFillUpData.gas}</td>
-                    <td>{dummyFillUpData.volume}L</td>
-                    <td>{dummyFillUpData.distance}km</td>
-                    <td>
-                      <button>수정</button>
-                      <button>삭제</button>
+                      <Link to="/mypage/modifyrefuelrecord">
+                        <button>수정</button>
+                      </Link>
+                      <button onClick={handleRefuelRecordDelete}>삭제</button>
                     </td>
                   </tr>
                 </tbody>
@@ -116,6 +129,7 @@ const TitleWrapper = styled.div`
 
 const MyPageWrapper = styled.div`
   display: flex;
+  padding-bottom: 5rem;
 `;
 
 const MyPageContentWrapper = styled.div`
@@ -129,6 +143,7 @@ const MyPageContentWrapper = styled.div`
 const MyPageContentTitle = styled.p`
   text-align: left;
   padding-bottom: 15px;
+  font-size: 20px;
   font-weight: 500;
 `;
 
@@ -164,14 +179,14 @@ const MyPageContent = styled.div`
       span {
         display: block;
         text-align: center;
-        font-size: 13px;
+        font-size: 14px;
         color: #ababab;
       }
 
       p {
         text-align: center;
-        font-size: 14px;
-        padding-top: 15px;
+        font-size: 16px;
+        padding-top: 10px;
         font-weight: 500;
       }
     }
@@ -216,6 +231,12 @@ const RefuelWrap = styled.div`
           font-size: 14px;
           padding-top: 14px;
           color: #696969;
+          button {
+            margin-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            cursor: pointer;
+          }
         }
       }
     }
