@@ -6,6 +6,7 @@ export const titleWrapper = styled.div`
   padding-top: 7rem;
   padding-bottom: 1px;
   font-size: 25px;
+  font-weight: 400;
 `;
 
 export const subTitleWrapper = styled.div`
@@ -14,6 +15,15 @@ export const subTitleWrapper = styled.div`
   padding-bottom: 1px;
   font-size: 15px;
   color: #898989;
+  font-weight: 400;
+`;
+export const subContent = styled.span`
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1px;
+  font-size: 15px;
+  color: #333;
+  font-weight: 400;
 `;
 
 export const textWrapper = styled.div`
@@ -61,4 +71,39 @@ export const centerWrapperTop = styled.div`
 export const centerWrapper = styled.div`
   text-align: center;
   margin-top: 1rem;
+`;
+
+export const buttonWrapper = styled.div`
+  text-align: center;
+  margin-top: 87px;
+  margin-bottom: 84px;
+`;
+
+export const imgWrapper = styled.div`
+  margin: 0 auto;
+  width: 50%;
+  margin-top: 60px;
+  margin-bottom: 35px;
+`;
+
+export const popDim = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+`;
+
+export const popWrapper = styled.div`
+  width: 600px;
+  transform: translate(-50%, -50%);
+  // -webkit-transform: translate(-50%, -50%);
+  // -moz-transform: translate(-50%, -50%);
+  // -ms-transform: translate(-50%, -50%);
+  // -o-transform: translate(-50%, -50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: white;
 `;
