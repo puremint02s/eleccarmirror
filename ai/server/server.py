@@ -28,18 +28,18 @@ dicModelIndex = {'kia mohave': 0, 'hyundai kona': 1, 'kia sorento': 2, 'genesis 
                  'chevrolet spark': 15, 'hyundai santafe': 16, 'hyundai venue': 17, 'kia carnival': 18, 'kia morning': 19, 'renault xm3': 20, 'hyundai sonata': 21, 'hyundai grandeur': 22, 'genesis g80': 23, 'renault sm6': 24, 'kia k9': 25, 'hyundai tucson': 26, 'hyundai casper': 27, 'kia k8': 28, 'ssangyong tivoli': 29, 'kia ray': 30}
 dicIndexModel = {v: k for k, v in dicModelIndex.items()}
 
+
 @app.route('/')
 def index():
-    model = keras.models.load_model('../model/keras.h5')
-    model.summary()
+    print('ai server open!')
     return 'Welcome!!'  # 리턴값은 기본적으로 문자열
 
 
 @app.route('/predict', methods=["POST"])
 def predict():
     filename = request.json['filename']
-
-    model = keras.models.load_model('../model/keras.h5')
+    print('모델 로드 준비...')
+    model = keras.models.load_model('../trainedModel/keras.h5')
     model.summary()
     print('모델 로드 완료')
 
@@ -58,12 +58,8 @@ def predict():
     pred = model.predict(image)
     print(pred.shape)
     list = pred[0].tolist()
-    index = list.index(max(list))
-    print(max(list))
-    print(index)
-    print(dicIndexModel[index])
-
-    return '응답데이터입니다.'
+    print(list)
+    return jsonify(list)
 
 
 if __name__ == "__main__":
