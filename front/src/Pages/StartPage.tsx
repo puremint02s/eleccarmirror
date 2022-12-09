@@ -1,5 +1,6 @@
-import "../style/app.css";
 import { Link } from "react-router-dom";
+import LogoImg from "assets/img/MyElecCar logo.png";
+import StartBG from "assets/img/StartPage bg.png";
 
 const StartPage = () => {
   return (
@@ -25,11 +26,7 @@ const StartPage = () => {
               justifyContent: "center",
             }}
           >
-            <img
-              style={{ width: 320 }}
-              src="img/MyElecCar logo.png"
-              alt="서비스 로고"
-            />
+            <img style={{ width: 320 }} src={LogoImg} alt="서비스 로고" />
             <span
               style={{
                 fontSize: "30px",
@@ -86,7 +83,7 @@ const StartPage = () => {
         <div style={{ width: "45vw", height: "100%" }}>
           <img
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            src="img/mainPage bg.png"
+            src={StartBG}
             alt="메인페이지 우측 배경"
           />
         </div>
