@@ -8,9 +8,9 @@ export const CarMbtiTypePost = async (type: string) => {
 };
 
 // 테스트 타입 반환
-export const CarMbtiTypeGet = async (user_id: string) => {
-  const res = await axiosInstance.get("/type", {
-    // user_id,
-  });
-  return res.data;
-};
+// export const CarMbtiTypeGet = async (user_id: string) => {
+//   const res = await axiosInstance.get("/type", {
+//     // user_id,
+//   });
+//   return res.data;
+// };

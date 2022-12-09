@@ -8,7 +8,7 @@ export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    Authorizaion: `Bearer ${sessionStorage.getItem("userToken")}`,
+    Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
   },
   timeout: 3000,
 });
@@ -17,7 +17,7 @@ export const axiosLoginInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    Authorizaion: `Bearer ${sessionStorage.getItem("user_id")}`,
+    Authorization: `Bearer ${sessionStorage.getItem("user_id")}`,
   },
   timeout: 3000,
 });

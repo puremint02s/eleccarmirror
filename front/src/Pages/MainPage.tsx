@@ -4,6 +4,7 @@ import HotPosts from "components/Main/HotPosts";
 import UserWelcome from "components/Main/UserWelcome";
 import step from "assets/img/step_1.png";
 import { useState } from "react";
+
 const MainPage = () => {
   //react query를 통해 유저 정보, 게시글 정보를 불러온다.
   const [userName, setUserName] = useState("최은오");

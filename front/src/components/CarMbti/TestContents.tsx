@@ -55,6 +55,7 @@ function TestContents() {
       },
       { c: 0, e: 0, f: 0, w: 0, b: 0, a: 0, h: 0, n: 0, result: "" },
     );
+
     setTimeout(() => {
       navigate(`/mbtiresult/${CAR[result]}`);
     }, Math.floor(Math.random() * 1000 + 2000));
