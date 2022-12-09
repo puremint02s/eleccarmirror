@@ -34,11 +34,17 @@ export const ModifyRefuelRecord = async (
   gas_amount: number,
   odometer: number,
 ) => {
-  const res = await axiosInstance.put(`/gas`);
+  const res = await axiosInstance.put("/gas", {
+    _id,
+    oiling_date,
+    gas_type,
+    gas_amount,
+    odometer,
+  });
   return res.data;
 };
 
-export const DeleteRefuelRecord = async (_id: string) => {
-  const res = await axiosInstance.delete("/gas");
-  return res.data;
-};
+// export const DeleteRefuelRecord = async (_id: string) => {
+//   const res = await axiosInstance.delete("/gas", { _id });
+//   return res.data;
+// };

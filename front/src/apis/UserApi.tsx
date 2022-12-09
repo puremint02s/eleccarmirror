@@ -17,3 +17,24 @@ export const CurrentUserGet = async () => {
     console.log(err);
   }
 };
+
+export const ModifyUserInfo = async (
+  email: string,
+  id: string,
+  password: string,
+  age: string,
+  address: string,
+  car_owned: boolean,
+  elec_car_owned: boolean,
+) => {
+  const res = await axiosInstance.put("/user", {
+    email,
+    id,
+    password,
+    age,
+    address,
+    car_owned,
+    elec_car_owned,
+  });
+  return res.data;
+};
