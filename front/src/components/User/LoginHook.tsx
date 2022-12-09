@@ -24,12 +24,12 @@ const LoginHook = () => {
   const handleLoginSubmit = useCallback(async (userData: CommonUserData) => {
     const { id, password } = userData;
     const res = await LoginRequest(id, password);
-    console.log(res);
+
     if (res) {
       Storage.setTokenItem(res.token);
       Storage.setUserIdItem(res.user_id);
       Storage.setIdItem(res.id);
-      // window.location.replace("/main");
+      window.location.replace("/main");
     }
   }, []);
 

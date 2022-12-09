@@ -13,6 +13,15 @@ export const axiosInstance = axios.create({
   timeout: 3000,
 });
 
+export const axiosLoginInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Authorizaion: `Bearer ${sessionStorage.getItem("user_id")}`,
+  },
+  timeout: 3000,
+});
+
 axiosInstance.interceptors.request.use(
   req => {
     return req;
