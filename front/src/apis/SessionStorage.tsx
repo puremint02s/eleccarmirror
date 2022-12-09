@@ -1,7 +1,7 @@
 const USER_TOKEN = "userToken";
 const USER_ID = "userId";
 
-class SessionStorage {
+class Storage {
   static setTokenItem(token: string) {
     sessionStorage.setItem(USER_TOKEN, token);
   }
@@ -22,4 +22,4 @@ class SessionStorage {
 }
 
 Object.freeze(Storage);
-export default SessionStorage;
+export default Storage;

@@ -67,6 +67,7 @@ function Header() {
   function clickLogout() {
     SessionStorage.clearAllItem();
   }
+  console.log(SessionStorage.getTokenItem());
 
   return (
     <>
