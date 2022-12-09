@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   LoginFormBox,
   LogoWrapper,
@@ -15,6 +16,8 @@ import {
 } from "../../style/LoginFormStyle";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 import LogoImg from "assets/img/MyElecCar logo.png";
+import { R } from "App";
+
 interface CommonType {
   id: string;
   password: string;
@@ -30,9 +33,9 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
   return (
     <LoginFormBox>
       <LogoWrapper>
-        <a href="/">
+        <Link to={R.START}>
           <img style={{ width: 200 }} src={LogoImg} alt="서비스 로고" />
-        </a>
+        </Link>
       </LogoWrapper>
       <LoginFormWrapper onSubmit={onLoginSubmitEvent}>
         <LoginInputTitle>아이디</LoginInputTitle>
