@@ -18,6 +18,8 @@ const CommunityUpload = () => {
   const [contentWarn, setContentWarn] = useState("");
 
   const baseUrl = "http://localhost:4005";
+  const BearerString =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc";
 
   const toPreviousPage = () => {
     navigate(`/community`);
@@ -73,7 +75,7 @@ const CommunityUpload = () => {
         method: "post",
         data: uploadData,
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc`,
+          Authorization: `Bearer ${BearerString}`,
         },
         url: `${baseUrl}/community`,
       }).then(res => {

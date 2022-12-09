@@ -111,27 +111,27 @@ function CommunityMyInfo() {
   };
 
   const baseUrl = "http://localhost:4005";
+  const BearerString =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc";
 
   useEffect(() => {
     axios({
       method: "get",
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc`,
+        Authorization: `Bearer ${BearerString}`,
       },
       url: `${baseUrl}/user/current`,
     }).then(res => {
-      console.log("??", res.data.user_id);
       setUser(res.data);
     });
 
     axios({
       method: "get",
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc`,
+        Authorization: `Bearer ${BearerString}`,
       },
       url: `${baseUrl}/community/${user?.user_id}/user`,
     }).then(res => {
-      console.log("c???", res.data.length);
       setUserCommunity(res.data.length);
     });
   }, [userCommunity]);
