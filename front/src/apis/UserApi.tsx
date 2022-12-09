@@ -1,7 +1,7 @@
-import { axiosInstance } from "./AxiosInstance";
+import { axiosInstance, axiosLoginInstance } from "./AxiosInstance";
 
 export const LoginRequest = async (id: string, password: string) => {
-  const res = await axiosInstance.post("/user/login", {
+  const res = await axiosLoginInstance.post("/user/login", {
     id,
     password,
   });

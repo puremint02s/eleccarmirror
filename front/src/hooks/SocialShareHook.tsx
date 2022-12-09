@@ -22,7 +22,7 @@ function SocialShare() {
       <FacebookShareButton url={currentUrl}>
         <FacebookIcon size={48} round={true} borderRadius={24} />
       </FacebookShareButton>
-      <ShareButton>K</ShareButton>
+      <KakaoShareButton />
       <TwitterShareButton url={currentUrl}>
         <TwitterIcon size={48} round={true} borderRadius={24} />
       </TwitterShareButton>
@@ -37,7 +37,6 @@ function SocialShare() {
       >
         <i className="ri-link" />
       </ShareButton>
-      {/* <KakaoShareButton /> */}
     </ShareButtonWrapper>
   );
 }
