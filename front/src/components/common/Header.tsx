@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import LogoImg from "assets/img/MyElecCar logo.png";
-import SessionStorage from "apis/SessionStorage";
+import Storage from "apis/SessionStorage";
 import { Link } from "react-router-dom";
 
 const HeaderTag = styled.header`
@@ -65,7 +65,7 @@ const LogoutWrapper = styled(Link)``;
 
 function Header() {
   function clickLogout() {
-    SessionStorage.clearAllItem();
+    Storage.clearAllItem();
   }
 
   return (
@@ -88,7 +88,7 @@ function Header() {
               >
                 <li>마이페이지</li>
               </a> */}
-              {SessionStorage.getTokenItem() ? (
+              {Storage.getTokenItem() ? (
                 <>
                   <Link to="/mypage">
                     <li>마이페이지</li>
