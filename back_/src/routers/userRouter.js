@@ -14,12 +14,21 @@ userRouter.post("/user/register", async function (req, res, next) {
                 "headers의 Content-Type을 application/json으로 설정해주세요"
             );
         }
-        const { email, id, password, age, address, car_owned, elec_car_owned } =
-            req.body;
+        const {
+            email,
+            id,
+            nickname,
+            password,
+            age,
+            address,
+            car_owned,
+            elec_car_owned,
+        } = req.body;
 
         const newUser = await userAuthService.addUser({
             email,
             id,
+            nickname,
             password,
             age,
             address,
@@ -36,9 +45,9 @@ userRouter.post("/user/register", async function (req, res, next) {
 //로그인
 userRouter.post("/user/login", async function (req, res, next) {
     try {
-        const { email, password } = req.body;
+        const { id, password } = req.body;
 
-        const user = await userAuthService.getUser({ email, password });
+        const user = await userAuthService.getUser({ id, password });
         res.status(200).send(user);
     } catch (err) {
         next(err);
@@ -68,12 +77,21 @@ userRouter.get(
 userRouter.put("/user", login_required, async function (req, res, next) {
     try {
         const user_id = req.currentUserId;
-        const { email, id, password, age, address, car_owned, elec_car_owned } =
-            req.body;
+        const {
+            email,
+            id,
+            nickname,
+            password,
+            age,
+            address,
+            car_owned,
+            elec_car_owned,
+        } = req.body;
         const newInput = {
             user_id,
             email,
             id,
+            nickname,
             password,
             age,
             address,
