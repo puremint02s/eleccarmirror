@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import axios from "axios";
 import Header from "components/common/Header";
 import Main from "components/common/Main";
 import { useNavigate } from "react-router-dom";
@@ -60,6 +61,23 @@ const CommunityUpload = () => {
       title,
       content,
     };
+
+    const baseUrl = "http://localhost:4005";
+    try {
+      axios({
+        method: "post",
+        data: uploadData,
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGRjY2I5YjQtZDk1OC00ZGNlLThiYzUtZDc2OGViZWNhOTU5IiwiaWF0IjoxNjcwNDc1MjU2fQ.DA0qvxxafWybGMBUSHONTq-dYgXyd9-IcoJnRzTg8zE`,
+        },
+        url: `${baseUrl}/community`,
+      }).then(res => {
+        console.log("res", res);
+      });
+    } catch (err) {
+      console.log("err=>", err);
+    }
+
     navigate(`/community`);
   };
   return (
