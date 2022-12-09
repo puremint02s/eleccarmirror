@@ -25,7 +25,7 @@ const LoginHook = () => {
     const { id, password } = userData;
     const res = await LoginRequest(id, password);
 
-    if (res) {
+    if (res.token) {
       Storage.setTokenItem(res.token);
       Storage.setUserIdItem(res.user_id);
       Storage.setIdItem(res.id);
