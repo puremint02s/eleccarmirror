@@ -15,6 +15,7 @@ type Community = {
   user_id?: string;
   _id?: string;
   updatedAt?: string;
+  nickname?: string;
 };
 
 function Community(props: any) {
@@ -81,27 +82,33 @@ function Community(props: any) {
                   </tr>
                 </thead>
                 <tbody>
-                  {contentsPerPage.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          <button
-                            type="button"
-                            name={item._id}
-                            onClick={e => {
-                              moveToEachContent(e);
-                            }}
-                          >
-                            {item.content}
-                          </button>
+                  {contentsPerPage.length === 0 ? (
+                    <tr>
+                      <td>글이 없습니다</td>
+                    </tr>
+                  ) : (
+                    contentsPerPage.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            <button
+                              type="button"
+                              name={item._id}
+                              onClick={e => {
+                                moveToEachContent(e);
+                              }}
+                            >
+                              {item.title}
+                            </button>
 
-                          {/* <span style={{ opacity: 0 }}>{item._id}</span> */}
-                        </td>
-                        <td>{item.title}</td>
-                        <td>{item.createdAt?.substring(0, 10)}</td>
-                      </tr>
-                    );
-                  })}
+                            {/* <span style={{ opacity: 0 }}>{item._id}</span> */}
+                          </td>
+                          <td>{item.nickname}</td>
+                          <td>{item.createdAt?.substring(0, 10)}</td>
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
               <Pagination currentPage={currentPage} getData={getData} />

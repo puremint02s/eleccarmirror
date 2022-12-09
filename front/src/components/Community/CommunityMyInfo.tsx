@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components/macro";
 const MyInfo = styled.div`
@@ -101,15 +103,44 @@ export const UploadButton = styled.button`
 
 function CommunityMyInfo() {
   const navigate = useNavigate();
+  const [user, setUser] = useState<{ nickname: string; user_id: string }>();
+  const [userCommunity, setUserCommunity] = useState(null);
 
   const toUploadPage = () => {
     navigate(`/community/upload`);
   };
+
+  const baseUrl = "http://localhost:4005";
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc`,
+      },
+      url: `${baseUrl}/user/current`,
+    }).then(res => {
+      console.log("??", res.data.user_id);
+      setUser(res.data);
+    });
+
+    axios({
+      method: "get",
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc`,
+      },
+      url: `${baseUrl}/community/${user?.user_id}/user`,
+    }).then(res => {
+      console.log("c???", res.data.length);
+      setUserCommunity(res.data.length);
+    });
+  }, [userCommunity]);
+
   return (
     <MyInfo>
       <div className="myInfo-user">
         <p>
-          <span className="username">홍길동</span>님
+          <span className="username">{user?.nickname}</span>님
         </p>
         <span>
           <span className="usertype">CFBH</span> 유형
@@ -139,7 +170,7 @@ function CommunityMyInfo() {
             </span>
             <p>내가 쓴 글</p>
           </div>
-          <div className="count">0</div>
+          <div className="count">{userCommunity}</div>
         </div>
         <UploadButton onClick={toUploadPage}>글쓰기</UploadButton>
       </div>

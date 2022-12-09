@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
 import { commentService } from "../services/commentService.js";
+import { userAuthService } from "../services/userAuthService.js";
 
 const commentRouter = Router();
 
@@ -8,10 +9,12 @@ const commentRouter = Router();
 commentRouter.post("/comment", login_required, async function (req, res, next) {
     try {
         const user_id = req.currentUserId;
+        const user = await userAuthService.getUserInfo(user_id);
         const { community_id, content } = req.body;
 
         const comment = {
             user_id,
+            nickname: user.nickname,
             community_id,
             content,
         };
