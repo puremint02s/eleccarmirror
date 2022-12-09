@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { R } from "App";
 
 interface propsTypes {
   userName: string;
@@ -7,7 +8,7 @@ interface propsTypes {
 
 const UserWelcome = ({ userName }: propsTypes) => {
   const navigate = useNavigate();
-  const handleAddRefuelRecord = () => navigate("/mypage");
+  const handleAddRefuelRecord = () => navigate(R.MYPAGE);
   return (
     <>
       <div

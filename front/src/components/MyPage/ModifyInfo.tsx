@@ -92,7 +92,7 @@ function ModifyInfo() {
       <ModifyInfoWrapper>
         <Sidebar />
         <ModifyInfoContentWrapper>
-          <div style={{ paddingTop: 100 }}>
+          <ModifyInfoContentSubWrapper>
             <ModifyInfoTitle>회원정보 수정</ModifyInfoTitle>
             <form>
               <ModifyInfoContent>
@@ -187,7 +187,7 @@ function ModifyInfo() {
                 </ModifyInfoCancelBtn>
               </CarInfoModifyBtnWrapper>
             </form>
-          </div>
+          </ModifyInfoContentSubWrapper>
         </ModifyInfoContentWrapper>
       </ModifyInfoWrapper>
     </>
@@ -214,6 +214,10 @@ const ModifyInfoContentWrapper = styled.div`
   display: inline;
   flex-direction: column;
   justify-content: center;
+`;
+
+const ModifyInfoContentSubWrapper = styled.div`
+  padding-top: 100px;
 `;
 
 const ModifyInfoTitle = styled.p`
