@@ -29,11 +29,12 @@ const AgeOptions = [
 
 const CarOptions = [
   { value: 1, brand: "현대", model: "아반떼" },
-  { value: 2, brand: "기아", model: "모닝" },
-  { value: 3, brand: "제네시스", model: "G80" },
-  { value: 4, brand: "르노코리아", model: "XM3" },
-  { value: 5, brand: "쉐보레", model: "스파크" },
-  { value: 6, brand: "쌍용", model: "렉스턴" },
+  { value: 2, brand: "현대", model: "그랜저" },
+  { value: 3, brand: "기아", model: "모닝" },
+  { value: 4, brand: "제네시스", model: "G80" },
+  { value: 5, brand: "르노코리아", model: "XM3" },
+  { value: 6, brand: "쉐보레", model: "스파크" },
+  { value: 7, brand: "쌍용", model: "렉스턴" },
 ];
 
 interface AgeOption {
@@ -91,7 +92,7 @@ function ModifyInfo() {
       <ModifyInfoWrapper>
         <Sidebar />
         <ModifyInfoContentWrapper>
-          <div style={{ paddingTop: 100 }}>
+          <ModifyInfoContentSubWrapper>
             <ModifyInfoTitle>회원정보 수정</ModifyInfoTitle>
             <form>
               <ModifyInfoContent>
@@ -186,7 +187,7 @@ function ModifyInfo() {
                 </ModifyInfoCancelBtn>
               </CarInfoModifyBtnWrapper>
             </form>
-          </div>
+          </ModifyInfoContentSubWrapper>
         </ModifyInfoContentWrapper>
       </ModifyInfoWrapper>
     </>
@@ -213,6 +214,10 @@ const ModifyInfoContentWrapper = styled.div`
   display: inline;
   flex-direction: column;
   justify-content: center;
+`;
+
+const ModifyInfoContentSubWrapper = styled.div`
+  padding-top: 100px;
 `;
 
 const ModifyInfoTitle = styled.p`
