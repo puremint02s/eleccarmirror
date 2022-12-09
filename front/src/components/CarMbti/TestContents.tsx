@@ -15,6 +15,7 @@ import {
   StatusBar,
 } from "../../style/CarMbtiStyle";
 import GreyQuestionCarImg from "assets/img/GreyQuestionCar.png";
+import { R } from "App";
 
 function TestContents() {
   const [question, setQuestion] = useState<number>(0);
@@ -57,7 +58,7 @@ function TestContents() {
     );
 
     setTimeout(() => {
-      navigate(`/mbtiresult/${CAR[result]}`);
+      navigate(R.CARMBTIRESULT + `/${CAR[result]}`);
     }, Math.floor(Math.random() * 1000 + 2000));
     return <Loading />;
   };
