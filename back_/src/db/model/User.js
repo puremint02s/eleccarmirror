@@ -12,9 +12,9 @@ class User {
         }
     }
 
-    static async findByEmail({ email }) {
+    static async findByEmail({ id }) {
         try {
-            const user = await UserModel.findOne({ email });
+            const user = await UserModel.findOne({ id });
             return user;
         } catch (err) {
             console.log("이것이 바로 에러", err);
@@ -41,6 +41,7 @@ class User {
                 user_id,
                 email,
                 id,
+                nickname,
                 password,
                 age,
                 address,
@@ -51,6 +52,7 @@ class User {
             const update = {
                 email,
                 id,
+                nickname,
                 password,
                 age,
                 address,
