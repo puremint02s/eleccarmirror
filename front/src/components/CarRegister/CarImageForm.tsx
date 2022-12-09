@@ -31,7 +31,6 @@ const CarImageForm = () => {
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // if (!e || (!e.target && e.target.files && !e.target.files[0])) return;
     e.target.files && setContent(e.target.files[0]);
     e.target.files && setFileImage(URL.createObjectURL(e.target.files[0]));
   };
