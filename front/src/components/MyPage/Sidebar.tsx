@@ -13,7 +13,7 @@ function Sidebar() {
             }}
           >
             {" "}
-            <div style={{ fontSize: 15 }}>{menu.title}</div>{" "}
+            <SideMenuTitle>{menu.title}</SideMenuTitle>{" "}
           </SideMenuLi>
         ))}
       </SideMenuUl>
@@ -38,4 +38,8 @@ const SideMenuLi = styled.li`
   padding-top: 1rem;
   font-weight: 500;
   cursor: pointer;
+`;
+
+const SideMenuTitle = styled.div`
+  font-size: 15px;
 `;

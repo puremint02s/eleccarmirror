@@ -107,3 +107,4 @@ function App() {
 }
 
 export default App;
+export { ROUTE as R };
