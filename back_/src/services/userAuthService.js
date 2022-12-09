@@ -8,6 +8,7 @@ class userAuthService {
     static async addUser({
         email,
         id,
+        nickname,
         password,
         age,
         address,
@@ -21,6 +22,7 @@ class userAuthService {
             user_id,
             email,
             id,
+            nickname,
             password: hashedPassword,
             age,
             address,

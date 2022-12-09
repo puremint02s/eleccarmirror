@@ -41,6 +41,7 @@ class User {
                 user_id,
                 email,
                 id,
+                nickname,
                 password,
                 age,
                 address,
@@ -51,6 +52,7 @@ class User {
             const update = {
                 email,
                 id,
+                nickname,
                 password,
                 age,
                 address,
