@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Header from "components/common/Header";
 import Main from "components/common/Main";
@@ -9,11 +9,16 @@ const CommunityUpload = () => {
   const navigate = useNavigate();
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
+  const hashTagsRef = useRef<HTMLInputElement>(null);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [hashtags, setHashtags] = useState([]);
   const [titleWarn, setTitleWarn] = useState("");
   const [contentWarn, setContentWarn] = useState("");
+
+  const baseUrl = "http://localhost:4005";
+
   const toPreviousPage = () => {
     navigate(`/community`);
   };
@@ -60,19 +65,19 @@ const CommunityUpload = () => {
     uploadData = {
       title,
       content,
+      hashtags: hashTagsRef?.current?.value,
     };
 
-    const baseUrl = "http://localhost:4005";
     try {
       axios({
         method: "post",
         data: uploadData,
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGRjY2I5YjQtZDk1OC00ZGNlLThiYzUtZDc2OGViZWNhOTU5IiwiaWF0IjoxNjcwNDc1MjU2fQ.DA0qvxxafWybGMBUSHONTq-dYgXyd9-IcoJnRzTg8zE`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc`,
         },
         url: `${baseUrl}/community`,
       }).then(res => {
-        console.log("res", res);
+        console.log("👉res data ==>", res.data);
       });
     } catch (err) {
       console.log("err=>", err);
@@ -115,6 +120,19 @@ const CommunityUpload = () => {
               <span>{contentWarn}</span>
             </div>
           </uploadStyle.Content>
+          <uploadStyle.HashTags>
+            <p>관련검색어</p>
+            <div className="contentArea">
+              <input
+                placeholder="내용을 입력해주세요"
+                ref={hashTagsRef}
+                // onChange={e => {
+                //   setHashtags(e.target.value);
+                // }}
+              ></input>
+              <span>{contentWarn}</span>
+            </div>
+          </uploadStyle.HashTags>
           <uploadStyle.ButtonWrap>
             <button type="button" onClick={toPreviousPage}>
               취소하기

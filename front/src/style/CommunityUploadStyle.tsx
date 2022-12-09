@@ -44,6 +44,7 @@ export const Content = styled.div`
       height: 223px;
       border: 1px solid #303030;
       outline: none;
+      resize: none;
     }
 
     span {
@@ -51,6 +52,46 @@ export const Content = styled.div`
       color: #ff4f18;
       padding-top: 10px;
     }
+  }
+`;
+
+export const HashTags = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+
+  div {
+    width: 90%;
+    height: auto;
+
+    &.contentArea {
+      height: auto;
+    }
+
+    input {
+      width: 100%;
+      height: 40px;
+      display: block;
+      text-indent: 2%;
+      border: 1px solid #303030;
+      outline: none;
+    }
+
+    /* textarea {
+      padding: 2%;
+      width: 96%;
+      height: 10px;
+      border: 1px solid #303030;
+      outline: none;
+      /* resize: none;
+      overflow-y: hidden; */
+  }
+  */ span {
+    display: block;
+    color: #ff4f18;
+    padding-top: 10px;
   }
 `;
 

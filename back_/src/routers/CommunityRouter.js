@@ -1,6 +1,7 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { communityService } from "../services/communityService.js";
+import { userAuthService } from "../services/userAuthService.js";
 import { login_required } from "../middlewares/login_required.js";
 
 const communityRouter = Router();
@@ -13,13 +14,18 @@ communityRouter.post(
         try {
             const user_id = req.currentUserId;
 
+            const user = await userAuthService.getUserInfo(user_id);
+
             const { title, content, hashtags } = req.body;
+
+            const filteredHashtags = hashtags.split(",");
 
             const data = {
                 user_id,
+                nickname: user.nickname,
                 title,
                 content,
-                hashtags,
+                hashtags: filteredHashtags,
                 creator: req.user_id,
             };
 
