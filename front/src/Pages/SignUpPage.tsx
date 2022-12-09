@@ -41,14 +41,6 @@ const SignUpPage = () => {
     },
   });
 
-  // const onSubmit = handleSubmit(registerForm => {
-  //   delete registerForm.confirmPassword;
-  //   if (isLoading) {
-  //     setAlertLoading({ loading: true });
-  //   }
-  //   signup(registerForm);
-  // });
-
   return (
     <>
       {addressPopUpOpen && (
