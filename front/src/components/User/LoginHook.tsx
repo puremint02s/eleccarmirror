@@ -1,8 +1,10 @@
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
+import { LoginRequest } from "apis/UserApi";
+import Storage from "apis/SessionStorage";
 
 interface CommonUserData {
-  email: string;
+  id: string;
   password: string;
 }
 
@@ -14,13 +16,21 @@ const LoginHook = () => {
   } = useForm<CommonUserData>({
     mode: "onChange",
     defaultValues: {
-      email: "",
+      id: "",
       password: "",
     },
   });
 
   const handleLoginSubmit = useCallback(async (userData: CommonUserData) => {
-    console.log(userData);
+    const { id, password } = userData;
+    const res = await LoginRequest(id, password);
+
+    if (res) {
+      Storage.setTokenItem(res.token);
+      Storage.setUserIdItem(res.user_id);
+      Storage.setIdItem(res.id);
+      window.location.replace("/main");
+    }
   }, []);
 
   return {

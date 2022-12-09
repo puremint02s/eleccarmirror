@@ -1,6 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import LogoImg from "assets/img/MyElecCar logo.png";
+import SessionStorage from "apis/SessionStorage";
+import { Link } from "react-router-dom";
 
 const HeaderTag = styled.header`
   width: 100%;
@@ -60,7 +61,13 @@ const Logo = styled.img.attrs({ src: LogoImg })`
   padding-left: 5rem;
 `;
 
+const LogoutWrapper = styled(Link)``;
+
 function Header() {
+  function clickLogout() {
+    SessionStorage.clearAllItem();
+  }
+
   return (
     <>
       <HeaderTag>
@@ -75,13 +82,28 @@ function Header() {
               <a href="/serviceintro">
                 <li>서비스 소개</li>
               </a>
-              <a
+              {/* <a
                 style={{ textDecoration: "none", color: "black" }}
                 href="/mypage"
               >
                 <li>마이페이지</li>
-              </a>
-              <li>로그아웃</li>
+              </a> */}
+              {SessionStorage.getTokenItem() ? (
+                <>
+                  <Link to="/mypage">
+                    <li>마이페이지</li>
+                  </Link>
+                  <LogoutWrapper onClick={clickLogout} to="/">
+                    <li>로그아웃</li>
+                  </LogoutWrapper>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <li>로그인</li>
+                  </Link>
+                </>
+              )}
             </ul>
           </Nav>
         </div>

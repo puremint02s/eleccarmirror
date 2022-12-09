@@ -20,4 +20,5 @@ export const ShareButton = styled.button`
   border: 0px;
   font: 18px;
   font-weight: 800;
+  dispaly: inline;
 `;
