@@ -7,6 +7,8 @@ import multer from "multer";
 import fs from "fs";
 import path from "path";
 import request from "request";
+import dotenv from "dotenv";
+dotenv.config();
 
 //upload폴더가 존재하는지 확인후 없으면 생성
 try {
@@ -38,8 +40,10 @@ const upload = multer({
   },
 });
 imageRouter.get("/images", async (req, res, next) => {
+  console.log(process.env.SERVER_PORT);
   res.json("[TEST] imageRouter가 제대로 동작하고 있습니다.");
 });
+
 //multer를 이용해 받은 key값이 'image'인 FormData를 images 경로에 업로드 한다.
 imageRouter.post(
   '/images',
@@ -48,42 +52,22 @@ imageRouter.post(
 
     let filename = req.file.filename;
 
-    // let options = {
-    //   uri: 'http://127.0.0.1/predict',
-    //   method: 'POST',
-    //   body: {
-    //     key: value,
-    //     to: 'hellow'
-    //   },
-    //   json: true //json으로 보낼경우 true로 해주어야 header값이 json으로 설정됩니다.
-    // };
-
-    // request.post(options, function (err, httpResponse, body) {
-
-    // })
-    // const options = {
-    //   uri: "http://127.0.0.1:4000/predict",
-    //   method: 'POST',
-    //   body: {
-    //     filename,
-    //   },
-    //   json: true
-    // };
-
-
-
     const options = {
       method: 'POST',
-      uri: "http://127.0.0.1:4000/predict",
+      uri: `${process.env.AI_SERVER_URL}/predict`,
       body: {
         filename,
       },
       json: true
     }
+    console.log('REQUEST TO AI SERVER FROM BACK SERVER');
     request(options, async function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(response.body)
-        res.json('11')
+        console.log('RESPONSE DATA : ' + response.body + " FROM AI SERVER")
+        res.json({
+          filename: req.file.filename,
+          prediction: response.body
+        })
       }
     });
   });
