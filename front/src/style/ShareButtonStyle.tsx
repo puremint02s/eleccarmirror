@@ -18,6 +18,5 @@ export const ShareButton = styled.button`
   border-radius: 50%;
   cursor: pointer;
   border: 0px;
-  font: 18px;
-  font-weight: 800;
+  margin-left: 10px;
 `;
