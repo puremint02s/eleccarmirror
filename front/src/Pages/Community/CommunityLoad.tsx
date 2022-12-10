@@ -5,6 +5,8 @@ import Header from "components/common/Header";
 import Main from "components/common/Main";
 import MyInfo from "components/Community/CommunityMyInfo";
 import * as C from "style/CommunityLoadStyle";
+import * as CommunityApi from "apis/CommunityApi";
+import * as CommentApi from "apis/CommentApi";
 
 type contentProps = {
   title: string;
@@ -24,39 +26,49 @@ type userProps = {
 type commentProps = {
   content: string;
   nickname: string;
+  _id: string;
+  user_id: string;
 };
 
 function CommunityLoad() {
   const location = useLocation();
   const navigate = useNavigate();
   const commentRef = useRef<HTMLTextAreaElement>(null);
+  const commentEditRef = useRef<HTMLInputElement>(null);
   const [contents, setContents] = useState<contentProps | null>(null);
   const [user, setUser] = useState<userProps>();
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState<commentProps[] | []>([]);
+  const [isCommentRemoved, setIsCommentRemoved] = useState(false);
+  const [isEditSelected, setIsEditSelected] = useState(false);
+  const [commentContent, setCommentContent] = useState("");
 
   const id = location.state.id;
 
   const baseUrl = "http://localhost:4005";
   const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODE3NGUxZWEtYjY4YS00MDllLWJjNmUtNzc2M2U2OWYxNTIwIiwiaWF0IjoxNjcwNjg2MTQzfQ.76gaeWUa74s0QaTfCnGVcRzRAi7nh4WYtBFVoam_xcQ";
 
   useEffect(() => {
-    try {
-      axios({
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${BearerString}`,
-        },
-        url: `${baseUrl}/community/${id}`,
-      }).then(res => {
-        setContents(res.data);
-        // console.log("커뮤니티가 가진 유저 아이디", res.data.user_id);
-      });
-    } catch (err) {
-      console.log("err=>", err);
-    }
+    const api = async () => {
+      try {
+        const data = await CommunityApi.getEachCommunity(id);
+        setContents(data);
+      } catch (err) {
+        console.log("err=>", err);
+      }
 
+      try {
+        const data = await CommentApi.getCommunityComments(id);
+        setCommentList(data);
+      } catch (err) {
+        console.log("err=>", err);
+      }
+    };
+
+    api();
+
+    //유저 API - 추후 수정
     try {
       axios({
         method: "get",
@@ -65,60 +77,90 @@ function CommunityLoad() {
         },
         url: `${baseUrl}/user/current`,
       }).then(res => {
-        // console.log("현재 유저의 유저 아이디", res.data.user_id);
         setUser(res.data);
       });
     } catch (err) {
       console.log("err=>", err);
     }
+  }, [comment, isCommentRemoved, isEditSelected]);
+
+  const uploadComment = async (e: React.MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     try {
-      axios({
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${BearerString}`,
-        },
-        url: `${baseUrl}/community/comment/${id}`,
-      }).then(res => {
-        // console.log("해당 커뮤니티 댓글들???", res.data);
-        setCommentList(res.data);
-      });
-    } catch (err) {
-      console.log("err=>", err);
-    }
-  }, [comment]);
-
-  const uploadComment = (e: React.MouseEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    axios({
-      method: "post",
-      data: {
+      const data = {
         content: commentRef?.current?.value,
         community_id: contents?._id,
-      },
-      headers: {
-        Authorization: `Bearer ${BearerString}`,
-      },
-      url: `${baseUrl}/comment`,
-    }).then(res => {
-      // console.log("댓글??", res.data);
-      setComment(res.data);
-    });
+      };
+
+      const result = await CommentApi.postComment(data);
+
+      setComment(result);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const removeContent = () => {
-    axios({
-      method: "delete",
-      data: contents?._id,
-      headers: {
-        Authorization: `Bearer ${BearerString}`,
-      },
-      url: `${baseUrl}/community`,
-    }).then(res => {
-      console.log("삭제?", res.status);
-    });
+  const removeContent = async () => {
+    const isRemove = confirm("삭제하시겠습니까?");
 
-    navigate(`/community`);
+    if (isRemove) {
+      try {
+        const data = { _id: contents?._id };
+        await CommunityApi.deleteEachCommunity(data);
+
+        navigate(`/community`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    return;
+  };
+
+  const removeComment = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const isRemove = confirm("삭제하시겠습니까?");
+
+    const commentId = e.currentTarget.name;
+
+    if (isRemove) {
+      try {
+        const data = { _id: commentId };
+        await CommentApi.deleteComment(data);
+        setIsCommentRemoved(true);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    return;
+  };
+
+  const isEditComment = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsEditSelected(true);
+
+    const value = e.currentTarget.name;
+    setCommentContent(value);
+  };
+
+  const editComment = async (e: React.MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const data = {
+        _id: e.currentTarget.name,
+        content: commentContent,
+      };
+
+      await CommentApi.editComment(data);
+      setIsEditSelected(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const changeCommentValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCommentContent(e.currentTarget.value);
   };
 
   return (
@@ -155,8 +197,46 @@ function CommunityLoad() {
               {commentList.map((item, index) => {
                 return (
                   <div key={index}>
-                    <p>{item.nickname}</p>
-                    <p>{item.content}</p>
+                    <div>
+                      {item.nickname}
+                      {item?.user_id === user?.user_id && !isEditSelected ? (
+                        <p>
+                          <button
+                            type="button"
+                            name={item?.content}
+                            onClick={e => {
+                              isEditComment(e);
+                            }}
+                          >
+                            수정
+                          </button>
+                          <button
+                            type="button"
+                            name={item?._id}
+                            onClick={e => {
+                              removeComment(e);
+                            }}
+                          >
+                            삭제
+                          </button>
+                        </p>
+                      ) : null}
+                    </div>
+                    {item?.user_id === user?.user_id && isEditSelected ? (
+                      <form onSubmit={editComment} name={item?._id}>
+                        <input
+                          type="text"
+                          value={commentContent}
+                          onChange={e => {
+                            changeCommentValue(e);
+                          }}
+                          ref={commentEditRef}
+                        />
+                        <button>수정완료</button>
+                      </form>
+                    ) : (
+                      <p>{item.content}</p>
+                    )}
                   </div>
                 );
               })}
