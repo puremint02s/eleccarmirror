@@ -42,12 +42,17 @@ function CarRegisterPage() {
     [].forEach.call(e.target.files, imageFile => {
       imageFormData.append("image", imageFile);
     });
-
     setPopUpOpen(true);
-    axios.post(`${BACK_SERVER_URL}/images`, imageFormData).then(res => {
-      setFileName(res.data.filename);
-      setPredictionList(res.data.prediction);
-    });
+    axios
+      .post(`${BACK_SERVER_URL}/images`, imageFormData)
+      .then(res => {
+        setFileName(res.data.filename);
+        setPredictionList(res.data.prediction);
+      })
+      .catch(err => {
+        alert("이미지 업로드 과정중 오류가 발생하였습니다.");
+        setPopUpOpen(false);
+      });
 
     console.log("request to back server");
     e.target.value = "";
