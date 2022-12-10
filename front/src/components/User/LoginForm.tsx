@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import {
   LoginFormBox,
   LogoWrapper,
@@ -6,17 +6,20 @@ import {
   LoginInputTitle,
   LoginInput,
   FootBox,
-  RememberMeTitle,
+  // RememberMeTitle,
   FindEmailPwdButton,
   ButtonBox,
+  InputErrorMessage,
   LoginButton,
   KakaoLoginButton,
   GoogleLoginButton,
 } from "../../style/LoginFormStyle";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 import LogoImg from "assets/img/MyElecCar logo.png";
+import { R } from "App";
+
 interface CommonType {
-  email: string;
+  id: string;
   password: string;
 }
 
@@ -30,34 +33,40 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
   return (
     <LoginFormBox>
       <LogoWrapper>
-        <a href="/">
+        <Link to={R.START}>
           <img style={{ width: 200 }} src={LogoImg} alt="서비스 로고" />
-        </a>
+        </Link>
       </LogoWrapper>
       <LoginFormWrapper onSubmit={onLoginSubmitEvent}>
         <LoginInputTitle>아이디</LoginInputTitle>
         <LoginInput
-          {...register("email", {
+          {...register("id", {
             required: true,
-            pattern: /^\S+@\S+$/i,
+            pattern: /[A-Za-z0-9]{4,10}/,
           })}
           placeholder="아이디를 입력해주세요."
         />
-        {errors.email && <p>아이디를 다시 확인해주세요.</p>}
+        {errors.id && (
+          <InputErrorMessage>아이디를 다시 확인해주세요.</InputErrorMessage>
+        )}
         <LoginInputTitle>비밀번호</LoginInputTitle>
         <LoginInput
           {...register("password", {
             required: true,
-            minLength: 7,
-            maxLength: 20,
-            pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+            // minLength: 7,
+            // maxLength: 20,
+            // pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+            // 테스트용 계정 비밀번호가 1111이라 임시로 조건 해제
           })}
           placeholder="비밀번호를 입력해주세요."
         />
-        {errors.password && <p>비밀번호를 다시 확인해주세요.</p>}
+        {errors.password && (
+          <InputErrorMessage>비밀번호를 다시 확인해주세요.</InputErrorMessage>
+        )}
         <FootBox>
-          <input type="checkbox" />
-          <RememberMeTitle>remember me</RememberMeTitle>
+          {/* <input type="checkbox" />
+          <RememberMeTitle>remember me</RememberMeTitle> */}
+          {/* 구현할지 안 할지 모르는 기능이라서 */}
           <a href="/find">
             <FindEmailPwdButton>아이디/비밀번호 찾기</FindEmailPwdButton>
           </a>
