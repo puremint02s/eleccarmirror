@@ -10,7 +10,7 @@ const PaginationWrap = styled.div`
 const PageUl = styled.ul`
   display: flex;
   justify-content: space-between;
-  width: 100px;
+  width: 150px;
 
   li {
     cursor: pointer;
@@ -18,6 +18,7 @@ const PageUl = styled.ul`
     border-radius: 20px;
     text-align: center;
     transition: all 0.1s linear;
+    font-size: 18px;
 
     &:hover {
       color: #aaa;

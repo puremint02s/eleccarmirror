@@ -65,7 +65,24 @@ export const Reply = styled.div`
       border-top: none;
     }
 
-    & > p {
+    & > div {
+      display: flex;
+      & > p {
+        padding-left: 20px;
+        button {
+          display: inline-block;
+          padding: 4px 8px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: all 0.3s;
+          &:hover {
+            background-color: #d2e0ec;
+          }
+          & + button {
+            margin-left: 10px;
+          }
+        }
+      }
       & + p {
         padding-top: 10px;
       }

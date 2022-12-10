@@ -112,7 +112,7 @@ function CommunityMyInfo() {
 
   const baseUrl = "http://localhost:4005";
   const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODE3NGUxZWEtYjY4YS00MDllLWJjNmUtNzc2M2U2OWYxNTIwIiwiaWF0IjoxNjcwNjg2MTQzfQ.76gaeWUa74s0QaTfCnGVcRzRAi7nh4WYtBFVoam_xcQ";
 
   useEffect(() => {
     axios({

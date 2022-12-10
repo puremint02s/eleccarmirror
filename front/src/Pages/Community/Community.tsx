@@ -6,6 +6,7 @@ import MyInfo from "components/Community/CommunityMyInfo";
 import { useNavigate } from "react-router-dom";
 import * as CommunityStyle from "style/CommunityStyle";
 import { useState, useEffect } from "react";
+import { getCommunityPerPage } from "apis/CommunityApi";
 
 type Community = {
   content?: string;
@@ -24,29 +25,22 @@ function Community(props: any) {
   const [currentPage, setCurrentPage] = useState<string | null>("1");
   const [contentsPerPage, setcontentsPerPage] = useState<Community[] | []>([]);
 
+  console.log("contentsPerPage", contentsPerPage);
+
   const getData = (currentPage: any) => {
     setCurrentPage(currentPage);
   };
 
-  const baseUrl = "http://localhost:4005";
-  const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjhiODVjMzEtOTMzNy00ODU1LWFlZjctZmQzZTMzMWM5YzVjIiwiaWF0IjoxNjcwNTU1NjQ1fQ.g5z1XHSMydzzfP8sXuS27IRolC-dez13OqoUiZdz7pc";
   useEffect(() => {
-    try {
-      axios({
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${BearerString}`,
-        },
-        url: `${baseUrl}/community?page=${currentPage}&perPage=10`,
-      }).then(res => {
-        console.log(res.data.findContent);
-        setcontentsPerPage(res.data.findContent);
-        console.log("contentsPerPage =>", contentsPerPage);
-      });
-    } catch (err) {
-      console.log("err=>", err);
-    }
+    const api = async () => {
+      try {
+        const result = await getCommunityPerPage(currentPage);
+        setcontentsPerPage(result);
+      } catch (err) {
+        console.log("err=>", err);
+      }
+    };
+    api();
   }, [currentPage]);
 
   const moveToEachContent = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -102,8 +96,6 @@ function Community(props: any) {
                             >
                               {item.title}
                             </button>
-
-                            {/* <span style={{ opacity: 0 }}>{item._id}</span> */}
                           </td>
                           <td>{item.nickname}</td>
                           <td>{item.createdAt?.substring(0, 10)}</td>
