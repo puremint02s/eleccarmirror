@@ -1,9 +1,11 @@
+import { axiosInstance } from "apis/AxiosInstance";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "components/common/Header";
 import Sidebar from "components/MyPage/Sidebar";
 import Pagination from "components/common/Pagination";
 import swal from "sweetalert";
+import Storage from "apis/SessionStorage";
 
 const dummyMyCarData = {
   model: "아반떼",
@@ -46,73 +48,81 @@ function MyPage() {
 
   return (
     <>
-      <Header />
-      <TitleWrapper>마이 페이지</TitleWrapper>
-      <MyPageWrapper>
-        <Sidebar />
-        <MyPageContentWrapper>
-          <div style={{ paddingTop: 100 }}>
-            <MyPageContentTitle>
-              나의 차량 정보
-              <Link to="/mypage/modifyinfo">
-                <ModifyCarInfoButton>수정</ModifyCarInfoButton>
-              </Link>
-            </MyPageContentTitle>
-            <MyPageContent>
-              <ul>
-                <li>
-                  <span>차종</span>
-                  <p>{dummyMyCarData.model}</p>
-                </li>
-                <li>
-                  <span>제조사</span>
-                  <p>{dummyMyCarData.brand}</p>
-                </li>
-                <li>
-                  <span>평균 연비</span>
-                  <p>{dummyMyCarData.MPG}km/L</p>
-                </li>
-              </ul>
-            </MyPageContent>
-          </div>
-          <div style={{ paddingTop: 100 }}>
-            <MyPageContentTitle>
-              이전 주유 기록 (최근 3개월)
-              <Link to="/mypage/addrefuelrecord">
-                <AddRefuelButton>+ 주유내역</AddRefuelButton>
-              </Link>
-            </MyPageContentTitle>
-            <RefuelWrap>
-              <table>
-                <thead>
-                  <tr>
-                    <th>주유 날짜</th>
-                    <th>유종</th>
-                    <th>주유량(L)</th>
-                    <th>누적 주행 거리(km)</th>
-                    <th> </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{dummyFillUpData.date}</td>
-                    <td>{dummyFillUpData.gas}</td>
-                    <td>{dummyFillUpData.volume}L</td>
-                    <td>{dummyFillUpData.distance}km</td>
-                    <td>
-                      <Link to="/mypage/modifyrefuelrecord">
-                        <button>수정</button>
-                      </Link>
-                      <button onClick={handleRefuelRecordDelete}>삭제</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <Pagination />
-            </RefuelWrap>
-          </div>
-        </MyPageContentWrapper>
-      </MyPageWrapper>
+      {Storage.getTokenItem() ? (
+        <>
+          <Header />
+          <TitleWrapper>마이 페이지</TitleWrapper>
+          <MyPageWrapper>
+            <Sidebar />
+            <MyPageContentWrapper>
+              <div style={{ paddingTop: 100 }}>
+                <MyPageContentTitle>
+                  나의 차량 정보
+                  <Link to="/mypage/modifyinfo">
+                    <ModifyCarInfoButton>수정</ModifyCarInfoButton>
+                  </Link>
+                </MyPageContentTitle>
+                <MyPageContent>
+                  <ul>
+                    <li>
+                      <span>차종</span>
+                      <p>{dummyMyCarData.model}</p>
+                    </li>
+                    <li>
+                      <span>제조사</span>
+                      <p>{dummyMyCarData.brand}</p>
+                    </li>
+                    <li>
+                      <span>평균 연비</span>
+                      <p>{dummyMyCarData.MPG}km/L</p>
+                    </li>
+                  </ul>
+                </MyPageContent>
+              </div>
+              <div style={{ paddingTop: 100 }}>
+                <MyPageContentTitle>
+                  이전 주유 기록 (최근 3개월)
+                  <Link to="/mypage/addrefuelrecord">
+                    <AddRefuelButton>+ 주유내역</AddRefuelButton>
+                  </Link>
+                </MyPageContentTitle>
+                <RefuelWrap>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>주유 날짜</th>
+                        <th>유종</th>
+                        <th>주유량(L)</th>
+                        <th>누적 주행 거리(km)</th>
+                        <th> </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{dummyFillUpData.date}</td>
+                        <td>{dummyFillUpData.gas}</td>
+                        <td>{dummyFillUpData.volume}L</td>
+                        <td>{dummyFillUpData.distance}km</td>
+                        <td>
+                          <Link to="/mypage/modifyrefuelrecord">
+                            <button>수정</button>
+                          </Link>
+                          <button onClick={handleRefuelRecordDelete}>
+                            삭제
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <Pagination />
+                </RefuelWrap>
+              </div>
+            </MyPageContentWrapper>
+          </MyPageWrapper>
+        </>
+      ) : (
+        <p>404</p>
+      )}
     </>
   );
 }
