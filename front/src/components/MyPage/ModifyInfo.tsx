@@ -6,14 +6,6 @@ import Sidebar from "components/MyPage/Sidebar";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import { CurrentUserGet, ModifyUserInfo } from "apis/UserApi";
 
-const dummyUserData = {
-  email: "test@test.com",
-  password: "testtest123",
-  nickname: "테스트",
-  age: 2,
-  address: "서울시 마포구 XX로 XX",
-};
-
 const dummyMyCarData = {
   model: "아반떼",
   brand: "현대",
