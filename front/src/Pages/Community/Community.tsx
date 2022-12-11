@@ -20,13 +20,24 @@ type Community = {
   nickname?: string;
 };
 
+type Comment = {
+  community_id: string;
+  content: string;
+  createdAt: string;
+  nickname: string;
+  updatedAt: string;
+  user_id: string;
+  _id: string;
+};
+
 function Community(props: any) {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState<string | null>("1");
   const [contentsPerPage, setcontentsPerPage] = useState<Community[] | []>([]);
   const [allCommunity, setAllCommunity] = useState<Community[] | []>([]);
-  const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
+  // const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
+  const [commentCount, setCommentCount] = useState<Comment[] | []>([]);
 
   const getData = (currentPage: any) => {
     setCurrentPage(currentPage);
@@ -50,7 +61,11 @@ function Community(props: any) {
       }
 
       try {
-        // const result = await CommentApi.getCommunityComments();
+        const result = await CommentApi.getAllComments();
+
+        setCommentCount(result);
+
+        console.log("commentCount", result);
       } catch (err) {
         console.log(err);
       }
@@ -99,8 +114,20 @@ function Community(props: any) {
     });
 
     setcontentsPerPage(result);
+  };
+
+  const onCommentCount = (id: any) => {
+    const result = commentCount.filter(item => {
+      return item.community_id === id;
+    });
 
     console.log("result", result);
+
+    if (result.length == 0) {
+      return;
+    }
+
+    return result.length;
   };
 
   return (
@@ -147,12 +174,14 @@ function Community(props: any) {
                             >
                               {item.title}
                             </button>
-                            <span>
-                              <i
-                                className="ri-message-3-fill"
-                                style={{ color: "#8f8f8f" }}
-                              ></i>
-                            </span>
+                            <p style={{ padding: "10px 0" }}>
+                              {onCommentCount(item._id)! >= 0 ? (
+                                <span className="commentWrap">
+                                  <i className="ri-message-3-fill"></i>
+                                  <span>{onCommentCount(item._id)}</span>
+                                </span>
+                              ) : null}
+                            </p>
                           </td>
                           <td>{item.nickname}</td>
                           <td>{item.createdAt?.substring(0, 10)}</td>
