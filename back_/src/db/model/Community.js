@@ -12,6 +12,16 @@ class Community {
         }
     }
 
+    static async findAllContents() {
+        try {
+            const result = await CommunityModel.find({});
+
+            return result;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     static async findAll(page, perPage) {
         try {
             const total = await CommunityModel.countDocuments({});
