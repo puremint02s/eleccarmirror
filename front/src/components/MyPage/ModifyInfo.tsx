@@ -94,7 +94,6 @@ function ModifyInfo() {
         carOwned,
         elecCarOwned,
       );
-      console.log(res);
       window.alert("회원정보가 수정되었습니다.");
       location.reload();
     } catch (e) {

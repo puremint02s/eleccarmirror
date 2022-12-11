@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
@@ -12,9 +12,44 @@ import {
   Select,
   CalcButtonWrapper,
 } from "style/CalcEfficiencyStyle";
+import { CurrentUserGet } from "apis/UserApi";
+import { AddRefuelRecord } from "apis/RefuelRecordApi";
 
-function AddRefuelRecord() {
+function AddNewRefuelRecord() {
   const [startDate, setStartDate] = useState(new Date());
+
+  const [oilingDate, setOilingDate] = useState("");
+  const [gasType, setGasType] = useState("임시로날짜적었음");
+  const [gasAmount, setGasAmount] = useState(0);
+  const [odometer, setOdometer] = useState(0);
+  const [currentUserId, setCurrentUserId] = useState("");
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const res = await CurrentUserGet();
+      setCurrentUserId(res.data.user_id);
+    }
+    getUserInfo();
+  }, []);
+  console.log(currentUserId);
+
+  async function NewOilingRecord(e: any) {
+    e.preventDefault();
+    try {
+      const res = await AddRefuelRecord(
+        currentUserId,
+        oilingDate,
+        gasType,
+        gasAmount,
+        odometer,
+      );
+      window.alert("주유기록이 등록되었습니다.");
+      window.location.replace("/mypage");
+    } catch (e) {
+      console.log(e);
+      alert("주유기록 등록에 실패하였습니다.");
+    }
+  }
 
   const OPTIONS = [
     { value: "none", name: "선택해주세요" },
@@ -42,7 +77,7 @@ function AddRefuelRecord() {
         <Sidebar />
         <ModifyRefuelRecordFormWrapper>
           <CalcFormDiv>
-            <CalcFormWrapper>
+            <CalcFormWrapper onSubmit={NewOilingRecord}>
               <CalcInputTitle>주유 날짜</CalcInputTitle>
               <DatePicker
                 selected={startDate}
@@ -60,7 +95,7 @@ function AddRefuelRecord() {
             </CalcFormWrapper>
           </CalcFormDiv>
           <CalcButtonWrapper>
-            <ModifyButton>추가하기</ModifyButton>
+            <ModifyButton type="submit">추가하기</ModifyButton>
             <Link to="/mypage">
               <CancelButton>취소하기</CancelButton>
             </Link>
@@ -71,7 +106,7 @@ function AddRefuelRecord() {
   );
 }
 
-export default AddRefuelRecord;
+export default AddNewRefuelRecord;
 
 const TitleWrapper = styled.div`
   text-align: center;
