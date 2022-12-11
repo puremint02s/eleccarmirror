@@ -23,7 +23,7 @@ const Bot = () => {
         steps={[
           {
             id: "welcome",
-            message: "안녕하세요! ㅁㅁㅁ님 전기차 추천 서비스 MyElecCar입니다.",
+            message: "안녕하세요! ㅁㅁㅁ님 MyElecCar입니다.",
             trigger: "welcome2",
           },
           {
@@ -36,6 +36,7 @@ const Bot = () => {
             options: [
               { value: 1, label: "서비스 소개", trigger: "service" },
               { value: 2, label: "지역별 전기차 보조금", trigger: "4" },
+              { value: 3, label: "1대1 문의", trigger: "4" },
             ],
           },
           {
