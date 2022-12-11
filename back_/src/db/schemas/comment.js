@@ -6,6 +6,10 @@ const CommentSchema = new Schema(
             type: String,
             required: true,
         },
+        nickname: {
+            type: String,
+            // required: true,
+        },
         community_id: {
             type: String,
             required: true,
