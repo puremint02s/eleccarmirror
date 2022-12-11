@@ -1,4 +1,4 @@
-import { axiosInstance } from "apis/AxiosInstance";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "components/common/Header";
@@ -6,6 +6,7 @@ import Sidebar from "components/MyPage/Sidebar";
 import Pagination from "components/common/Pagination";
 import swal from "sweetalert";
 import Storage from "apis/SessionStorage";
+import { GetUserRefuelRecord } from "apis/RefuelRecordApi";
 
 const dummyMyCarData = {
   model: "아반떼",
@@ -13,14 +14,25 @@ const dummyMyCarData = {
   MPG: 10,
 };
 
-const dummyFillUpData = {
-  date: "2022-04-10",
-  gas: "휘발유",
-  volume: 10,
-  distance: 15000,
-};
-
 function MyPage() {
+  const [oilingDate, setOilingDate] = useState("");
+  const [gasType, setGasType] = useState("");
+  const [gasAmount, setGasAmount] = useState("");
+  const [odometer, setOdometer] = useState("");
+
+  useEffect(() => {
+    async function getUserOilingRecord() {
+      const res = await GetUserRefuelRecord(
+        "28b85c31-9337-4855-aef7-fd3e331c9c5c", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
+      );
+      setOilingDate(res.data.oiling_date);
+      setGasType(res.data.gas_type);
+      setGasAmount(res.data.gas_amount);
+      setOdometer(res.data.odometer);
+    }
+    getUserOilingRecord();
+  }, []);
+
   const handleRefuelRecordDelete = async (
     e: React.MouseEvent<HTMLButtonElement>,
   ) => {
@@ -99,10 +111,10 @@ function MyPage() {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{dummyFillUpData.date}</td>
-                        <td>{dummyFillUpData.gas}</td>
-                        <td>{dummyFillUpData.volume}L</td>
-                        <td>{dummyFillUpData.distance}km</td>
+                        <td>{oilingDate}</td>
+                        <td>{gasType}</td>
+                        <td>{gasAmount}L</td>
+                        <td>{odometer}km</td>
                         <td>
                           <Link to="/mypage/modifyrefuelrecord">
                             <button>수정</button>
