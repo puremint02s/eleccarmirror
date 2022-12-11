@@ -31,7 +31,6 @@ function AddNewRefuelRecord() {
     }
     getUserInfo();
   }, []);
-  console.log(currentUserId);
 
   async function NewOilingRecord(e: any) {
     e.preventDefault();
