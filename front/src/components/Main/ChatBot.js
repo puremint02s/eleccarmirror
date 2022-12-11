@@ -17,6 +17,7 @@ const Bot = () => {
   return (
     <ThemeProvider theme={theme}>
       <ChatBot
+        headerTitle="My Elec Car"
         botAvatar={car}
         userAvatar={loading}
         steps={[
@@ -34,19 +35,39 @@ const Bot = () => {
             id: "option1",
             options: [
               { value: 1, label: "서비스 소개", trigger: "service" },
-              { value: 2, label: "차량 추천 방식", trigger: "4" },
-              { value: 3, label: "지역별 전기차 보조금", trigger: "4" },
+              { value: 2, label: "지역별 전기차 보조금", trigger: "4" },
             ],
           },
           {
             id: "service",
             message:
-              "MyElecCar는 현재 차량 외형, 성향 테스트, 연비 계산 3가지 방법으로 차량을 추천해드립니다. ",
-            trigger: "welcome2",
+              "MyElecCar는 3가지 방식으로 사용자에게 알맞는 전기차를 추천해드립니다. ",
+            trigger: "service2",
+          },
+          {
+            id: "service2",
+            options: [
+              { value: 1, label: "3가지 차량 추천 방식", trigger: "service3" },
+              { value: 1, label: "돌아가기", trigger: "welcome2" },
+            ],
+          },
+          {
+            id: "service3",
+            message:
+              "차량 외형, 나의 성향, 나의 연비를 통해 알맞은 전기차를 추천해드립니다.",
+            trigger: "service4",
+          },
+          {
+            id: "service4",
+            options: [
+              { value: 1, label: "차량 외형", trigger: "welcome2" },
+              { value: 1, label: "나의 성향", trigger: "welcome2" },
+              { value: 1, label: "나의 연비", trigger: "welcome2" },
+            ],
           },
           {
             id: "4",
-            message: "Awesome! You are a telepath!",
+            message: ":)",
             end: true,
           },
         ]}
