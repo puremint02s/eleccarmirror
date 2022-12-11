@@ -15,6 +15,7 @@ import {
 
 function ModifyRefuelRecord() {
   const [startDate, setStartDate] = useState(new Date());
+
   const OPTIONS = [
     { value: "none", name: "선택해주세요" },
     { value: "gasoline", name: "휘발유" },

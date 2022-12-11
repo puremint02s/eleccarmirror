@@ -15,6 +15,7 @@ const dummyMyCarData = {
 };
 
 function MyPage() {
+  const [recordId, setRecordId] = useState("");
   const [oilingDate, setOilingDate] = useState("");
   const [gasType, setGasType] = useState("");
   const [gasAmount, setGasAmount] = useState("");
@@ -25,6 +26,7 @@ function MyPage() {
       const res = await GetUserRefuelRecord(
         "28b85c31-9337-4855-aef7-fd3e331c9c5c", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
       );
+      setRecordId(res.data._id);
       setOilingDate(res.data.oiling_date);
       setGasType(res.data.gas_type);
       setGasAmount(res.data.gas_amount);
@@ -116,7 +118,10 @@ function MyPage() {
                         <td>{gasAmount}L</td>
                         <td>{odometer}km</td>
                         <td>
-                          <Link to="/mypage/modifyrefuelrecord">
+                          <Link
+                            to="/mypage/modifyrefuelrecord"
+                            state={{ recordId: recordId }}
+                          >
                             <button>수정</button>
                           </Link>
                           <button onClick={handleRefuelRecordDelete}>
