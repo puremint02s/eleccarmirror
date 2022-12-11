@@ -78,20 +78,13 @@ export const HashTags = styled.div`
       border: 1px solid #303030;
       outline: none;
     }
-
-    /* textarea {
-      padding: 2%;
-      width: 96%;
-      height: 10px;
-      border: 1px solid #303030;
-      outline: none;
-      /* resize: none;
-      overflow-y: hidden; */
   }
-  */ span {
+  span {
     display: block;
-    color: #ff4f18;
+    /* color: #ff4f18; */
     padding-top: 10px;
+    font-size: 14px;
+    color: #9c614f;
   }
 `;
 

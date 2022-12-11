@@ -59,6 +59,21 @@ communityRouter.get(
     }
 );
 
+//커뮤니티 글 가져오기 - 모두
+communityRouter.get(
+    "/community/all",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const content = await communityService.getContentsAll();
+
+            return res.status(201).json(content);
+        } catch (err) {
+            next(err);
+        }
+    }
+);
+
 //유저가 쓴 커뮤니티 글
 communityRouter.get(
     "/community/:id/user",

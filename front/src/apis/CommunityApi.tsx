@@ -25,11 +25,17 @@ export const getCommunityPerPage = async (currentPage: any) => {
     `/community?page=${currentPage}&perPage=10`,
   );
 
-  return res.data.findContent;
+  return res.data;
 };
 
 export const getEachCommunity = async (id: string) => {
   const res = await axiosInstance.get(`/community/${id}`);
+
+  return res.data;
+};
+
+export const getAllCommunity = async () => {
+  const res = await axiosInstance.get(`/community/all`);
 
   return res.data;
 };
