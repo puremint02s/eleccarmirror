@@ -1,17 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import Header from "components/common/Header";
 import Sidebar from "components/MyPage/Sidebar";
 import AddressPopUp from "components/SignUp/AddressPopUp";
-
-const dummyUserData = {
-  email: "test@test.com",
-  password: "testtest123",
-  nickname: "테스트",
-  age: 2,
-  address: "서울시 마포구 XX로 XX",
-};
+import { CurrentUserGet, ModifyUserInfo } from "apis/UserApi";
 
 const dummyMyCarData = {
   model: "아반떼",
@@ -42,9 +35,64 @@ interface AgeOption {
   age: string;
 }
 
+interface UserInfo {
+  user_id: string;
+  email: string;
+  id: string;
+  nickname: string;
+  password: string;
+  age: string;
+  address: string;
+  car_owned: boolean;
+  elec_car_owend: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 function ModifyInfo() {
   const navigate = useNavigate();
   const handleModifyInfoCancel = () => navigate("/mypage");
+
+  const [userEmail, setUserEmail] = useState("");
+  const [userId, setUserId] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [age, setAge] = useState("20대");
+  const [address, setAddress] = useState("부산");
+  const [carOwned, setCarOwned] = useState(false);
+  const [elecCarOwned, setElecCarOwned] = useState(false);
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const res = await CurrentUserGet();
+      setUserEmail(res.data.email);
+      setUserId(res.data.id);
+      setNickname(res.data.nickname);
+      setPassword(res.data.password);
+      setAddress(res.data.address);
+    }
+    getUserInfo();
+  }, []);
+
+  async function editUserInfo(e: any) {
+    e.preventDefault();
+    try {
+      const res = await ModifyUserInfo(
+        userEmail,
+        nickname,
+        password,
+        age,
+        address,
+        carOwned,
+        elecCarOwned,
+      );
+      window.alert("회원정보가 수정되었습니다.");
+      location.reload();
+    } catch (e) {
+      console.log(e);
+      alert("회원정보 수정에 실패하였습니다.");
+    }
+  }
 
   const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
   const popUpOpen = (e: React.MouseEvent) => {
@@ -94,14 +142,24 @@ function ModifyInfo() {
         <ModifyInfoContentWrapper>
           <ModifyInfoContentSubWrapper>
             <ModifyInfoTitle>회원정보 수정</ModifyInfoTitle>
-            <form>
+            <form onSubmit={editUserInfo}>
               <ModifyInfoContent>
                 <ModifyInfoContentSubTitle>기본정보</ModifyInfoContentSubTitle>
                 <ModifyInfoContentTr>
                   <ModifyInfoContentTitle>이메일</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
                     <ModifyInfoContentInput
-                      placeholder={dummyUserData.email}
+                      placeholder={userEmail}
+                      onChange={e => setUserEmail(e.target.value)}
+                    ></ModifyInfoContentInput>
+                  </ModifyInfoContentInputWrapper>
+                </ModifyInfoContentTr>
+                <ModifyInfoContentTr>
+                  <ModifyInfoContentTitle>아이디</ModifyInfoContentTitle>
+                  <ModifyInfoContentInputWrapper>
+                    <ModifyInfoContentInput
+                      placeholder={userId}
+                      onChange={e => setUserId(e.target.value)}
                     ></ModifyInfoContentInput>
                   </ModifyInfoContentInputWrapper>
                 </ModifyInfoContentTr>
@@ -109,7 +167,8 @@ function ModifyInfo() {
                   <ModifyInfoContentTitle>닉네임</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
                     <ModifyInfoContentInput
-                      placeholder={dummyUserData.nickname}
+                      placeholder={nickname}
+                      onChange={e => setNickname(e.target.value)}
                     ></ModifyInfoContentInput>
                   </ModifyInfoContentInputWrapper>
                 </ModifyInfoContentTr>
@@ -117,7 +176,8 @@ function ModifyInfo() {
                   <ModifyInfoContentTitle>비밀번호</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
                     <ModifyInfoContentInput
-                      placeholder={dummyUserData.password}
+                      placeholder={password}
+                      onChange={e => setPassword(e.target.value)}
                     ></ModifyInfoContentInput>
                   </ModifyInfoContentInputWrapper>
                 </ModifyInfoContentTr>
@@ -137,7 +197,7 @@ function ModifyInfo() {
                   <ModifyInfoContentTitle>주소</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
                     <ModifyInfoAddressInput
-                      placeholder={dummyUserData.address}
+                      placeholder={address}
                     ></ModifyInfoAddressInput>
                     <AddressSearchBtn onClick={popUpOpen}>
                       주소 검색
@@ -147,7 +207,9 @@ function ModifyInfo() {
                 <ModifyInfoContentTr>
                   <ModifyInfoContentTitle></ModifyInfoContentTitle>
                   <ModifyInfoContentBtnWrapper>
-                    <ModifyInfoBtn>회원정보 수정하기</ModifyInfoBtn>
+                    <ModifyInfoBtn type="submit">
+                      회원정보 수정하기
+                    </ModifyInfoBtn>
                     <ModifyInfoBtn>회원 탈퇴하기</ModifyInfoBtn>
                     <ModifyInfoCancelBtn onClick={handleModifyInfoCancel}>
                       취소
