@@ -7,12 +7,22 @@ export const CommunityLoadWrap = styled.div`
   justify-content: space-between;
   padding-top: 100px;
   padding-bottom: 100px;
+  flex-direction: unset;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const CommunityContent = styled.div`
   width: calc(100% - 280px);
   margin-left: 20px;
   border-top: 2px solid #303030;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin-left: 0px;
+  }
 `;
 
 export const Title = styled.div`

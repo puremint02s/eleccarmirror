@@ -132,7 +132,9 @@ const CommunityUpload = () => {
                 //   setHashtags(e.target.value);
                 // }}
               ></input>
-              <span>{contentWarn}</span>
+              <span className="hashtags-tip">
+                콤마로 관련검색어를 나눠주세요
+              </span>
             </div>
           </uploadStyle.HashTags>
           <uploadStyle.ButtonWrap>

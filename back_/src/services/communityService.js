@@ -7,6 +7,12 @@ class communityService {
         return newContent;
     }
 
+    static async getContentsAll() {
+        const getAllContents = await Community.findAllContents();
+
+        return getAllContents;
+    }
+
     static async getContents(page, perPage) {
         const getContents = await Community.findAll(page, perPage);
 

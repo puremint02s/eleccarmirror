@@ -7,6 +7,10 @@ const MyInfo = styled.div`
   height: auto;
   border-top: 2px solid #303030;
 
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
   .myInfo-user {
     width: 100%;
     height: 50px;
