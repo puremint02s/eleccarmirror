@@ -38,14 +38,16 @@ const MainPage = () => {
         }}
       >
         <BotWrapper>
+          {isChatbotOpen && <Bot></Bot>}
           {isChatbotOpen ? (
-            <ChatBotCloseButton onClick={onChatBotOpen}>✕</ChatBotCloseButton>
+            <ChatBotCloseButton onClick={onChatBotOpen}>
+              <XIcon>✕</XIcon>
+            </ChatBotCloseButton>
           ) : (
             <ChatBotOpenButton onClick={onChatBotOpen}>
               <CarIcon src={car} />
             </ChatBotOpenButton>
           )}
-          {isChatbotOpen && <Bot></Bot>}
         </BotWrapper>
         <Header></Header>
         <div
@@ -113,8 +115,8 @@ export default MainPage;
 
 const BotWrapper = styled.div`
   position: fixed;
-  right: 50px;
-  bottom: 50px;
+  right: 70px;
+  bottom: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -125,6 +127,9 @@ const CarIcon = styled.img`
   width: 40px;
   height: 40px;
 `;
+const XIcon = styled.span`
+  width: 40px;
+`;
 
 const ChatBotOpenButton = styled.button`
   width: 70px;
@@ -133,10 +138,13 @@ const ChatBotOpenButton = styled.button`
   background-color: #0a84ff;
   color: white;
   font-size: 24px;
-  margin-bottom: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background-color: salmon;
+  }
+  transition: 0.3s ease-in-out;
 `;
 const ChatBotCloseButton = styled.button`
   width: 30px;
@@ -145,8 +153,12 @@ const ChatBotCloseButton = styled.button`
   background-color: grey;
   color: white;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background-color: red;
+  }
+  transition: 0.3s ease-in-out;
 `;

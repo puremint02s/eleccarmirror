@@ -4,6 +4,8 @@ import question from "assets/img/QuestionCar.png";
 import loading from "assets/img/loading2.gif";
 import tempImage from "assets/img/GreyQuestionCar.png";
 import Chart from "./Chart";
+import { useNavigate } from "react-router-dom";
+
 interface propsTypes {
   predictionList: Array<number>;
   fileName: string;
@@ -18,8 +20,9 @@ const CarConfirmPopup = ({
   predictionList,
   setPopUpOpen,
 }: propsTypes) => {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
-  const [isAnalysisTabOpen, setAnalysisTabOpen] = useState(false);
+  const [isAnalysisTabOpen, setAnalysisTabToggle] = useState(false);
   const dic = {
     "kia mohave": 0,
     "hyundai kona": 1,
@@ -53,7 +56,6 @@ const CarConfirmPopup = ({
     "ssangyong tivoli": 29,
     "kia ray": 30,
   };
-  console.log(fileName, predictionList.length);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -63,8 +65,8 @@ const CarConfirmPopup = ({
   const values: Array<string> = Object.keys(dic);
   const keys: Array<number> = Object.values(dic);
 
-  const onAnalysisTabOpen = () => {
-    setAnalysisTabOpen(c => !c);
+  const onAnalysisTabToggle = () => {
+    setAnalysisTabToggle(c => !c);
   };
   const result = keys.map(v => ({
     label: values[v],
@@ -92,12 +94,12 @@ const CarConfirmPopup = ({
             setPopUpOpen(false);
           }}
         >
-          <PopUp
-            onClick={e => {
-              e.stopPropagation();
-            }}
-          >
-            {isLoading ? (
+          {isLoading ? (
+            <PopUp
+              onClick={e => {
+                e.stopPropagation();
+              }}
+            >
               <LoadingWrapper>
                 <LoadingImageWrapper>
                   <LoadingImage src={question} alt="로딩 이미지" />
@@ -105,7 +107,13 @@ const CarConfirmPopup = ({
                 </LoadingImageWrapper>
                 <LoadingText>차량 사진으로 브랜드와 모델 파악중...</LoadingText>
               </LoadingWrapper>
-            ) : !isAnalysisTabOpen ? (
+            </PopUp>
+          ) : !isAnalysisTabOpen ? (
+            <PopUp
+              onClick={e => {
+                e.stopPropagation();
+              }}
+            >
               <ResultWrapper>
                 <ResultTitleText>이 차가 맞나요?</ResultTitleText>
                 <ResultImage src={tempImage} />
@@ -123,14 +131,33 @@ const CarConfirmPopup = ({
                   <span>{result[0].value.toFixed(2)}%</span>
                 </ResultText>
                 <ButtonWrapper>
-                  <BlueBoderButton>아니에요</BlueBoderButton>
-                  <BlueButton>맞아요</BlueButton>
+                  <BlueBoderButton
+                    onClick={() => {
+                      setPopUpOpen(false);
+                    }}
+                  >
+                    다시하기
+                  </BlueBoderButton>
+                  <BlueButton
+                    onClick={() => {
+                      alert("axios 요청");
+                      navigate("/test");
+                    }}
+                  >
+                    나의 유형 테스트<br></br>하러가기
+                  </BlueButton>
                 </ButtonWrapper>
-                <ResultSubTitleText onClick={onAnalysisTabOpen}>
+                <ResultSubTitleText onClick={onAnalysisTabToggle}>
                   📊 AI 분석결과 확인하기
                 </ResultSubTitleText>
               </ResultWrapper>
-            ) : (
+            </PopUp>
+          ) : (
+            <PopUpScroll
+              onClick={e => {
+                e.stopPropagation();
+              }}
+            >
               <ResultWrapper>
                 <ResultTitleText>분석 결과</ResultTitleText>
                 <ResultSubTitleText>내가 업로드한 사진</ResultSubTitleText>
@@ -138,6 +165,11 @@ const CarConfirmPopup = ({
                   src={`${process.env.REACT_APP_BACK_SERVER_URL}/${fileName}`}
                 />
                 <ResultSubTitleText>AI가 분석한 유사 차량</ResultSubTitleText>
+                <ResultTextCenter>
+                  AI가 유사하다고 판단한 상위 4개 모델입니다. <br />
+                  만약 리스트에 나의 차량이 없다면 가장 유사하다고 판단되는
+                  차량을 리스트에서 골라주세요 :)
+                </ResultTextCenter>
                 <Chart result={chartData} />
 
                 <ResultWrapper>
@@ -149,12 +181,22 @@ const CarConfirmPopup = ({
                   ))}
                 </ResultWrapper>
 
-                <ResultSubTitleText onClick={onAnalysisTabOpen}>
-                  결과 재확인
-                </ResultSubTitleText>
+                <ButtonWrapper>
+                  <BlueBoderButton onClick={onAnalysisTabToggle}>
+                    뒤로 가기
+                  </BlueBoderButton>
+                  <BlueButton
+                    onClick={() => {
+                      alert("axios 요청");
+                      navigate("/test");
+                    }}
+                  >
+                    나의 유형 테스트<br></br>하러가기
+                  </BlueButton>
+                </ButtonWrapper>
               </ResultWrapper>
-            )}
-          </PopUp>
+            </PopUpScroll>
+          )}
         </PopUpWrapper>
       }
     </>
@@ -181,6 +223,42 @@ const PopUpWrapper = styled.div`
   position: fixed;
   top: 0px;
   left: 0px;
+`;
+const PopUp = styled.div`
+  overflow: hidden;
+  scrollbar-width: none;
+  width: 600px;
+  height: 750px;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  position: fixed;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+
+  padding: 50px;
+  box-sizing: border-box;
+`;
+const PopUpScroll = styled.div`
+  overflow: scroll;
+  scrollbar-width: none;
+  width: 600px;
+  height: 750px;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  position: fixed;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+
+  padding: 50px;
+  box-sizing: border-box;
 `;
 
 const LoadingWrapper = styled.div`
@@ -211,25 +289,6 @@ const LoadingText = styled.div`
   font-size: 20px;
   margin-top: 50px;
   color: #898989;
-`;
-
-const PopUp = styled.div`
-  overflow: scroll;
-  scrollbar-width: none;
-  width: 600px;
-  height: 750px;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  position: fixed;
-  background-color: white;
-  top: 50%;
-  left: 50%;
-
-  padding: 50px;
-  box-sizing: border-box;
 `;
 
 const ResultWrapper = styled.div`
@@ -274,7 +333,17 @@ const ResultText = styled.div`
     font-weight: 600;
   }
 `;
-const ResultText2 = styled.div`
+const ResultTextCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 400px;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 10px 0 40px 0;
+`;
+const ResultText2 = styled.span`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -288,21 +357,24 @@ const ResultText2 = styled.div`
   span:first-child {
     font-weight: 600;
   }
+  &:hover {
+    color: salmon;
+  }
+  transition: 0.3s ease-in-out;
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  // align-items: center;
   width: 300px;
   font-size: 16px;
   font-weight: 400;
-  margin: 30px 0;
+  margin: 50px 0 30px 0;
 `;
 
 const BlueButton = styled.button`
   width: 47%;
-  height: 45px;
+  height: 60px;
   background: #0a84ff;
   font-weight: 400;
   font-size: 15px;
@@ -313,7 +385,7 @@ const BlueButton = styled.button`
 
 const BlueBoderButton = styled.button`
   width: 47%;
-  height: 45px;
+  height: 60px;
   background: #ffffff;
   font-weight: 400;
   font-size: 15px;
