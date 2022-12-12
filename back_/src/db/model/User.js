@@ -8,7 +8,7 @@ class User {
 
             return createdNewUser;
         } catch (err) {
-            console.log("이것이 바로 에러", err);
+            console.log(" 유저 생성 실패", err);
         }
     }
 
@@ -35,38 +35,21 @@ class User {
         }
     }
 
-    static async update(newInput) {
+    static async update({ user_id, fieldToUpdate, updateValue }) {
         try {
-            const {
-                user_id,
-                email,
-                id,
-                nickname,
-                password,
-                age,
-                address,
-                car_owned,
-                elec_car_owned,
-            } = newInput;
+            const filter = { user_id: user_id };
+            const update = { [fieldToUpdate]: updateValue };
+            const option = { returnOriginal: false };
 
-            const update = {
-                email,
-                id,
-                nickname,
-                password,
-                age,
-                address,
-                car_owned,
-                elec_car_owned,
-            };
-
-            const updatedUser = await UserModel.updateOne({ user_id }, update, {
-                returnOriginal: false,
-            });
+            const updatedUser = await UserModel.findOneAndUpdate(
+                filter,
+                update,
+                option
+            );
 
             return updatedUser;
         } catch (err) {
-            console.log(err);
+            console.log(err, "업데이트 오류");
         }
     }
 }

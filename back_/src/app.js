@@ -8,6 +8,8 @@ import { communityRouter } from "./routers/communityRouter.js";
 import { gasRouter } from "./routers/gasRouter.js";
 import { typeRouter } from "./routers/typeRouter.js";
 import { commentRouter } from "./routers/commentRouter.js";
+import { carRouter } from "./routers/carRouter.js";
+import { stepRouter } from "./routers/stepRouter.js";
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.use(communityRouter);
 app.use(gasRouter);
 app.use(typeRouter);
 app.use(commentRouter);
+app.use(carRouter);
+app.use(stepRouter);
 app.use(imageRouter);
 
 app.use(errorMiddleware);
