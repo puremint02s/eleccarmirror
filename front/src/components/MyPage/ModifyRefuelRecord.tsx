@@ -20,10 +20,14 @@ function ModifyRecord() {
   const [odometer, setOdometer] = useState(0);
   const [currentRecordId, setCurrentRecordId] = useState("");
 
+  function getSelectedValue(event: React.ChangeEvent<HTMLSelectElement>) {
+    setGasType(event.target.value);
+  }
+
   async function ModifyCurrentRefuelRecord(e: any) {
     e.preventDefault();
     try {
-      const res = await ModifyRefuelRecord(
+      await ModifyRefuelRecord(
         currentRecordId, // 현재 기록 고유 _id
         oilingDate,
         gasType,
@@ -38,23 +42,6 @@ function ModifyRecord() {
     }
   }
 
-  const OPTIONS = [
-    { value: "none", name: "선택해주세요" },
-    { value: "gasoline", name: "휘발유" },
-    { value: "diesel", name: "경유" },
-  ];
-  const SelectBox = (props: any) => {
-    return (
-      <Select>
-        {props.options.map((option: any) => (
-          <option key={option.value} value={option.value}>
-            {option.name}
-          </option>
-        ))}
-      </Select>
-    );
-  };
-
   return (
     <>
       <Header />
@@ -67,12 +54,14 @@ function ModifyRecord() {
               <DatePicker
                 selected={oilingDate}
                 onChange={(date: Date) => setOilingDate(date)}
-                locale="ko"
                 dateFormatCalendar="yyyy.MM"
                 customInput={<CalcInput />}
               />
               <CalcInputTitle>유종</CalcInputTitle>
-              <SelectBox options={OPTIONS} />
+              <Select onChange={getSelectedValue}>
+                <option value="휘발유">휘발유</option>
+                <option value="경유">경유</option>
+              </Select>
               <CalcInputTitle>주유량(L)</CalcInputTitle>
               <CalcInput
                 type="number"
