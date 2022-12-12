@@ -43,9 +43,9 @@ const SignUpPage = () => {
 
   return (
     <>
-      {addressPopUpOpen && (
+      {/* {addressPopUpOpen && (
         <AddressPopUp setAddressPopUpOpen={setAddressPopUpOpen} />
-      )}
+      )} */}
       {signUpCodePopUpOpen && (
         <SignUpCodePopUp setSignUpCodePopUpOpen={setSignUpCodePopUpOpen} />
       )}
