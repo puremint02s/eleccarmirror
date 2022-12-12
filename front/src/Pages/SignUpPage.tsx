@@ -2,28 +2,31 @@ import { useState } from "react";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import SignUpCodePopUp from "components/SignUp/SignUpCodePopUp";
 import { useForm } from "react-hook-form";
-
+import * as Api from "apis/UserSignApi";
 import logo from "assets/img/MyElecCar logo.png";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+// import useSignup from "hooks/useSignup";
 
 interface SignForm {
-  email?: string;
-  id?: string;
-  nickname?: string;
-  password?: string;
-  newPassword?: string;
-  confirmPassword?: string;
+  email: string;
+  id: string;
+  nickname: string;
+  password: string;
+  confirmPassword: string;
+  age: string;
+  address: string;
 }
 
 const SignUpPage = () => {
+  // const { mutate: signup, isLoading } = useSignup();
   const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
   const [signUpCodePopUpOpen, setSignUpCodePopUpOpen] = useState(false);
+  const [inputAddress, setInputAddress] = useState("");
+  const navigate = useNavigate();
   const popUpOpen = (e: React.MouseEvent) => {
     e.preventDefault();
     setAddressPopUpOpen(true);
-  };
-  const signUp = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setSignUpCodePopUpOpen(true);
   };
 
   const {
@@ -35,16 +38,36 @@ const SignUpPage = () => {
     mode: "onChange",
     defaultValues: {
       email: "",
+      id: "",
       nickname: "",
       password: "",
       confirmPassword: "",
+      age: "",
+      address: "",
     },
   });
+
+  const signUp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSignUpCodePopUpOpen(true);
+    useMutation(Api.RegisterRequest, {
+      onSuccess: message => {
+        navigate("/login");
+        console.log({ success: message });
+      },
+      onError: error => {
+        console.log("onError");
+      },
+    });
+  };
 
   return (
     <>
       {addressPopUpOpen && (
-        <AddressPopUp setAddressPopUpOpen={setAddressPopUpOpen} />
+        <AddressPopUp
+          setAddressPopUpOpen={setAddressPopUpOpen}
+          setInputAddress={setInputAddress}
+        />
       )}
       {signUpCodePopUpOpen && (
         <SignUpCodePopUp setSignUpCodePopUpOpen={setSignUpCodePopUpOpen} />
@@ -71,6 +94,7 @@ const SignUpPage = () => {
         >
           <img style={{ width: 180 }} src={logo} alt="서비스 로고" />
           <form
+            onSubmit={signUp}
             style={{
               display: "flex",
               flexDirection: "column",
@@ -227,7 +251,7 @@ const SignUpPage = () => {
                 width: "320px",
               }}
             >
-              <label htmlFor="email">비밀번호 재확인</label>
+              <label htmlFor="confirmPassword">비밀번호 재확인</label>
               <input
                 style={{
                   width: "100%",
@@ -237,7 +261,7 @@ const SignUpPage = () => {
                   boxSizing: "border-box",
                   margin: "10px 0",
                 }}
-                id="password"
+                id="confirmPassword"
                 type="password"
                 placeholder="비밀번호를 다시 한번 입력해주세요."
                 {...register("confirmPassword", {
@@ -266,7 +290,7 @@ const SignUpPage = () => {
                 width: "320px",
               }}
             >
-              <label htmlFor="email">나이</label>
+              <label htmlFor="age">나이</label>
               <select
                 style={{
                   width: "100%",
@@ -294,7 +318,7 @@ const SignUpPage = () => {
                 width: "320px",
               }}
             >
-              <label htmlFor="email">주소</label>
+              <label htmlFor="address">주소</label>
               <div style={{ display: "flex", width: "100%" }}>
                 <input
                   style={{
@@ -306,9 +330,10 @@ const SignUpPage = () => {
                     margin: "10px 10px 10px 0px",
                   }}
                   id="address"
-                  type="address"
+                  type={"text"}
                   name="address"
                   placeholder="주소"
+                  value={inputAddress}
                 />
                 <button
                   onClick={popUpOpen}
@@ -325,7 +350,6 @@ const SignUpPage = () => {
               </div>
             </div>
             <button
-              onClick={signUp}
               style={{
                 width: "100%",
                 height: "40px",

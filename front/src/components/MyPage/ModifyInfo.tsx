@@ -45,7 +45,7 @@ interface AgeOption {
 function ModifyInfo() {
   const navigate = useNavigate();
   const handleModifyInfoCancel = () => navigate("/mypage");
-
+  const [inputAddress, setInputAddress] = useState("");
   const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
   const popUpOpen = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -85,7 +85,10 @@ function ModifyInfo() {
   return (
     <>
       {addressPopUpOpen && (
-        <AddressPopUp setAddressPopUpOpen={setAddressPopUpOpen} />
+        <AddressPopUp
+          setAddressPopUpOpen={setAddressPopUpOpen}
+          setInputAddress={setInputAddress}
+        />
       )}
       <Header />
       <TitleWrapper>마이 페이지</TitleWrapper>
