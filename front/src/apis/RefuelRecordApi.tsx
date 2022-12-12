@@ -1,5 +1,9 @@
 import { axiosInstance } from "./AxiosInstance";
 
+interface user_id {
+  _id: string;
+}
+
 export const AddRefuelRecord = async (
   user_id: string,
   oiling_date: string,
@@ -44,7 +48,7 @@ export const ModifyRefuelRecord = async (
   return res.data;
 };
 
-// export const DeleteRefuelRecord = async (_id: string) => {
-//   const res = await axiosInstance.delete("/gas", { _id });
-//   return res.data;
-// };
+export const DeleteRefuelRecord = async (data: object) => {
+  const res = await axiosInstance.delete("/gas", { data });
+  return res.data;
+};

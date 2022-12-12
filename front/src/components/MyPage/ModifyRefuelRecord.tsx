@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
 import Header from "components/common/Header";
-import Sidebar from "components/MyPage/Sidebar";
 import {
   CalcFormDiv,
   CalcFormWrapper,
@@ -38,7 +37,6 @@ function ModifyRefuelRecord() {
       <Header />
       <TitleWrapper>마이 페이지</TitleWrapper>
       <ModifyRefuelRecordWrapper>
-        <Sidebar />
         <ModifyRefuelRecordFormWrapper>
           <CalcFormDiv>
             <CalcFormWrapper>
