@@ -64,9 +64,9 @@ function AddNewRefuelRecord() {
     );
   };
 
-  // const GetSelectdValue = target => {
-  //   setGasType(target.value);
-  // };
+  function GetSelectedValue(this: string) {
+    setGasType(this);
+  }
 
   return (
     <>
@@ -85,8 +85,11 @@ function AddNewRefuelRecord() {
                 customInput={<CalcInput />}
               />
               <CalcInputTitle>유종</CalcInputTitle>
-              <SelectBox options={OPTIONS} />
-              {/* <SelectBox onChange={GetSelectedValue(this)}>
+              {/* <SelectBox
+                options={OPTIONS}
+                onChange={GetSelectedValue(this.value)}
+              /> */}
+              {/* <SelectBox onChange={GetSelectedValue(this.value)}>
                 <option value="휘발유">휘발유</option>
                 <option value="경유">경유</option>
               </SelectBox> */}
