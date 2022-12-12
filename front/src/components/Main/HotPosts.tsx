@@ -34,7 +34,7 @@ const HotPosts = ({ dummyPosts }: propsTypes) => {
               padding: "20px 0",
             }}
           >
-            HOT! 게시물
+            HOT! 10
           </span>
           <a href="/community">
             <span
