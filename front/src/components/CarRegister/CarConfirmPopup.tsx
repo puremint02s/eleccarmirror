@@ -12,9 +12,10 @@ interface propsTypes {
   fileName: string;
   setPopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-// function getKeyByValue(object: any, value: number) {
-//   return Object.keys(object).find((key: string) => object[key] === value);
-// }
+interface data {
+  label: string;
+  value: number;
+}
 
 const CarConfirmPopup = ({
   fileName,
@@ -22,38 +23,37 @@ const CarConfirmPopup = ({
   setPopUpOpen,
 }: propsTypes) => {
   const navigate = useNavigate();
+  const [chartData, setChartData] = useState<data[]>();
   const [isLoading, setLoading] = useState(true);
   const [isAnalysisTabOpen, setAnalysisTabToggle] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
-
-  const values: Array<string> = Object.keys(dic);
-  const keys: Array<number> = Object.values(dic);
 
   const onAnalysisTabToggle = () => {
     setAnalysisTabToggle(c => !c);
   };
-  const result = keys.map(v => ({
-    label: values[v],
-    value: predictionList[v] * 100,
-  }));
 
-  result.sort((a, b) => b.value - a.value);
-  const chartData = [...result].splice(0, 4);
-  chartData.push({
-    label: "etc",
-    value:
-      100 -
-      chartData[0].value -
-      chartData[1].value -
-      chartData[2].value -
-      chartData[3].value,
-  });
-  console.log(chartData);
-
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+    const values: Array<string> = Object.keys(dic);
+    const keys: Array<number> = Object.values(dic);
+    const result = keys.map(v => ({
+      label: values[v],
+      value: predictionList[v] * 100,
+    }));
+    result.sort((a, b) => b.value - a.value);
+    const chartData = [...result].splice(0, 4);
+    chartData.push({
+      label: "etc",
+      value:
+        100 -
+        chartData[0].value -
+        chartData[1].value -
+        chartData[2].value -
+        chartData[3].value,
+    });
+    setChartData(chartData);
+  }, [predictionList]);
   return (
     <>
       {
@@ -88,15 +88,15 @@ const CarConfirmPopup = ({
                 {/* vm에 저장해둔 분류 모델 이미지가 나와야 합니다. */}
                 <ResultText>
                   <span>제조사</span>
-                  <span>{result[0].label.split(" ")[0]}</span>
+                  <span>{chartData && chartData[0].label.split(" ")[0]}</span>
                 </ResultText>
                 <ResultText>
                   <span>모델</span>
-                  <span>{result[0].label.split(" ")[1]}</span>
+                  <span>{chartData && chartData[0].label.split(" ")[1]}</span>
                 </ResultText>
                 <ResultText>
                   <span>AI 분석 확률</span>
-                  <span>{result[0].value.toFixed(2)}%</span>
+                  <span>{chartData && chartData[0].value.toFixed(2)}%</span>
                 </ResultText>
                 <ButtonWrapper>
                   <BlueBoderButton
@@ -138,15 +138,16 @@ const CarConfirmPopup = ({
                   만약 리스트에 나의 차량이 없다면 가장 유사하다고 판단되는
                   차량을 리스트에서 골라주세요 :)
                 </ResultTextCenter>
-                <Chart result={chartData} />
+                {chartData && <Chart chartData={chartData} />}
 
                 <ResultWrapper>
-                  {chartData.map(v => (
-                    <ResultText2 key={v.value}>
-                      <span>{v.label}</span>
-                      <span>{v.value.toFixed(2)}%</span>
-                    </ResultText2>
-                  ))}
+                  {chartData &&
+                    chartData.map((v: data) => (
+                      <ResultText2 key={v.value}>
+                        <span>{v.label}</span>
+                        <span>{v.value.toFixed(2)}%</span>
+                      </ResultText2>
+                    ))}
                 </ResultWrapper>
 
                 <ButtonWrapper>

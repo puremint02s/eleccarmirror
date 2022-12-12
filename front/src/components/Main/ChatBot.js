@@ -130,9 +130,13 @@ const Bot = ({ isVisible }) => {
 };
 
 const ChatBotWrapper = styled.div`
+  position: fixed;
+  right: 50px;
+  bottom: 110px;
+
   opacity: ${props => (props.isVisible ? "1" : "0")};
   pointer-events: ${props => (props.isVisible ? "" : "none")};
-  transition: 0.3s ease-in-out all;
+  transition: 0.5s ease-in-out opacity;
 `;
 
 export default Bot;

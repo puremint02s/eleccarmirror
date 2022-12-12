@@ -10,11 +10,13 @@ interface data {
   label: string;
   value: number;
 }
-// interface datas extends Array<data> { }
+interface datas {
+  chartData: data[];
+}
 
-const Chart = ({ result }: any) => {
-  const labels = result.map((v: { label: string }) => v.label);
-  const values = result.map((v: { value: number }) => v.value);
+const Chart = ({ chartData }: datas) => {
+  const labels = chartData.map((v: { label: string }) => v.label);
+  const values = chartData.map((v: { value: number }) => v.value);
   const data = {
     labels,
     datasets: [

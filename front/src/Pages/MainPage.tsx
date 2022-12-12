@@ -11,6 +11,12 @@ import Bot from "components/Main/ChatBot";
 import { useState } from "react";
 
 const MainPage = () => {
+  const stepText = [
+    "전기차 추천 과정이 준비되어있어요 :)",
+    "현재 차량을 등록해주셨네요! :)",
+    "성향 테스트를 완료해주셨네요! :)",
+    "전기차 추천 결과를 확인해주세요 :)",
+  ];
   //react query를 통해 유저 정보, 게시글 정보를 불러온다.
   const [isChatbotOpen, setChatbotOpen] = useState(false);
   const [userName, setUserName] = useState("최은오");
@@ -29,12 +35,10 @@ const MainPage = () => {
 
   return (
     <MainPageWrapper>
-      <BotWrapper>
-        <Bot isVisible={isChatbotOpen} />
-        <ChatBotButton isOpen={isChatbotOpen} onClick={onChatBotToggle}>
-          {isChatbotOpen ? <XIcon>✕</XIcon> : <CarIcon src={car} />}
-        </ChatBotButton>
-      </BotWrapper>
+      <Bot isVisible={isChatbotOpen} />
+      <ChatBotButton isOpen={isChatbotOpen} onClick={onChatBotToggle}>
+        {isChatbotOpen ? <XIcon>✕</XIcon> : <CarIcon src={car} />}
+      </ChatBotButton>
       <Header />
       <Main>
         <MainSectionTop>
@@ -42,8 +46,8 @@ const MainPage = () => {
             <UserWelcome userName={userName}></UserWelcome>
           </SubSectionTop>
           <SubSectionTop>
-            <span>전기차 추천 과정을 완료해주세요 :)</span>
-            <img style={{ width: "600px" }} src={step}></img>
+            <ImageText>{stepText[0]}</ImageText>
+            <img style={{ width: "100%" }} src={step}></img>
           </SubSectionTop>
         </MainSectionTop>
         <MainSectionBottom>
@@ -92,14 +96,12 @@ const MainPageWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const BotWrapper = styled.div`
-  position: fixed;
-  right: 70px;
-  bottom: 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: end;
+
+const ImageText = styled.span`
+  font-size: 1.2em;
+  color: black;
+  margin: 50px 0 20px 0;
+  font-weight: 600;
 `;
 
 const CarIcon = styled.img`
@@ -111,8 +113,13 @@ const XIcon = styled.span`
 `;
 
 const ChatBotButton = styled.button<{ isOpen: boolean }>`
-  width: ${props => (props.isOpen ? "40px" : "60px")};
-  height: ${props => (props.isOpen ? "40px" : "60px")};
+  width: ${props => (props.isOpen ? "45px" : "60px")};
+  height: ${props => (props.isOpen ? "45px" : "60px")};
+
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+
   margin-top: 10px;
   border-radius: 35px;
   background-color: #0a84ff;
@@ -125,5 +132,5 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
   &:hover {
     background-color: salmon;
   }
-  transition: 0.3s ease-in-out all;
+  transition: 0.5s ease-in-out all;
 `;
