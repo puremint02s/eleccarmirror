@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import { CurrentUserGet, ModifyUserInfo } from "apis/UserApi";
@@ -21,15 +20,12 @@ const CarOptions = [
 ];
 
 function ModifyInfo() {
-  const navigate = useNavigate();
-  const handleModifyInfoCancel = () => navigate("/mypage");
-
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
-  const [address, setAddress] = useState("");
+  const [inputAddress, setInputAddress] = useState("");
   const [carOwned, setCarOwned] = useState(false);
   const [elecCarOwned, setElecCarOwned] = useState(false);
 
@@ -41,7 +37,7 @@ function ModifyInfo() {
       setNickname(res.data.nickname);
       setPassword(res.data.password);
       setAge(res.data.age);
-      setAddress(res.data.address);
+      setInputAddress(res.data.address);
     }
     getUserInfo();
   }, []);
@@ -54,7 +50,7 @@ function ModifyInfo() {
         nickname,
         password,
         age,
-        address,
+        inputAddress,
         carOwned,
         elecCarOwned,
       );
@@ -96,10 +92,15 @@ function ModifyInfo() {
     );
   };
 
+  const handleModifyInfoCancel = () => location.reload();
+
   return (
     <>
       {addressPopUpOpen && (
-        <AddressPopUp setAddressPopUpOpen={setAddressPopUpOpen} />
+        <AddressPopUp
+          setAddressPopUpOpen={setAddressPopUpOpen}
+          setInputAddress={setInputAddress}
+        />
       )}
       <ModifyInfoWrapper>
         <ModifyInfoContentWrapper>
@@ -135,7 +136,7 @@ function ModifyInfo() {
                     ></ModifyInfoContentInput>
                   </ModifyInfoContentInputWrapper>
                 </ModifyInfoContentTr>
-                <ModifyInfoContentTr>
+                {/* <ModifyInfoContentTr>
                   <ModifyInfoContentTitle>비밀번호</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
                     <ModifyInfoContentInput
@@ -149,7 +150,7 @@ function ModifyInfo() {
                   <ModifyInfoContentInputWrapper>
                     <ModifyInfoContentInput />
                   </ModifyInfoContentInputWrapper>
-                </ModifyInfoContentTr>
+                </ModifyInfoContentTr> */}
                 <ModifyInfoContentTr>
                   <ModifyInfoContentTitle>나이</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
@@ -166,7 +167,7 @@ function ModifyInfo() {
                   <ModifyInfoContentTitle>주소</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
                     <ModifyInfoAddressInput
-                      placeholder={address}
+                      placeholder={inputAddress}
                     ></ModifyInfoAddressInput>
                     <AddressSearchBtn onClick={popUpOpen}>
                       주소 검색

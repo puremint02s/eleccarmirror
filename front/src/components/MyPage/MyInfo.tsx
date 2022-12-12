@@ -66,9 +66,9 @@ function MyInfo() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               나의 차량 정보
-              <Link to="/mypage/modifyinfo">
+              {/* <Link to="/mypage/modifyinfo">
                 <ModifyCarInfoButton>수정</ModifyCarInfoButton>
-              </Link>
+              </Link> */}
             </MyPageContentTitle>
             <MyPageContent>
               <ul>
