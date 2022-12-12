@@ -40,7 +40,7 @@ const MainPage = () => {
         {isChatbotOpen ? <XIcon>✕</XIcon> : <CarIcon src={car} />}
       </ChatBotButton>
       <Header />
-      <Main>
+      <MainArea>
         <MainSectionTop>
           <SubSectionTop>
             <UserWelcome userName={userName}></UserWelcome>
@@ -58,23 +58,37 @@ const MainPage = () => {
             <ElecCarReport></ElecCarReport>
           </SubSectionBottom>
         </MainSectionBottom>
-      </Main>
+      </MainArea>
     </MainPageWrapper>
   );
 };
 export default MainPage;
-const Main = styled.main`
+const MainArea = styled.main`
   padding: 0 50px 0 50px;
+  height: auto;
+  @media screen and (max-width: 720px) {
+    padding: 0px 10px;
+  }
 `;
 const MainSectionTop = styled.section`
-  height: calc(50vh - 80px);
+  height: calc(50vh - 60px);
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 720px) {
+    justify-content: start;
+    height: auto;
+    flex-direction: column;
+  }
 `;
 const MainSectionBottom = styled.section`
   height: 50vh;
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 720px) {
+    justify-content: start;
+    height: auto;
+    flex-direction: column;
+  }
 `;
 const SubSectionTop = styled.section`
   width: 50vw;
@@ -82,6 +96,12 @@ const SubSectionTop = styled.section`
   flex-direction: column;
   justify-content: end;
   align-items: center;
+  @media screen and (max-width: 720px) {
+    height: auto;
+    width: 100%;
+    padding-top: 50px;
+    flex-direction: column;
+  }
 `;
 const SubSectionBottom = styled.section`
   width: 50vw;
@@ -89,12 +109,21 @@ const SubSectionBottom = styled.section`
   flex-direction: column;
   justify-content: Center;
   align-items: center;
+  @media screen and (max-width: 720px) {
+    height: auto;
+    width: 100%;
+    padding-top: 50px;
+    flex-direction: column;
+  }
 `;
 const MainPageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 720px) {
+    height: auto;
+  }
 `;
 
 const ImageText = styled.span`
@@ -102,10 +131,13 @@ const ImageText = styled.span`
   color: black;
   margin: 50px 0 20px 0;
   font-weight: 600;
+  @media screen and (max-width: 720px) {
+    font-size: 1.1em;
+  }
 `;
 
 const CarIcon = styled.img`
-  width: 80%;
+  width: 70%;
   height: auto;
 `;
 const XIcon = styled.span`
@@ -117,8 +149,8 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
   height: ${props => (props.isOpen ? "45px" : "60px")};
 
   position: fixed;
-  right: 50px;
-  bottom: 50px;
+  right: 3vw;
+  bottom: 3vw;
 
   margin-top: 10px;
   border-radius: 35px;
@@ -132,5 +164,5 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
   &:hover {
     background-color: salmon;
   }
-  transition: 0.5s ease-in-out all;
+  transition: 0.3s ease-in-out all;
 `;

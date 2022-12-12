@@ -1,19 +1,28 @@
 import styled from "styled-components/macro";
 import LogoImg from "assets/img/MyElecCar logo.png";
+import menu from "assets/img/menu.png";
 import Storage from "apis/SessionStorage";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
 function Header() {
+  const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+  const onMenuToggle = () => {
+    setMenuOpen(c => !c);
+  };
   function clickLogout() {
     Storage.clearAllItem();
   }
   return (
-    <HeaderWarraper>
-      <a href="/main">
-        <Logo />
-      </a>
+    <HeaderWrapper isMenuOpen={isMenuOpen}>
+      <LogoWrapper>
+        <a href="/main">
+          <Logo />
+        </a>
+        <HamburgerMenu src={menu} onClick={onMenuToggle}></HamburgerMenu>
+      </LogoWrapper>
+
       {Storage.getTokenItem() ? (
-        <NavWrapper>
+        <NavWrapper isMenuOpen={isMenuOpen}>
           <li>
             <Link to="/serviceintro">서비스 소개</Link>
           </li>
@@ -27,7 +36,7 @@ function Header() {
           </li>
         </NavWrapper>
       ) : (
-        <NavWrapper>
+        <NavWrapper isMenuOpen={isMenuOpen}>
           <li>
             <Link to="/serviceintro">서비스 소개</Link>
           </li>
@@ -36,33 +45,64 @@ function Header() {
           </li>
         </NavWrapper>
       )}
-    </HeaderWarraper>
+    </HeaderWrapper>
   );
 }
+const LogoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (max-width: 720px) {
+    width: 100vw;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+`;
+const HamburgerMenu = styled.img`
+  width: 30px;
+  height: 30px;
+  @media screen and (min-width: 721px) {
+    display: none;
+  }
+`;
 
-const HeaderWarraper = styled.header`
+const HeaderWrapper = styled.header<{ isMenuOpen: boolean }>`
   width: 100vw;
-  height: 80px;
+  height: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px 0 30px;
   box-sizing: border-box;
+  @media screen and (max-width: 720px) {
+    flex-direction: column;
+    justify-content: start;
+    height: ${props => (props.isMenuOpen ? "200px" : "55px")};
+  }
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.13);
+  transition: 0.45s ease-in-out all;
 `;
 
-const NavWrapper = styled.nav`
+const NavWrapper = styled.nav<{ isMenuOpen: boolean }>`
   display: flex;
   justify-content: center;
-  align-items: center;
   li {
     font-weight: 600;
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-left: 30px;
-    color: salmon;
-    transition: 0.3s ease-in-out;
+    transition: 0.35s linear;
+    @media screen and (max-width: 720px) {
+      opacity: ${props => (props.isMenuOpen ? "1" : "0")};
+      transform: ${props => (props.isMenuOpen ? "0" : "translateY(-60px)")};
+      font-size: ${props => (props.isMenuOpen ? "1.1em" : "0")};
+      padding: 10px 0;
+    }
   }
   li: hover {
-    font-size: 1.25em;
+    font-size: 1.15em;
+  }
+  @media screen and (max-width: 720px) {
+    flex-direction: column;
   }
 `;
 
