@@ -55,6 +55,7 @@ const NavWrapper = styled.nav`
   justify-content: center;
   align-items: center;
   li {
+    font-weight: 600;
     font-size: 1.2em;
     margin-left: 30px;
     color: salmon;
