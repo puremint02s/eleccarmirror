@@ -49,69 +49,81 @@ const MainPage = () => {
             </ChatBotOpenButton>
           )}
         </BotWrapper>
-        <Header></Header>
-        <div
-          style={{
-            height: "40vh",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
+        <Header />
+        <Main>
           <div
             style={{
-              width: "40vw",
+              height: "calc(50vh - 80px)",
               display: "flex",
               justifyContent: "center",
-              alignItems: "center",
             }}
           >
-            <UserWelcome userName={userName}></UserWelcome>
+            <div
+              style={{
+                width: "50vw",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <UserWelcome userName={userName}></UserWelcome>
+            </div>
+            <div
+              style={{
+                width: "50vw",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "end",
+              }}
+            >
+              {/* 유저 차량 추천 과정을 나타내는 state에 따라 이미지 변경 */}
+              <img style={{ width: "500px", margin: "30px" }} src={step}></img>
+            </div>
           </div>
           <div
             style={{
-              width: "40vw",
+              height: "50vh",
               display: "flex",
               justifyContent: "center",
-              alignItems: "end",
             }}
           >
-            {/* 유저 차량 추천 과정을 나타내는 state에 따라 이미지 변경 */}
-            <img style={{ width: "320px", margin: "30px" }} src={step}></img>
+            <div
+              style={{
+                width: "50vw",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <HotPosts dummyPosts={dummyPosts}></HotPosts>
+            </div>
+            <div
+              style={{
+                width: "50vw",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <ElecCarReport></ElecCarReport>
+            </div>
           </div>
-        </div>
-        <div
-          style={{
-            height: "60vh",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "40vw",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <HotPosts dummyPosts={dummyPosts}></HotPosts>
-          </div>
-          <div
-            style={{
-              width: "40vw",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <ElecCarReport></ElecCarReport>
-          </div>
-        </div>
+        </Main>
       </div>
     </>
   );
 };
 export default MainPage;
+const Main = styled.main`
+  padding: 0 50px 0 50px;
+`;
+
+const SubSectionCenterBottom = styled.section`
+  width: "50vw",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "end",
+`;
 
 const BotWrapper = styled.div`
   position: fixed;

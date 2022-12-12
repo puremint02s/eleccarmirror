@@ -51,8 +51,9 @@ const HotPosts = ({ dummyPosts }: propsTypes) => {
         <div
           style={{
             display: "flex",
+            overflow: "scroll",
+
             flexDirection: "column",
-            justifyContent: "center",
             border: "1px solid #E8E8E8",
             height: "100%",
             padding: "16px",
