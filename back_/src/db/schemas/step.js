@@ -1,18 +1,15 @@
 import mongoose, { Schema, model } from "mongoose";
 
-const CarSchema = new Schema(
+const StepSchema = new Schema(
     {
         user_id: {
             type: String,
             required: true,
         },
-        brand: {
+        step: {
             type: String,
             required: true,
-        },
-        model: {
-            type: String,
-            required: true,
+            enum: ["0", "1", "2", "3"],
         },
     },
     {
@@ -20,6 +17,6 @@ const CarSchema = new Schema(
     }
 );
 
-const CarModel = model("car", CarSchema);
+const StepModel = model("step", StepSchema);
 
-export { CarModel };
+export { StepModel };
