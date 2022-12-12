@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Pagination from "components/common/Pagination";
 import swal from "sweetalert";
 import { GetUserRefuelRecord, DeleteRefuelRecord } from "apis/RefuelRecordApi";
+import Modal from "components/common/Modal";
+import AddNewRefuelRecord from "./AddRefuelRecord";
+import ModifyRecord from "./ModifyRefuelRecord";
 
 const dummyMyCarData = {
   model: "아반떼",
@@ -17,6 +19,9 @@ function MyInfo() {
   const [gasType, setGasType] = useState("");
   const [gasAmount, setGasAmount] = useState("");
   const [odometer, setOdometer] = useState("");
+
+  const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
+  const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
 
   useEffect(() => {
     async function getUserOilingRecord() {
@@ -64,12 +69,7 @@ function MyInfo() {
       <MyPageWrapper>
         <MyPageContentWrapper>
           <div style={{ paddingTop: 100 }}>
-            <MyPageContentTitle>
-              나의 차량 정보
-              {/* <Link to="/mypage/modifyinfo">
-                <ModifyCarInfoButton>수정</ModifyCarInfoButton>
-              </Link> */}
-            </MyPageContentTitle>
+            <MyPageContentTitle>나의 차량 정보</MyPageContentTitle>
             <MyPageContent>
               <ul>
                 <li>
@@ -90,9 +90,18 @@ function MyInfo() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>
               이전 주유 기록 (최근 3개월)
-              <Link to="/mypage/addrefuelrecord">
-                <AddRefuelButton>+ 주유내역</AddRefuelButton>
-              </Link>
+              <AddRefuelButton
+                onClick={() => setAddingRefuelRecord(!addingRefuelRecord)}
+              >
+                + 주유내역
+              </AddRefuelButton>
+              {addingRefuelRecord && (
+                <Modal
+                  closeModal={() => setAddingRefuelRecord(!addingRefuelRecord)}
+                >
+                  <AddNewRefuelRecord />
+                </Modal>
+              )}
             </MyPageContentTitle>
             <RefuelWrap>
               <table>
@@ -112,12 +121,22 @@ function MyInfo() {
                     <td>{gasAmount}L</td>
                     <td>{odometer}km</td>
                     <td>
-                      <Link
-                        to="/mypage/modifyrefuelrecord"
-                        state={{ recordId: recordId }}
+                      <button
+                        onClick={() =>
+                          setModifyingRefuelRecord(!modifyingRefuelRecord)
+                        }
                       >
-                        <button>수정</button>
-                      </Link>
+                        수정
+                      </button>
+                      {modifyingRefuelRecord && (
+                        <Modal
+                          closeModal={() =>
+                            setModifyingRefuelRecord(!modifyingRefuelRecord)
+                          }
+                        >
+                          <ModifyRecord />
+                        </Modal>
+                      )}
                       <button onClick={handleRefuelRecordDelete}>삭제</button>
                     </td>
                   </tr>
@@ -152,16 +171,6 @@ const MyPageContentTitle = styled.p`
   padding-bottom: 15px;
   font-size: 20px;
   font-weight: 500;
-`;
-
-const ModifyCarInfoButton = styled.button`
-  float: right;
-  padding: 5px 10px 5px 10px;
-  cursor: pointer;
-  border-radius: 28px;
-  border: none;
-  font-size: 12px;
-  color: #636363;
 `;
 
 const MyPageContent = styled.div`
