@@ -5,6 +5,7 @@ import loading from "assets/img/loading2.gif";
 import data from "assets/data/subsidy.json";
 
 const Bot = () => {
+  //메인페이지에서 userName을 props로 받아서 사용할 예정
   const userName = "최은오";
   const theme = {
     background: "whitesmoke",
@@ -119,7 +120,8 @@ const Bot = () => {
           },
           {
             id: "money4",
-            message: "* 안내된 보조금은 최대 금액 예상치 입니다. (2022년 기준, 국비+지방비)",
+            message:
+              "* 안내된 보조금은 최대 금액 예상치 입니다. (2022년 기준, 국비+지방비)",
             trigger: "money5",
           },
           {
