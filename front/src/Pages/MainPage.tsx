@@ -79,6 +79,9 @@ const MainSectionTop = styled.section`
     height: auto;
     flex-direction: column;
   }
+  @media screen and (max-height: 720px) {
+    height: auto;
+  }
 `;
 const MainSectionBottom = styled.section`
   height: 50vh;
@@ -88,6 +91,9 @@ const MainSectionBottom = styled.section`
     justify-content: start;
     height: auto;
     flex-direction: column;
+  }
+  @media screen and (max-height: 720px) {
+    height: auto;
   }
 `;
 const SubSectionTop = styled.section`
