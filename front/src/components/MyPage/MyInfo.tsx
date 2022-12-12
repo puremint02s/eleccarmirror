@@ -47,8 +47,8 @@ function MyInfo() {
         dangerMode: true,
       }).then(async willDelete => {
         if (willDelete) {
-          // const data = { _id: recordId };
-          // await DeleteRefuelRecord(data);
+          const data = { _id: recordId };
+          await DeleteRefuelRecord(data);
           swal("삭제 완료", "주유내역이 정상적으로 삭제되었습니다.", "success");
         } else {
           swal("삭제 취소", "사용자가 삭제를 취소하였습니다.", "info");
