@@ -47,25 +47,8 @@ function AddNewRefuelRecord() {
     }
   }
 
-  const OPTIONS = [
-    { value: "휘발유", name: "휘발유" },
-    { value: "경유", name: "경유" },
-  ];
-
-  const SelectBox = (props: any) => {
-    return (
-      <Select>
-        {props.options.map((option: any) => (
-          <option key={option.value} value={option.value}>
-            {option.name}
-          </option>
-        ))}
-      </Select>
-    );
-  };
-
-  function GetSelectedValue(this: string) {
-    setGasType(this);
+  function getSelectedValue(event: React.ChangeEvent<HTMLSelectElement>) {
+    setGasType(event.target.value);
   }
 
   return (
@@ -80,19 +63,14 @@ function AddNewRefuelRecord() {
               <DatePicker
                 selected={oilingDate}
                 onChange={(date: Date) => setOilingDate(date)}
-                locale="ko"
                 dateFormatCalendar="yyyy.MM"
                 customInput={<CalcInput />}
               />
               <CalcInputTitle>유종</CalcInputTitle>
-              {/* <SelectBox
-                options={OPTIONS}
-                onChange={GetSelectedValue(this.value)}
-              /> */}
-              {/* <SelectBox onChange={GetSelectedValue(this.value)}>
+              <Select onChange={getSelectedValue}>
                 <option value="휘발유">휘발유</option>
                 <option value="경유">경유</option>
-              </SelectBox> */}
+              </Select>
               <CalcInputTitle>주유량(L)</CalcInputTitle>
               <CalcInput
                 type="number"

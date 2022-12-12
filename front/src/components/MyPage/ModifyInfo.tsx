@@ -10,14 +10,6 @@ const dummyMyCarData = {
   MPG: 10,
 };
 
-const AgeOptions = [
-  { value: 2, age: "20대" },
-  { value: 3, age: "30대" },
-  { value: 4, age: "40대" },
-  { value: 5, age: "50대" },
-  { value: 6, age: "60대 이상" },
-];
-
 const CarOptions = [
   { value: 1, brand: "현대", model: "아반떼" },
   { value: 2, brand: "현대", model: "그랜저" },
@@ -28,25 +20,6 @@ const CarOptions = [
   { value: 7, brand: "쌍용", model: "렉스턴" },
 ];
 
-interface AgeOption {
-  value: number;
-  age: string;
-}
-
-interface UserInfo {
-  user_id: string;
-  email: string;
-  id: string;
-  nickname: string;
-  password: string;
-  age: string;
-  address: string;
-  car_owned: boolean;
-  elec_car_owend: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
 function ModifyInfo() {
   const navigate = useNavigate();
   const handleModifyInfoCancel = () => navigate("/mypage");
@@ -55,8 +28,8 @@ function ModifyInfo() {
   const [userId, setUserId] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
-  const [age, setAge] = useState("20대");
-  const [address, setAddress] = useState("부산");
+  const [age, setAge] = useState("");
+  const [address, setAddress] = useState("");
   const [carOwned, setCarOwned] = useState(false);
   const [elecCarOwned, setElecCarOwned] = useState(false);
 
@@ -67,6 +40,7 @@ function ModifyInfo() {
       setUserId(res.data.id);
       setNickname(res.data.nickname);
       setPassword(res.data.password);
+      setAge(res.data.age);
       setAddress(res.data.address);
     }
     getUserInfo();
@@ -75,7 +49,7 @@ function ModifyInfo() {
   async function editUserInfo(e: any) {
     e.preventDefault();
     try {
-      const res = await ModifyUserInfo(
+      await ModifyUserInfo(
         userEmail,
         nickname,
         password,
@@ -98,15 +72,9 @@ function ModifyInfo() {
     setAddressPopUpOpen(true);
   };
 
-  const AgeSelectBox = (props: any) => {
-    return (
-      <ModifyInfoAgeSelect>
-        {props.options.map((option: AgeOption) => (
-          <option key={option.value}>{option.age}</option>
-        ))}
-      </ModifyInfoAgeSelect>
-    );
-  };
+  function getSelectedValue(event: React.ChangeEvent<HTMLSelectElement>) {
+    setAge(event.target.value);
+  }
 
   const BrandSelectBox = (props: any) => {
     return (
@@ -185,7 +153,13 @@ function ModifyInfo() {
                 <ModifyInfoContentTr>
                   <ModifyInfoContentTitle>나이</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
-                    <AgeSelectBox options={AgeOptions} />
+                    <ModifyInfoAgeSelect onChange={getSelectedValue}>
+                      <option value="20대">20대</option>
+                      <option value="30대">30대</option>
+                      <option value="40대">40대</option>
+                      <option value="50대">50대</option>
+                      <option value="60대 이상">60대 이상</option>
+                    </ModifyInfoAgeSelect>
                   </ModifyInfoContentInputWrapper>
                 </ModifyInfoContentTr>
                 <ModifyInfoContentTr>
