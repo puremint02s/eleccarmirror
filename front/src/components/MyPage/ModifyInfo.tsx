@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import Header from "components/common/Header";
-import Sidebar from "components/MyPage/Sidebar";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import { CurrentUserGet, ModifyUserInfo } from "apis/UserApi";
 
@@ -135,10 +133,7 @@ function ModifyInfo() {
       {addressPopUpOpen && (
         <AddressPopUp setAddressPopUpOpen={setAddressPopUpOpen} />
       )}
-      <Header />
-      <TitleWrapper>마이 페이지</TitleWrapper>
       <ModifyInfoWrapper>
-        <Sidebar />
         <ModifyInfoContentWrapper>
           <ModifyInfoContentSubWrapper>
             <ModifyInfoTitle>회원정보 수정</ModifyInfoTitle>
@@ -257,14 +252,6 @@ function ModifyInfo() {
 }
 
 export default ModifyInfo;
-
-const TitleWrapper = styled.div`
-  text-align: center;
-  padding-top: 7rem;
-  padding-bottom: 1px;
-  font-size: 25px;
-  font-weight: 500;
-`;
 
 const ModifyInfoWrapper = styled.div`
   display: flex;

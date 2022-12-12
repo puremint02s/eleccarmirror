@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
 import Header from "components/common/Header";
-import Sidebar from "components/MyPage/Sidebar";
 import {
   CalcFormDiv,
   CalcFormWrapper,
@@ -18,8 +17,8 @@ import { AddRefuelRecord } from "apis/RefuelRecordApi";
 function AddNewRefuelRecord() {
   const [startDate, setStartDate] = useState(new Date());
 
-  const [oilingDate, setOilingDate] = useState("");
-  const [gasType, setGasType] = useState("임시로날짜적었음");
+  const [oilingDate, setOilingDate] = useState("2022-12-1");
+  const [gasType, setGasType] = useState("휘발유");
   const [gasAmount, setGasAmount] = useState(0);
   const [odometer, setOdometer] = useState(0);
   const [currentUserId, setCurrentUserId] = useState("");
@@ -73,7 +72,6 @@ function AddNewRefuelRecord() {
       <Header />
       <TitleWrapper>마이 페이지</TitleWrapper>
       <ModifyRefuelRecordWrapper>
-        <Sidebar />
         <ModifyRefuelRecordFormWrapper>
           <CalcFormDiv>
             <CalcFormWrapper onSubmit={NewOilingRecord}>

@@ -23,7 +23,6 @@ const Community = lazy(() => import("./Pages/Community/Community"));
 const CommunityUpload = lazy(() => import("./Pages/Community/CommunityUpload"));
 const CommunityLoad = lazy(() => import("./Pages/Community/CommunityLoad"));
 const MyPage = lazy(() => import("./Pages/MyPage"));
-const ModifyInfo = lazy(() => import("./components/MyPage/ModifyInfo"));
 const ModifyRefuelRecord = lazy(
   () => import("./components/MyPage/ModifyRefuelRecord"),
 );
@@ -55,7 +54,6 @@ const ROUTE = {
   COMMUNITYUPLOAD: "/community/upload",
   COMMUNITYLOAD: "/community/:id",
   MYPAGE: "/mypage",
-  MODIFYINFO: "/mypage/modifyinfo",
   MODIFYREFUELRECORD: "/mypage/modifyrefuelrecord",
   ADDREFUELRECORD: "/mypage/addrefuelrecord",
   SERVICEINTRO: "/serviceintro",
@@ -96,7 +94,6 @@ function App() {
           <Route path={ROUTE.COMMUNITYUPLOAD} element={<CommunityUpload />} />
           <Route path={ROUTE.COMMUNITYLOAD} element={<CommunityLoad />} />
           <Route path={ROUTE.MYPAGE} element={<MyPage />} />
-          <Route path={ROUTE.MODIFYINFO} element={<ModifyInfo />} />
           <Route
             path={ROUTE.MODIFYREFUELRECORD}
             element={<ModifyRefuelRecord />}
