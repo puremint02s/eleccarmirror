@@ -89,7 +89,7 @@ const Bot = () => {
           },
           {
             id: "onetoone",
-            message: "구현 예정입니다...",
+            message: "구현 예정입니다... :(",
             trigger: "welcome2",
           },
           {
@@ -103,7 +103,7 @@ const Bot = () => {
             user: true,
             validator: value => {
               if (!data.find(v => v.area === value)) {
-                return "지역명을 올바른 형태로 입력해주세요.";
+                return "행정구역의 단위를 올바른 형태로 입력해주세요.";
               }
               return true;
             },
@@ -119,7 +119,7 @@ const Bot = () => {
           },
           {
             id: "money4",
-            message: "* 안내된 보조금은 국비+지방비 최대금액입니다.",
+            message: "* 안내된 보조금은 최대 금액 예상치 입니다. (2022년 기준, 국비+지방비)",
             trigger: "money5",
           },
           {
