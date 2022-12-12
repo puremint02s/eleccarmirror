@@ -1,12 +1,8 @@
 import { axiosInstance } from "./AxiosInstance";
 
-interface user_id {
-  _id: string;
-}
-
 export const AddRefuelRecord = async (
   user_id: string,
-  oiling_date: string,
+  oiling_date: Date,
   gas_type: string,
   gas_amount: number,
   odometer: number,
@@ -33,7 +29,7 @@ export const GetUserRefuelRecord = async (user_id: string) => {
 
 export const ModifyRefuelRecord = async (
   _id: string,
-  oiling_date: string,
+  oiling_date: Date,
   gas_type: string,
   gas_amount: number,
   odometer: number,

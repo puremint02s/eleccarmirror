@@ -14,9 +14,7 @@ import {
 import { ModifyRefuelRecord } from "apis/RefuelRecordApi";
 
 function ModifyRecord() {
-  const [startDate, setStartDate] = useState(new Date());
-
-  const [oilingDate, setOilingDate] = useState("2022-12-1");
+  const [oilingDate, setOilingDate] = useState(new Date());
   const [gasType, setGasType] = useState("휘발유");
   const [gasAmount, setGasAmount] = useState(0);
   const [odometer, setOdometer] = useState(0);
@@ -67,8 +65,8 @@ function ModifyRecord() {
             <CalcFormWrapper onSubmit={ModifyCurrentRefuelRecord}>
               <CalcInputTitle>주유 날짜</CalcInputTitle>
               <DatePicker
-                selected={startDate}
-                onChange={(date: Date) => setStartDate(date)}
+                selected={oilingDate}
+                onChange={(date: Date) => setOilingDate(date)}
                 locale="ko"
                 dateFormatCalendar="yyyy.MM"
                 customInput={<CalcInput />}

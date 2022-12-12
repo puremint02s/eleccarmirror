@@ -15,9 +15,7 @@ import { CurrentUserGet } from "apis/UserApi";
 import { AddRefuelRecord } from "apis/RefuelRecordApi";
 
 function AddNewRefuelRecord() {
-  const [startDate, setStartDate] = useState(new Date());
-
-  const [oilingDate, setOilingDate] = useState("2022-12-1");
+  const [oilingDate, setOilingDate] = useState(new Date());
   const [gasType, setGasType] = useState("휘발유");
   const [gasAmount, setGasAmount] = useState(0);
   const [odometer, setOdometer] = useState(0);
@@ -50,9 +48,8 @@ function AddNewRefuelRecord() {
   }
 
   const OPTIONS = [
-    { value: "none", name: "선택해주세요" },
-    { value: "gasoline", name: "휘발유" },
-    { value: "diesel", name: "경유" },
+    { value: "휘발유", name: "휘발유" },
+    { value: "경유", name: "경유" },
   ];
 
   const SelectBox = (props: any) => {
@@ -67,6 +64,10 @@ function AddNewRefuelRecord() {
     );
   };
 
+  // const GetSelectdValue = target => {
+  //   setGasType(target.value);
+  // };
+
   return (
     <>
       <Header />
@@ -77,14 +78,18 @@ function AddNewRefuelRecord() {
             <CalcFormWrapper onSubmit={NewOilingRecord}>
               <CalcInputTitle>주유 날짜</CalcInputTitle>
               <DatePicker
-                selected={startDate}
-                onChange={(date: Date) => setStartDate(date)}
+                selected={oilingDate}
+                onChange={(date: Date) => setOilingDate(date)}
                 locale="ko"
                 dateFormatCalendar="yyyy.MM"
                 customInput={<CalcInput />}
               />
               <CalcInputTitle>유종</CalcInputTitle>
               <SelectBox options={OPTIONS} />
+              {/* <SelectBox onChange={GetSelectedValue(this)}>
+                <option value="휘발유">휘발유</option>
+                <option value="경유">경유</option>
+              </SelectBox> */}
               <CalcInputTitle>주유량(L)</CalcInputTitle>
               <CalcInput
                 type="number"
