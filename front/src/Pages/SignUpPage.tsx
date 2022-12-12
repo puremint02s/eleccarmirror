@@ -6,23 +6,30 @@ import * as Api from "apis/UserSignApi";
 import logo from "assets/img/MyElecCar logo.png";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-// import useSignup from "hooks/useSignup";
 
 interface SignForm {
-  email: string;
-  id: string;
-  nickname: string;
-  password: string;
-  confirmPassword: string;
-  age: string;
-  address: string;
+  email?: string;
+  id?: string;
+  nickname?: string;
+  password?: string;
+  confirmPassword?: string;
+  age?: string;
+  address?: string;
 }
 
 const SignUpPage = () => {
-  // const { mutate: signup, isLoading } = useSignup();
   const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
   const [signUpCodePopUpOpen, setSignUpCodePopUpOpen] = useState(false);
   const [inputAddress, setInputAddress] = useState("");
+  const doSignup = useMutation(Api.RegisterRequest, {
+    onSuccess: message => {
+      navigate("/login");
+      console.log({ success: message });
+    },
+    onError: error => {
+      console.log("onError");
+    },
+  });
   const navigate = useNavigate();
   const popUpOpen = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -49,15 +56,10 @@ const SignUpPage = () => {
 
   const signUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSignUpCodePopUpOpen(true);
-    useMutation(Api.RegisterRequest, {
-      onSuccess: message => {
-        navigate("/login");
-        console.log({ success: message });
-      },
-      onError: error => {
-        console.log("onError");
-      },
+    // setSignUpCodePopUpOpen(true);
+    handleSubmit(registerForm => {
+      delete registerForm.confirmPassword;
+      doSignup.mutate(registerForm);
     });
   };
 
