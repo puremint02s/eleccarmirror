@@ -35,7 +35,7 @@ function AddNewRefuelRecord() {
     e.preventDefault();
     try {
       const res = await AddRefuelRecord(
-        currentUserId,
+        currentUserId, // 현재 로그인 유저 아이디 전역에서 관리하는 거 받아오기
         oilingDate,
         gasType,
         gasAmount,
@@ -86,17 +86,25 @@ function AddNewRefuelRecord() {
               <CalcInputTitle>유종</CalcInputTitle>
               <SelectBox options={OPTIONS} />
               <CalcInputTitle>주유량(L)</CalcInputTitle>
-              <CalcInput placeholder="10"></CalcInput>
+              <CalcInput
+                type="number"
+                placeholder="10"
+                onChange={e => setGasAmount(parseInt(e.target.value))}
+              />
               <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
-              <CalcInput placeholder="15000"></CalcInput>
+              <CalcInput
+                type="number"
+                placeholder="15000"
+                onChange={e => setOdometer(parseInt(e.target.value))}
+              />
+              <CalcButtonWrapper>
+                <ModifyButton type="submit">추가하기</ModifyButton>
+                <Link to="/mypage">
+                  <CancelButton>취소하기</CancelButton>
+                </Link>
+              </CalcButtonWrapper>
             </CalcFormWrapper>
           </CalcFormDiv>
-          <CalcButtonWrapper>
-            <ModifyButton type="submit">추가하기</ModifyButton>
-            <Link to="/mypage">
-              <CancelButton>취소하기</CancelButton>
-            </Link>
-          </CalcButtonWrapper>
         </ModifyRefuelRecordFormWrapper>
       </ModifyRefuelRecordWrapper>
     </>
