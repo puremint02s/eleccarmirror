@@ -35,7 +35,7 @@ const ElecCarReport = () => {
                 cursor: "pointer",
               }}
             >
-              더 자세한 추천 받기
+              추천 다시 받기
             </span>
           </a>
         </div>
