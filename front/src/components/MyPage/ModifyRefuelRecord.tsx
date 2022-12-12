@@ -11,9 +11,34 @@ import {
   Select,
   CalcButtonWrapper,
 } from "style/CalcEfficiencyStyle";
+import { ModifyRefuelRecord } from "apis/RefuelRecordApi";
 
-function ModifyRefuelRecord() {
+function ModifyRecord() {
   const [startDate, setStartDate] = useState(new Date());
+
+  const [oilingDate, setOilingDate] = useState("2022-12-1");
+  const [gasType, setGasType] = useState("휘발유");
+  const [gasAmount, setGasAmount] = useState(0);
+  const [odometer, setOdometer] = useState(0);
+  const [currentRecordId, setCurrentRecordId] = useState("");
+
+  async function ModifyCurrentRefuelRecord(e: any) {
+    e.preventDefault();
+    try {
+      const res = await ModifyRefuelRecord(
+        currentRecordId, // 현재 기록 고유 _id
+        oilingDate,
+        gasType,
+        gasAmount,
+        odometer,
+      );
+      window.alert("주유기록이 수정되었습니다.");
+      window.location.replace("/mypage");
+    } catch (e) {
+      console.log(e);
+      alert("주유기록 수정에 실패하였습니다.");
+    }
+  }
 
   const OPTIONS = [
     { value: "none", name: "선택해주세요" },
@@ -39,7 +64,7 @@ function ModifyRefuelRecord() {
       <ModifyRefuelRecordWrapper>
         <ModifyRefuelRecordFormWrapper>
           <CalcFormDiv>
-            <CalcFormWrapper>
+            <CalcFormWrapper onSubmit={ModifyCurrentRefuelRecord}>
               <CalcInputTitle>주유 날짜</CalcInputTitle>
               <DatePicker
                 selected={startDate}
@@ -51,24 +76,32 @@ function ModifyRefuelRecord() {
               <CalcInputTitle>유종</CalcInputTitle>
               <SelectBox options={OPTIONS} />
               <CalcInputTitle>주유량(L)</CalcInputTitle>
-              <CalcInput placeholder="10"></CalcInput>
+              <CalcInput
+                type="number"
+                placeholder="10"
+                onChange={e => setGasAmount(parseInt(e.target.value))}
+              ></CalcInput>
               <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
-              <CalcInput placeholder="15000"></CalcInput>
+              <CalcInput
+                type="number"
+                placeholder="15000"
+                onChange={e => setOdometer(parseInt(e.target.value))}
+              ></CalcInput>
+              <CalcButtonWrapper>
+                <ModifyButton type="submit">수정하기</ModifyButton>
+                <Link to="/mypage">
+                  <CancelButton>취소하기</CancelButton>
+                </Link>
+              </CalcButtonWrapper>
             </CalcFormWrapper>
           </CalcFormDiv>
-          <CalcButtonWrapper>
-            <ModifyButton>수정하기</ModifyButton>
-            <Link to="/mypage">
-              <CancelButton>취소하기</CancelButton>
-            </Link>
-          </CalcButtonWrapper>
         </ModifyRefuelRecordFormWrapper>
       </ModifyRefuelRecordWrapper>
     </>
   );
 }
 
-export default ModifyRefuelRecord;
+export default ModifyRecord;
 
 const TitleWrapper = styled.div`
   text-align: center;
