@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import styled from "styled-components";
-import Header from "components/common/Header";
 import {
   CalcFormDiv,
   CalcFormWrapper,
@@ -53,8 +51,6 @@ function AddNewRefuelRecord() {
 
   return (
     <>
-      <Header />
-      <TitleWrapper>마이 페이지</TitleWrapper>
       <ModifyRefuelRecordWrapper>
         <ModifyRefuelRecordFormWrapper>
           <CalcFormDiv>
@@ -85,9 +81,6 @@ function AddNewRefuelRecord() {
               />
               <CalcButtonWrapper>
                 <ModifyButton type="submit">추가하기</ModifyButton>
-                <Link to="/mypage">
-                  <CancelButton>취소하기</CancelButton>
-                </Link>
               </CalcButtonWrapper>
             </CalcFormWrapper>
           </CalcFormDiv>
@@ -98,14 +91,6 @@ function AddNewRefuelRecord() {
 }
 
 export default AddNewRefuelRecord;
-
-const TitleWrapper = styled.div`
-  text-align: center;
-  padding-top: 7rem;
-  padding-bottom: 1px;
-  font-size: 25px;
-  font-weight: 500;
-`;
 
 const ModifyRefuelRecordWrapper = styled.div`
   display: flex;
@@ -122,22 +107,11 @@ const ModifyButton = styled.button`
   font-size: 14px;
   text-align: center;
   width: 130px;
+  height: 50px;
   cursor: pointer;
   color: white;
   background-color: #0a84ff;
   margin-top: 1rem;
   margin-right: 1rem;
-  display: inline-block;
-`;
-
-const CancelButton = styled.button`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-size: 14px;
-  text-align: center;
-  width: 130px;
-  cursor: pointer;
-  background-color: #f6f6f6;
-  margin-top: 1rem;
   display: inline-block;
 `;
