@@ -18,10 +18,9 @@ function CalcAverageEfficiency(currentUserId: string) {
     getRefuelRecord(currentUserId);
   }, []);
 
-  const averageEfficiency = (
-    secondOdometer /
-    (secondAmount - firstAmount)
-  ).toFixed(2);
+  const calcResult = (secondOdometer / (secondAmount - firstAmount)).toFixed(2);
+  const intCalcResult = parseInt(calcResult);
+  const averageEfficiency = Math.abs(intCalcResult);
 
   return <>{averageEfficiency}</>;
 }
