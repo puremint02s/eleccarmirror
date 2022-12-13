@@ -17,7 +17,7 @@ import {
   ResultListComponentWrapper,
 } from "../../style/CarMbtiStyle";
 import BlueCarImg from "assets/img/BlueCar.png";
-import { CarMbtiTypePost } from "apis/CarMbtiTestApi";
+import { carMbtiTypePost } from "apis/CarMbtiTestApi";
 import { R } from "App";
 
 function Result() {
@@ -32,7 +32,7 @@ function Result() {
     const carName = Object.values(CAR).find(value => value === car);
     if (!carName) return navigate(R.ERROR);
     setCarName(carName);
-    CarMbtiTypePost(carName);
+    carMbtiTypePost(carName);
   }, [car, navigate]);
 
   const handleClickRetry = () => navigate(R.CARMBTITEST);

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { LoginRequest } from "apis/UserApi";
+import { loginRequest } from "apis/UserApi";
 import Storage from "apis/SessionStorage";
 
 interface CommonUserData {
@@ -23,7 +23,7 @@ const LoginHook = () => {
 
   const handleLoginSubmit = useCallback(async (userData: CommonUserData) => {
     const { id, password } = userData;
-    const res = await LoginRequest(id, password);
+    const res = await loginRequest(id, password);
 
     if (!res.token) {
       alert(res.errorMessage);

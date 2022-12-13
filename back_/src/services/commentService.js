@@ -13,6 +13,12 @@ class commentService {
         return getEachComment;
     }
 
+    static async getAllComment(id) {
+        const getAllComment = await Comment.findCommentAll(id);
+
+        return getAllComment;
+    }
+
     static async getCommunityComment(id) {
         const getCommunityComment = await Comment.findCommunityOne(id);
 

@@ -1,6 +1,6 @@
 import { axiosInstance } from "./AxiosInstance";
 
-export const CarMbtiTypePost = async (type: string) => {
+export const carMbtiTypePost = async (type: string) => {
   const res = await axiosInstance.post("/type", {
     type,
   });
@@ -8,7 +8,7 @@ export const CarMbtiTypePost = async (type: string) => {
 };
 
 // 테스트 타입 반환
-// export const CarMbtiTypeGet = async (user_id: string) => {
+// export const carMbtiTypeGet = async (user_id: string) => {
 //   const res = await axiosInstance.get("/type", {
 //     // user_id,
 //   });
