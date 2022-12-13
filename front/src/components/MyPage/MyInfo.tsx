@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Pagination from "components/common/Pagination";
 import swal from "sweetalert";
+import { R } from "App";
 import { getUserRefuelRecord, deleteRefuelRecord } from "apis/RefuelRecordApi";
+import { getUserCarInfo } from "apis/CarInfoApi";
 import Modal from "components/common/Modal";
 import AddNewRefuelRecord from "./AddRefuelRecord";
 import ModifyRecord from "./ModifyRefuelRecord";
@@ -14,6 +17,9 @@ const dummyMyCarData = {
 };
 
 function MyInfo() {
+  const [currentCarModel, setCurrentCarModel] = useState("");
+  const [currentCarBrand, setCurrentCarBrand] = useState("");
+
   const [recordId, setRecordId] = useState("");
   const [oilingDate, setOilingDate] = useState("");
   const [gasType, setGasType] = useState("");
@@ -23,6 +29,18 @@ function MyInfo() {
 
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
+
+  useEffect(() => {
+    async function setCurrentUserCarInfo() {
+      const res = await getUserCarInfo();
+      const carInformation = res.data.current;
+      if (carInformation) {
+        setCurrentCarModel(carInformation.model);
+        setCurrentCarBrand(carInformation.brand);
+      }
+    }
+    setCurrentUserCarInfo();
+  }, []);
 
   useEffect(() => {
     async function getUserOilingRecord() {
@@ -74,20 +92,29 @@ function MyInfo() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>나의 차량 정보</MyPageContentTitle>
             <MyPageContent>
-              <ul>
-                <li>
-                  <span>차종</span>
-                  <p>{dummyMyCarData.model}</p>
-                </li>
-                <li>
-                  <span>제조사</span>
-                  <p>{dummyMyCarData.brand}</p>
-                </li>
-                <li>
-                  <span>평균 연비</span>
-                  <p>{dummyMyCarData.MPG}km/L</p>
-                </li>
-              </ul>
+              {!currentCarModel ? (
+                <>
+                  <p>차량이 생기셨나요?</p>
+                  <Link to={R.CARREGISTER}>
+                    <button>차량 등록하러 가기</button>
+                  </Link>
+                </>
+              ) : (
+                <ul>
+                  <li>
+                    <span>차종</span>
+                    <p>{currentCarModel}</p>
+                  </li>
+                  <li>
+                    <span>제조사</span>
+                    <p>{currentCarBrand}</p>
+                  </li>
+                  <li>
+                    <span>평균 연비</span>
+                    <p>{dummyMyCarData.MPG}km/L</p>
+                  </li>
+                </ul>
+              )}
             </MyPageContent>
           </div>
           <div style={{ paddingTop: 100 }}>
