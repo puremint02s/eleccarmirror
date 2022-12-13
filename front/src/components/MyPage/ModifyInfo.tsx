@@ -9,16 +9,6 @@ const dummyMyCarData = {
   MPG: 10,
 };
 
-const CarOptions = [
-  { value: 1, brand: "현대", model: "아반떼" },
-  { value: 2, brand: "현대", model: "그랜저" },
-  { value: 3, brand: "기아", model: "모닝" },
-  { value: 4, brand: "제네시스", model: "G80" },
-  { value: 5, brand: "르노코리아", model: "XM3" },
-  { value: 6, brand: "쉐보레", model: "스파크" },
-  { value: 7, brand: "쌍용", model: "렉스턴" },
-];
-
 function ModifyInfo() {
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");
@@ -28,6 +18,9 @@ function ModifyInfo() {
   const [inputAddress, setInputAddress] = useState("");
   const [carOwned, setCarOwned] = useState(false);
   const [elecCarOwned, setElecCarOwned] = useState(false);
+
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
 
   useEffect(() => {
     async function getUserInfo() {
@@ -74,25 +67,13 @@ function ModifyInfo() {
     setAge(event.target.value);
   }
 
-  const BrandSelectBox = (props: any) => {
-    return (
-      <ModifyCarInfoModelSelect>
-        {props.options.map((option: { value: number; brand: string }) => (
-          <option key={option.value}>{option.brand}</option>
-        ))}
-      </ModifyCarInfoModelSelect>
-    );
-  };
+  function getSelectedBrand(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedBrand(event.target.value);
+  }
 
-  const ModelSelectBox = (props: any) => {
-    return (
-      <ModifyCarInfoModelSelect>
-        {props.options.map((option: { value: number; model: string }) => (
-          <option key={option.value}>{option.model}</option>
-        ))}
-      </ModifyCarInfoModelSelect>
-    );
-  };
+  function getSelectedModel(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedModel(event.target.value);
+  }
 
   const handleModifyInfoCancel = () => location.reload();
 
@@ -254,15 +235,75 @@ function ModifyInfo() {
                 <MyPageContent>
                   <ul>
                     <li>
-                      <span>차종</span>
+                      <span>제조사</span>
                       <p>
-                        <ModelSelectBox options={CarOptions} />
+                        <ModifyCarInfoModelSelect onChange={getSelectedBrand}>
+                          <option value="현대">현대</option>
+                          <option value="기아">기아</option>
+                          <option value="쌍용">쌍용</option>
+                          <option value="제네시스">제네시스</option>
+                          <option value="르노코리아">르노코리아</option>
+                          <option value="쉐보레">쉐보레</option>
+                        </ModifyCarInfoModelSelect>
                       </p>
                     </li>
                     <li>
-                      <span>제조사</span>
+                      <span>차종</span>
                       <p>
-                        <BrandSelectBox options={CarOptions} />
+                        {selectedBrand === "현대" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="아반떼">아반떼</option>
+                            <option value="쏘나타">쏘나타</option>
+                            <option value="그랜저">그랜저</option>
+                            <option value="팰리세이드">팰리세이드</option>
+                            <option value="캐스퍼">캐스퍼</option>
+                            <option value="싼타페">싼타페</option>
+                            <option value="투싼">투싼</option>
+                            <option value="코나">코나</option>
+                            <option value="베뉴">베뉴</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : selectedBrand === "기아" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="K3">K3</option>
+                            <option value="K5">K5</option>
+                            <option value="K8">K8</option>
+                            <option value="K9">K9</option>
+                            <option value="쏘렌토">쏘렌토</option>
+                            <option value="카니발">카니발</option>
+                            <option value="스포티지">스포티지</option>
+                            <option value="레이">레이</option>
+                            <option value="셀토스">셀토스</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : selectedBrand === "쌍용" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="토레스">토레스</option>
+                            <option value="렉스턴 스포츠">렉스턴 스포츠</option>
+                            <option value="렉스턴 스포츠 칸">
+                              렉스턴 스포츠 칸
+                            </option>
+                            <option value="렉스턴">렉스턴</option>
+                            <option value="티볼리">티볼리</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : selectedBrand === "제네시스" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="G80">G80</option>
+                            <option value="G90">G90</option>
+                            <option value="GV70">GV70</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : selectedBrand === "르노코리아" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="QM6">QM6</option>
+                            <option value="XM3">XM3</option>
+                            <option value="SM6">SM6</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="트레일블레이저">
+                              트레일블레이저
+                            </option>
+                            <option value="스파크">스파크</option>
+                          </ModifyCarInfoModelSelect>
+                        )}
                       </p>
                     </li>
                     <li>

@@ -102,12 +102,12 @@ function MyInfo() {
               ) : (
                 <ul>
                   <li>
-                    <span>차종</span>
-                    <p>{currentCarModel}</p>
-                  </li>
-                  <li>
                     <span>제조사</span>
                     <p>{currentCarBrand}</p>
+                  </li>
+                  <li>
+                    <span>차종</span>
+                    <p>{currentCarModel}</p>
                   </li>
                   <li>
                     <span>평균 연비</span>
