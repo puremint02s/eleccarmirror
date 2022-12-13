@@ -1,13 +1,15 @@
 import { useState } from "react";
 
-interface propsTypes {
-  dummyPosts: Array<{
-    title: string;
-    userName: string;
-  }>;
-}
+// interface propsTypes {
+//   dummyPosts: Array<{
+//     title: string;
+//     userName: string;
+//   }>;
+// }
 
-const HotPosts = ({ dummyPosts }: propsTypes) => {
+//{ dummyPosts }: propsTypes
+
+const HotPosts = () => {
   return (
     <>
       <div
@@ -59,7 +61,7 @@ const HotPosts = ({ dummyPosts }: propsTypes) => {
             boxSizing: "border-box",
           }}
         >
-          {dummyPosts.map((v, i) => (
+          {/* {dummyPosts.map((v, i) => (
             <div
               key={i}
               style={{
@@ -75,7 +77,7 @@ const HotPosts = ({ dummyPosts }: propsTypes) => {
               <span>{v.title}</span>
               <span>{v.userName}</span>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </>

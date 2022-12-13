@@ -116,11 +116,15 @@ communityRouter.put(
 
             const newInput = { _id, title, content, hashtags };
 
+            console.log("newInput 라우터 감지", newInput);
+
             const updateContent = await communityService.updateContent(
                 newInput
             );
 
-            return res.status(201).json(updateContent);
+            return res
+                .status(201)
+                .json({ message: "커뮤니티 글이 업데이트 되었습니다!" });
         } catch (err) {
             next(err);
         }

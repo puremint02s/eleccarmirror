@@ -94,7 +94,7 @@ const MainPage = () => {
               alignItems: "center",
             }}
           >
-            <HotPosts dummyPosts={dummyPosts}></HotPosts>
+            <HotPosts></HotPosts>
           </div>
           <div
             style={{

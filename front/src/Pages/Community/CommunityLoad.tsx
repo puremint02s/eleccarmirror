@@ -35,6 +35,11 @@ function CommunityLoad() {
   const navigate = useNavigate();
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const commentEditRef = useRef<HTMLInputElement>(null);
+
+  const toEditTitleRef = useRef(null);
+  const toEditContentRef = useRef(null);
+  const toEditHashTagsRef = useRef(null);
+
   const [contents, setContents] = useState<contentProps | null>(null);
   const [user, setUser] = useState<userProps>();
   const [comment, setComment] = useState("");
@@ -45,12 +50,17 @@ function CommunityLoad() {
   const [resetTextArea, setResetTextArea] = useState("");
   const [isContentEdit, setIsContentEdit] = useState(false);
   // const [editedContentTitle, setEditedContentTitle] = useState("");
+  const [titleContent, setTitleContent] = useState<any>();
+  const [contentsContent, setContentsContent] = useState<any>();
+  const [hashtagsContent, setHashtagsContent] = useState<any>();
 
-  const id = location.state.id;
+  const id = location.pathname.split("/")[2];
+
+  // console.log("id", id);
 
   const baseUrl = "http://localhost:4005";
   const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzNhZGM1YjEtMTllNy00YzM3LWFmOWItYjU5OGVmNGNkYjcxIiwiaWF0IjoxNjcwOTE0MjE3fQ.t-8BB4K1TqYKeqZvw1bWQWf79MSnxfVoW945vH_XhDM";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzBiNjkxY2ItYzk4OS00NTAzLTg2YTItZjE3ZGM4N2I3N2I4IiwiaWF0IjoxNjcwOTE3MTI1fQ.fJbqf-cvOLQmcZxPQYk0HDnKdMBgGc86boXow0BwoTM";
 
   useEffect(() => {
     const api = async () => {
@@ -174,11 +184,33 @@ function CommunityLoad() {
     setCommentContent(e.currentTarget.value);
   };
 
+  //콘텐츠 수정
   const editContent = () => {
     setIsContentEdit(true);
+    setTitleContent(contents?.title);
+    setContentsContent(contents?.content);
+    setHashtagsContent(contents?.hashtags);
   };
 
   console.log("commentList", commentList);
+
+  const onUpdateContent = async () => {
+    try {
+      const _id = contents?._id;
+      const data = {
+        _id,
+        title: titleContent,
+        content: contentsContent,
+        hashtags: hashtagsContent,
+      };
+      const result = await CommunityApi.updateCommunity(data);
+      console.log(result);
+      setIsContentEdit(false);
+      navigate(`/community`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -192,7 +224,15 @@ function CommunityLoad() {
                 <>
                   <p>제목</p>
                   <div>
-                    <input type="text" placeholder="제목을 입력해주세요" />
+                    <input
+                      type="text"
+                      placeholder="제목을 입력해주세요"
+                      // ref={toEditTitleRef}
+                      value={titleContent}
+                      onChange={e => {
+                        setTitleContent(e.target.value);
+                      }}
+                    />
                   </div>
                 </>
               ) : (
@@ -203,7 +243,7 @@ function CommunityLoad() {
               )}
               <div>
                 <p>{contents?.nickname}</p>
-                {contents?.user_id === user?.user_id ? (
+                {contents?.user_id === user?.user_id && !isContentEdit ? (
                   <p>
                     <button type="button" onClick={editContent}>
                       수정
@@ -212,13 +252,25 @@ function CommunityLoad() {
                       삭제
                     </button>
                   </p>
-                ) : null}
+                ) : (
+                  <p>
+                    <button type="button" onClick={onUpdateContent}>
+                      수정완료
+                    </button>
+                  </p>
+                )}
               </div>
             </C.Title>
             <C.Content>
               {isContentEdit ? (
                 <div className="contentArea">
-                  <textarea placeholder="내용을 입력해주세요"></textarea>
+                  <textarea
+                    placeholder="내용을 입력해주세요"
+                    value={contentsContent}
+                    onChange={e => {
+                      setContentsContent(e.target.value);
+                    }}
+                  ></textarea>
                 </div>
               ) : (
                 <p>{contents?.content}</p>
@@ -229,7 +281,13 @@ function CommunityLoad() {
                 <>
                   <p>관련검색어</p>
                   <div className="contentArea">
-                    <input placeholder="내용을 입력해주세요"></input>
+                    <input
+                      placeholder="내용을 입력해주세요"
+                      value={hashtagsContent}
+                      onChange={e => {
+                        setHashtagsContent(e.target.value);
+                      }}
+                    ></input>
                     <span className="hashtags-tip">
                       콤마로 관련검색어를 나눠주세요
                     </span>

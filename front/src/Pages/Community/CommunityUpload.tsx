@@ -19,7 +19,7 @@ const CommunityUpload = () => {
 
   const baseUrl = "http://localhost:4005";
   const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzNhZGM1YjEtMTllNy00YzM3LWFmOWItYjU5OGVmNGNkYjcxIiwiaWF0IjoxNjcwOTE0MjE3fQ.t-8BB4K1TqYKeqZvw1bWQWf79MSnxfVoW945vH_XhDM";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzBiNjkxY2ItYzk4OS00NTAzLTg2YTItZjE3ZGM4N2I3N2I4IiwiaWF0IjoxNjcwOTE3MTI1fQ.fJbqf-cvOLQmcZxPQYk0HDnKdMBgGc86boXow0BwoTM";
 
   const toPreviousPage = () => {
     navigate(`/community`);
