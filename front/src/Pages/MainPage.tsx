@@ -1,6 +1,10 @@
 import styled from "styled-components/macro";
-import step from "assets/img/step_0.png";
-import car from "assets/img/car.png";
+
+import step_0 from "assets/img/step_0.png";
+import step_1 from "assets/img/step_1.png";
+import step_2 from "assets/img/step_2.png";
+import step_3 from "assets/img/step_3.png";
+import carBtnImg from "assets/img/car.png";
 
 import Header from "components/common/Header";
 import ElecCarReport from "components/Main/ElecCarReport";
@@ -8,46 +12,96 @@ import HotPosts from "components/Main/HotPosts";
 import UserWelcome from "components/Main/UserWelcome";
 import Bot from "components/Main/ChatBot";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import * as UserApi from "apis/UserApi";
+import * as StepApi from "apis/StepApi";
+import * as CarRegisterApi from "apis/CarRegisterApi";
+
+import { useNavigate } from "react-router-dom";
+
+interface UserInfo {
+  user_id: string;
+  email: string;
+  id: string;
+  nickname: string;
+  password: string;
+  age: string;
+  address: string;
+  car_owned: boolean;
+  elec_car_owend: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+interface CarProps {
+  model: string;
+  brand: string;
+}
+
+interface CarInfo {
+  current: CarProps;
+  recommended: CarProps;
+}
 
 const MainPage = () => {
+  const stepImages = [step_0, step_1, step_2, step_3];
   const stepText = [
     "전기차 추천 과정이 준비되어있어요 :)",
     "현재 차량을 등록해주셨네요! :)",
     "성향 테스트를 완료해주셨네요! :)",
     "전기차 추천 결과를 확인해주세요 :)",
   ];
-  //react query를 통해 유저 정보, 게시글 정보를 불러온다.
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState<UserInfo>();
+  const [step, setStep] = useState<{ step: string }>();
+  const [car, setCar] = useState<CarInfo>();
+
   const [isChatbotOpen, setChatbotOpen] = useState(false);
-  const [userName, setUserName] = useState("최은오");
   const [dummyPosts, setDummyPosts] = useState([
     { userName: "더미 유저1", title: "더미 게시글 1" },
     { userName: "더미 유저2", title: "더미 게시글 1" },
     { userName: "더미 유저3", title: "더미 게시글 1" },
     { userName: "더미 유저4", title: "더미 게시글 1" },
     { userName: "더미 유저5", title: "더미 게시글 1" },
-    { userName: "더미 유저6", title: "더미 게시글 1" },
-    { userName: "더미 유저7", title: "더미 게시글 1" },
+    { userName: "더미 유저1", title: "더미 게시글 1" },
+    { userName: "더미 유저2", title: "더미 게시글 1" },
   ]);
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
   };
+  const userQuery = useQuery("user", UserApi.currentUserGet).data;
+  const stepQuery = useQuery("step", StepApi.getStepInfo).data;
+  const carQuery = useQuery("car", CarRegisterApi.getCarInfo).data;
+  // console.log(carQuery);
+  useEffect(() => {
+    setUser(userQuery?.data);
+    setStep(stepQuery?.data);
+    setCar(carQuery?.data);
+    console.log(user);
+    console.log(car);
+    if (sessionStorage.getItem("userToken") === undefined) {
+      navigate("/login");
+    }
+  }, [userQuery, stepQuery, carQuery]);
 
   return (
     <MainPageWrapper>
       <Bot isVisible={isChatbotOpen} />
       <ChatBotButton isOpen={isChatbotOpen} onClick={onChatBotToggle}>
-        {isChatbotOpen ? <XIcon>✕</XIcon> : <CarIcon src={car} />}
+        {isChatbotOpen ? <XIcon>✕</XIcon> : <CarIcon src={carBtnImg} />}
       </ChatBotButton>
       <Header />
       <MainArea>
         <MainSectionTop>
           <SubSectionTop>
-            <UserWelcome userName={userName}></UserWelcome>
+            {user && <UserWelcome userName={user.nickname}></UserWelcome>}
           </SubSectionTop>
           <SubSectionTop>
-            <ImageText>{stepText[0]}</ImageText>
-            <img style={{ width: "100%" }} src={step}></img>
+            {step && <ImageText>{stepText[parseInt(step.step)]}</ImageText>}
+            {step && (
+              <RecomendStepImage src={stepImages[parseInt(step.step)]} />
+            )}
           </SubSectionTop>
         </MainSectionTop>
         <MainSectionBottom>
@@ -55,7 +109,7 @@ const MainPage = () => {
             <HotPosts dummyPosts={dummyPosts}></HotPosts>
           </SubSectionBottom>
           <SubSectionBottom>
-            <ElecCarReport></ElecCarReport>
+            {car && <ElecCarReport car={car.recommended} />}
           </SubSectionBottom>
         </MainSectionBottom>
       </MainArea>
@@ -63,6 +117,9 @@ const MainPage = () => {
   );
 };
 export default MainPage;
+const RecomendStepImage = styled.img`
+  width: 90%;
+`;
 const MainArea = styled.main`
   padding: 0 50px 0 50px;
   height: auto;
@@ -71,7 +128,7 @@ const MainArea = styled.main`
   }
 `;
 const MainSectionTop = styled.section`
-  height: calc(50vh - 60px);
+  height: calc(45vh - 60px);
   display: flex;
   justify-content: center;
   @media screen and (max-width: 720px) {
@@ -84,7 +141,7 @@ const MainSectionTop = styled.section`
   }
 `;
 const MainSectionBottom = styled.section`
-  height: 50vh;
+  height: 55vh;
   display: flex;
   justify-content: center;
   @media screen and (max-width: 720px) {

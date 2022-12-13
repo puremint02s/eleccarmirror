@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styled from "styled-components/macro";
 
 interface propsTypes {
   dummyPosts: Array<{
@@ -9,78 +10,66 @@ interface propsTypes {
 
 const HotPosts = ({ dummyPosts }: propsTypes) => {
   return (
-    <>
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          padding: "30px",
-          boxSizing: "border-box",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "1.2em",
-              fontWeight: "600",
-              padding: "20px 0",
-            }}
-          >
-            HOT! 10
-          </span>
-          <a href="/community">
-            <span
-              style={{
-                fontSize: "1.2em",
-                fontWeight: "600",
-                cursor: "pointer",
-              }}
-            >
-              더보기
-            </span>
-          </a>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            overflow: "scroll",
-
-            flexDirection: "column",
-            border: "1px solid #E8E8E8",
-            height: "100%",
-            padding: "16px",
-            boxSizing: "border-box",
-          }}
-        >
-          {dummyPosts.map((v, i) => (
-            <div
-              key={i}
-              style={{
-                width: "100%",
-                padding: "10px 0",
-                boxSizing: "border-box",
-                color: "#898989",
-                borderBottom: "1px solid #E8E8E8",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <span>{v.title}</span>
-              <span>{v.userName}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
+    <HotPostsWrapper>
+      <HotPostsTitle>
+        <span>TOP! 10</span>
+        <a href="/community">
+          <span>더보기</span>
+        </a>
+      </HotPostsTitle>
+      <HotPostsMain>
+        {dummyPosts.map((v, i) => (
+          <div key={i}>
+            <span>{v.title}</span>
+            <span>{v.userName}</span>
+          </div>
+        ))}
+      </HotPostsMain>
+    </HotPostsWrapper>
   );
 };
 
 export default HotPosts;
+
+const HotPostsWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+`;
+
+const HotPostsTitle = styled.div`
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+`;
+const HotPostsMain = styled.div`
+  display: flex;
+  overflow: scroll;
+  flex-direction: column;
+  border: 1px solid #e8e8e8;
+  height: calc(100% - 50px);
+  // height: auto;
+
+  padding: 10px;
+  box-sizing: border-box;
+  div {
+    width: 100%;
+    padding: 10px 0;
+    box-sizing: border-box;
+    color: #898989;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 720px) {
+    height: auto;
+  }
+`;
