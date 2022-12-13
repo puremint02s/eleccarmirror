@@ -7,7 +7,7 @@ import CarRecommendResult from "components/FinalRecommendReport/CarRecommendResu
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 import { carMbtiTypeGet } from "apis/CarMbtiTestApi";
 import { getUserCarInfo } from "apis/CarInfoApi";
-import { MbtiRecommendCar } from "assets/data/MbtiRecommendCar";
+import { MbtiRecommendCar } from "assets/data/MbtiRecommendCarList";
 
 interface CarData {
   brand: string;

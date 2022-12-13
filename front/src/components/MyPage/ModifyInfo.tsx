@@ -165,7 +165,7 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasCar"
-                        checked={carOwned}
+                        // checked={carOwned}
                         onChange={e => {
                           setCarOwned(e.target.checked);
                         }}
@@ -176,7 +176,7 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasCar"
-                        checked={!carOwned}
+                        // checked={!carOwned}
                         onChange={e => {
                           setCarOwned(e.target.checked);
                         }}
@@ -194,7 +194,7 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasElecCar"
-                        checked={elecCarOwned}
+                        // checked={elecCarOwned}
                         onChange={e => {
                           setElecCarOwned(e.target.checked);
                         }}
@@ -205,7 +205,7 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasElecCar"
-                        checked={!elecCarOwned}
+                        // checked={!elecCarOwned}
                         onChange={e => {
                           setElecCarOwned(e.target.checked);
                         }}
