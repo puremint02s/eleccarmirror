@@ -28,11 +28,11 @@ function MyInfo() {
       const res = await GetUserRefuelRecord(
         "28b85c31-9337-4855-aef7-fd3e331c9c5c", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
       );
-      setRecordId(res.data._id);
-      setOilingDate(res.data.oiling_date);
-      setGasType(res.data.gas_type);
-      setGasAmount(res.data.gas_amount);
-      setOdometer(res.data.odometer);
+      setRecordId(res[0]._id);
+      setOilingDate(res[0].oiling_date);
+      setGasType(res[0].gas_type);
+      setGasAmount(res[0].gas_amount);
+      setOdometer(res[0].odometer);
     }
     getUserOilingRecord();
   }, []);
@@ -42,6 +42,7 @@ function MyInfo() {
   ) => {
     e.preventDefault();
     e.stopPropagation();
+    const CurrentRecordId = recordId;
 
     try {
       swal({
@@ -52,7 +53,7 @@ function MyInfo() {
         dangerMode: true,
       }).then(async willDelete => {
         if (willDelete) {
-          const data = { _id: recordId };
+          const data = { _id: CurrentRecordId };
           await DeleteRefuelRecord(data);
           swal("삭제 완료", "주유내역이 정상적으로 삭제되었습니다.", "success");
         } else {
@@ -134,7 +135,7 @@ function MyInfo() {
                             setModifyingRefuelRecord(!modifyingRefuelRecord)
                           }
                         >
-                          <ModifyRecord />
+                          <ModifyRecord _id={recordId} />
                         </Modal>
                       )}
                       <button onClick={handleRefuelRecordDelete}>삭제</button>

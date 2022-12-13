@@ -11,12 +11,11 @@ import {
 } from "style/CalcEfficiencyStyle";
 import { ModifyRefuelRecord } from "apis/RefuelRecordApi";
 
-function ModifyRecord() {
+function ModifyRecord(_id: any) {
   const [oilingDate, setOilingDate] = useState(new Date());
   const [gasType, setGasType] = useState("휘발유");
   const [gasAmount, setGasAmount] = useState(0);
   const [odometer, setOdometer] = useState(0);
-  const [currentRecordId, setCurrentRecordId] = useState("");
 
   function getSelectedValue(event: React.ChangeEvent<HTMLSelectElement>) {
     setGasType(event.target.value);
@@ -25,13 +24,7 @@ function ModifyRecord() {
   async function ModifyCurrentRefuelRecord(e: any) {
     e.preventDefault();
     try {
-      await ModifyRefuelRecord(
-        currentRecordId, // 현재 기록 고유 _id
-        oilingDate,
-        gasType,
-        gasAmount,
-        odometer,
-      );
+      await ModifyRefuelRecord(_id, oilingDate, gasType, gasAmount, odometer);
       window.alert("주유기록이 수정되었습니다.");
       window.location.replace("/mypage");
     } catch (e) {
@@ -61,13 +54,13 @@ function ModifyRecord() {
               <CalcInputTitle>주유량(L)</CalcInputTitle>
               <CalcInput
                 type="number"
-                placeholder="10"
+                placeholder="수정하려는 주유량을 입력해주세요."
                 onChange={e => setGasAmount(parseInt(e.target.value))}
               ></CalcInput>
               <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
               <CalcInput
                 type="number"
-                placeholder="15000"
+                placeholder="수정하려는 누적 주행 거리를 입력해주세요."
                 onChange={e => setOdometer(parseInt(e.target.value))}
               ></CalcInput>
               <CalcButtonWrapper>
