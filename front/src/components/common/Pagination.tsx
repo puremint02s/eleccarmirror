@@ -2,6 +2,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useEffect, useState, useRef } from "react";
 import * as CommunityApi from "apis/CommunityApi";
+import e from "express";
 
 const PaginationWrap = styled.div`
   display: flex;
@@ -54,6 +55,9 @@ const PageUl = styled.div`
 const Pagination = ({ currentPage, getData }: any) => {
   const [totalPage, setTotalPage] = useState<number[] | []>([]);
   const [paginations, setPaginations] = useState([1, 2, 3, 4, 5]);
+  // const [currentPageNum , setCurrentPageNum] = useState("");
+  const [prevButtonState, setPrevButtonState] = useState(true);
+  const [nextButtonState, setNextButtonState] = useState(true);
   const paginationRef = useRef<HTMLLIElement[]>([]);
 
   //참고 링크 : https://gurtn.tistory.com/174
@@ -84,40 +88,53 @@ const Pagination = ({ currentPage, getData }: any) => {
         );
         setTotalPage(pages);
 
-        console.log("pages", pages);
+        // console.log("pages", pages);
       } catch (err) {
         console.log(err);
       }
+
+      console.log("currentPage", currentPage);
     };
 
     api();
-  }, []);
 
-  const loadPage = (e: React.MouseEvent<HTMLLIElement>) => {
-    const currentPage = e.currentTarget.innerText;
-
+    //현재 page number 에 따른 pagination 색상 변경
     if (!paginationRef.current) {
       return;
     }
 
-    console.log("paginationRef", paginationRef.current);
     for (let i = 0; i < paginations.length; i++) {
-      if (paginationRef.current[i] === null) {
-        console.log("this has null");
-        return;
-      } else {
-        paginationRef.current[i].style.color = "#000";
+      paginationRef.current[i].style.color = "#000";
+      if (paginationRef.current[i].innerText == currentPage) {
+        paginationRef.current[i].style.color = "#0a84ff";
       }
     }
 
-    e.currentTarget.style.color = "#0a84ff";
+    if (paginations.includes(1)) {
+      setPrevButtonState(false);
+    } else {
+      setPrevButtonState(true);
+    }
 
-    console.log("e.currentTarget", e.currentTarget);
+    if (paginations.length < 5) {
+      setNextButtonState(false);
+    } else {
+      setNextButtonState(true);
+    }
+  }, [currentPage]);
 
-    getData(currentPage);
+  const loadPage = (e: React.MouseEvent<HTMLLIElement>) => {
+    const currentPageNum = e.currentTarget.innerText;
+
+    getData(currentPageNum);
   };
 
   const onPrev = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!paginationRef.current) {
+      return;
+    }
+
+    paginationRef.current[0].style.color = "#0a84ff";
     for (let i = pagination.length; i >= 0; i--) {
       if (pagination.indexOf(1) === null) {
         setPaginations(pagination[0]);
@@ -125,12 +142,16 @@ const Pagination = ({ currentPage, getData }: any) => {
       const page = pagination[i];
 
       setPaginations(page);
-      console.log("page1", pagination[0][0]);
+      // console.log("page1", pagination[0][0]);
       getData(pagination[0][0]);
     }
   };
 
   const onNext = () => {
+    if (!paginationRef.current) {
+      return;
+    }
+    paginationRef.current[0].style.color = "#0a84ff";
     for (let i = 0; i < pagination.length; i++) {
       const page = pagination[i];
       setPaginations(page);
@@ -138,14 +159,16 @@ const Pagination = ({ currentPage, getData }: any) => {
     }
   };
 
-  console.log("paginations", paginations);
   return (
     <PaginationWrap>
       <nav>
         <PageUl>
-          <button name="prev" onClick={onPrev}>
-            <i className="ri-arrow-left-s-line"></i>
-          </button>
+          {prevButtonState === false ? null : (
+            <button name="prev" onClick={onPrev}>
+              <i className="ri-arrow-left-s-line"></i>
+            </button>
+          )}
+
           <ul>
             {paginations.map((item, index) => {
               return (
@@ -161,9 +184,11 @@ const Pagination = ({ currentPage, getData }: any) => {
               );
             })}
           </ul>
-          <button name="next" onClick={onNext}>
-            <i className="ri-arrow-right-s-line"></i>
-          </button>
+          {nextButtonState === false ? null : (
+            <button name="next" onClick={onNext}>
+              <i className="ri-arrow-right-s-line"></i>
+            </button>
+          )}
         </PageUl>
       </nav>
     </PaginationWrap>

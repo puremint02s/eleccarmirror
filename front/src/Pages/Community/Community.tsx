@@ -33,13 +33,13 @@ type Comment = {
 function Community(props: any) {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
-  const [currentPage, setCurrentPage] = useState<string | null>("1");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [contentsPerPage, setcontentsPerPage] = useState<Community[] | []>([]);
   const [allCommunity, setAllCommunity] = useState<Community[] | []>([]);
   // const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
   const [commentCount, setCommentCount] = useState<Comment[] | []>([]);
 
-  const getData = (currentPage: any) => {
+  const getData = (currentPage: number) => {
     setCurrentPage(currentPage);
   };
 

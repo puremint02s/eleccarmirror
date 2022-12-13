@@ -20,7 +20,7 @@ const axiosInstance = axios.create({
 
 //---------------
 
-export const getCommunityPerPage = async (currentPage: any) => {
+export const getCommunityPerPage = async (currentPage: number) => {
   const res = await axiosInstance.get(
     `/community?page=${currentPage}&perPage=10`,
   );

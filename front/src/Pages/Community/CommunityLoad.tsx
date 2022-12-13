@@ -12,7 +12,7 @@ type contentProps = {
   title: string;
   content: string;
   createdAt: string;
-  hashtags: [];
+  hashtags: string[];
   nickname: string;
   _id: string;
   user_id: string;
@@ -43,6 +43,8 @@ function CommunityLoad() {
   const [isEditSelected, setIsEditSelected] = useState(false);
   const [commentContent, setCommentContent] = useState("");
   const [resetTextArea, setResetTextArea] = useState("");
+  const [isContentEdit, setIsContentEdit] = useState(false);
+  // const [editedContentTitle, setEditedContentTitle] = useState("");
 
   const id = location.state.id;
 
@@ -169,6 +171,10 @@ function CommunityLoad() {
     setCommentContent(e.currentTarget.value);
   };
 
+  const editContent = () => {
+    setIsContentEdit(true);
+  };
+
   return (
     <>
       <Header />
@@ -177,15 +183,26 @@ function CommunityLoad() {
           <MyInfo />
           <C.CommunityContent>
             <C.Title>
-              <div>
-                <h2>{contents?.title}</h2>
-                {contents?.createdAt?.substring(0, 10)}
-              </div>
+              {isContentEdit ? (
+                <>
+                  <p>제목</p>
+                  <div>
+                    <input type="text" placeholder="제목을 입력해주세요" />
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <h2>{contents?.title}</h2>
+                  {contents?.createdAt?.substring(0, 10)}
+                </div>
+              )}
               <div>
                 <p>{contents?.nickname}</p>
                 {contents?.user_id === user?.user_id ? (
                   <p>
-                    <button type="button">수정</button>
+                    <button type="button" onClick={editContent}>
+                      수정
+                    </button>
                     <button type="button" onClick={removeContent}>
                       삭제
                     </button>
@@ -193,11 +210,32 @@ function CommunityLoad() {
                 ) : null}
               </div>
             </C.Title>
-            <C.Content>{contents?.content}</C.Content>
+            <C.Content>
+              {isContentEdit ? (
+                <div className="contentArea">
+                  <textarea placeholder="내용을 입력해주세요"></textarea>
+                </div>
+              ) : (
+                <p>{contents?.content}</p>
+              )}
+            </C.Content>
             <C.Hashtags>
-              {contents?.hashtags.map((item, index) => {
-                return <span key={index}>{item}</span>;
-              })}
+              {isContentEdit ? (
+                <>
+                  <p>관련검색어</p>
+                  <div className="contentArea">
+                    <input placeholder="내용을 입력해주세요"></input>
+                    <span className="hashtags-tip">
+                      콤마로 관련검색어를 나눠주세요
+                    </span>
+                  </div>
+                </>
+              ) : contents?.hashtags[0] === "" ? null : (
+                contents?.hashtags.map((item, index) => {
+                  return <span key={index}>{item}</span>;
+                })
+              )}
+              {}
             </C.Hashtags>
             <C.Reply>
               {commentList.map((item, index) => {
