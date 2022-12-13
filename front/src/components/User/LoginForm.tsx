@@ -13,7 +13,7 @@ import {
   LoginButton,
   KakaoLoginButton,
   GoogleLoginButton,
-} from "../../style/LoginFormStyle";
+} from "style/LoginFormStyle";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 import LogoImg from "assets/img/MyElecCar logo.png";
 import { R } from "App";

@@ -13,7 +13,7 @@ import {
   TestDownButton,
   Status,
   StatusBar,
-} from "../../style/CarMbtiStyle";
+} from "style/CarMbtiStyle";
 import GreyQuestionCarImg from "assets/img/GreyQuestionCar.png";
 import { R } from "App";
 

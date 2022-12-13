@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import Header from "components/common/Header";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
-import Modal from "../../components/common/Modal";
-import CarRecommendResult from "../../components/FinalRecommendReport/CarRecommendResult";
+import Modal from "components/common/Modal";
+import CarRecommendResult from "components/FinalRecommendReport/CarRecommendResult";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 import { carMbtiTypeGet } from "apis/CarMbtiTestApi";
 import { getUserCarInfo } from "apis/CarInfoApi";
+import { MbtiRecommendCar } from "assets/data/MbtiRecommendCar";
 
 interface CarData {
   brand: string;
@@ -85,13 +86,13 @@ function FinalResultPage() {
               closeModal={() => setMbtiRecommendResult(!mbtiRecommendResult)}
             >
               <CarRecommendResult
-                brand={dummyCarData.brand}
-                model={dummyCarData.model}
-                distance={dummyCarData.distance}
-                battery={dummyCarData.battery}
-                MPG={dummyCarData.MPG}
-                cost={dummyCarData.cost}
-                homepage={dummyCarData.homepage}
+                brand={MbtiRecommendCar[userMbtiType].brand}
+                model={MbtiRecommendCar[userMbtiType].model}
+                distance={MbtiRecommendCar[userMbtiType].distance}
+                battery={MbtiRecommendCar[userMbtiType].battery}
+                MPG={MbtiRecommendCar[userMbtiType].MPG}
+                cost={MbtiRecommendCar[userMbtiType].cost}
+                homepage={MbtiRecommendCar[userMbtiType].homepage}
               />
             </Modal>
           )}
