@@ -23,7 +23,7 @@ class Car {
 
     static async updateCar(user_id, updatedData) {
         try {
-            const updateCar = await CarModel.updateOne(
+            const updateCar = await CarModel.updateMany(
                 { user_id },
                 updatedData,
                 { returnOriginal: false }
