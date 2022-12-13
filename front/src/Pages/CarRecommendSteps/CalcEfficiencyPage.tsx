@@ -17,24 +17,18 @@ import {
   CalcButtonWrapper,
 } from "style/CalcEfficiencyStyle";
 
-interface GasOption {
-  value: string;
-  name: string;
-}
-
-interface OptionsProps {
-  options: GasOption;
-}
-
 function CalcEfficiencyPage() {
-  const [startDate, setStartDate] = useState(new Date());
   const navigate = useNavigate();
 
   const [firstRefuelRecord, setFirstRefuelRecord] = useState(0);
-  const [secondRefuelRecord, setSecondRefuelRecord] = useState(0);
-
+  const [firstOilingDate, setFirstOilingDate] = useState(new Date());
   const [firstDistance, setFirstDistance] = useState(0);
+  const [firstGasType, setFirstGasType] = useState("");
+
+  const [secondRefuelRecord, setSecondRefuelRecord] = useState(0);
+  const [secondOilingDate, setSecondOilingDate] = useState(new Date());
   const [secondDistance, setSecondDistance] = useState(0);
+  const [secondGasType, setSecondGasType] = useState("");
 
   const onChangeFirstRefuel = useCallback((e: any) => {
     const currFirstRefuel = e.target.value;
@@ -56,22 +50,13 @@ function CalcEfficiencyPage() {
     setSecondDistance(currSecondDistance);
   }, []);
 
-  const OPTIONS: Array<GasOption> = [
-    { value: "none", name: "선택해주세요" },
-    { value: "gasoline", name: "휘발유" },
-    { value: "diesel", name: "경유" },
-  ];
-  const SelectBox = (props: any) => {
-    return (
-      <Select>
-        {props.options.map((option: GasOption) => (
-          <option key={option.value} value={option.value}>
-            {option.name}
-          </option>
-        ))}
-      </Select>
-    );
-  };
+  function getSelectedFirstValue(event: React.ChangeEvent<HTMLSelectElement>) {
+    setFirstGasType(event.target.value);
+  }
+
+  function getSelectedSecondValue(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSecondGasType(event.target.value);
+  }
 
   const SkipCalcAndGoFinalResult = () => navigate("/finalresult");
   const calcAverageEfficiency = (e: any) => {
@@ -91,14 +76,16 @@ function CalcEfficiencyPage() {
         <CalcFormWrapper>
           <CalcInputTitle>주유 날짜</CalcInputTitle>
           <DatePicker
-            selected={startDate}
-            onChange={(date: Date) => setStartDate(date)}
-            locale="ko"
+            selected={firstOilingDate}
+            onChange={(date: Date) => setFirstOilingDate(date)}
             dateFormatCalendar="yyyy.MM"
             customInput={<CalcInput />}
           />
           <CalcInputTitle>유종</CalcInputTitle>
-          <SelectBox options={OPTIONS} />
+          <Select onChange={getSelectedFirstValue}>
+            <option value="휘발유">휘발유</option>
+            <option value="경유">경유</option>
+          </Select>
           <CalcInputTitle>주유량(L)</CalcInputTitle>
           <CalcInput
             onChange={onChangeFirstRefuel}
@@ -115,14 +102,16 @@ function CalcEfficiencyPage() {
         <CalcFormWrapper>
           <CalcInputTitle>주유 날짜</CalcInputTitle>
           <DatePicker
-            selected={startDate}
-            onChange={(date: Date) => setStartDate(date)}
-            locale="ko"
+            selected={secondOilingDate}
+            onChange={(date: Date) => setSecondOilingDate(date)}
             dateFormatCalendar="yyyy.MM"
             customInput={<CalcInput />}
           />
           <CalcInputTitle>유종</CalcInputTitle>
-          <SelectBox options={OPTIONS} />
+          <Select onChange={getSelectedSecondValue}>
+            <option value="휘발유">휘발유</option>
+            <option value="경유">경유</option>
+          </Select>
           <CalcInputTitle>주유량(L)</CalcInputTitle>
           <CalcInput
             onChange={onChangeSecondRefuel}

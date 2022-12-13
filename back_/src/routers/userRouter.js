@@ -77,22 +77,43 @@ userRouter.get(
 userRouter.put("/user", login_required, async function (req, res, next) {
     try {
         const user_id = req.currentUserId;
-        const {
-            email,
-            id,
-            nickname,
-            password,
-            age,
-            address,
-            car_owned,
-            elec_car_owned,
-        } = req.body;
+
+        const email = req.body.email ?? null;
+        const id = req.body.id ?? null;
+        const nickname = req.body.nickname ?? null;
+        // const password = req.body.password ?? null;
+        const age = req.body.age ?? null;
+        const address = req.body.address ?? null;
+        const car_owned = req.body.car_owned ?? null;
+        const elec_car_owned = req.body.elec_car_owned ?? null;
+        // const {
+        //     email,
+        //     id,
+        //     nickname,
+        //     password,
+        //     age,
+        //     address,
+        //     car_owned,
+        //     elec_car_owned,
+        // } = req.body;
+        // const newInput = {
+        //     user_id,
+        //     email,
+        //     id,
+        //     nickname,
+        //     password,
+        //     age,
+        //     address,
+        //     car_owned,
+        //     elec_car_owned,
+        // };
+
         const newInput = {
             user_id,
             email,
             id,
             nickname,
-            password,
+            // password,
             age,
             address,
             car_owned,
@@ -100,6 +121,10 @@ userRouter.put("/user", login_required, async function (req, res, next) {
         };
 
         const updateUserInfo = await userAuthService.updateUser(newInput);
+
+        if (updateUserInfo.errorMessage) {
+            throw new Error(updateUserInfo.errorMessage);
+        }
 
         return res.status(201).json(updateUserInfo);
     } catch (err) {

@@ -25,6 +25,12 @@ export const getCommunityComments = async (id: string) => {
   return res.data;
 };
 
+export const getAllComments = async () => {
+  const res = await axiosInstance.get(`/comments/all`);
+
+  return res.data;
+};
+
 export const postComment = async (data: object) => {
   const res = await axiosInstance.post(`/comment`, data);
 

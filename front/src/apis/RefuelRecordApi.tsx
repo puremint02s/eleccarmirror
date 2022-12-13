@@ -2,7 +2,7 @@ import { axiosInstance } from "./AxiosInstance";
 
 export const AddRefuelRecord = async (
   user_id: string,
-  oiling_date: string,
+  oiling_date: Date,
   gas_type: string,
   gas_amount: number,
   odometer: number,
@@ -17,19 +17,19 @@ export const AddRefuelRecord = async (
   return res.data;
 };
 
-export const GetEachRefuelRecord = async (_id: string) => {
+export const getEachRefuelRecord = async (_id: string) => {
   const res = await axiosInstance.get(`/gas/${_id}`);
   return res.data;
 };
 
-export const GetUserRefuelRecord = async (user_id: string) => {
+export const getUserRefuelRecord = async (user_id: string) => {
   const res = await axiosInstance.get(`/gas/${user_id}/user`);
   return res.data;
 };
 
-export const ModifyRefuelRecord = async (
+export const modifyRefuelRecord = async (
   _id: string,
-  oiling_date: string,
+  oiling_date: Date,
   gas_type: string,
   gas_amount: number,
   odometer: number,
@@ -44,7 +44,7 @@ export const ModifyRefuelRecord = async (
   return res.data;
 };
 
-// export const DeleteRefuelRecord = async (_id: string) => {
-//   const res = await axiosInstance.delete("/gas", { _id });
-//   return res.data;
-// };
+export const deleteRefuelRecord = async (data: object) => {
+  const res = await axiosInstance.delete("/gas", { data });
+  return res.data;
+};
