@@ -50,12 +50,15 @@ function CommunityLoad() {
 
   const baseUrl = "http://localhost:4005";
   const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODE3NGUxZWEtYjY4YS00MDllLWJjNmUtNzc2M2U2OWYxNTIwIiwiaWF0IjoxNjcwNjg2MTQzfQ.76gaeWUa74s0QaTfCnGVcRzRAi7nh4WYtBFVoam_xcQ";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzNhZGM1YjEtMTllNy00YzM3LWFmOWItYjU5OGVmNGNkYjcxIiwiaWF0IjoxNjcwOTE0MjE3fQ.t-8BB4K1TqYKeqZvw1bWQWf79MSnxfVoW945vH_XhDM";
 
   useEffect(() => {
     const api = async () => {
       try {
         const data = await CommunityApi.getEachCommunity(id);
+
+        console.log("cccc", data);
+
         setContents(data);
       } catch (err) {
         console.log("err=>", err);
@@ -174,6 +177,8 @@ function CommunityLoad() {
   const editContent = () => {
     setIsContentEdit(true);
   };
+
+  console.log("commentList", commentList);
 
   return (
     <>

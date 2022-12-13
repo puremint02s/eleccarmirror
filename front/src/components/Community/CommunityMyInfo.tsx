@@ -108,7 +108,7 @@ export const UploadButton = styled.button`
 function CommunityMyInfo() {
   const navigate = useNavigate();
   const [user, setUser] = useState<{ nickname: string; user_id: string }>();
-  const [userCommunity, setUserCommunity] = useState(null);
+  const [userCommunity, setUserCommunity] = useState();
 
   const toUploadPage = () => {
     navigate(`/community/upload`);
@@ -116,7 +116,7 @@ function CommunityMyInfo() {
 
   const baseUrl = "http://localhost:4005";
   const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODE3NGUxZWEtYjY4YS00MDllLWJjNmUtNzc2M2U2OWYxNTIwIiwiaWF0IjoxNjcwNjg2MTQzfQ.76gaeWUa74s0QaTfCnGVcRzRAi7nh4WYtBFVoam_xcQ";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzNhZGM1YjEtMTllNy00YzM3LWFmOWItYjU5OGVmNGNkYjcxIiwiaWF0IjoxNjcwOTE0MjE3fQ.t-8BB4K1TqYKeqZvw1bWQWf79MSnxfVoW945vH_XhDM";
 
   useEffect(() => {
     axios({
@@ -126,6 +126,8 @@ function CommunityMyInfo() {
       },
       url: `${baseUrl}/user/current`,
     }).then(res => {
+      console.log("user.user_id", res.data.user_id);
+
       setUser(res.data);
     });
 
@@ -136,6 +138,8 @@ function CommunityMyInfo() {
       },
       url: `${baseUrl}/community/${user?.user_id}/user`,
     }).then(res => {
+      console.log("res.data.length", res.data);
+
       setUserCommunity(res.data.length);
     });
   }, [userCommunity]);
