@@ -37,6 +37,7 @@ function AddNewRefuelRecord() {
         gasAmount,
         odometer,
       );
+      console.log(res);
       window.alert("주유기록이 등록되었습니다.");
       window.location.replace("/mypage");
     } catch (e) {
