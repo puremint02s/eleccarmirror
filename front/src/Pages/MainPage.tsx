@@ -170,5 +170,8 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
   &:hover {
     background-color: salmon;
   }
+  @media screen and (max-height: 719px) {
+    display: none;
+  }
   transition: 0.3s ease-in-out all;
 `;

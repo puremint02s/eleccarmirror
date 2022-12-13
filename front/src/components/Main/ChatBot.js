@@ -136,7 +136,16 @@ const ChatBotWrapper = styled.div`
 
   opacity: ${props => (props.isVisible ? "1" : "0")};
   pointer-events: ${props => (props.isVisible ? "" : "none")};
-  transition: 0.3s ease-in-out opacity;
+
+  @media screen and (max-width: 720px) {
+    right: 2.5vw;
+    width: 95vw;
+  }
+  @media screen and (max-height: 719px) {
+    display: none;
+  }
+
+  transition: 0.3s ease-in-out opacity; 
 `;
 
 export default Bot;
