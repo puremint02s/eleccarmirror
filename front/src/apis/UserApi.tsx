@@ -33,8 +33,8 @@ export const modifyUserInfo = async (
   nickname: string,
   age: string,
   address: string,
-  car_owned?: number,
-  elec_car_owned?: number,
+  car_owned: boolean,
+  elec_car_owned: boolean,
 ) => {
   const res: UserInfo = await axiosInstance.put("/user", {
     email,

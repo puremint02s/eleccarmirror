@@ -26,11 +26,8 @@ function ModifyInfo() {
   // const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
   const [inputAddress, setInputAddress] = useState("");
-  const [carOwned, setCarOwned] = useState(0);
-  const [elecCarOwned, setElecCarOwned] = useState(0);
-
-  const [carOwnedCheck, setCarOwnedCheck] = useState(false);
-  const [elecCarOwnedCheck, setElecCarOwnedCheck] = useState(false);
+  const [carOwned, setCarOwned] = useState(false);
+  const [elecCarOwned, setElecCarOwned] = useState(false);
 
   useEffect(() => {
     async function getUserInfo() {
@@ -43,13 +40,6 @@ function ModifyInfo() {
       setInputAddress(res.data.address);
       setCarOwned(res.data.car_owned);
       setElecCarOwned(res.data.elec_car_owend);
-
-      if (res.data.car_owned === 2) {
-        setCarOwnedCheck(true);
-      }
-      if (res.data.elec_car_owend === 2) {
-        setElecCarOwnedCheck(true);
-      }
     }
     getUserInfo();
   }, []);
@@ -195,32 +185,20 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasCar"
-                        checked={carOwnedCheck}
-                        value={2}
-                        onChange={e => {
-                          setCarOwned(parseInt(e.target.value));
-                        }}
-                      />
-                      예
-                    </label>
-                    {/* <input
-                        type="radio"
-                        name="hasCar"
                         checked={carOwned}
                         onChange={e => {
                           setCarOwned(e.target.checked);
                         }}
                       />
                       예
-                    </label> */}
+                    </label>
                     <label>
                       <input
                         type="radio"
                         name="hasCar"
-                        checked={!carOwnedCheck}
-                        value={1}
+                        checked={!carOwned}
                         onChange={e => {
-                          setCarOwned(parseInt(e.target.value));
+                          setCarOwned(e.target.checked);
                         }}
                       />
                       아니요
@@ -236,10 +214,9 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasElecCar"
-                        checked={elecCarOwnedCheck}
-                        value={2}
+                        checked={elecCarOwned}
                         onChange={e => {
-                          setElecCarOwned(parseInt(e.target.value));
+                          setElecCarOwned(e.target.checked);
                         }}
                       />
                       예
@@ -248,10 +225,9 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasElecCar"
-                        checked={!elecCarOwnedCheck}
-                        value={1}
+                        checked={!elecCarOwned}
                         onChange={e => {
-                          setElecCarOwned(parseInt(e.target.value));
+                          setElecCarOwned(e.target.checked);
                         }}
                       />
                       아니요
