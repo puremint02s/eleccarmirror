@@ -46,6 +46,23 @@ commentRouter.get(
     }
 );
 
+//댓글 전부 불러오기
+commentRouter.get(
+    "/comments/all",
+    login_required,
+    async function (req, res, next) {
+        try {
+            // const { id } = req.body;
+
+            const getCommunityComment = await commentService.getAllComment();
+
+            return res.status(201).json(getCommunityComment);
+        } catch (err) {
+            next(err);
+        }
+    }
+);
+
 //해당 커뮤니티 글의 전체 댓글 불러오기
 commentRouter.get(
     "/community/comment/:id",
