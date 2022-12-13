@@ -17,6 +17,7 @@ import {
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 import LogoImg from "assets/img/MyElecCar logo.png";
 import { R } from "App";
+import styled from "styled-components";
 
 interface CommonType {
   id: string;
@@ -51,6 +52,7 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
         )}
         <LoginInputTitle>비밀번호</LoginInputTitle>
         <LoginInput
+          type="password"
           {...register("password", {
             required: true,
             // minLength: 7,
@@ -82,3 +84,13 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
 }
 
 export default LoginForm;
+
+const Label = styled.label`
+  position: relative;
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 5px;
+  }
+`;
