@@ -7,7 +7,7 @@ const BASE_URL =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
 const BearerString =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzNhZGM1YjEtMTllNy00YzM3LWFmOWItYjU5OGVmNGNkYjcxIiwiaWF0IjoxNjcwOTE0MjE3fQ.t-8BB4K1TqYKeqZvw1bWQWf79MSnxfVoW945vH_XhDM";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzBiNjkxY2ItYzk4OS00NTAzLTg2YTItZjE3ZGM4N2I3N2I4IiwiaWF0IjoxNjcwOTE3MTI1fQ.fJbqf-cvOLQmcZxPQYk0HDnKdMBgGc86boXow0BwoTM";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -42,6 +42,12 @@ export const getAllCommunity = async () => {
 
 export const deleteEachCommunity = async (data: object) => {
   const res = await axiosInstance.delete(`/community`, { data });
+
+  return res.data;
+};
+
+export const updateCommunity = async (data: object) => {
+  const res = await axiosInstance.put(`/community`, data);
 
   return res.data;
 };
