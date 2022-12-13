@@ -22,23 +22,29 @@ import { R } from "App";
 
 function Result() {
   const navigate = useNavigate();
-  const [carName, setCarName] = useState<string>("");
+  const [type, setType] = useState<string>("");
 
   const { car } = useParams<{
     car: string;
   }>();
 
   useEffect(() => {
-    const carName = Object.values(CAR).find(value => value === car);
-    if (!carName) return navigate(R.ERROR);
-    setCarName(carName);
-    carMbtiTypePost(carName);
+    const type = Object.values(CAR).find(value => value === car);
+    if (!type) return navigate(R.ERROR);
+    setType(type);
+    async function postUserType() {
+      const userType = { type };
+      console.log(userType);
+      const res = await carMbtiTypePost(userType);
+      console.log(res);
+    }
+    postUserType();
   }, [car, navigate]);
 
   const handleClickRetry = () => navigate(R.CARMBTITEST);
   const handleClickCalcEfficiency = () => navigate(R.CALCEFFICENCY);
 
-  if (!carName) return <></>;
+  if (!type) return <></>;
   return (
     <>
       <Header />
@@ -48,12 +54,12 @@ function Result() {
           <ResultImage src={BlueCarImg} alt="유형 대표 차량" />
         </ResultImageWrapper>
         <MbtiTitleWrapper>
-          {RESULT_CAR[carName].name}
+          {RESULT_CAR[type].name}
           <MbtiDivideLine>——</MbtiDivideLine>
         </MbtiTitleWrapper>
         <div>
           <ResultListWrapper>
-            {RESULT_CAR[carName].desc
+            {RESULT_CAR[type].desc
               .split("/")
               .filter(item => item !== "/")
               .map((item, idx) => (

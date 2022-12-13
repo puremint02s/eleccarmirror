@@ -40,17 +40,17 @@ function TestContents() {
         acc[answer] = ++acc[answer];
         if (index === userAnswer.length - 1) {
           // 개수 비교해서 내보내기
-          if (acc.c >= acc.e) acc["result"] = acc["result"].concat("c");
-          else acc["result"] = acc["result"].concat("e");
+          if (acc.c >= acc.e) acc["result"] = acc["result"].concat("C");
+          else acc["result"] = acc["result"].concat("E");
 
-          if (acc.f >= acc.w) acc["result"] = acc["result"].concat("f");
-          else acc["result"] = acc["result"].concat("w");
+          if (acc.f >= acc.w) acc["result"] = acc["result"].concat("F");
+          else acc["result"] = acc["result"].concat("W");
 
-          if (acc.b >= acc.a) acc["result"] = acc["result"].concat("b");
-          else acc["result"] = acc["result"].concat("a");
+          if (acc.b >= acc.a) acc["result"] = acc["result"].concat("B");
+          else acc["result"] = acc["result"].concat("A");
 
-          if (acc.h >= acc.n) acc["result"] = acc["result"].concat("h");
-          else acc["result"] = acc["result"].concat("n");
+          if (acc.h >= acc.n) acc["result"] = acc["result"].concat("H");
+          else acc["result"] = acc["result"].concat("N");
         }
         return acc;
       },

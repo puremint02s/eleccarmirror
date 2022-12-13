@@ -3,22 +3,22 @@ type CarProps = {
 };
 
 export const CAR: CarProps = {
-  cfbh: "cfbh",
-  cfbn: "cfbn",
-  cfah: "cfah",
-  cfan: "cfan",
-  cwbh: "cwbh",
-  cwbn: "cwbn",
-  cwah: "cwah",
-  cwan: "cwan",
-  efbh: "efbh",
-  efbn: "efbn",
-  efah: "efah",
-  efan: "efan",
-  ewbh: "ewbh",
-  ewbn: "ewbn",
-  ewah: "ewah",
-  ewan: "ewan",
+  CFBH: "CFBH",
+  CFBN: "CFBN",
+  CFAH: "CFAH",
+  CFAN: "CFAN",
+  CWBH: "CWBH",
+  CWBN: "CWBN",
+  CWAH: "CWAH",
+  CWAN: "CWAN",
+  EFBH: "EFBH",
+  EFBN: "EFBN",
+  EFAH: "EFAH",
+  EFAN: "EFAN",
+  EWBH: "EWBH",
+  EWBN: "EWBN",
+  EWAH: "EWAH",
+  EWAN: "EWAN",
 };
 
 type CarDesc = {
@@ -30,51 +30,51 @@ type ResultCarProps = {
 };
 
 export const RESULT_CAR: ResultCarProps = {
-  cfbh: {
+  CFBH: {
     name: "CFBH",
     desc: "가성비 고려/디자인 중시/브랜드 중시/고성능 선호",
   },
-  cfbn: {
+  CFBN: {
     name: "CFBN",
     desc: "가성비 고려/디자인 중시/브랜드 중시/보급형 성능 ok",
   },
-  cfah: {
+  CFAH: {
     name: "CFAH",
     desc: "가성비 고려/디자인 중시/브랜드 상관 없음/고성능 선호",
   },
-  cfan: {
+  CFAN: {
     name: "CFAN",
     desc: "가성비 고려/디자인 중시/브랜드 상관 없음/보급형 성능 ok",
   },
-  cwbh: {
+  CWBH: {
     name: "CWBH",
     desc: "가성비 고려/외관 크게 고려 X/브랜드 중시/고성능 선호",
   },
-  cwbn: {
+  CWBN: {
     name: "CWBN",
     desc: "가성비 고려/외관 크게 고려 X/브랜드 중시/보급형 성능 ok",
   },
-  cwah: {
+  CWAH: {
     name: "CWAH",
     desc: "가성비 고려/외관 크게 고려 X/브랜드 상관 없음/고성능 선호",
   },
-  cwan: {
+  CWAN: {
     name: "CWAN",
     desc: "가성비 고려/외관 크게 고려 X/브랜드 상관 없음/보급형 성능 ok",
   },
-  efbh: {
+  EFBH: {
     name: "EFBH",
     desc: "비싸도 괜찮음/디자인 중시/브랜드 중시/고성능 선호",
   },
-  efbn: {
+  EFBN: {
     name: "EFBN",
     desc: "비싸도 괜찮음/디자인 중시/브랜드 중시/보급형 성능 ok",
   },
-  efah: {
+  EFAH: {
     name: "EFAH",
     desc: "비싸도 괜찮음/디자인 중시/브랜드 상관 없음/고성능 선호",
   },
-  efan: {
+  EFAN: {
     name: "EFAN",
     desc: "비싸도 괜찮음/디자인 중시/브랜드 상관 없음/보급형 성능 ok",
   },
@@ -82,15 +82,15 @@ export const RESULT_CAR: ResultCarProps = {
     name: "EWBH",
     desc: "비싸도 괜찮음/외관 크게 고려 X/브랜드 중시/고성능 선호",
   },
-  ewbn: {
+  EWBN: {
     name: "EWBN",
     desc: "비싸도 괜찮음/외관 크게 고려 X/브랜드 중시/보급형 성능 ok",
   },
-  ewah: {
+  EWAH: {
     name: "EWAH",
     desc: "비싸도 괜찮음/외관 크게 고려 X/브랜드 상관 없음/고성능 선호",
   },
-  ewan: {
+  EWAN: {
     name: "EWAN",
     desc: "비싸도 괜찮음/외관 크게 고려 X/브랜드 상관 없음/보급형 성능 ok",
   },
