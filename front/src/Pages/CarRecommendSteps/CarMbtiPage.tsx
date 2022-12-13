@@ -4,7 +4,7 @@ import {
   SubTitleWrapper,
   TestStartButtonWrapper,
   TestStartButton,
-} from "../../style/CarMbtiStyle";
+} from "style/CarMbtiStyle";
 import QuestionCarImg from "assets/img/QuestionCar.png";
 
 function CarMbti() {
