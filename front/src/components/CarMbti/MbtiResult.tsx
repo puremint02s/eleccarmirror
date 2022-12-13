@@ -30,9 +30,21 @@ function Result() {
 
   useEffect(() => {
     const carName = Object.values(CAR).find(value => value === car);
+
+    const api = async () => {
+      try {
+        const result = await CarMbtiTypePost(carName!);
+        console.log("test result", result);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    api();
+
     if (!carName) return navigate(R.ERROR);
     setCarName(carName);
-    CarMbtiTypePost(carName);
+    // CarMbtiTypePost(carName);
   }, [car, navigate]);
 
   const handleClickRetry = () => navigate(R.CARMBTITEST);

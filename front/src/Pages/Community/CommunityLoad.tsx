@@ -7,6 +7,7 @@ import MyInfo from "components/Community/CommunityMyInfo";
 import * as C from "style/CommunityLoadStyle";
 import * as CommunityApi from "apis/CommunityApi";
 import * as CommentApi from "apis/CommentApi";
+import * as UserApi from "apis/UserApi";
 
 type contentProps = {
   title: string;
@@ -56,12 +57,6 @@ function CommunityLoad() {
 
   const id = location.pathname.split("/")[2];
 
-  // console.log("id", id);
-
-  const baseUrl = "http://localhost:4005";
-  const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzBiNjkxY2ItYzk4OS00NTAzLTg2YTItZjE3ZGM4N2I3N2I4IiwiaWF0IjoxNjcwOTE3MTI1fQ.fJbqf-cvOLQmcZxPQYk0HDnKdMBgGc86boXow0BwoTM";
-
   useEffect(() => {
     const api = async () => {
       try {
@@ -80,24 +75,17 @@ function CommunityLoad() {
       } catch (err) {
         console.log("err=>", err);
       }
+
+      try {
+        const res = await UserApi.CurrentUserGet();
+
+        setUser(res.data);
+      } catch (err) {
+        console.log("err=>", err);
+      }
     };
 
     api();
-
-    //유저 API - 추후 수정
-    try {
-      axios({
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${BearerString}`,
-        },
-        url: `${baseUrl}/user/current`,
-      }).then(res => {
-        setUser(res.data);
-      });
-    } catch (err) {
-      console.log("err=>", err);
-    }
   }, [comment, isCommentRemoved, isEditSelected]);
 
   const uploadComment = async (e: React.MouseEvent<HTMLFormElement>) => {

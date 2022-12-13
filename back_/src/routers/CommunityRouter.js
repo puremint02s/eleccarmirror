@@ -131,6 +131,32 @@ communityRouter.put(
     }
 );
 
+//유저의 커뮤니티 글 모두 수정
+communityRouter.put(
+    "/community/users",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const user_id = req.currentUserId;
+            const { nickname } = req.body;
+
+            const newInput = { user_id, nickname };
+
+            // console.log("newInput 라우터 감지", newInput);
+
+            const updateUsersContent = await communityService.updateAllContent(
+                newInput
+            );
+
+            return res.status(201).json({
+                message: "해당 유저의 커뮤니티 글이 모두 업데이트 되었습니다",
+            });
+        } catch (err) {
+            next(err);
+        }
+    }
+);
+
 //커뮤니티 글 삭제
 communityRouter.delete(
     "/community",

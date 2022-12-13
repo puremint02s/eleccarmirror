@@ -37,6 +37,12 @@ class communityService {
         return updateContent;
     }
 
+    static async updateAllContent(newInput) {
+        const updateContent = await Community.updateAll(newInput);
+
+        return updateContent;
+    }
+
     static async deleteContent(_id) {
         const deleteContent = await Community.delete(_id);
 

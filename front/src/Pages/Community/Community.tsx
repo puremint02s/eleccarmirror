@@ -48,6 +48,8 @@ function Community(props: any) {
       try {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
         setcontentsPerPage(result.findContent);
+
+        console.log("result.findContent", result.findContent);
       } catch (err) {
         console.log("err=>", err);
       }
@@ -158,7 +160,17 @@ function Community(props: any) {
                 <tbody>
                   {contentsPerPage.length === 0 ? (
                     <tr>
-                      <td>글이 없습니다</td>
+                      <td
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "50px",
+                          color: "#aaa",
+                        }}
+                      >
+                        게시글이 없습니다
+                      </td>
                     </tr>
                   ) : (
                     contentsPerPage.map((item, index) => {
