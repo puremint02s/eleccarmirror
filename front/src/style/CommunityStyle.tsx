@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const CommunityWrap = styled.div`
   padding-top: 130px;
@@ -112,12 +112,34 @@ export const BoardWrap = styled.div`
         height: 48px;
         td {
           text-align: center;
+
           @media screen and (max-width: 768px) {
             font-size: 14px;
           }
 
           &:first-child {
             text-align: left;
+            display: flex;
+          }
+
+          button {
+            background-color: transparent;
+            margin-right: 20px;
+            cursor: pointer;
+          }
+
+          & > p {
+            & > span {
+              display: flex;
+              width: 29px;
+              justify-content: space-between;
+              align-items: center;
+              color: #888888;
+              i {
+                margin-top: 3px;
+                color: #868e96;
+              }
+            }
           }
         }
       }

@@ -36,12 +36,14 @@ const UserSchema = new Schema(
             ref: "testType",
         },
         car_owned: {
-            type: Boolean,
-            default: false,
+            type: Number,
+            required: true,
+            enum: [1, 2],
         },
         elec_car_owned: {
-            type: Boolean,
-            default: false,
+            type: Number,
+            required: true,
+            enum: [1, 2],
         },
         gas: {
             type: mongoose.Schema.Types.ObjectId,
