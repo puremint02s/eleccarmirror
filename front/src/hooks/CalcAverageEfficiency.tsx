@@ -10,10 +10,10 @@ function CalcAverageEfficiency(currentUserId: string) {
   useEffect(() => {
     async function getRefuelRecord(currentUserId: string) {
       const res = await getUserRefuelRecord(currentUserId);
-      setFirstAmount(res[0].gas_amount);
-      setFirstOdometer(res[0].odometer);
-      setSecondAmount(res[1].gas_amount);
-      setSecondOdometer(res[1].odometer);
+      setFirstAmount(res[res.length - 1].gas_amount);
+      setFirstOdometer(res[res.length - 1].odometer);
+      setSecondAmount(res[res.length - 2].gas_amount);
+      setSecondOdometer(res[res.length - 2].odometer);
     }
     getRefuelRecord(currentUserId);
   }, []);

@@ -26,7 +26,7 @@ function MyInfo() {
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
 
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "28b85c31-9337-4855-aef7-fd3e331c9c5c",
+    "70b691cb-c989-4503-86a2-f17dc87b77b8",
   );
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function MyInfo() {
   useEffect(() => {
     async function getUserOilingRecord() {
       const res = await getUserRefuelRecord(
-        "28b85c31-9337-4855-aef7-fd3e331c9c5c", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
+        "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
       );
       setRecords(res);
       setRecordId(res[0]._id);

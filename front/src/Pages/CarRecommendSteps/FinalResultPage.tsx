@@ -38,7 +38,7 @@ function FinalResultPage() {
   const [calcEfficiencyRecommendResult, setCalcEfficiencyRecommendResult] =
     useState(false);
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "28b85c31-9337-4855-aef7-fd3e331c9c5c",
+    "70b691cb-c989-4503-86a2-f17dc87b77b8",
   );
 
   return (
