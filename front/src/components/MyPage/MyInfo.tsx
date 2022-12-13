@@ -9,12 +9,7 @@ import { getUserCarInfo } from "apis/CarInfoApi";
 import Modal from "components/common/Modal";
 import AddNewRefuelRecord from "./AddRefuelRecord";
 import ModifyRecord from "./ModifyRefuelRecord";
-
-const dummyMyCarData = {
-  model: "아반떼",
-  brand: "현대",
-  MPG: 10,
-};
+import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 
 function MyInfo() {
   const [currentCarModel, setCurrentCarModel] = useState("");
@@ -29,6 +24,10 @@ function MyInfo() {
 
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
+
+  const currentUserCalcEfficiency = CalcAverageEfficiency(
+    "28b85c31-9337-4855-aef7-fd3e331c9c5c",
+  );
 
   useEffect(() => {
     async function setCurrentUserCarInfo() {
@@ -111,7 +110,7 @@ function MyInfo() {
                   </li>
                   <li>
                     <span>평균 연비</span>
-                    <p>{dummyMyCarData.MPG}km/L</p>
+                    <p>{currentUserCalcEfficiency}km/L</p>
                   </li>
                 </ul>
               )}

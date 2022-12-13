@@ -4,6 +4,7 @@ import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
 import Modal from "../../components/common/Modal";
 import CarRecommendResult from "../../components/FinalRecommendReport/CarRecommendResult";
+import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 
 interface CarData {
   brand: string;
@@ -36,6 +37,9 @@ function FinalResultPage() {
   const [userCarRecommendResult, setUserCarRecommendResult] = useState(false);
   const [calcEfficiencyRecommendResult, setCalcEfficiencyRecommendResult] =
     useState(false);
+  const currentUserCalcEfficiency = CalcAverageEfficiency(
+    "28b85c31-9337-4855-aef7-fd3e331c9c5c",
+  );
 
   return (
     <>
@@ -116,7 +120,7 @@ function FinalResultPage() {
               src={BlueCarImg}
               alt="유형 이미지"
             />
-            <p>{dummyUserData.efficiency} km/L</p>
+            <p>{currentUserCalcEfficiency} km/L</p>
           </ResultButton>
           {calcEfficiencyRecommendResult && (
             <Modal
