@@ -70,6 +70,7 @@ const HeaderWrapper = styled.header<{ isMenuOpen: boolean }>`
   width: 100vw;
   height: auto;
   display: flex;
+  background-color: white;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px 0 30px;
