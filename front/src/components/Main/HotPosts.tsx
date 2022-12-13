@@ -54,9 +54,9 @@ const HotPostsMain = styled.div`
   display: flex;
   overflow: scroll;
   flex-direction: column;
+  justify-content: center;
   border: 1px solid #e8e8e8;
   height: calc(100% - 50px);
-  // height: auto;
 
   padding: 10px;
   box-sizing: border-box;
@@ -68,6 +68,9 @@ const HotPostsMain = styled.div`
     border-bottom: 1px solid #e8e8e8;
     display: flex;
     justify-content: space-between;
+  }
+  div: last-child {
+    border: none;
   }
   @media screen and (max-width: 720px) {
     height: auto;

@@ -126,6 +126,9 @@ const ReportText = styled.div`
   align-items: center;
   font-weight: 600;
   border-bottom: 1px solid #e8e8e8;
+  @media screen and (max-width: 720px) {
+    padding: 15px;
+  }
 `;
 const ReportTopSub = styled.div`
   height: calc(50% - 20px);
@@ -166,6 +169,7 @@ const CarImage = styled.img`
   @media screen and (max-width: 720px) {
     width: 70vw;
     height: auto;
+    margin: 20px 0;
   }
 `;
 const CarInfoWrapper = styled.div`
