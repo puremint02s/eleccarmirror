@@ -15,7 +15,7 @@ import {
   ResultMbtiWrapper,
   ResultListWrapper,
   ResultListComponentWrapper,
-} from "../../style/CarMbtiStyle";
+} from "style/CarMbtiStyle";
 import BlueCarImg from "assets/img/BlueCar.png";
 import { carMbtiTypePost } from "apis/CarMbtiTestApi";
 import { R } from "App";
