@@ -3,10 +3,10 @@ import ChatBot from "react-simple-chatbot";
 import car from "assets/img/BlueCar.png";
 import loading from "assets/img/loading2.gif";
 import data from "assets/data/subsidy.json";
+
 /* eslint-disable */
 const Bot = ({ isVisible }) => {
   /* eslint-disable */
-  const userName = "최은오";  //메인페이지에서 userName을 props로 받아서 사용할 예정
   return (
     <ChatBotWrapper isVisible={isVisible}>
       <ChatBot
@@ -16,7 +16,7 @@ const Bot = ({ isVisible }) => {
         steps={[
           {
             id: "welcome1",
-            message: `안녕하세요. ${userName}님! MyElecCar입니다. :)`,
+            message: `안녕하세요. 전기차 추천 서비스 MyElecCar입니다. :)`,
             trigger: "welcome2",
           },
           {

@@ -6,6 +6,8 @@ import tempImage from "assets/img/GreyQuestionCar.png";
 import Chart from "./Chart";
 import { useNavigate } from "react-router-dom";
 import dic from "assets/data/dic.json";
+import * as StepApi from "apis/StepApi";
+import * as CarRegisterApi from "apis/CarRegisterApi";
 
 interface propsTypes {
   predictionList: Array<number>;
@@ -15,6 +17,16 @@ interface propsTypes {
 interface data {
   label: string;
   value: number;
+}
+
+interface CarProps {
+  model: string;
+  brand: string;
+}
+
+interface CarInfo {
+  current: CarProps;
+  recommended: CarProps;
 }
 
 const CarConfirmPopup = ({
@@ -30,8 +42,29 @@ const CarConfirmPopup = ({
   const onAnalysisTabToggle = () => {
     setAnalysisTabToggle(c => !c);
   };
+  const finishCarRegister = () => {
+    if (chartData) {
+      const tempCar: CarInfo = {
+        current: {
+          model: chartData[0].label.split(" ")[1],
+          brand: chartData[0].label.split(" ")[0],
+        },
+        recommended: {
+          model: chartData[0].label.split(" ")[1],
+          brand: chartData[0].label.split(" ")[0],
+        },
+      };
+      console.log(tempCar);
+      CarRegisterApi.updateCarInfo(tempCar);
+    }
+    StepApi.updateStepInfo("1");
+    navigate("/test");
+  };
 
   useEffect(() => {
+    if (sessionStorage.getItem("userToken") === undefined) {
+      navigate("/login");
+    }
     setTimeout(() => {
       setLoading(false);
     }, 3000);
@@ -106,12 +139,7 @@ const CarConfirmPopup = ({
                   >
                     다시하기
                   </BlueBoderButton>
-                  <BlueButton
-                    onClick={() => {
-                      alert("axios 요청");
-                      navigate("/test");
-                    }}
-                  >
+                  <BlueButton onClick={finishCarRegister}>
                     나의 유형 테스트<br></br>하러가기
                   </BlueButton>
                 </ButtonWrapper>
@@ -154,12 +182,7 @@ const CarConfirmPopup = ({
                   <BlueBoderButton onClick={onAnalysisTabToggle}>
                     뒤로 가기
                   </BlueBoderButton>
-                  <BlueButton
-                    onClick={() => {
-                      alert("axios 요청");
-                      navigate("/test");
-                    }}
-                  >
+                  <BlueButton onClick={finishCarRegister}>
                     나의 유형 테스트<br></br>하러가기
                   </BlueButton>
                 </ButtonWrapper>

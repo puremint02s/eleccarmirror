@@ -94,9 +94,9 @@ const NavWrapper = styled.nav<{ isMenuOpen: boolean }>`
     transition: 0.35s linear;
     @media screen and (max-width: 720px) {
       opacity: ${props => (props.isMenuOpen ? "1" : "0")};
-      transform: ${props => (props.isMenuOpen ? "0" : "translateY(-60px)")};
+      transform: ${props => (props.isMenuOpen ? "0" : "translateY(-100px)")};
       font-size: ${props => (props.isMenuOpen ? "1.1em" : "0")};
-      padding: 10px 0;
+      padding: 13px 0;
     }
   }
   li: hover {
