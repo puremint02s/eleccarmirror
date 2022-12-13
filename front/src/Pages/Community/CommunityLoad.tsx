@@ -42,6 +42,7 @@ function CommunityLoad() {
   const [isCommentRemoved, setIsCommentRemoved] = useState(false);
   const [isEditSelected, setIsEditSelected] = useState(false);
   const [commentContent, setCommentContent] = useState("");
+  const [resetTextArea, setResetTextArea] = useState("");
 
   const id = location.state.id;
 
@@ -96,6 +97,11 @@ function CommunityLoad() {
       const result = await CommentApi.postComment(data);
 
       setComment(result);
+      setResetTextArea("");
+
+      // if (!commentRef.current) {
+      //   return;
+      // }
     } catch (err) {
       console.log(err);
     }
@@ -245,6 +251,10 @@ function CommunityLoad() {
                 <form onSubmit={uploadComment}>
                   <textarea
                     placeholder="댓글을 입력해주세요"
+                    value={resetTextArea}
+                    onChange={e => {
+                      setResetTextArea(e.target.value);
+                    }}
                     ref={commentRef}
                   ></textarea>
                   <div className="button">
