@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "components/common/Header";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
 import Modal from "../../components/common/Modal";
 import CarRecommendResult from "../../components/FinalRecommendReport/CarRecommendResult";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
+import { carMbtiTypeGet } from "apis/CarMbtiTestApi";
+import { getUserCarInfo } from "apis/CarInfoApi";
 
 interface CarData {
   brand: string;
@@ -15,12 +17,6 @@ interface CarData {
   cost: number;
   homepage: string;
 }
-
-const dummyUserData = {
-  mbti: "CFBH",
-  efficiency: 10,
-  currentCar: "아반떼",
-};
 
 const dummyCarData: CarData = {
   brand: "테슬라",
@@ -37,9 +33,33 @@ function FinalResultPage() {
   const [userCarRecommendResult, setUserCarRecommendResult] = useState(false);
   const [calcEfficiencyRecommendResult, setCalcEfficiencyRecommendResult] =
     useState(false);
+  const [userMbtiType, setUserMbtiType] = useState("");
+  const [currentCarModel, setCurrentCarModel] = useState("");
+
   const currentUserCalcEfficiency = CalcAverageEfficiency(
     "70b691cb-c989-4503-86a2-f17dc87b77b8",
   );
+  const userId = "70b691cb-c989-4503-86a2-f17dc87b77b8";
+
+  useEffect(() => {
+    async function getCurrentUserType() {
+      const currentUserId = { userId };
+      const res = await carMbtiTypeGet(currentUserId);
+      setUserMbtiType(res[0].type);
+    }
+    getCurrentUserType();
+  }, []);
+
+  useEffect(() => {
+    async function setCurrentUserCarInfo() {
+      const res = await getUserCarInfo();
+      const carInformation = res.data.current;
+      if (carInformation) {
+        setCurrentCarModel(carInformation.model);
+      }
+    }
+    setCurrentUserCarInfo();
+  }, []);
 
   return (
     <>
@@ -58,7 +78,7 @@ function FinalResultPage() {
               src={BlueCarImg}
               alt="유형 이미지"
             />
-            <p>{dummyUserData.mbti}</p>
+            <p>{userMbtiType}</p>
           </ResultButton>
           {mbtiRecommendResult && (
             <Modal
@@ -88,7 +108,7 @@ function FinalResultPage() {
               src={BlueCarImg}
               alt="유형 이미지"
             />
-            <p>{dummyUserData.currentCar}</p>
+            <p>{currentCarModel}</p>
           </ResultButton>
           {userCarRecommendResult && (
             <Modal
