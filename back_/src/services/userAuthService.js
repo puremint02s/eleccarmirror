@@ -15,6 +15,28 @@ class userAuthService {
         car_owned,
         elec_car_owned,
     }) {
+        const isEmail = await User.findByEmailValue({ email });
+        const isId = await User.findByIdValue({ id });
+        const isNickname = await User.findByNicknameValue({ nickname });
+
+        if (isEmail) {
+            const errorMessage =
+                "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.";
+            return { errorMessage };
+        }
+
+        if (isId) {
+            const errorMessage =
+                "이 아이디는 현재 사용중입니다. 다른 아이디를 입력해 주세요.";
+            return { errorMessage };
+        }
+
+        if (isNickname) {
+            const errorMessage =
+                "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요.";
+            return { errorMessage };
+        }
+
         const user_id = uuidv4();
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -24,6 +46,7 @@ class userAuthService {
             user_id,
             email,
             id,
+            nickname,
             password: hashedPassword,
             age,
             address,
@@ -96,9 +119,18 @@ class userAuthService {
 
     //유저정보 수정
     static async updateUser(newInput) {
-        const { user_id } = newInput;
+        const {
+            user_id,
+            email,
+            id,
+            nickname,
+            age,
+            address,
+            car_owned,
+            elec_car_owned,
+        } = newInput;
 
-        const user = await User.findById(user_id);
+        let user = await User.findById(user_id);
 
         // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!user) {
@@ -106,10 +138,67 @@ class userAuthService {
                 "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
             return { errorMessage };
         }
+        console.log("id", id, "user.id", user.id);
 
-        const updatedUser = await User.update(newInput);
+        if (user.email !== email) {
+            console.log("email is updated");
+            const fieldToUpdate = "email";
+            const updateValue = email;
 
-        return updatedUser;
+            user = await User.update({ user_id, fieldToUpdate, updateValue });
+        }
+
+        if (user.id !== id) {
+            console.log("id is updated");
+            const fieldToUpdate = "id";
+            const updateValue = id;
+
+            user = await User.update({ user_id, fieldToUpdate, updateValue });
+        }
+
+        if (user.nickname !== nickname) {
+            console.log("nickname is updated");
+            const fieldToUpdate = "nickname";
+            const updateValue = nickname;
+
+            user = await User.update({ user_id, fieldToUpdate, updateValue });
+        }
+
+        if (user.age !== age) {
+            console.log("age is updated");
+            const fieldToUpdate = "age";
+            const updateValue = age;
+
+            user = await User.update({ user_id, fieldToUpdate, updateValue });
+        }
+
+        if (user.address !== address) {
+            console.log("address is updated");
+            const fieldToUpdate = "address";
+            const updateValue = address;
+
+            user = await User.update({ user_id, fieldToUpdate, updateValue });
+        }
+
+        if (user.car_owned !== car_owned) {
+            console.log("car_owned is updated");
+            const fieldToUpdate = "car_owned";
+            const updateValue = car_owned;
+
+            user = await User.update({ user_id, fieldToUpdate, updateValue });
+        }
+
+        if (user.elec_car_owned !== elec_car_owned) {
+            console.log("elec_car_owned is updated");
+            const fieldToUpdate = "elec_car_owned";
+            const updateValue = elec_car_owned;
+
+            user = await User.update({ user_id, fieldToUpdate, updateValue });
+        }
+
+        console.log("nothing to update");
+
+        return user;
     }
 }
 
