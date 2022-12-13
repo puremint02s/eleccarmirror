@@ -8,7 +8,7 @@ const PaginationWrap = styled.div`
   justify-content: center;
 `;
 
-const PageUl = styled.ul`
+const PageUl = styled.div`
   display: flex;
   justify-content: space-between;
   /* width: 150px; */
@@ -33,16 +33,20 @@ const PageUl = styled.ul`
     }
   }
 
-  li {
-    cursor: pointer;
-    width: 30px;
-    border-radius: 20px;
-    text-align: center;
-    transition: all 0.1s linear;
-    font-size: 18px;
+  ul {
+    display: flex;
+    justify-content: space-between;
+    li {
+      cursor: pointer;
+      width: 30px;
+      border-radius: 20px;
+      text-align: center;
+      transition: all 0.1s linear;
+      font-size: 18px;
 
-    &:hover {
-      color: #aaa;
+      &:hover {
+        color: #aaa;
+      }
     }
   }
 `;
@@ -50,6 +54,7 @@ const PageUl = styled.ul`
 const Pagination = ({ currentPage, getData }: any) => {
   const [totalPage, setTotalPage] = useState<number[] | []>([]);
   const [paginations, setPaginations] = useState([1, 2, 3, 4, 5]);
+  const paginationRef = useRef<HTMLLIElement[]>([]);
 
   //참고 링크 : https://gurtn.tistory.com/174
   const division = (data: any, size: number) => {
@@ -66,6 +71,8 @@ const Pagination = ({ currentPage, getData }: any) => {
 
   const pagination = division(totalPage, 5);
 
+  // console.log("pagination", pagination);
+
   useEffect(() => {
     const api = async () => {
       try {
@@ -76,6 +83,8 @@ const Pagination = ({ currentPage, getData }: any) => {
           (v, i) => i + 1,
         );
         setTotalPage(pages);
+
+        console.log("pages", pages);
       } catch (err) {
         console.log(err);
       }
@@ -86,6 +95,24 @@ const Pagination = ({ currentPage, getData }: any) => {
 
   const loadPage = (e: React.MouseEvent<HTMLLIElement>) => {
     const currentPage = e.currentTarget.innerText;
+
+    if (!paginationRef.current) {
+      return;
+    }
+
+    console.log("paginationRef", paginationRef.current);
+    for (let i = 0; i < paginations.length; i++) {
+      if (paginationRef.current[i] === null) {
+        console.log("this has null");
+        return;
+      } else {
+        paginationRef.current[i].style.color = "#000";
+      }
+    }
+
+    e.currentTarget.style.color = "#0a84ff";
+
+    console.log("e.currentTarget", e.currentTarget);
 
     getData(currentPage);
   };
@@ -111,6 +138,7 @@ const Pagination = ({ currentPage, getData }: any) => {
     }
   };
 
+  console.log("paginations", paginations);
   return (
     <PaginationWrap>
       <nav>
@@ -118,13 +146,21 @@ const Pagination = ({ currentPage, getData }: any) => {
           <button name="prev" onClick={onPrev}>
             <i className="ri-arrow-left-s-line"></i>
           </button>
-          {paginations.map((item, index) => {
-            return (
-              <li key={index} onClick={loadPage}>
-                {item}
-              </li>
-            );
-          })}
+          <ul>
+            {paginations.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  onClick={loadPage}
+                  ref={(el: HTMLLIElement) => {
+                    paginationRef.current[index] = el;
+                  }}
+                >
+                  {item}
+                </li>
+              );
+            })}
+          </ul>
           <button name="next" onClick={onNext}>
             <i className="ri-arrow-right-s-line"></i>
           </button>

@@ -121,7 +121,7 @@ function Community(props: any) {
       return item.community_id === id;
     });
 
-    console.log("result", result);
+    // console.log("result", result);
 
     if (result.length == 0) {
       return;
