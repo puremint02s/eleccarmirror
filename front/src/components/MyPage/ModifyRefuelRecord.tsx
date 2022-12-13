@@ -9,7 +9,7 @@ import {
   Select,
   CalcButtonWrapper,
 } from "style/CalcEfficiencyStyle";
-import { ModifyRefuelRecord } from "apis/RefuelRecordApi";
+import { modifyRefuelRecord } from "apis/RefuelRecordApi";
 
 function ModifyRecord(_id: any) {
   const [oilingDate, setOilingDate] = useState(new Date());
@@ -24,7 +24,7 @@ function ModifyRecord(_id: any) {
   async function ModifyCurrentRefuelRecord(e: any) {
     e.preventDefault();
     try {
-      await ModifyRefuelRecord(_id, oilingDate, gasType, gasAmount, odometer);
+      await modifyRefuelRecord(_id, oilingDate, gasType, gasAmount, odometer);
       window.alert("주유기록이 수정되었습니다.");
       window.location.replace("/mypage");
     } catch (e) {
