@@ -24,10 +24,10 @@ const SignUpPage = () => {
   const doSignup = useMutation(Api.RegisterRequest, {
     onSuccess: message => {
       navigate("/login");
-      console.log({ success: message });
+      alert({ success: message });
     },
     onError: error => {
-      console.log("onError");
+      alert({ error });
     },
   });
   const navigate = useNavigate();
@@ -49,19 +49,14 @@ const SignUpPage = () => {
       nickname: "",
       password: "",
       confirmPassword: "",
-      age: "",
-      address: "",
     },
   });
 
-  const signUp = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // setSignUpCodePopUpOpen(true);
-    handleSubmit(registerForm => {
-      delete registerForm.confirmPassword;
-      doSignup.mutate(registerForm);
-    });
-  };
+  const signUp = handleSubmit(registerForm => {
+    delete registerForm.confirmPassword;
+    doSignup.mutate(registerForm);
+    console.log("33");
+  });
 
   return (
     <>
@@ -335,7 +330,7 @@ const SignUpPage = () => {
                   type={"text"}
                   name="address"
                   placeholder="주소"
-                  value={inputAddress}
+                  defaultValue={inputAddress}
                 />
                 <button
                   onClick={popUpOpen}
