@@ -4,6 +4,7 @@ import Header from "components/common/Header";
 import Main from "components/common/Main";
 import { useNavigate } from "react-router-dom";
 import * as uploadStyle from "style/CommunityUploadStyle";
+import * as CommunityApi from "apis/CommunityApi";
 
 const CommunityUpload = () => {
   const navigate = useNavigate();
@@ -16,10 +17,6 @@ const CommunityUpload = () => {
   const [hashtags, setHashtags] = useState([]);
   const [titleWarn, setTitleWarn] = useState("");
   const [contentWarn, setContentWarn] = useState("");
-
-  const baseUrl = "http://localhost:4005";
-  const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzBiNjkxY2ItYzk4OS00NTAzLTg2YTItZjE3ZGM4N2I3N2I4IiwiaWF0IjoxNjcwOTE3MTI1fQ.fJbqf-cvOLQmcZxPQYk0HDnKdMBgGc86boXow0BwoTM";
 
   const toPreviousPage = () => {
     navigate(`/community`);
@@ -57,7 +54,7 @@ const CommunityUpload = () => {
     }
   };
   let uploadData;
-  const uploadContent = (e: React.FormEvent) => {
+  const uploadContent = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validation()) {
@@ -71,16 +68,7 @@ const CommunityUpload = () => {
     };
 
     try {
-      axios({
-        method: "post",
-        data: uploadData,
-        headers: {
-          Authorization: `Bearer ${BearerString}`,
-        },
-        url: `${baseUrl}/community`,
-      }).then(res => {
-        console.log("👉res data ==>", res.data);
-      });
+      const res = await CommunityApi.uploadCommunity(uploadData);
     } catch (err) {
       console.log("err=>", err);
     }
@@ -128,9 +116,6 @@ const CommunityUpload = () => {
               <input
                 placeholder="내용을 입력해주세요"
                 ref={hashTagsRef}
-                // onChange={e => {
-                //   setHashtags(e.target.value);
-                // }}
               ></input>
               <span className="hashtags-tip">
                 콤마로 관련검색어를 나눠주세요

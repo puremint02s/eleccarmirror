@@ -197,7 +197,7 @@ const HotPosts = () => {
         </Title>
         <Content>
           {communitys.length === 0 ? (
-            <div className="loading">게시글 불러오는 중...</div>
+            <div className="loading">추천 게시글이 없습니다</div>
           ) : (
             communitys.map((item, index) => (
               <div key={index}>
