@@ -12,6 +12,36 @@ class User {
         }
     }
 
+    static async findByEmailValue({ email }) {
+        try {
+            const findValue = await UserModel.findOne({ email });
+
+            return findValue;
+        } catch (err) {
+            console.log("이것이 바로 에러", err);
+        }
+    }
+
+    static async findByIdValue({ id }) {
+        try {
+            const findValue = await UserModel.findOne({ id });
+
+            return findValue;
+        } catch (err) {
+            console.log("이것이 바로 에러", err);
+        }
+    }
+
+    static async findByNicknameValue({ nickname }) {
+        try {
+            const findValue = await UserModel.findOne({ nickname });
+
+            return findValue;
+        } catch (err) {
+            console.log("이것이 바로 에러", err);
+        }
+    }
+
     static async findByEmail({ id }) {
         try {
             const user = await UserModel.findOne({ id });

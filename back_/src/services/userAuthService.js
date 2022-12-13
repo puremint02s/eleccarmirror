@@ -15,6 +15,28 @@ class userAuthService {
         car_owned,
         elec_car_owned,
     }) {
+        const isEmail = await User.findByEmailValue({ email });
+        const isId = await User.findByIdValue({ id });
+        const isNickname = await User.findByNicknameValue({ nickname });
+
+        if (isEmail) {
+            const errorMessage =
+                "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.";
+            return { errorMessage };
+        }
+
+        if (isId) {
+            const errorMessage =
+                "이 아이디는 현재 사용중입니다. 다른 아이디를 입력해 주세요.";
+            return { errorMessage };
+        }
+
+        if (isNickname) {
+            const errorMessage =
+                "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요.";
+            return { errorMessage };
+        }
+
         const user_id = uuidv4();
         const hashedPassword = await bcrypt.hash(password, 10);
 
