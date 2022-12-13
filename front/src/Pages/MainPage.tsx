@@ -66,6 +66,9 @@ const MainPage = () => {
     { userName: "더미 유저5", title: "더미 게시글 1" },
     { userName: "더미 유저1", title: "더미 게시글 1" },
     { userName: "더미 유저2", title: "더미 게시글 1" },
+    { userName: "더미 유저3", title: "더미 게시글 1" },
+    { userName: "더미 유저4", title: "더미 게시글 1" },
+    { userName: "더미 유저5", title: "더미 게시글 1" },
   ]);
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
@@ -118,7 +121,10 @@ const MainPage = () => {
 };
 export default MainPage;
 const RecomendStepImage = styled.img`
-  width: 90%;
+  width: 500px;
+  @media screen and (max-width: 720px) {
+    width: 90vw;
+  }
 `;
 const MainArea = styled.main`
   padding: 0 50px 0 50px;
