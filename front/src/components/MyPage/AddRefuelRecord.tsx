@@ -9,7 +9,7 @@ import {
   Select,
   CalcButtonWrapper,
 } from "style/CalcEfficiencyStyle";
-import { CurrentUserGet } from "apis/UserApi";
+import { currentUserGet } from "apis/UserApi";
 import { AddRefuelRecord } from "apis/RefuelRecordApi";
 
 function AddNewRefuelRecord() {
@@ -21,7 +21,7 @@ function AddNewRefuelRecord() {
 
   useEffect(() => {
     async function getUserInfo() {
-      const res = await CurrentUserGet();
+      const res = await currentUserGet();
       setCurrentUserId(res.data.user_id);
     }
     getUserInfo();

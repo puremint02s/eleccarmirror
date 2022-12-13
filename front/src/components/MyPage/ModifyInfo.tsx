@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AddressPopUp from "components/SignUp/AddressPopUp";
-import { CurrentUserGet, ModifyUserInfo } from "apis/UserApi";
+import { currentUserGet, modifyUserInfo } from "apis/UserApi";
 
 const dummyMyCarData = {
   model: "아반떼",
@@ -23,21 +23,33 @@ function ModifyInfo() {
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
   const [inputAddress, setInputAddress] = useState("");
-  const [carOwned, setCarOwned] = useState(false);
-  const [elecCarOwned, setElecCarOwned] = useState(false);
+  const [carOwned, setCarOwned] = useState(0);
+  const [elecCarOwned, setElecCarOwned] = useState(0);
+
+  const [carOwnedCheck, setCarOwnedCheck] = useState(false);
+  const [elecCarOwnedCheck, setElecCarOwnedCheck] = useState(false);
 
   useEffect(() => {
     async function getUserInfo() {
-      const res = await CurrentUserGet();
+      const res = await currentUserGet();
       setUserEmail(res.data.email);
       setUserId(res.data.id);
       setNickname(res.data.nickname);
-      setPassword(res.data.password);
+      // setPassword(res.data.password);
       setAge(res.data.age);
       setInputAddress(res.data.address);
+      setCarOwned(res.data.car_owned);
+      setElecCarOwned(res.data.elec_car_owend);
+
+      if (res.data.car_owned === 2) {
+        setCarOwnedCheck(true);
+      }
+      if (res.data.elec_car_owend === 2) {
+        setElecCarOwnedCheck(true);
+      }
     }
     getUserInfo();
   }, []);
@@ -45,10 +57,10 @@ function ModifyInfo() {
   async function editUserInfo(e: any) {
     e.preventDefault();
     try {
-      await ModifyUserInfo(
+      await modifyUserInfo(
         userEmail,
+        userId,
         nickname,
-        password,
         age,
         inputAddress,
         carOwned,
@@ -172,6 +184,78 @@ function ModifyInfo() {
                     <AddressSearchBtn onClick={popUpOpen}>
                       주소 검색
                     </AddressSearchBtn>
+                  </ModifyInfoContentInputWrapper>
+                </ModifyInfoContentTr>
+                <ModifyInfoContentTr>
+                  <ModifyInfoContentTitle>
+                    차량 소지 여부
+                  </ModifyInfoContentTitle>
+                  <ModifyInfoContentInputWrapper>
+                    <label>
+                      <input
+                        type="radio"
+                        name="hasCar"
+                        checked={carOwnedCheck}
+                        value={2}
+                        onChange={e => {
+                          setCarOwned(parseInt(e.target.value));
+                        }}
+                      />
+                      예
+                    </label>
+                    {/* <input
+                        type="radio"
+                        name="hasCar"
+                        checked={carOwned}
+                        onChange={e => {
+                          setCarOwned(e.target.checked);
+                        }}
+                      />
+                      예
+                    </label> */}
+                    <label>
+                      <input
+                        type="radio"
+                        name="hasCar"
+                        checked={!carOwnedCheck}
+                        value={1}
+                        onChange={e => {
+                          setCarOwned(parseInt(e.target.value));
+                        }}
+                      />
+                      아니요
+                    </label>
+                  </ModifyInfoContentInputWrapper>
+                </ModifyInfoContentTr>
+                <ModifyInfoContentTr>
+                  <ModifyInfoContentTitle>
+                    전기차 소지 여부
+                  </ModifyInfoContentTitle>
+                  <ModifyInfoContentInputWrapper>
+                    <label>
+                      <input
+                        type="radio"
+                        name="hasElecCar"
+                        checked={elecCarOwnedCheck}
+                        value={2}
+                        onChange={e => {
+                          setElecCarOwned(parseInt(e.target.value));
+                        }}
+                      />
+                      예
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="hasElecCar"
+                        checked={!elecCarOwnedCheck}
+                        value={1}
+                        onChange={e => {
+                          setElecCarOwned(parseInt(e.target.value));
+                        }}
+                      />
+                      아니요
+                    </label>
                   </ModifyInfoContentInputWrapper>
                 </ModifyInfoContentTr>
                 <ModifyInfoContentTr>

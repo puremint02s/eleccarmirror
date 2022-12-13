@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Pagination from "components/common/Pagination";
 import swal from "sweetalert";
-import { GetUserRefuelRecord, DeleteRefuelRecord } from "apis/RefuelRecordApi";
+import { getUserRefuelRecord, deleteRefuelRecord } from "apis/RefuelRecordApi";
 import Modal from "components/common/Modal";
 import AddNewRefuelRecord from "./AddRefuelRecord";
 import ModifyRecord from "./ModifyRefuelRecord";
@@ -19,15 +19,17 @@ function MyInfo() {
   const [gasType, setGasType] = useState("");
   const [gasAmount, setGasAmount] = useState("");
   const [odometer, setOdometer] = useState("");
+  const [records, setRecords] = useState([]);
 
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
 
   useEffect(() => {
     async function getUserOilingRecord() {
-      const res = await GetUserRefuelRecord(
+      const res = await getUserRefuelRecord(
         "28b85c31-9337-4855-aef7-fd3e331c9c5c", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
       );
+      setRecords(res);
       setRecordId(res[0]._id);
       setOilingDate(res[0].oiling_date);
       setGasType(res[0].gas_type);
@@ -54,7 +56,7 @@ function MyInfo() {
       }).then(async willDelete => {
         if (willDelete) {
           const data = { _id: CurrentRecordId };
-          await DeleteRefuelRecord(data);
+          await deleteRefuelRecord(data);
           swal("삭제 완료", "주유내역이 정상적으로 삭제되었습니다.", "success");
         } else {
           swal("삭제 취소", "사용자가 삭제를 취소하였습니다.", "info");
@@ -116,34 +118,72 @@ function MyInfo() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>{oilingDate}</td>
-                    <td>{gasType}</td>
-                    <td>{gasAmount}L</td>
-                    <td>{odometer}km</td>
-                    <td>
-                      <button
-                        onClick={() =>
-                          setModifyingRefuelRecord(!modifyingRefuelRecord)
-                        }
-                      >
-                        수정
-                      </button>
-                      {modifyingRefuelRecord && (
-                        <Modal
-                          closeModal={() =>
+                  {!recordId ? (
+                    <tr>
+                      <td>주유내역이 존재하지 않습니다.</td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td>{oilingDate.substring(0, 10)}</td>
+                      <td>{gasType}</td>
+                      <td>{gasAmount}L</td>
+                      <td>{odometer}km</td>
+                      <td>
+                        <button
+                          onClick={() =>
                             setModifyingRefuelRecord(!modifyingRefuelRecord)
                           }
                         >
-                          <ModifyRecord _id={recordId} />
-                        </Modal>
-                      )}
-                      <button onClick={handleRefuelRecordDelete}>삭제</button>
-                    </td>
-                  </tr>
+                          수정
+                        </button>
+                        {modifyingRefuelRecord && (
+                          <Modal
+                            closeModal={() =>
+                              setModifyingRefuelRecord(!modifyingRefuelRecord)
+                            }
+                          >
+                            <ModifyRecord _id={recordId} />
+                          </Modal>
+                        )}
+                        <button onClick={handleRefuelRecordDelete}>삭제</button>
+                      </td>
+                    </tr>
+                    // records.map((record, index) => {
+                    //   return (
+                    //     <tr key={index}>
+                    //       <td>{record.oilingDate.substring(0, 10)}</td>
+                    //       <td>{record.gasType}</td>
+                    //       <td>{record.gasAmount}L</td>
+                    //       <td>{record.odometer}km</td>
+                    //       <td>
+                    //         <button
+                    //           onClick={() =>
+                    //             setModifyingRefuelRecord(!modifyingRefuelRecord)
+                    //           }
+                    //         >
+                    //           수정
+                    //         </button>
+                    //         {modifyingRefuelRecord && (
+                    //           <Modal
+                    //             closeModal={() =>
+                    //               setModifyingRefuelRecord(
+                    //                 !modifyingRefuelRecord,
+                    //               )
+                    //             }
+                    //           >
+                    //             <ModifyRecord _id={recordId} />
+                    //           </Modal>
+                    //         )}
+                    //         <button onClick={handleRefuelRecordDelete}>
+                    //           삭제
+                    //         </button>
+                    //       </td>
+                    //     </tr>
+                    //   );
+                    // })
+                  )}
                 </tbody>
               </table>
-              <Pagination />
             </RefuelWrap>
           </div>
         </MyPageContentWrapper>
