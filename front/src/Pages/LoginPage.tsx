@@ -1,5 +1,5 @@
-import LoginForm from "../components/User/LoginForm";
-import LoginHook from "../components/User/LoginHook";
+import LoginForm from "components/User/LoginForm";
+import LoginHook from "components/User/LoginHook";
 
 function LoginPage() {
   const { register, errors, handleSubmit, handleLoginSubmit } = LoginHook();

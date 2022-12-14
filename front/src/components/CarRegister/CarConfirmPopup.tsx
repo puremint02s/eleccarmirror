@@ -5,15 +5,29 @@ import loading from "assets/img/loading2.gif";
 import tempImage from "assets/img/GreyQuestionCar.png";
 import Chart from "./Chart";
 import { useNavigate } from "react-router-dom";
+import dic from "assets/data/dic.json";
+import * as StepApi from "apis/StepApi";
+import * as CarRegisterApi from "apis/CarRegisterApi";
 
 interface propsTypes {
   predictionList: Array<number>;
   fileName: string;
   setPopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-// function getKeyByValue(object: any, value: number) {
-//   return Object.keys(object).find((key: string) => object[key] === value);
-// }
+interface data {
+  label: string;
+  value: number;
+}
+
+interface CarProps {
+  model: string;
+  brand: string;
+}
+
+interface CarInfo {
+  current: CarProps;
+  recommended: CarProps;
+}
 
 const CarConfirmPopup = ({
   fileName,
@@ -21,71 +35,58 @@ const CarConfirmPopup = ({
   setPopUpOpen,
 }: propsTypes) => {
   const navigate = useNavigate();
+  const [chartData, setChartData] = useState<data[]>();
   const [isLoading, setLoading] = useState(true);
   const [isAnalysisTabOpen, setAnalysisTabToggle] = useState(false);
-  const dic = {
-    "kia mohave": 0,
-    "hyundai kona": 1,
-    "kia sorento": 2,
-    "genesis g90": 3,
-    "chevrolet trailblazer": 4,
-    "kia sportage": 5,
-    "ssangyong torres": 6,
-    "genesis g70": 7,
-    "hyundai palisade": 8,
-    "renault qm6": 9,
-    "kia k3": 10,
-    "kia k5": 11,
-    "hyundai avante": 12,
-    "ssangyong rexton": 13,
-    "kia seltos": 14,
-    "chevrolet spark": 15,
-    "hyundai santafe": 16,
-    "hyundai venue": 17,
-    "kia carnival": 18,
-    "kia morning": 19,
-    "renault xm3": 20,
-    "hyundai sonata": 21,
-    "hyundai grandeur": 22,
-    "genesis g80": 23,
-    "renault sm6": 24,
-    "kia k9": 25,
-    "hyundai tucson": 26,
-    "hyundai casper": 27,
-    "kia k8": 28,
-    "ssangyong tivoli": 29,
-    "kia ray": 30,
-  };
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, []);
-
-  const values: Array<string> = Object.keys(dic);
-  const keys: Array<number> = Object.values(dic);
 
   const onAnalysisTabToggle = () => {
     setAnalysisTabToggle(c => !c);
   };
-  const result = keys.map(v => ({
-    label: values[v],
-    value: predictionList[v] * 100,
-  }));
+  const finishCarRegister = () => {
+    if (chartData) {
+      const tempCar: CarInfo = {
+        current: {
+          model: chartData[0].label.split(" ")[1],
+          brand: chartData[0].label.split(" ")[0],
+        },
+        recommended: {
+          model: chartData[0].label.split(" ")[1],
+          brand: chartData[0].label.split(" ")[0],
+        },
+      };
+      console.log(tempCar);
+      CarRegisterApi.updateCarInfo(tempCar);
+    }
+    StepApi.updateStepInfo("1");
+    navigate("/test");
+  };
 
-  result.sort((a, b) => b.value - a.value);
-  const chartData = [...result].splice(0, 4);
-  chartData.push({
-    label: "etc",
-    value:
-      100 -
-      chartData[0].value -
-      chartData[1].value -
-      chartData[2].value -
-      chartData[3].value,
-  });
-  console.log(chartData);
-
+  useEffect(() => {
+    if (sessionStorage.getItem("userToken") === undefined) {
+      navigate("/login");
+    }
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+    const values: Array<string> = Object.keys(dic);
+    const keys: Array<number> = Object.values(dic);
+    const result = keys.map(v => ({
+      label: values[v],
+      value: predictionList[v] * 100,
+    }));
+    result.sort((a, b) => b.value - a.value);
+    const chartData = [...result].splice(0, 4);
+    chartData.push({
+      label: "etc",
+      value:
+        100 -
+        chartData[0].value -
+        chartData[1].value -
+        chartData[2].value -
+        chartData[3].value,
+    });
+    setChartData(chartData);
+  }, [predictionList]);
   return (
     <>
       {
@@ -120,15 +121,15 @@ const CarConfirmPopup = ({
                 {/* vm에 저장해둔 분류 모델 이미지가 나와야 합니다. */}
                 <ResultText>
                   <span>제조사</span>
-                  <span>{result[0].label.split(" ")[0]}</span>
+                  <span>{chartData && chartData[0].label.split(" ")[0]}</span>
                 </ResultText>
                 <ResultText>
                   <span>모델</span>
-                  <span>{result[0].label.split(" ")[1]}</span>
+                  <span>{chartData && chartData[0].label.split(" ")[1]}</span>
                 </ResultText>
                 <ResultText>
                   <span>AI 분석 확률</span>
-                  <span>{result[0].value.toFixed(2)}%</span>
+                  <span>{chartData && chartData[0].value.toFixed(2)}%</span>
                 </ResultText>
                 <ButtonWrapper>
                   <BlueBoderButton
@@ -138,12 +139,7 @@ const CarConfirmPopup = ({
                   >
                     다시하기
                   </BlueBoderButton>
-                  <BlueButton
-                    onClick={() => {
-                      alert("axios 요청");
-                      navigate("/test");
-                    }}
-                  >
+                  <BlueButton onClick={finishCarRegister}>
                     나의 유형 테스트<br></br>하러가기
                   </BlueButton>
                 </ButtonWrapper>
@@ -170,27 +166,23 @@ const CarConfirmPopup = ({
                   만약 리스트에 나의 차량이 없다면 가장 유사하다고 판단되는
                   차량을 리스트에서 골라주세요 :)
                 </ResultTextCenter>
-                <Chart result={chartData} />
+                {chartData && <Chart chartData={chartData} />}
 
                 <ResultWrapper>
-                  {chartData.map(v => (
-                    <ResultText2 key={v.value}>
-                      <span>{v.label}</span>
-                      <span>{v.value.toFixed(2)}%</span>
-                    </ResultText2>
-                  ))}
+                  {chartData &&
+                    chartData.map((v: data) => (
+                      <ResultText2 key={v.value}>
+                        <span>{v.label}</span>
+                        <span>{v.value.toFixed(2)}%</span>
+                      </ResultText2>
+                    ))}
                 </ResultWrapper>
 
                 <ButtonWrapper>
                   <BlueBoderButton onClick={onAnalysisTabToggle}>
                     뒤로 가기
                   </BlueBoderButton>
-                  <BlueButton
-                    onClick={() => {
-                      alert("axios 요청");
-                      navigate("/test");
-                    }}
-                  >
+                  <BlueButton onClick={finishCarRegister}>
                     나의 유형 테스트<br></br>하러가기
                   </BlueButton>
                 </ButtonWrapper>

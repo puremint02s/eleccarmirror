@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,69 +16,63 @@ import {
   CalcButton,
   CalcButtonWrapper,
 } from "style/CalcEfficiencyStyle";
-
-interface GasOption {
-  value: string;
-  name: string;
-}
-
-interface OptionsProps {
-  options: GasOption;
-}
+import { currentUserGet } from "apis/UserApi";
+import { AddRefuelRecord } from "apis/RefuelRecordApi";
 
 function CalcEfficiencyPage() {
-  const [startDate, setStartDate] = useState(new Date());
+  const [firstOilingDate, setFirstOilingDate] = useState(new Date());
+  const [firstGasType, setFirstGasType] = useState("휘발유");
+  const [firstGasAmount, setFirstGasAmount] = useState(0);
+  const [firstOdometer, setFirstOdometer] = useState(0);
+
+  const [secondOilingDate, setSecondOilingDate] = useState(new Date());
+  const [secondGasType, setSecondGasType] = useState("휘발유");
+  const [secondGasAmount, setSecondGasAmount] = useState(0);
+  const [secondOdometer, setSecondOdometer] = useState(0);
+
+  const [currentUserId, setCurrentUserId] = useState("");
+
+  useEffect(() => {
+    async function getUserInfo() {
+      const res = await currentUserGet();
+      setCurrentUserId(res.data.user_id);
+    }
+    getUserInfo();
+  }, []);
+
+  function getSelectedValue(event: React.ChangeEvent<HTMLSelectElement>) {
+    setFirstGasType(event.target.value);
+  }
+  function getSecondSelectedValue(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSecondGasType(event.target.value);
+  }
+
+  async function addOilingRecord(e: any) {
+    e.preventDefault();
+    try {
+      await AddRefuelRecord(
+        currentUserId,
+        firstOilingDate,
+        firstGasType,
+        firstGasAmount,
+        firstOdometer,
+      );
+      await AddRefuelRecord(
+        currentUserId,
+        secondOilingDate,
+        secondGasType,
+        secondGasAmount,
+        secondOdometer,
+      );
+    } catch (e) {
+      console.log(e);
+      alert("주유기록 등록에 실패하였습니다.");
+    }
+  }
+
   const navigate = useNavigate();
-
-  const [firstRefuelRecord, setFirstRefuelRecord] = useState(0);
-  const [secondRefuelRecord, setSecondRefuelRecord] = useState(0);
-
-  const [firstDistance, setFirstDistance] = useState(0);
-  const [secondDistance, setSecondDistance] = useState(0);
-
-  const onChangeFirstRefuel = useCallback((e: any) => {
-    const currFirstRefuel = e.target.value;
-    setFirstRefuelRecord(currFirstRefuel);
-  }, []);
-
-  const onChangeSecondRefuel = useCallback((e: any) => {
-    const currSecondRefuel = e.target.value;
-    setSecondRefuelRecord(currSecondRefuel);
-  }, []);
-
-  const onChangeFirstDistance = useCallback((e: any) => {
-    const currFirstDistance = e.target.value;
-    setFirstDistance(currFirstDistance);
-  }, []);
-
-  const onChangeSecondDistance = useCallback((e: any) => {
-    const currSecondDistance = e.target.value;
-    setSecondDistance(currSecondDistance);
-  }, []);
-
-  const OPTIONS: Array<GasOption> = [
-    { value: "none", name: "선택해주세요" },
-    { value: "gasoline", name: "휘발유" },
-    { value: "diesel", name: "경유" },
-  ];
-  const SelectBox = (props: any) => {
-    return (
-      <Select>
-        {props.options.map((option: GasOption) => (
-          <option key={option.value} value={option.value}>
-            {option.name}
-          </option>
-        ))}
-      </Select>
-    );
-  };
-
   const SkipCalcAndGoFinalResult = () => navigate("/finalresult");
-  const calcAverageEfficiency = (e: any) => {
-    const AverageEfficiency =
-      (secondDistance - firstDistance) / firstRefuelRecord;
-    console.log(AverageEfficiency);
-  };
+  const SubmitAndGotoFinalResult = () => navigate("/finalresult");
 
   return (
     <CalcEfficiencyWrapper>
@@ -88,59 +82,61 @@ function CalcEfficiencyPage() {
         계산된 평균 연비로 나에게 알맞은 전기차를 추천해드리겠습니다.
       </CalcSubTitleWrapper>
       <CalcFormDiv>
-        <CalcFormWrapper>
+        <CalcFormWrapper onSubmit={addOilingRecord}>
           <CalcInputTitle>주유 날짜</CalcInputTitle>
           <DatePicker
-            selected={startDate}
-            onChange={(date: Date) => setStartDate(date)}
-            locale="ko"
+            selected={firstOilingDate}
+            onChange={(date: Date) => setFirstOilingDate(date)}
+            dateFormatCalendar="yyyy.MM"
+            customInput={<CalcInput />}
+          />
+          <DatePicker
+            selected={secondOilingDate}
+            onChange={(date: Date) => setFirstOilingDate(date)}
             dateFormatCalendar="yyyy.MM"
             customInput={<CalcInput />}
           />
           <CalcInputTitle>유종</CalcInputTitle>
-          <SelectBox options={OPTIONS} />
+          <Select onChange={getSelectedValue}>
+            <option value="휘발유">휘발유</option>
+            <option value="경유">경유</option>
+          </Select>
+          <Select onChange={getSecondSelectedValue}>
+            <option value="휘발유">휘발유</option>
+            <option value="경유">경유</option>
+          </Select>
           <CalcInputTitle>주유량(L)</CalcInputTitle>
           <CalcInput
-            onChange={onChangeFirstRefuel}
-            placeholder="10"
+            type="number"
+            placeholder="첫 번째 주유량을 입력해주세요."
+            onChange={e => setFirstGasAmount(parseInt(e.target.value))}
+          ></CalcInput>
+          <CalcInput
+            type="number"
+            placeholder="두 번째 주유량을 입력해주세요."
+            onChange={e => setSecondGasAmount(parseInt(e.target.value))}
           ></CalcInput>
           <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
           <CalcInput
-            onChange={onChangeFirstDistance}
-            placeholder="1500-"
+            type="number"
+            placeholder="첫 번째 누적 주행 거리를 입력해주세요."
+            onChange={e => setFirstOdometer(parseInt(e.target.value))}
           ></CalcInput>
+          <CalcInput
+            type="number"
+            placeholder="두 번째 누적 주행 거리를 입력해주세요."
+            onChange={e => setSecondOdometer(parseInt(e.target.value))}
+          ></CalcInput>
+          <CalcButtonWrapper>
+            <CalcSkipButton onClick={SkipCalcAndGoFinalResult}>
+              건너뛰기
+            </CalcSkipButton>
+            <CalcButton type="submit" onClick={SubmitAndGotoFinalResult}>
+              등록하기
+            </CalcButton>
+          </CalcButtonWrapper>
         </CalcFormWrapper>
       </CalcFormDiv>
-      <CalcFormDiv>
-        <CalcFormWrapper>
-          <CalcInputTitle>주유 날짜</CalcInputTitle>
-          <DatePicker
-            selected={startDate}
-            onChange={(date: Date) => setStartDate(date)}
-            locale="ko"
-            dateFormatCalendar="yyyy.MM"
-            customInput={<CalcInput />}
-          />
-          <CalcInputTitle>유종</CalcInputTitle>
-          <SelectBox options={OPTIONS} />
-          <CalcInputTitle>주유량(L)</CalcInputTitle>
-          <CalcInput
-            onChange={onChangeSecondRefuel}
-            placeholder="10"
-          ></CalcInput>
-          <CalcInputTitle>누적 주행 거리(km)</CalcInputTitle>
-          <CalcInput
-            onChange={onChangeSecondDistance}
-            placeholder="15000"
-          ></CalcInput>
-        </CalcFormWrapper>
-      </CalcFormDiv>
-      <CalcButtonWrapper>
-        <CalcSkipButton onClick={SkipCalcAndGoFinalResult}>
-          건너뛰기
-        </CalcSkipButton>
-        <CalcButton onClick={calcAverageEfficiency}>계산하기</CalcButton>
-      </CalcButtonWrapper>
     </CalcEfficiencyWrapper>
   );
 }

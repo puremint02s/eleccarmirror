@@ -231,3 +231,49 @@ const HotPosts = () => {
 };
 
 export default HotPosts;
+
+const HotPostsWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+`;
+
+const HotPostsTitle = styled.div`
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+`;
+const HotPostsMain = styled.div`
+  display: flex;
+  overflow: scroll;
+  flex-direction: column;
+  justify-content: start;
+  border: 1px solid #e8e8e8;
+  height: calc(100% - 50px);
+
+  padding: 10px;
+  box-sizing: border-box;
+  div {
+    width: 100%;
+    padding: 10px 0;
+    box-sizing: border-box;
+    color: #898989;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    justify-content: space-between;
+  }
+  div: last-child {
+    border: none;
+  }
+  @media screen and (max-width: 720px) {
+    height: auto;
+  }
+`;

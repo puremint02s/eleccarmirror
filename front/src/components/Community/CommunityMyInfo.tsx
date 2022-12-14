@@ -121,7 +121,7 @@ function CommunityMyInfo() {
   useEffect(() => {
     const api = async () => {
       try {
-        const res = await UserApi.CurrentUserGet();
+        const res = await UserApi.currentUserGet();
         setUser(res.data);
       } catch (err) {
         console.log(err);
@@ -145,7 +145,9 @@ function CommunityMyInfo() {
       }
 
       try {
-        const res = await CarMbtiTestApi.CarMbtiTypeGet();
+        const res = await CarMbtiTestApi.carMbtiTypeGet({
+          user_id: user?.user_id,
+        });
         setUserTestType(res.data[res.data.length - 1]);
       } catch (err) {
         console.log(err);

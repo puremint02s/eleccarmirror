@@ -9,9 +9,10 @@ interface address {
 }
 interface propsTypes {
   setAddressPopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setInputAddress: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const AddressPopUp = ({ setAddressPopUpOpen }: propsTypes) => {
+const AddressPopUp = ({ setAddressPopUpOpen, setInputAddress }: propsTypes) => {
   const setAddress = (data: address) => {
     let fullAddress = data.address;
     let extraAddress = "";
@@ -29,6 +30,7 @@ const AddressPopUp = ({ setAddressPopUpOpen }: propsTypes) => {
     console.log(data);
     console.log(fullAddress);
     console.log(data.zonecode);
+    setInputAddress(fullAddress);
     setAddressPopUpOpen(false);
   };
   return (
