@@ -109,7 +109,7 @@ function FinalResultPage() {
             <img
               style={{ width: 100, paddingBottom: 15 }}
               src={BlueCarImg}
-              alt="유형 이미지"
+              alt="현재 차량 이미지"
             />
             <p>{currentCarModel}</p>
           </ResultButton>
@@ -142,7 +142,7 @@ function FinalResultPage() {
             <img
               style={{ width: 100, paddingBottom: 15 }}
               src={BlueCarImg}
-              alt="유형 이미지"
+              alt="평균연비 이미지"
             />
             <p>{currentUserCalcEfficiency} km/L</p>
           </ResultButton>
@@ -197,7 +197,8 @@ const ResultButtonTitleWrapper = styled.p`
 `;
 
 export const ResultButton = styled.button`
-  padding: 40px;
+  width: 200px;
+  height: 200px;
   font-size: 16px;
   margin-top: 1rem;
   cursor: pointer;

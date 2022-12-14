@@ -6,6 +6,7 @@ type ResultList = {
   MPG: number;
   cost: number;
   homepage: string;
+  img?: string;
 };
 
 type ResultCarProps = {
