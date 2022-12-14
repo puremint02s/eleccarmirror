@@ -1,8 +1,6 @@
-import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import * as CommunityApi from "apis/CommunityApi";
-import e from "express";
 
 const PaginationWrap = styled.div`
   display: flex;
@@ -55,33 +53,15 @@ const PageUl = styled.div`
 const Pagination = ({ currentPage, getData }: any) => {
   const [totalPage, setTotalPage] = useState<any[]>([]);
   const [paginations, setPaginations] = useState<any[]>([]);
-  // const [pagination, setPagination] = useState([1]);
-  // const [currentPageNum , setCurrentPageNum] = useState("");
   const [prevButtonState, setPrevButtonState] = useState(false);
   const [nextButtonState, setNextButtonState] = useState(true);
   const [pageLength, setPageLength] = useState(0);
   const paginationRef = useRef<HTMLLIElement[]>([]);
 
-  //참고 링크 : https://gurtn.tistory.com/174
-  // const division = (data: any, size: number) => {
-  //   const arr = [];
-
-  //   for (let i = 0; i < data.length; i += size) {
-  //     //data.length : 총 pagination 숫자 수 => 6
-  //     arr.push(data.slice(i, i + size));
-  //     // console.log("arr", arr);
-  //   }
-
-  //   return arr;
-  // };
-
-  // const pagination = division(totalPage, 5);
-
   console.log("totalPage ==>", totalPage);
 
   useEffect(() => {
     const api = async () => {
-      // const arr = [];
       try {
         const result = await CommunityApi.getCommunityPerPage(1);
 
@@ -134,10 +114,6 @@ const Pagination = ({ currentPage, getData }: any) => {
       setPrevButtonState(true);
     }
 
-    // console.log("pagpaginations.lengtheLength", paginations.length); //[1,2,3,4,5] 5
-    // //[6] 1
-    // console.log("pageLengthssss", pageLength); //1,2,3,4,5,6.... => 6
-
     if (pageLength <= 5 || paginations.length < 5) {
       setNextButtonState(false);
     } else {
@@ -164,7 +140,6 @@ const Pagination = ({ currentPage, getData }: any) => {
       const page = totalPage[i];
 
       setPaginations(page);
-      // console.log("page1", pagination[0][0]);
       getData(totalPage[0][0]);
     }
   };
