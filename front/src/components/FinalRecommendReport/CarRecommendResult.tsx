@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import SocialShare from "hooks/SocialShareHook";
+import { getCarInfo, updateCarInfo } from "apis/CarRegisterApi";
 
 interface CarData {
   brand: string;
@@ -13,7 +15,43 @@ interface CarData {
   img?: string;
 }
 
+interface CarProps {
+  model: string;
+  brand: string;
+}
+
+interface CarInfo {
+  current: CarProps;
+  recommended: CarProps;
+}
+
 function CarRecommendResult({ ...props }: CarData) {
+  const [currentCarModel, setCurrentCarModel] = useState("");
+  const [currentCarBrand, setCurrentCarBrand] = useState("");
+
+  useEffect(() => {
+    async function getCurrentCar() {
+      const res = await getCarInfo();
+      setCurrentCarModel(res.data.current.model);
+      setCurrentCarBrand(res.data.current.brand);
+    }
+    getCurrentCar();
+  }, []);
+
+  const postSelectRecommendedCar = () => {
+    const recommendedResult: CarInfo = {
+      current: {
+        model: currentCarModel,
+        brand: currentCarBrand,
+      },
+      recommended: {
+        model: props.model,
+        brand: props.brand,
+      },
+    };
+    updateCarInfo(recommendedResult);
+  };
+
   const navigate = useNavigate();
   const handleClickBrandHomepage = () => window.open(props.homepage);
   const handleClickMain = () => navigate("/main");
@@ -35,7 +73,7 @@ function CarRecommendResult({ ...props }: CarData) {
           <GotoBrandHompageButton onClick={handleClickBrandHomepage}>
             공식 홈페이지 <br /> 방문
           </GotoBrandHompageButton>
-          <SelectRecommendedCarButton>
+          <SelectRecommendedCarButton onClick={postSelectRecommendedCar}>
             추천 차량으로 <br /> 선택하기
           </SelectRecommendedCarButton>
           <GotoMainButton onClick={handleClickMain}>
