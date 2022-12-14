@@ -5,7 +5,7 @@ import styled from "styled-components";
 import swal from "sweetalert";
 import { R } from "App";
 import { getUserRefuelRecord, deleteRefuelRecord } from "apis/RefuelRecordApi";
-import { getUserCarInfo } from "apis/CarInfoApi";
+import { getCarInfo } from "apis/CarRegisterApi";
 import Modal from "components/common/Modal";
 import AddNewRefuelRecord from "./AddRefuelRecord";
 import ModifyRecord from "./ModifyRefuelRecord";
@@ -33,7 +33,7 @@ function MyInfo() {
 
   useEffect(() => {
     async function setCurrentUserCarInfo() {
-      const res = await getUserCarInfo();
+      const res = await getCarInfo();
       const carInformation = res.data.current;
       if (carInformation) {
         setCurrentCarModel(carInformation.model);
