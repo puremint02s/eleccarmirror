@@ -99,10 +99,6 @@ function App() {
     fetchCurrentUser();
   }, []);
 
-  // if (!isFetchCompleted) {
-  //   return "loading...";
-  // }
-
   return (
     <>
       <UserStateContext.Provider value={userState}>

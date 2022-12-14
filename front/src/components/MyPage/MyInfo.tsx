@@ -14,7 +14,6 @@ import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 function MyInfo() {
   const [currentCarModel, setCurrentCarModel] = useState("");
   const [currentCarBrand, setCurrentCarBrand] = useState("");
-  const [currentUserId, setCurrentUserId] = useState("");
 
   const [recordId, setRecordId] = useState("");
   const [oilingDate, setOilingDate] = useState("");
@@ -26,9 +25,11 @@ function MyInfo() {
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
 
-  const userId = useContext(UserStateContext);
+  const currentUser = useContext(UserStateContext);
 
-  const currentUserCalcEfficiency = CalcAverageEfficiency(userId.user.user_id);
+  const currentUserCalcEfficiency = CalcAverageEfficiency(
+    currentUser.user.user_id,
+  );
 
   useEffect(() => {
     async function setCurrentUserCarInfo() {
@@ -44,7 +45,7 @@ function MyInfo() {
 
   useEffect(() => {
     async function getUserOilingRecord() {
-      const res = await getUserRefuelRecord(userId.user.user_id);
+      const res = await getUserRefuelRecord(currentUser.user.user_id);
       setRecords(res);
       setRecordId(res[0]._id);
       setOilingDate(res[0].oiling_date);
