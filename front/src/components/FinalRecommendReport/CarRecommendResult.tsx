@@ -50,6 +50,7 @@ function CarRecommendResult({ ...props }: CarData) {
       },
     };
     updateCarInfo(recommendedResult);
+    alert("나의 추천 차량이 등록되었습니다.");
   };
 
   const navigate = useNavigate();
