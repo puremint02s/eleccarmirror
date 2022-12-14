@@ -142,7 +142,9 @@ const ChatBotWrapper = styled.div`
     width: 95vw;
   }
   @media screen and (max-height: 719px) {
-    display: none;
+    transform: scale(0.7, 0.7);
+    right: 30px;
+    bottom: -70px;
   }
 
   transition: 0.3s ease-in-out opacity; 
