@@ -27,10 +27,10 @@ function CarRecommendResult({ ...props }: CarData) {
           <RecommendResultContent>
             제조사: {props.brand} <br />
             모델: {props.model} <br />
-            주행거리: {props.distance}km <br />
-            배터리용량: {props.battery}kWh <br />
+            1회 충전시 주행거리: {props.distance}km <br />
+            배터리 용량: {props.battery}kWh <br />
             전비: {props.MPG}km/kWh <br />
-            가격: {props.cost}만원
+            가격: {props.cost}원 ~
           </RecommendResultContent>
           <GotoBrandHompageButton onClick={handleClickBrandHomepage}>
             공식 홈페이지 방문
