@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserStateContext } from "App";
 import Header from "components/common/Header";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
@@ -38,14 +39,15 @@ function FinalResultPage() {
   const [userMbtiType, setUserMbtiType] = useState("");
   const [currentCarModel, setCurrentCarModel] = useState("");
 
+  const currentUser = useContext(UserStateContext);
+
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "70b691cb-c989-4503-86a2-f17dc87b77b8",
+    currentUser.user.user_id,
   );
-  const userId = "70b691cb-c989-4503-86a2-f17dc87b77b8";
 
   useEffect(() => {
     async function getCurrentUserType() {
-      const currentUserId = { userId };
+      const currentUserId = currentUser.user.user_id;
       const res = await carMbtiTypeGet(currentUserId);
       setUserMbtiType(res[0].type);
     }
