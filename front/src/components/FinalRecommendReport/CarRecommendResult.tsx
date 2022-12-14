@@ -12,7 +12,7 @@ interface CarData {
   MPG: number;
   cost: number;
   homepage: string;
-  img?: string;
+  img: string;
 }
 
 interface CarProps {

@@ -206,7 +206,7 @@ function FinalResultPage() {
                   homepage={
                     ListA[Math.floor(Math.random() * (4 - 1) + 1)].homepage
                   }
-                  img={GreyCarImg}
+                  img={ListA[Math.floor(Math.random() * (4 - 1) + 1)].img}
                 />
               )}
               {currentUserMPGtype === "B" && (
@@ -224,7 +224,7 @@ function FinalResultPage() {
                   homepage={
                     ListB[Math.floor(Math.random() * (4 - 1) + 1)].homepage
                   }
-                  img={GreyCarImg}
+                  img={ListB[Math.floor(Math.random() * (4 - 1) + 1)].img}
                 />
               )}
               {currentUserMPGtype === "C" && (
@@ -242,7 +242,7 @@ function FinalResultPage() {
                   homepage={
                     ListC[Math.floor(Math.random() * (5 - 1) + 1)].homepage
                   }
-                  img={GreyCarImg}
+                  img={ListC[Math.floor(Math.random() * (5 - 1) + 1)].img}
                 />
               )}
               {currentUserMPGtype === "D" && (
@@ -260,7 +260,7 @@ function FinalResultPage() {
                   homepage={
                     ListD[Math.floor(Math.random() * (12 - 1) + 1)].homepage
                   }
-                  img={GreyCarImg}
+                  img={ListD[Math.floor(Math.random() * (12 - 1) + 1)].img}
                 />
               )}
               {currentUserMPGtype === "E" && (
@@ -278,7 +278,7 @@ function FinalResultPage() {
                   homepage={
                     ListE[Math.floor(Math.random() * (4 - 1) + 1)].homepage
                   }
-                  img={GreyCarImg}
+                  img={ListE[Math.floor(Math.random() * (4 - 1) + 1)].img}
                 />
               )}
               {currentUserMPGtype === "F" && (
@@ -296,7 +296,7 @@ function FinalResultPage() {
                   homepage={
                     ListF[Math.floor(Math.random() * (6 - 1) + 1)].homepage
                   }
-                  img={GreyCarImg}
+                  img={ListF[Math.floor(Math.random() * (6 - 1) + 1)].img}
                 />
               )}
               {currentUserMPGtype === "G" && (
@@ -308,7 +308,7 @@ function FinalResultPage() {
                   MPG={ListG[1].MPG}
                   cost={ListG[1].cost}
                   homepage={ListG[1].homepage}
-                  img={GreyCarImg}
+                  img={ListG[1].img}
                 />
               )}
               {currentUserMPGtype === "H" && (
@@ -320,7 +320,7 @@ function FinalResultPage() {
                   MPG={ListH[1].MPG}
                   cost={ListH[1].cost}
                   homepage={ListH[1].homepage}
-                  img={GreyCarImg}
+                  img={ListH[1].img}
                 />
               )}
               {currentUserMPGtype === "I" && (
@@ -332,7 +332,7 @@ function FinalResultPage() {
                   MPG={ListI[1].MPG}
                   cost={ListI[1].cost}
                   homepage={ListI[1].homepage}
-                  img={GreyCarImg}
+                  img={ListI[1].img}
                 />
               )}
             </Modal>
