@@ -52,11 +52,11 @@ export const Content = styled.div`
 export const Hashtags = styled.div`
   padding-bottom: 10px;
   span {
-    background-color: #ebebeb;
+    background-color: #0a84ff;
     padding: 5px;
     display: inline-block;
     border-radius: 7px;
-    color: #585858;
+    color: #fff;
 
     & + span {
       margin-left: 5px;

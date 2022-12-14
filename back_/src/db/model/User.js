@@ -57,7 +57,7 @@ class User {
                 user_id: user_id,
             });
 
-            console.log("user ==>", user);
+            // console.log("user ==>", user);
 
             return user;
         } catch (err) {

@@ -88,6 +88,25 @@ class Community {
         }
     }
 
+    static async updateAll(newInput) {
+        try {
+            const { user_id, nickname } = newInput;
+            // const update = { title, content, hashtags };
+
+            const updateContent = await CommunityModel.updateMany(
+                { user_id },
+                { nickname },
+                {
+                    returnOriginal: false,
+                }
+            );
+
+            return updateContent;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     static async delete(_id) {
         try {
             const deleteContent = await CommunityModel.findOneAndDelete({

@@ -22,20 +22,6 @@ function CarRegisterPage() {
     imageInput?.current?.click();
   }, [imageInput]);
 
-  // 로그인 안했을때 시작페이지로 리다이렉트
-  // useEffect(() => {
-  //   axios
-  //     .get(`${BACK_SERVER_URL}/user/current`)
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log("로그인이 필요합니다.");
-  //       console.log(err);
-  //       navigate("/");
-  //     });
-  // }, []);
-
   const onChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const imageFormData = new FormData();
@@ -53,30 +39,31 @@ function CarRegisterPage() {
         alert("이미지 업로드 과정중 오류가 발생하였습니다.");
         setPopUpOpen(false);
       });
-
     console.log("request to back server");
     e.target.value = "";
   };
 
   return (
-    <PageWrapper>
+    <CarRegisterPageWrapper>
       <HeaderWrapper>
         <Header></Header>
       </HeaderWrapper>
-      <TitleWrapper>간편하게 나의 차량 등록하기</TitleWrapper>
-      <SubTitleWrapper>
-        차량 이미지를 업로드해보세요 제조사와 차종을 분류해드립니다.
-      </SubTitleWrapper>
-      {/* 이거 컴포넌트로 묶기 */}
+      <MainArea>
+        <TitleWrapper>간편하게 나의 차량 등록하기</TitleWrapper>
+        <SubTitleWrapper>
+          차량 이미지를 업로드해보세요 제조사와 차종을 분류해드립니다.
+        </SubTitleWrapper>
+        {/* 이거 컴포넌트로 묶기 */}
 
-      <ImageWrapper>
-        <TextBubbleBox text="자동차의 전체 사진을 올려주세요!" />
-        <ImageBox back={uploadImg} onClick={onUpload} />
-      </ImageWrapper>
+        <ImageWrapper>
+          <TextBubbleBox text="자동차의 전체 사진을 올려주세요!" />
+          <ImageBox back={uploadImg} onClick={onUpload} />
+        </ImageWrapper>
 
-      <BlueLargeButton id="uploadDiv" onClick={onUpload}>
-        이미지 업로드
-      </BlueLargeButton>
+        <BlueLargeButton id="uploadDiv" onClick={onUpload}>
+          이미지 업로드
+        </BlueLargeButton>
+      </MainArea>
       {isPopUpOpen && (
         <CarConfirmPopup
           setPopUpOpen={setPopUpOpen}
@@ -94,19 +81,21 @@ function CarRegisterPage() {
         onChange={onChangeImage}
         hidden
       />
-    </PageWrapper>
+    </CarRegisterPageWrapper>
   );
 }
 
-interface ImageStyledProps {
-  back: string;
-}
 const TitleWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 25px;
   height: 40px;
+  box-sizing: border-box;
+  @media screen and (max-width: 720px) {
+    padding: 0 30px;
+    width: 100vw;
+  }
 `;
 
 const SubTitleWrapper = styled.div`
@@ -116,8 +105,16 @@ const SubTitleWrapper = styled.div`
   font-size: 15px;
   height: 30px;
   color: #898989;
+  box-sizing: border-box;
+  @media screen and (max-width: 720px) {
+    padding: 0px 30px;
+    width: 100vw;
+  }
 `;
 
+interface ImageStyledProps {
+  back: string;
+}
 const ImageBox = styled.div<ImageStyledProps>`
   width: 305.66px;
   height: 284.92px;
@@ -141,6 +138,9 @@ const BlueLargeButton = styled.button`
   text-align: center;
   color: #ffffff;
   margin: 0 auto;
+  @media screen and (max-width: 720px) {
+    width: 90vw;
+  }
 `;
 const ImageWrapper = styled.div`
   margin: 3rem 0;
@@ -152,7 +152,7 @@ const HeaderWrapper = styled.div`
   height: auto;
   top: 0;
 `;
-const PageWrapper = styled.div`
+const CarRegisterPageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -160,8 +160,21 @@ const PageWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  padding-top: 80px;
   box-sizing: border-box;
+  @media screen and (max-width: 720px) {
+    width: 100vw;
+  }
+`;
+const MainArea = styled.div`
+  width: 100vw;
+  // height: calc(100vh - 60px);
+  height: 100vh;
+  padding-top: 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default CarRegisterPage;

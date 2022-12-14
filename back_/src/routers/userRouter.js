@@ -86,34 +86,12 @@ userRouter.put("/user", login_required, async function (req, res, next) {
         const address = req.body.address ?? null;
         const car_owned = req.body.car_owned ?? null;
         const elec_car_owned = req.body.elec_car_owned ?? null;
-        // const {
-        //     email,
-        //     id,
-        //     nickname,
-        //     password,
-        //     age,
-        //     address,
-        //     car_owned,
-        //     elec_car_owned,
-        // } = req.body;
-        // const newInput = {
-        //     user_id,
-        //     email,
-        //     id,
-        //     nickname,
-        //     password,
-        //     age,
-        //     address,
-        //     car_owned,
-        //     elec_car_owned,
-        // };
 
         const newInput = {
             user_id,
             email,
             id,
             nickname,
-            // password,
             age,
             address,
             car_owned,
