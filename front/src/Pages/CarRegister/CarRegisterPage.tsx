@@ -22,20 +22,6 @@ function CarRegisterPage() {
     imageInput?.current?.click();
   }, [imageInput]);
 
-  // 로그인 안했을때 시작페이지로 리다이렉트
-  // useEffect(() => {
-  //   axios
-  //     .get(`${BACK_SERVER_URL}/user/current`)
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log("로그인이 필요합니다.");
-  //       console.log(err);
-  //       navigate("/");
-  //     });
-  // }, []);
-
   const onChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const imageFormData = new FormData();
@@ -53,7 +39,6 @@ function CarRegisterPage() {
         alert("이미지 업로드 과정중 오류가 발생하였습니다.");
         setPopUpOpen(false);
       });
-
     console.log("request to back server");
     e.target.value = "";
   };

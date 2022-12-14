@@ -54,7 +54,7 @@ const HotPostsMain = styled.div`
   display: flex;
   overflow: scroll;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   border: 1px solid #e8e8e8;
   height: calc(100% - 50px);
 

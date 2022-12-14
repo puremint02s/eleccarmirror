@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Pagination from "components/common/Pagination";
 import swal from "sweetalert";
+import { R } from "App";
 import { getUserRefuelRecord, deleteRefuelRecord } from "apis/RefuelRecordApi";
+import { getUserCarInfo } from "apis/CarInfoApi";
 import Modal from "components/common/Modal";
 import AddNewRefuelRecord from "./AddRefuelRecord";
 import ModifyRecord from "./ModifyRefuelRecord";
-
-const dummyMyCarData = {
-  model: "아반떼",
-  brand: "현대",
-  MPG: 10,
-};
+import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 
 function MyInfo() {
+  const [currentCarModel, setCurrentCarModel] = useState("");
+  const [currentCarBrand, setCurrentCarBrand] = useState("");
+
   const [recordId, setRecordId] = useState("");
   const [oilingDate, setOilingDate] = useState("");
   const [gasType, setGasType] = useState("");
@@ -24,10 +25,26 @@ function MyInfo() {
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
 
+  const currentUserCalcEfficiency = CalcAverageEfficiency(
+    "70b691cb-c989-4503-86a2-f17dc87b77b8",
+  );
+
+  useEffect(() => {
+    async function setCurrentUserCarInfo() {
+      const res = await getUserCarInfo();
+      const carInformation = res.data.current;
+      if (carInformation) {
+        setCurrentCarModel(carInformation.model);
+        setCurrentCarBrand(carInformation.brand);
+      }
+    }
+    setCurrentUserCarInfo();
+  }, []);
+
   useEffect(() => {
     async function getUserOilingRecord() {
       const res = await getUserRefuelRecord(
-        "28b85c31-9337-4855-aef7-fd3e331c9c5c", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
+        "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
       );
       setRecords(res);
       setRecordId(res[0]._id);
@@ -74,20 +91,29 @@ function MyInfo() {
           <div style={{ paddingTop: 100 }}>
             <MyPageContentTitle>나의 차량 정보</MyPageContentTitle>
             <MyPageContent>
-              <ul>
-                <li>
-                  <span>차종</span>
-                  <p>{dummyMyCarData.model}</p>
-                </li>
-                <li>
-                  <span>제조사</span>
-                  <p>{dummyMyCarData.brand}</p>
-                </li>
-                <li>
-                  <span>평균 연비</span>
-                  <p>{dummyMyCarData.MPG}km/L</p>
-                </li>
-              </ul>
+              {!currentCarModel ? (
+                <>
+                  <p>차량이 생기셨나요?</p>
+                  <Link to={R.CARREGISTER}>
+                    <button>차량 등록하러 가기</button>
+                  </Link>
+                </>
+              ) : (
+                <ul>
+                  <li>
+                    <span>제조사</span>
+                    <p>{currentCarBrand}</p>
+                  </li>
+                  <li>
+                    <span>차종</span>
+                    <p>{currentCarModel}</p>
+                  </li>
+                  <li>
+                    <span>평균 연비</span>
+                    <p>{currentUserCalcEfficiency}km/L</p>
+                  </li>
+                </ul>
+              )}
             </MyPageContent>
           </div>
           <div style={{ paddingTop: 100 }}>

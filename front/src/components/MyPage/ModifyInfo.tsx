@@ -2,22 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import { currentUserGet, modifyUserInfo } from "apis/UserApi";
-
-const dummyMyCarData = {
-  model: "아반떼",
-  brand: "현대",
-  MPG: 10,
-};
-
-const CarOptions = [
-  { value: 1, brand: "현대", model: "아반떼" },
-  { value: 2, brand: "현대", model: "그랜저" },
-  { value: 3, brand: "기아", model: "모닝" },
-  { value: 4, brand: "제네시스", model: "G80" },
-  { value: 5, brand: "르노코리아", model: "XM3" },
-  { value: 6, brand: "쉐보레", model: "스파크" },
-  { value: 7, brand: "쌍용", model: "렉스턴" },
-];
+import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 
 function ModifyInfo() {
   const [userEmail, setUserEmail] = useState("");
@@ -26,11 +11,15 @@ function ModifyInfo() {
   // const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
   const [inputAddress, setInputAddress] = useState("");
-  const [carOwned, setCarOwned] = useState(0);
-  const [elecCarOwned, setElecCarOwned] = useState(0);
+  const [carOwned, setCarOwned] = useState(false);
+  const [elecCarOwned, setElecCarOwned] = useState(false);
 
-  const [carOwnedCheck, setCarOwnedCheck] = useState(false);
-  const [elecCarOwnedCheck, setElecCarOwnedCheck] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+
+  const currentUserCalcEfficiency = CalcAverageEfficiency(
+    "70b691cb-c989-4503-86a2-f17dc87b77b8",
+  );
 
   useEffect(() => {
     async function getUserInfo() {
@@ -43,13 +32,6 @@ function ModifyInfo() {
       setInputAddress(res.data.address);
       setCarOwned(res.data.car_owned);
       setElecCarOwned(res.data.elec_car_owend);
-
-      if (res.data.car_owned === 2) {
-        setCarOwnedCheck(true);
-      }
-      if (res.data.elec_car_owend === 2) {
-        setElecCarOwnedCheck(true);
-      }
     }
     getUserInfo();
   }, []);
@@ -83,25 +65,13 @@ function ModifyInfo() {
     setAge(event.target.value);
   }
 
-  const BrandSelectBox = (props: any) => {
-    return (
-      <ModifyCarInfoModelSelect>
-        {props.options.map((option: { value: number; brand: string }) => (
-          <option key={option.value}>{option.brand}</option>
-        ))}
-      </ModifyCarInfoModelSelect>
-    );
-  };
+  function getSelectedBrand(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedBrand(event.target.value);
+  }
 
-  const ModelSelectBox = (props: any) => {
-    return (
-      <ModifyCarInfoModelSelect>
-        {props.options.map((option: { value: number; model: string }) => (
-          <option key={option.value}>{option.model}</option>
-        ))}
-      </ModifyCarInfoModelSelect>
-    );
-  };
+  function getSelectedModel(event: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedModel(event.target.value);
+  }
 
   const handleModifyInfoCancel = () => location.reload();
 
@@ -194,32 +164,20 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasCar"
-                        checked={carOwnedCheck}
-                        value={2}
-                        onChange={e => {
-                          setCarOwned(parseInt(e.target.value));
-                        }}
-                      />
-                      예
-                    </label>
-                    {/* <input
-                        type="radio"
-                        name="hasCar"
-                        checked={carOwned}
+                        // checked={carOwned}
                         onChange={e => {
                           setCarOwned(e.target.checked);
                         }}
                       />
                       예
-                    </label> */}
+                    </label>
                     <label>
                       <input
                         type="radio"
                         name="hasCar"
-                        checked={!carOwnedCheck}
-                        value={1}
+                        // checked={!carOwned}
                         onChange={e => {
-                          setCarOwned(parseInt(e.target.value));
+                          setCarOwned(e.target.checked);
                         }}
                       />
                       아니요
@@ -235,10 +193,9 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasElecCar"
-                        checked={elecCarOwnedCheck}
-                        value={2}
+                        // checked={elecCarOwned}
                         onChange={e => {
-                          setElecCarOwned(parseInt(e.target.value));
+                          setElecCarOwned(e.target.checked);
                         }}
                       />
                       예
@@ -247,10 +204,9 @@ function ModifyInfo() {
                       <input
                         type="radio"
                         name="hasElecCar"
-                        checked={!elecCarOwnedCheck}
-                        value={1}
+                        // checked={!elecCarOwned}
                         onChange={e => {
-                          setElecCarOwned(parseInt(e.target.value));
+                          setElecCarOwned(e.target.checked);
                         }}
                       />
                       아니요
@@ -277,20 +233,78 @@ function ModifyInfo() {
                 <MyPageContent>
                   <ul>
                     <li>
-                      <span>차종</span>
+                      <span>제조사</span>
                       <p>
-                        <ModelSelectBox options={CarOptions} />
+                        <ModifyCarInfoModelSelect onChange={getSelectedBrand}>
+                          <option value="hyundai">현대</option>
+                          <option value="kia">기아</option>
+                          <option value="ssangyong">쌍용</option>
+                          <option value="genesis">제네시스</option>
+                          <option value="renault">르노코리아</option>
+                          <option value="chevrolet">쉐보레</option>
+                        </ModifyCarInfoModelSelect>
                       </p>
                     </li>
                     <li>
-                      <span>제조사</span>
+                      <span>차종</span>
                       <p>
-                        <BrandSelectBox options={CarOptions} />
+                        {selectedBrand === "hyundai" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="avante">아반떼</option>
+                            <option value="sonata">쏘나타</option>
+                            <option value="grandeur">그랜저</option>
+                            <option value="palisade">팰리세이드</option>
+                            <option value="casper">캐스퍼</option>
+                            <option value="sanatafe">싼타페</option>
+                            <option value="tucson">투싼</option>
+                            <option value="kona">코나</option>
+                            <option value="venue">베뉴</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : selectedBrand === "kia" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="K3">K3</option>
+                            <option value="K5">K5</option>
+                            <option value="K8">K8</option>
+                            <option value="K9">K9</option>
+                            <option value="sorento">쏘렌토</option>
+                            <option value="carnival">카니발</option>
+                            <option value="sportage">스포티지</option>
+                            <option value="ray">레이</option>
+                            <option value="seltos">셀토스</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : selectedBrand === "ssangyong" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="torres">토레스</option>
+                            <option value="rexton sport">렉스턴 스포츠</option>
+                            <option value="rexton sports khan">
+                              렉스턴 스포츠 칸
+                            </option>
+                            <option value="rexton">렉스턴</option>
+                            <option value="tivoli">티볼리</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : selectedBrand === "genesis" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="G80">G80</option>
+                            <option value="G90">G90</option>
+                            <option value="GV70">GV70</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : selectedBrand === "renault" ? (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="QM6">QM6</option>
+                            <option value="XM3">XM3</option>
+                            <option value="SM6">SM6</option>
+                          </ModifyCarInfoModelSelect>
+                        ) : (
+                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
+                            <option value="trailblazer">트레일블레이저</option>
+                            <option value="spark">스파크</option>
+                          </ModifyCarInfoModelSelect>
+                        )}
                       </p>
                     </li>
                     <li>
                       <span>평균 연비</span>
-                      <p>{dummyMyCarData.MPG}km/L</p>
+                      <p>{currentUserCalcEfficiency}km/L</p>
                     </li>
                   </ul>
                 </MyPageContent>
