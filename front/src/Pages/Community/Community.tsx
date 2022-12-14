@@ -33,13 +33,13 @@ type Comment = {
 function Community(props: any) {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
-  const [currentPage, setCurrentPage] = useState<string | null>("1");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [contentsPerPage, setcontentsPerPage] = useState<Community[] | []>([]);
   const [allCommunity, setAllCommunity] = useState<Community[] | []>([]);
   // const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
   const [commentCount, setCommentCount] = useState<Comment[] | []>([]);
 
-  const getData = (currentPage: any) => {
+  const getData = (currentPage: number) => {
     setCurrentPage(currentPage);
   };
 
@@ -48,6 +48,8 @@ function Community(props: any) {
       try {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
         setcontentsPerPage(result.findContent);
+
+        console.log("result.findContent", result.findContent);
       } catch (err) {
         console.log("err=>", err);
       }
@@ -121,7 +123,7 @@ function Community(props: any) {
       return item.community_id === id;
     });
 
-    console.log("result", result);
+    // console.log("result", result);
 
     if (result.length == 0) {
       return;
@@ -158,7 +160,17 @@ function Community(props: any) {
                 <tbody>
                   {contentsPerPage.length === 0 ? (
                     <tr>
-                      <td>글이 없습니다</td>
+                      <td
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "50px",
+                          color: "#aaa",
+                        }}
+                      >
+                        게시글이 없습니다
+                      </td>
                     </tr>
                   ) : (
                     contentsPerPage.map((item, index) => {

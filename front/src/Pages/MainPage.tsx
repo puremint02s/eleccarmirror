@@ -109,7 +109,7 @@ const MainPage = () => {
         </MainSectionTop>
         <MainSectionBottom>
           <SubSectionBottom>
-            <HotPosts dummyPosts={dummyPosts}></HotPosts>
+            <HotPosts></HotPosts>
           </SubSectionBottom>
           <SubSectionBottom>
             {car && <ElecCarReport car={car.recommended} />}
