@@ -77,7 +77,7 @@ function CommunityLoad() {
       }
 
       try {
-        const res = await UserApi.CurrentUserGet();
+        const res = await UserApi.currentUserGet();
 
         setUser(res.data);
       } catch (err) {
@@ -286,7 +286,6 @@ function CommunityLoad() {
                   return <span key={index}>{item}</span>;
                 })
               )}
-              {}
             </C.Hashtags>
             <C.Reply>
               {commentList.map((item, index) => {

@@ -23,11 +23,6 @@ function ServiceIntro1() {
             </LeftBackground3>
           </LeftBackground2>
         </LeftBackground>
-        <LoginWrapper>
-          <Link to="/login">
-            <LoginButton>로그인</LoginButton>
-          </Link>
-        </LoginWrapper>
       </Section1Wrapper>
     </>
   );
@@ -91,15 +86,4 @@ const LogoWrapper = styled.img`
   width: 200px;
   margin-top: 5vh;
   margin-left: 10vw;
-`;
-
-const LoginWrapper = styled.div`
-  width: 45vw;
-  height: 100%;
-`;
-
-const LoginButton = styled.div`
-  font-size: 15px;
-  margin-top: 6vh;
-  margin-left: 25vw;
 `;
