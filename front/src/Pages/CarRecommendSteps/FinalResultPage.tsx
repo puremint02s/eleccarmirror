@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "components/common/Header";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
+import GreyCarImg from "assets/img/GreyQuestionCar.png";
 import Modal from "components/common/Modal";
 import CarRecommendResult from "components/FinalRecommendReport/CarRecommendResult";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
@@ -93,6 +94,7 @@ function FinalResultPage() {
                 MPG={MbtiRecommendCar[userMbtiType].MPG}
                 cost={MbtiRecommendCar[userMbtiType].cost}
                 homepage={MbtiRecommendCar[userMbtiType].homepage}
+                img={MbtiRecommendCar[userMbtiType].img}
               />
             </Modal>
           )}
@@ -125,6 +127,7 @@ function FinalResultPage() {
                 MPG={dummyCarData.MPG}
                 cost={dummyCarData.cost}
                 homepage={dummyCarData.homepage}
+                img={GreyCarImg}
               />
             </Modal>
           )}
@@ -157,6 +160,7 @@ function FinalResultPage() {
                 MPG={dummyCarData.MPG}
                 cost={dummyCarData.cost}
                 homepage={dummyCarData.homepage}
+                img={GreyCarImg}
               />
             </Modal>
           )}

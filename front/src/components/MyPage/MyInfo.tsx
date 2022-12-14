@@ -44,7 +44,7 @@ function MyInfo() {
   useEffect(() => {
     async function getUserOilingRecord() {
       const res = await getUserRefuelRecord(
-        "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
+        "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
       );
       setRecords(res);
       setRecordId(res[0]._id);
@@ -55,6 +55,8 @@ function MyInfo() {
     }
     getUserOilingRecord();
   }, []);
+
+  console.log(records);
 
   const handleRefuelRecordDelete = async (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -183,39 +185,6 @@ function MyInfo() {
                         <button onClick={handleRefuelRecordDelete}>삭제</button>
                       </td>
                     </tr>
-                    // records.map((record, index) => {
-                    //   return (
-                    //     <tr key={index}>
-                    //       <td>{record.oilingDate.substring(0, 10)}</td>
-                    //       <td>{record.gasType}</td>
-                    //       <td>{record.gasAmount}L</td>
-                    //       <td>{record.odometer}km</td>
-                    //       <td>
-                    //         <button
-                    //           onClick={() =>
-                    //             setModifyingRefuelRecord(!modifyingRefuelRecord)
-                    //           }
-                    //         >
-                    //           수정
-                    //         </button>
-                    //         {modifyingRefuelRecord && (
-                    //           <Modal
-                    //             closeModal={() =>
-                    //               setModifyingRefuelRecord(
-                    //                 !modifyingRefuelRecord,
-                    //               )
-                    //             }
-                    //           >
-                    //             <ModifyRecord _id={recordId} />
-                    //           </Modal>
-                    //         )}
-                    //         <button onClick={handleRefuelRecordDelete}>
-                    //           삭제
-                    //         </button>
-                    //       </td>
-                    //     </tr>
-                    //   );
-                    // })
                   )}
                 </tbody>
               </table>
