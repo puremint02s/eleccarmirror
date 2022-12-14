@@ -8,7 +8,7 @@ import Modal from "components/common/Modal";
 import CarRecommendResult from "components/FinalRecommendReport/CarRecommendResult";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 import { carMbtiTypeGet } from "apis/CarMbtiTestApi";
-import { getUserCarInfo } from "apis/CarInfoApi";
+import { getCarInfo } from "apis/CarRegisterApi";
 import { MbtiRecommendCar } from "assets/data/MbtiRecommendCarList";
 
 interface CarData {
@@ -56,7 +56,7 @@ function FinalResultPage() {
 
   useEffect(() => {
     async function setCurrentUserCarInfo() {
-      const res = await getUserCarInfo();
+      const res = await getCarInfo();
       const carInformation = res.data.current;
       if (carInformation) {
         setCurrentCarModel(carInformation.model);
