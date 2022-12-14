@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserStateContext } from "App";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Pagination from "components/common/Pagination";
 import swal from "sweetalert";
 import { R } from "App";
 import { getUserRefuelRecord, deleteRefuelRecord } from "apis/RefuelRecordApi";
@@ -14,6 +14,7 @@ import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 function MyInfo() {
   const [currentCarModel, setCurrentCarModel] = useState("");
   const [currentCarBrand, setCurrentCarBrand] = useState("");
+  const [currentUserId, setCurrentUserId] = useState("");
 
   const [recordId, setRecordId] = useState("");
   const [oilingDate, setOilingDate] = useState("");
@@ -25,9 +26,9 @@ function MyInfo() {
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
 
-  const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
-  );
+  const userId = useContext(UserStateContext);
+
+  const currentUserCalcEfficiency = CalcAverageEfficiency(userId.user.user_id);
 
   useEffect(() => {
     async function setCurrentUserCarInfo() {
@@ -43,9 +44,7 @@ function MyInfo() {
 
   useEffect(() => {
     async function getUserOilingRecord() {
-      const res = await getUserRefuelRecord(
-        "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
-      );
+      const res = await getUserRefuelRecord(userId.user.user_id);
       setRecords(res);
       setRecordId(res[0]._id);
       setOilingDate(res[0].oiling_date);
@@ -55,8 +54,6 @@ function MyInfo() {
     }
     getUserOilingRecord();
   }, []);
-
-  console.log(records);
 
   const handleRefuelRecordDelete = async (
     e: React.MouseEvent<HTMLButtonElement>,
