@@ -82,7 +82,7 @@ function MyInfo() {
                   </li>
                   <li>
                     <span>평균 연비</span>
-                    <p>{currentUserCalcEfficiency}km/L</p>
+                    <p>{currentUserCalcEfficiency.averageEfficiency}km/L</p>
                   </li>
                 </ul>
               )}

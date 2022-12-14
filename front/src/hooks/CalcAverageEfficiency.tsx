@@ -22,7 +22,7 @@ function CalcAverageEfficiency(currentUserId: string) {
   const intCalcResult = parseInt(calcResult);
   const averageEfficiency = Math.abs(intCalcResult);
 
-  return <>{averageEfficiency}</>;
+  return { averageEfficiency };
 }
 
 export default CalcAverageEfficiency;
