@@ -14,7 +14,7 @@ interface UserInfo {
   updatedAt?: string;
 }
 
-export const LoginRequest = async (id: string, password: string) => {
+export const loginRequest = async (id: string, password: string) => {
   const res = await axiosLoginInstance.post("/user/login", {
     id,
     password,
@@ -22,24 +22,24 @@ export const LoginRequest = async (id: string, password: string) => {
   return res.data;
 };
 
-export const CurrentUserGet = async () => {
+export const currentUserGet = async () => {
   const res = await axiosInstance.get("/user/current");
   return res;
 };
 
-export const ModifyUserInfo = async (
+export const modifyUserInfo = async (
   email: string,
   id: string,
-  password: string,
-  age?: string,
-  address?: string,
-  car_owned?: boolean,
-  elec_car_owned?: boolean,
+  nickname: string,
+  age: string,
+  address: string,
+  car_owned: boolean,
+  elec_car_owned: boolean,
 ) => {
   const res: UserInfo = await axiosInstance.put("/user", {
     email,
     id,
-    password,
+    nickname,
     age,
     address,
     car_owned,

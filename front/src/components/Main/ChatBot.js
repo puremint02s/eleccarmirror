@@ -1,23 +1,14 @@
-import { ThemeProvider } from "styled-components/macro";
+import styled from "styled-components/macro";
 import ChatBot from "react-simple-chatbot";
 import car from "assets/img/BlueCar.png";
 import loading from "assets/img/loading2.gif";
 import data from "assets/data/subsidy.json";
 
-const Bot = () => {
-  const userName = "최은오";
-  const theme = {
-    background: "whitesmoke",
-    headerBgColor: "#0a84ff",
-    headerFontColor: "white",
-    headerFontsize: "16px",
-    botBubbleColor: "#0a84ff",
-    botFontColor: "#FFF",
-    userBubbleColor: "grey",
-    userFontColor: "white",
-  };
+/* eslint-disable */
+const Bot = ({ isVisible }) => {
+  /* eslint-disable */
   return (
-    <ThemeProvider theme={theme}>
+    <ChatBotWrapper isVisible={isVisible}>
       <ChatBot
         headerTitle="My Elec Car"
         botAvatar={car}
@@ -25,7 +16,7 @@ const Bot = () => {
         steps={[
           {
             id: "welcome1",
-            message: `안녕하세요. ${userName}님! MyElecCar입니다. 무엇을 안내해드릴까요?`,
+            message: `안녕하세요. 전기차 추천 서비스 MyElecCar입니다. :)`,
             trigger: "welcome2",
           },
           {
@@ -89,7 +80,7 @@ const Bot = () => {
           },
           {
             id: "onetoone",
-            message: "구현 예정입니다...",
+            message: "구현 예정입니다... :(",
             trigger: "welcome2",
           },
           {
@@ -103,7 +94,7 @@ const Bot = () => {
             user: true,
             validator: value => {
               if (!data.find(v => v.area === value)) {
-                return "지역명을 올바른 형태로 입력해주세요.";
+                return "행정구역의 단위를 올바른 형태로 입력해주세요.";
               }
               return true;
             },
@@ -119,7 +110,8 @@ const Bot = () => {
           },
           {
             id: "money4",
-            message: "* 안내된 보조금은 국비+지방비 최대금액입니다.",
+            message:
+              "* 안내된 보조금은 최대 금액 예상치입니다. (2022년 기준, 국비+지방비)",
             trigger: "money5",
           },
           {
@@ -133,8 +125,27 @@ const Bot = () => {
           },
         ]}
       />
-    </ThemeProvider>
+    </ChatBotWrapper>
   );
 };
+
+const ChatBotWrapper = styled.div`
+  position: fixed;
+  right: 3vw;
+  bottom: calc(3vw + 60px);
+
+  opacity: ${props => (props.isVisible ? "1" : "0")};
+  pointer-events: ${props => (props.isVisible ? "" : "none")};
+
+  @media screen and (max-width: 720px) {
+    right: 2.5vw;
+    width: 95vw;
+  }
+  @media screen and (max-height: 719px) {
+    display: none;
+  }
+
+  transition: 0.3s ease-in-out opacity; 
+`;
 
 export default Bot;

@@ -1,0 +1,10 @@
+{
+  "background": "whitesmoke",
+  "headerBgColor": "#0a84ff",
+  "headerFontColor": "white",
+  "headerFontsize": "16px",
+  "botBubbleColor": "#0a84ff",
+  "botFontColor": "#FFF",
+  "userBubbleColor": "grey",
+  "userFontColor": "white"
+}
