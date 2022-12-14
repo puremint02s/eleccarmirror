@@ -81,7 +81,8 @@ const HeaderWrapper = styled.header<{ isMenuOpen: boolean }>`
     height: ${props => (props.isMenuOpen ? "200px" : "55px")};
   }
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.13);
-  transition: 0.45s ease-in-out all;
+  transition: 0.3s ease-in-out all;
+  transition-delay: ${props => (props.isMenuOpen ? "0" : "0.3s")};
 `;
 
 const NavWrapper = styled.nav<{ isMenuOpen: boolean }>`
@@ -91,11 +92,10 @@ const NavWrapper = styled.nav<{ isMenuOpen: boolean }>`
     font-weight: 600;
     font-size: 1.1em;
     margin-left: 30px;
-    transition: 0.35s linear;
+    transition: 0.3s linear;
+    transition-delay: ${props => (props.isMenuOpen ? "0.3s" : "0")};
     @media screen and (max-width: 720px) {
       opacity: ${props => (props.isMenuOpen ? "1" : "0")};
-      transform: ${props => (props.isMenuOpen ? "0" : "translateY(-100px)")};
-      font-size: ${props => (props.isMenuOpen ? "1.1em" : "0")};
       padding: 13px 0;
     }
   }

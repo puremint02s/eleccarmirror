@@ -13,7 +13,9 @@ const UserWelcome = ({ userName }: propsTypes) => {
   return (
     <UserWelcomeWrapper>
       <UserWelcomeText>
-        안녕하세요, <span>{userName}</span>님!
+        <span>안녕하세요 :)</span>
+        <br />
+        <span>{userName}</span>님!
       </UserWelcomeText>
       <RefuelText>최근에 주유 하셨나요?</RefuelText>
       <RefuelButton onClick={handleAddRefuelRecord}>
@@ -33,16 +35,20 @@ const UserWelcomeWrapper = styled.div`
   box-sizing: border-box;
 `;
 const UserWelcomeText = styled.div`
-  font-size: 2.2em;
   font-weight: 600;
-  span {
+  font-size: 2.2em;
+  span: nth-child(3) {
+    margin: 10px 0;
     color: #0a84ff;
+  }
+  @media screen and (max-height: 719px) {
+    font-size: 1.8em;
   }
 `;
 const RefuelText = styled.div`
   font-size: 1.2em;
   color: #898989;
-  margin: 50px 0 20px 0;
+  margin: 40px 0 20px 0;
   font-weight: 600;
 `;
 const RefuelButton = styled.button`

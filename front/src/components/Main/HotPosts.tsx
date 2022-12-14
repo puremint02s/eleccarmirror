@@ -3,100 +3,8 @@ import styled from "styled-components";
 import * as CommunityApi from "apis/CommunityApi";
 import * as CommentApi from "apis/CommentApi";
 import { useNavigate } from "react-router";
-
-const HotPostsWrap = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 30px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Title = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  & > span {
-    font-size: 1.2em;
-    font-weight: 600;
-    padding: 20px 0;
-  }
-  & > a {
-    span {
-      font-size: 1.2em;
-      font-weight: 600;
-      cursor: pointer;
-    }
-  }
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  border: 1px solid #e8e8e8;
-  height: 100%;
-  padding: 16px;
-  box-sizing: border-box;
-
-  .loading {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-  }
-
-  & > div {
-    width: 100%;
-    padding: 15px 0;
-    box-sizing: border-box;
-    color: #898989;
-    border-bottom: 1px solid #e8e8e8;
-    display: flex;
-    justify-content: space-between;
-
-    & > div {
-      width: 80%;
-      display: flex;
-      justify-content: flex-start;
-
-      & > button {
-        font-size: 16px;
-        background-color: transparent;
-        cursor: pointer;
-        transition: all 0.3s;
-        &:hover {
-          color: #0a84ff;
-        }
-      }
-
-      & > p {
-        padding: 10px 0 10px 10px;
-        & > span {
-          display: flex;
-          width: 29px;
-          justify-content: space-between;
-          align-items: center;
-          color: #888888;
-          i {
-            margin-top: 3px;
-            color: #868e96;
-          }
-        }
-      }
-    }
-
-    & > span {
-      min-width: 100px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-  }
-`;
+import blueCar from "assets/img/BlueCar.png";
+import loading from "assets/img/loading2.gif";
 
 type CommunityProps = {
   title: string;
@@ -188,21 +96,24 @@ const HotPosts = () => {
 
   return (
     <>
-      <HotPostsWrap>
-        <Title>
+      <HotPostsWrapper>
+        <HotPostsTitle>
           <span>HOT! 게시물</span>
           <a href="/community">
             <span>더보기</span>
           </a>
-        </Title>
-        <Content>
+        </HotPostsTitle>
+        <HotPostsMain>
           {communitys.length === 0 ? (
-            <div className="loading">추천 게시글이 없습니다</div>
+            <LoadingWrapper>
+              <img style={{ width: "100px", height: "auto" }} src={blueCar} />
+              <img style={{ width: "80px", height: "auto" }} src={loading} />
+            </LoadingWrapper>
           ) : (
             communitys.map((item, index) => (
-              <div key={index}>
-                <div>
-                  <button
+              <PostWrapper key={index}>
+                <div style={{ width: "auto" }}>
+                  <PostTitle
                     type="button"
                     name={item._id}
                     onClick={e => {
@@ -210,28 +121,29 @@ const HotPosts = () => {
                     }}
                   >
                     {item.title}
-                  </button>
+                  </PostTitle>
                   <p>
                     {onCommentCount(item._id)! >= 0 ? (
-                      <span className="commentWrap">
+                      <div className="commentWrap">
                         <i className="ri-message-3-fill"></i>
                         <span>{onCommentCount(item._id)}</span>
-                      </span>
+                      </div>
                     ) : null}
                   </p>
                 </div>
-                <span>{item.nickname}</span>
-              </div>
+                <p style={{ display: "flex", alignItems: "center" }}>
+                  {item.nickname}
+                </p>
+              </PostWrapper>
             ))
           )}
-        </Content>
-      </HotPostsWrap>
+        </HotPostsMain>
+      </HotPostsWrapper>
     </>
   );
 };
 
 export default HotPosts;
-
 const HotPostsWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -239,34 +151,44 @@ const HotPostsWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 720px) {
+    padding: 10px;
+    padding-bottom: 30px;
+  }
 `;
 
 const HotPostsTitle = styled.div`
+  padding: 0 16px;
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   span {
+    text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9);
     font-size: 1.2em;
     font-weight: 600;
   }
 `;
 const HotPostsMain = styled.div`
+  background-color: white;
+  border-radius: 16px;
   display: flex;
   overflow: scroll;
   flex-direction: column;
   justify-content: start;
-  border: 1px solid #e8e8e8;
+  align-items: center;
   height: calc(100% - 50px);
+  // border: 1px solid #e8e8e8;
+  box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.08);
 
   padding: 10px;
   box-sizing: border-box;
   div {
     width: 100%;
-    padding: 10px 0;
+    padding: 5px 5px;
+    padding-right: 10px;
     box-sizing: border-box;
     color: #898989;
-    border-bottom: 1px solid #e8e8e8;
     display: flex;
     justify-content: space-between;
   }
@@ -276,4 +198,33 @@ const HotPostsMain = styled.div`
   @media screen and (max-width: 720px) {
     height: auto;
   }
+  p {
+    div {
+      display: flex;
+      align-items: center;
+      height: 30px;
+    }
+  }
+`;
+
+const PostWrapper = styled.div`
+  border-bottom: 2px solid #e8e8e8;
+`;
+const PostTitle = styled.button`
+  font-size: 1.1em;
+  padding: 2px 0.5em;
+  margin-right: 0.5em;
+  border-radius: 5px;
+  &: hover {
+    color: white;
+    background-color: #0a84ff;
+  }
+  transition: 0.3s ease-in-out all;
+`;
+const LoadingWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center !important;
+  align-items: center;
 `;
