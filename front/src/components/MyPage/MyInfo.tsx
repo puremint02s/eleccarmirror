@@ -26,7 +26,7 @@ function MyInfo() {
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
 
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "70b691cb-c989-4503-86a2-f17dc87b77b8",
+    "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
   );
 
   useEffect(() => {
@@ -89,13 +89,22 @@ function MyInfo() {
       <MyPageWrapper>
         <MyPageContentWrapper>
           <div style={{ paddingTop: 100 }}>
+            {currentCarModel ? (
+              <>
+                <Link to={R.CARREGISTER}>
+                  <ReregisterCarBtn>차량 재등록하러 가기</ReregisterCarBtn>
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
             <MyPageContentTitle>나의 차량 정보</MyPageContentTitle>
             <MyPageContent>
               {!currentCarModel ? (
                 <>
-                  <p>차량이 생기셨나요?</p>
+                  <NewRegisterCarDesc>차량이 생기셨나요?</NewRegisterCarDesc>
                   <Link to={R.CARREGISTER}>
-                    <button>차량 등록하러 가기</button>
+                    <NewRegisterCarBtn>차량 등록하러 가기</NewRegisterCarBtn>
                   </Link>
                 </>
               ) : (
@@ -324,4 +333,30 @@ const RefuelWrap = styled.div`
       }
     }
   }
+`;
+
+const ReregisterCarBtn = styled.button`
+  float: right;
+  cursor: pointer;
+  padding: 5px 10px 5px 10px;
+  border-radius: 28px;
+  border: none;
+  font-size: 12px;
+  color: #636363;
+`;
+
+const NewRegisterCarDesc = styled.p`
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 15px;
+`;
+
+const NewRegisterCarBtn = styled.button`
+  cursor: pointer;
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 15px;
+  border-radius: 28px;
+  border: none;
+  font-size: 12px;
+  color: #636363;
 `;
