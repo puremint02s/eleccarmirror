@@ -49,7 +49,7 @@ function Community(props: any) {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
         setcontentsPerPage(result.findContent);
 
-        console.log("result.findContent", result.findContent);
+        // console.log("result.findContent", result.findContent);
       } catch (err) {
         console.log("err=>", err);
       }
@@ -67,7 +67,7 @@ function Community(props: any) {
 
         setCommentCount(result);
 
-        console.log("commentCount", result);
+        // console.log("commentCount", result);
       } catch (err) {
         console.log(err);
       }
