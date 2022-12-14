@@ -2,33 +2,29 @@ import { useState, useEffect, useContext } from "react";
 import { UserStateContext } from "App";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import swal from "sweetalert";
 import { R } from "App";
-import { getUserRefuelRecord, deleteRefuelRecord } from "apis/RefuelRecordApi";
+import { getUserRefuelRecord } from "apis/RefuelRecordApi";
 import { getCarInfo } from "apis/CarRegisterApi";
 import Modal from "components/common/Modal";
+import ConfirmModal from "components/common/ConfirmModal";
 import AddNewRefuelRecord from "./AddRefuelRecord";
 import ModifyRecord from "./ModifyRefuelRecord";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
+import DeleteRecord from "./DeleteRefuelRecord";
 
 function MyInfo() {
   const [currentCarModel, setCurrentCarModel] = useState("");
   const [currentCarBrand, setCurrentCarBrand] = useState("");
-
-  const [recordId, setRecordId] = useState("");
-  const [oilingDate, setOilingDate] = useState("");
-  const [gasType, setGasType] = useState("");
-  const [gasAmount, setGasAmount] = useState("");
-  const [odometer, setOdometer] = useState("");
   const [records, setRecords] = useState([]);
 
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
+  const [deletingRefuelRecord, setDeletingRefuelRecord] = useState(false);
 
   const currentUser = useContext(UserStateContext);
 
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    currentUser.user.user_id,
+    currentUser?.user?.user_id,
   );
 
   useEffect(() => {
@@ -45,44 +41,11 @@ function MyInfo() {
 
   useEffect(() => {
     async function getUserOilingRecord() {
-      const res = await getUserRefuelRecord(currentUser.user.user_id);
+      const res = await getUserRefuelRecord(currentUser?.user?.user_id);
       setRecords(res);
-      setRecordId(res[0]._id);
-      setOilingDate(res[0].oiling_date);
-      setGasType(res[0].gas_type);
-      setGasAmount(res[0].gas_amount);
-      setOdometer(res[0].odometer);
     }
     getUserOilingRecord();
   }, []);
-
-  const handleRefuelRecordDelete = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const CurrentRecordId = recordId;
-
-    try {
-      swal({
-        title: "주유내역을 삭제하시겠습니까?",
-        text: "한 번 삭제된 내역은 복구할 수 없습니다.",
-        icon: "warning",
-        buttons: ["취소", "삭제"],
-        dangerMode: true,
-      }).then(async willDelete => {
-        if (willDelete) {
-          const data = { _id: CurrentRecordId };
-          await deleteRefuelRecord(data);
-          swal("삭제 완료", "주유내역이 정상적으로 삭제되었습니다.", "success");
-        } else {
-          swal("삭제 취소", "사용자가 삭제를 취소하였습니다.", "info");
-        }
-      });
-    } catch (err) {
-      alert("오류가 발생했습니다.");
-    }
-  };
 
   return (
     <>
@@ -153,36 +116,57 @@ function MyInfo() {
                   </tr>
                 </thead>
                 <tbody>
-                  {!recordId ? (
+                  {!records[0] ? (
                     <tr>
                       <td>주유내역이 존재하지 않습니다.</td>
                     </tr>
                   ) : (
-                    <tr>
-                      <td>{oilingDate.substring(0, 10)}</td>
-                      <td>{gasType}</td>
-                      <td>{gasAmount}L</td>
-                      <td>{odometer}km</td>
-                      <td>
-                        <button
-                          onClick={() =>
-                            setModifyingRefuelRecord(!modifyingRefuelRecord)
-                          }
-                        >
-                          수정
-                        </button>
-                        {modifyingRefuelRecord && (
-                          <Modal
-                            closeModal={() =>
-                              setModifyingRefuelRecord(!modifyingRefuelRecord)
-                            }
-                          >
-                            <ModifyRecord _id={recordId} />
-                          </Modal>
-                        )}
-                        <button onClick={handleRefuelRecordDelete}>삭제</button>
-                      </td>
-                    </tr>
+                    records.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item.oiling_date.substring(0, 10)}</td>
+                          <td>{item.gas_type}</td>
+                          <td>{item.gas_amount}L</td>
+                          <td>{item.odometer}km</td>
+                          <td>
+                            <button
+                              onClick={() =>
+                                setModifyingRefuelRecord(!modifyingRefuelRecord)
+                              }
+                            >
+                              수정
+                            </button>
+                            {modifyingRefuelRecord && (
+                              <Modal
+                                closeModal={() =>
+                                  setModifyingRefuelRecord(
+                                    !modifyingRefuelRecord,
+                                  )
+                                }
+                              >
+                                <ModifyRecord _id={item._id} />
+                              </Modal>
+                            )}
+                            <button
+                              onClick={() =>
+                                setDeletingRefuelRecord(!deletingRefuelRecord)
+                              }
+                            >
+                              삭제
+                            </button>
+                            {deletingRefuelRecord && (
+                              <ConfirmModal
+                                closeModal={() =>
+                                  setDeletingRefuelRecord(!deletingRefuelRecord)
+                                }
+                              >
+                                <DeleteRecord _id={item._id} />
+                              </ConfirmModal>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })
                   )}
                 </tbody>
               </table>
