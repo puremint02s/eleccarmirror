@@ -10,11 +10,11 @@ type ResultList = {
 };
 
 type ResultCarProps = {
-  [key: string]: ResultList;
+  [key: number]: ResultList;
 };
 
-export const FirstCarList: ResultCarProps = {
-  "audi e-tron S": {
+export const ListA: ResultCarProps = {
+  1: {
     brand: "아우디",
     model: "e-tron S",
     distance: 264,
@@ -24,7 +24,7 @@ export const FirstCarList: ResultCarProps = {
     homepage:
       "https://www.audi.co.kr/kr/web/ko/models/e-tron/audi-e-tron-s.html",
   },
-  "audi e-tron S Sportback": {
+  2: {
     brand: "아우디",
     model: "e-tron S Sportback",
     distance: 269,
@@ -34,7 +34,7 @@ export const FirstCarList: ResultCarProps = {
     homepage:
       "https://www.audi.co.kr/kr/web/ko/models/e-tron/audi-e-tron-s-sportback.html",
   },
-  "audi e-tron": {
+  3: {
     brand: "아우디",
     model: "e-tron",
     distance: 328,
@@ -46,8 +46,8 @@ export const FirstCarList: ResultCarProps = {
   },
 };
 
-export const SecondCarList: ResultCarProps = {
-  "audi e-tron Sportback": {
+export const ListB: ResultCarProps = {
+  1: {
     brand: "아우디",
     model: "e-tron Sportback",
     distance: 304,
@@ -57,7 +57,7 @@ export const SecondCarList: ResultCarProps = {
     homepage:
       "https://www.audi.co.kr/kr/web/ko/models/e-tron/audi-e-tron-sportback_2021.html",
   },
-  "BMW iX M60": {
+  2: {
     brand: "BMW",
     model: "iX M60",
     distance: 421,
@@ -67,7 +67,7 @@ export const SecondCarList: ResultCarProps = {
     homepage:
       "https://www.bmw.co.kr/ko/all-models/m-series/bmw-ix-m60/2021/bmw-ix-m60-highlights.html",
   },
-  "audi RS e-tron GT": {
+  3: {
     brand: "아우디",
     model: "e-tron GT",
     distance: 487,
@@ -79,8 +79,8 @@ export const SecondCarList: ResultCarProps = {
   },
 };
 
-export const ThirdCarList: ResultCarProps = {
-  "bmw iX": {
+export const ListC: ResultCarProps = {
+  1: {
     brand: "BMW",
     model: "iX",
     distance: 447,
@@ -90,7 +90,7 @@ export const ThirdCarList: ResultCarProps = {
     homepage:
       "https://www.bmw.co.kr/ko/all-models/bmw-i/bmw-ix/2021/bmw-ix.html",
   },
-  "bmw i7": {
+  2: {
     brand: "BMW",
     model: "i7",
     distance: 438,
@@ -100,7 +100,7 @@ export const ThirdCarList: ResultCarProps = {
     homepage:
       "https://www.bmw.co.kr/ko/all-models/bmw-i/i7/2022/bmw-i7-sedan-highlights.html",
   },
-  "audi e-tron GT": {
+  3: {
     brand: "아우디",
     model: "e-tron GT",
     distance: 487,
@@ -110,7 +110,7 @@ export const ThirdCarList: ResultCarProps = {
     homepage:
       "https://www.audi.co.kr/kr/web/ko/models/e-tron-gt/etrongt_2022.html",
   },
-  "kia EV6 GT": {
+  4: {
     brand: "kia",
     model: "EV6 GT",
     distance: 342,
@@ -121,8 +121,8 @@ export const ThirdCarList: ResultCarProps = {
   },
 };
 
-export const FourthCarList: ResultCarProps = {
-  "benz EQS sedan": {
+export const ListD: ResultCarProps = {
+  1: {
     brand: "벤츠",
     model: "EQS Sedan",
     distance: 440,
@@ -132,7 +132,7 @@ export const FourthCarList: ResultCarProps = {
     homepage:
       "https://www.mercedes-benz.co.kr/passengercars/mercedes-benz-cars/models/eqs/saloon-v297/explore.html",
   },
-  "benz EQA SUV": {
+  2: {
     brand: "벤츠",
     model: "EQA SUV",
     distance: 301,
@@ -142,7 +142,7 @@ export const FourthCarList: ResultCarProps = {
     homepage:
       "https://www.mercedes-benz.co.kr/passengercars/mercedes-benz-cars/models/eqa/explore.html",
   },
-  "BWM i4 M50": {
+  3: {
     brand: "BMW",
     model: "i4 M50",
     distance: 378,
@@ -152,7 +152,7 @@ export const FourthCarList: ResultCarProps = {
     homepage:
       "https://www.bmw.co.kr/ko/all-models/m-series/i4-m50/2021/bmw-i4-m50-highlights.html",
   },
-  "BWM iX3": {
+  4: {
     brand: "BMW",
     model: "iX3",
     distance: 344,
@@ -162,7 +162,7 @@ export const FourthCarList: ResultCarProps = {
     homepage:
       "https://www.bmw.co.kr/ko/all-models/x-series/iX3/2021/bmw-ix3-highlights.html",
   },
-  "tesla Model S": {
+  5: {
     brand: "테슬라",
     model: "Model S",
     distance: 483,
@@ -171,7 +171,7 @@ export const FourthCarList: ResultCarProps = {
     cost: 129990000,
     homepage: "https://www.tesla.com/ko_kr/models",
   },
-  "tesla Model X": {
+  6: {
     brand: "테슬라",
     model: "Model X",
     distance: 478,
@@ -180,7 +180,7 @@ export const FourthCarList: ResultCarProps = {
     cost: 139990000,
     homepage: "https://www.tesla.com/ko_kr/modelx",
   },
-  "audi Q4 Sportback e-tron": {
+  7: {
     brand: "아우디",
     model: "Q4 Sportback e-tron",
     distance: 357,
@@ -190,7 +190,7 @@ export const FourthCarList: ResultCarProps = {
     homepage:
       "https://www.audi.co.kr/kr/web/ko/models/q4_e-tron/q4etronsb_2022.html",
   },
-  "benz EQB SUV": {
+  8: {
     brand: "벤츠",
     model: "EQB SUV",
     distance: 313,
@@ -200,7 +200,7 @@ export const FourthCarList: ResultCarProps = {
     homepage:
       "https://www.mercedes-benz.co.kr/passengercars/mercedes-benz-cars/models/eqb/suv-x243/explore.html",
   },
-  "genesis G80": {
+  9: {
     brand: "제네시스",
     model: "G80",
     distance: 427,
@@ -210,7 +210,7 @@ export const FourthCarList: ResultCarProps = {
     homepage:
       "https://www.genesis.com/kr/ko/models/luxury-sedan-genesis/g80/highlights.html",
   },
-  "audi Q4 e-tron": {
+  10: {
     brand: "아우디",
     model: "Q4 e-tron",
     distance: 368,
@@ -220,7 +220,7 @@ export const FourthCarList: ResultCarProps = {
     homepage:
       "https://www.audi.co.kr/kr/web/ko/models/q4_e-tron/q4etron_2022.html",
   },
-  "benz EQE Sedan": {
+  11: {
     brand: "벤츠",
     model: "EQE Sedan",
     distance: 471,
@@ -232,8 +232,8 @@ export const FourthCarList: ResultCarProps = {
   },
 };
 
-export const FifthCarList: ResultCarProps = {
-  "BWM i4": {
+export const ListE: ResultCarProps = {
+  1: {
     brand: "BMW",
     model: "i4",
     distance: 429,
@@ -243,7 +243,7 @@ export const FifthCarList: ResultCarProps = {
     homepage:
       "https://www.bmw.co.kr/ko/all-models/bmw-i/i4/2021/bmw-i4-highlights.html",
   },
-  "genesis GV70": {
+  2: {
     brand: "제네시스",
     model: "GV70",
     distance: 400,
@@ -253,7 +253,7 @@ export const FifthCarList: ResultCarProps = {
     homepage:
       "https://www.genesis.com/kr/ko/models/luxury-suv-genesis/gv70/highlights.html",
   },
-  "tesla Model Y": {
+  3: {
     brand: "테슬라",
     model: "Model Y",
     distance: 448,
@@ -264,8 +264,8 @@ export const FifthCarList: ResultCarProps = {
   },
 };
 
-export const SixthCarList: ResultCarProps = {
-  "tesla Model 3": {
+export const ListF: ResultCarProps = {
+  1: {
     brand: "테슬라",
     model: "Model 3",
     distance: 403,
@@ -274,7 +274,7 @@ export const SixthCarList: ResultCarProps = {
     cost: 70340000,
     homepage: "https://www.tesla.com/ko_kr/model3",
   },
-  "genesis GV60": {
+  2: {
     brand: "제네시스",
     model: "GV60",
     distance: 427,
@@ -284,7 +284,7 @@ export const SixthCarList: ResultCarProps = {
     homepage:
       "https://www.genesis.com/kr/ko/models/luxury-sedan-genesis/g80/highlights.html",
   },
-  "hyundai ioniq 5": {
+  3: {
     brand: "현대",
     model: "아이오닉 5",
     distance: 458,
@@ -293,7 +293,7 @@ export const SixthCarList: ResultCarProps = {
     cost: 50050000,
     homepage: "https://www.hyundai.com/kr/ko/e/vehicles/ioniq5/intro",
   },
-  "kia niro EV": {
+  4: {
     brand: "기아",
     model: "Niro EV",
     distance: 401,
@@ -302,7 +302,7 @@ export const SixthCarList: ResultCarProps = {
     cost: 49420000,
     homepage: "https://www.kia.com/kr/vehicles/niro-plus/features",
   },
-  "kia niro plus": {
+  5: {
     brand: "기아",
     model: "Niro Plus",
     distance: 392,
@@ -313,8 +313,8 @@ export const SixthCarList: ResultCarProps = {
   },
 };
 
-export const SeventhCarList: ResultCarProps = {
-  "kia EV6": {
+export const ListG: ResultCarProps = {
+  1: {
     brand: "기아",
     model: "EV6",
     distance: 475,
@@ -325,8 +325,8 @@ export const SeventhCarList: ResultCarProps = {
   },
 };
 
-export const EightiethCarList: ResultCarProps = {
-  "hyundai ioniq 6": {
+export const ListH: ResultCarProps = {
+  1: {
     brand: "현대",
     model: "아이오닉 6",
     distance: 524,
@@ -337,8 +337,8 @@ export const EightiethCarList: ResultCarProps = {
   },
 };
 
-export const NinethCarList: ResultCarProps = {
-  "chevrolet BOLD EV": {
+export const ListI: ResultCarProps = {
+  1: {
     brand: "쉐보레",
     model: "BOLT EV",
     distance: 414,
