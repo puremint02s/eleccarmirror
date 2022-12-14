@@ -2,6 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components/macro";
+import * as UserApi from "apis/UserApi";
+import * as CommunityApi from "apis/CommunityApi";
+import * as CarMbtiTestApi from "apis/CarMbtiTestApi";
+import * as CarApi from "apis/CarApi";
+
 const MyInfo = styled.div`
   width: 300px;
   height: auto;
@@ -86,12 +91,6 @@ const MyInfo = styled.div`
         }
       }
     }
-
-    button {
-      /* &:hover {
-        background-color: hover 색상 정하기 ;
-      } */
-    }
   }
 `;
 
@@ -108,36 +107,58 @@ export const UploadButton = styled.button`
 function CommunityMyInfo() {
   const navigate = useNavigate();
   const [user, setUser] = useState<{ nickname: string; user_id: string }>();
-  const [userCommunity, setUserCommunity] = useState(null);
+  const [userCommunity, setUserCommunity] = useState();
+  const [userTestType, setUserTestType] = useState<{ type: string }>();
+  const [userCarInfo, setUserCarInfo] = useState<{
+    model: string;
+    brand: string;
+  }>();
 
   const toUploadPage = () => {
     navigate(`/community/upload`);
   };
 
-  const baseUrl = "http://localhost:4005";
-  const BearerString =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODE3NGUxZWEtYjY4YS00MDllLWJjNmUtNzc2M2U2OWYxNTIwIiwiaWF0IjoxNjcwNjg2MTQzfQ.76gaeWUa74s0QaTfCnGVcRzRAi7nh4WYtBFVoam_xcQ";
-
   useEffect(() => {
-    axios({
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${BearerString}`,
-      },
-      url: `${baseUrl}/user/current`,
-    }).then(res => {
-      setUser(res.data);
-    });
+    const api = async () => {
+      try {
+        const res = await UserApi.CurrentUserGet();
+        setUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
 
-    axios({
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${BearerString}`,
-      },
-      url: `${baseUrl}/community/${user?.user_id}/user`,
-    }).then(res => {
-      setUserCommunity(res.data.length);
-    });
+      try {
+        const res = await CommunityApi.getUserCommunityList(`${user?.user_id}`);
+        setUserCommunity(res.data.length);
+      } catch (err) {
+        console.log(err);
+      }
+
+      try {
+        const data = {
+          nickname: user?.nickname,
+        };
+
+        const res = await CommunityApi.updateUserAllCommunity(data);
+      } catch (err) {
+        console.log(err);
+      }
+
+      try {
+        const res = await CarMbtiTestApi.CarMbtiTypeGet();
+        setUserTestType(res.data[res.data.length - 1]);
+      } catch (err) {
+        console.log(err);
+      }
+
+      try {
+        const res = await CarApi.CarInfoGet();
+        setUserCarInfo(res.data.current);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    api();
   }, [userCommunity]);
 
   return (
@@ -147,18 +168,21 @@ function CommunityMyInfo() {
           <span className="username">{user?.nickname}</span>님
         </p>
         <span>
-          <span className="usertype">CFBH</span> 유형
+          <span className="usertype">
+            {userTestType?.type === null ? "-" : userTestType?.type}
+          </span>
+          유형
         </span>
       </div>
       <div className="myInfo-info">
         <ul>
           <li>
             <span>차종</span>
-            <p>아반떼</p>
+            <p>{userCarInfo?.model === null ? "-" : userCarInfo?.model}</p>
           </li>
           <li>
             <span>제조사</span>
-            <p>현대</p>
+            <p>{userCarInfo?.brand === null ? "-" : userCarInfo?.brand}</p>
           </li>
           <li>
             <span>평균 연비</span>

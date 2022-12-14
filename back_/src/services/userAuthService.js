@@ -132,6 +132,8 @@ class userAuthService {
 
         let user = await User.findById(user_id);
 
+        console.log("user 찾음?", user);
+
         // db에서 찾지 못한 경우, 에러 메시지 반환
         if (!user) {
             const errorMessage =
