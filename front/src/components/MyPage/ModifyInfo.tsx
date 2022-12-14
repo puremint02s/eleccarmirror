@@ -47,7 +47,6 @@ function ModifyInfo() {
       alert("회원정보 수정에 실패하였습니다.");
     }
   }
-
   const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
   const popUpOpen = (e: React.MouseEvent) => {
     e.preventDefault();

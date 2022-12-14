@@ -10,6 +10,9 @@ commentRouter.post("/comment", login_required, async function (req, res, next) {
     try {
         const user_id = req.currentUserId;
         const user = await userAuthService.getUserInfo(user_id);
+
+        console.log("user nickname", user.nickname);
+
         const { community_id, content } = req.body;
 
         const comment = {

@@ -1,6 +1,9 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "style/global-style";
+import { ThemeProvider } from "styled-components/macro";
+import theme from "assets/data/chatBotTheme.json";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const Login = lazy(() => import("./Pages/LoginPage"));
 const Start = lazy(() => import("Pages/StartPage"));
@@ -28,6 +31,7 @@ const ServiceIntro = lazy(
   () => import("./Pages/ServiceIntroduction/ServiceIntroduction"),
 );
 const Error = lazy(() => import("./Pages/ErrorPage"));
+const queryClient = new QueryClient();
 
 const ROUTE = {
   START: "/",
@@ -62,32 +66,39 @@ function App() {
   return (
     <Suspense>
       <BrowserRouter>
-        <GlobalStyle />
-        <Routes>
-          <Route path={ROUTE.START} element={<Start />} />
-          <Route path={ROUTE.MAIN} element={<MainPage />} />
-          <Route path={ROUTE.SERVICEINTRO} element={<ServiceIntro />} />
-          <Route path={ROUTE.LOGIN} element={<Login />} />
-          <Route path={ROUTE.FIND} element={<Find />} />
-          <Route path={ROUTE.FINDID} element={<FindId />} />
-          <Route path={ROUTE.FINDPWD} element={<FindPwd />} />
-          <Route path={ROUTE.SIGNUP} element={<SignUp />} />
-          <Route path={ROUTE.COMMUNITY} element={<Community />} />
-          <Route path={ROUTE.CARREGISTER} element={<CarRegister />} />
-          <Route path={ROUTE.CARMBTI} element={<CarMbti />} />
-          <Route path={ROUTE.CARMBTITEST} element={<TestContents />} />
-          <Route path={ROUTE.LOADING} element={<Loading />} />
-          <Route
-            path={`${ROUTE.CARMBTIRESULT}/:car`}
-            element={<MbtiResult />}
-          />
-          <Route path={ROUTE.CALCEFFICENCY} element={<CalcEfficency />} />
-          <Route path={ROUTE.FINALRESULT} element={<FinalResultPage />} />
-          <Route path={ROUTE.COMMUNITYUPLOAD} element={<CommunityUpload />} />
-          <Route path={ROUTE.COMMUNITYLOAD} element={<CommunityLoad />} />
-          <Route path={ROUTE.MYPAGE} element={<MyPage />} />
-          <Route path={ROUTE.ERROR} element={<Error />} />
-        </Routes>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <QueryClientProvider client={queryClient}>
+            <Routes>
+              <Route path={ROUTE.START} element={<Start />} />
+              <Route path={ROUTE.MAIN} element={<MainPage />} />
+              <Route path={ROUTE.SERVICEINTRO} element={<ServiceIntro />} />
+              <Route path={ROUTE.LOGIN} element={<Login />} />
+              <Route path={ROUTE.FIND} element={<Find />} />
+              <Route path={ROUTE.FINDID} element={<FindId />} />
+              <Route path={ROUTE.FINDPWD} element={<FindPwd />} />
+              <Route path={ROUTE.SIGNUP} element={<SignUp />} />
+              <Route path={ROUTE.COMMUNITY} element={<Community />} />
+              <Route path={ROUTE.CARREGISTER} element={<CarRegister />} />
+              <Route path={ROUTE.CARMBTI} element={<CarMbti />} />
+              <Route path={ROUTE.CARMBTITEST} element={<TestContents />} />
+              <Route path={ROUTE.LOADING} element={<Loading />} />
+              <Route
+                path={`${ROUTE.CARMBTIRESULT}/:car`}
+                element={<MbtiResult />}
+              />
+              <Route path={ROUTE.CALCEFFICENCY} element={<CalcEfficency />} />
+              <Route path={ROUTE.FINALRESULT} element={<FinalResultPage />} />
+              <Route
+                path={ROUTE.COMMUNITYUPLOAD}
+                element={<CommunityUpload />}
+              />
+              <Route path={ROUTE.COMMUNITYLOAD} element={<CommunityLoad />} />
+              <Route path={ROUTE.MYPAGE} element={<MyPage />} />
+              <Route path={ROUTE.ERROR} element={<Error />} />
+            </Routes>
+          </QueryClientProvider>
+        </ThemeProvider>
       </BrowserRouter>
     </Suspense>
   );

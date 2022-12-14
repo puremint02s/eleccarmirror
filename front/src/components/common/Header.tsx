@@ -1,115 +1,114 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import LogoImg from "assets/img/MyElecCar logo.png";
+import menu from "assets/img/menu.png";
 import Storage from "apis/SessionStorage";
 import { Link } from "react-router-dom";
-
-const HeaderTag = styled.header`
-  width: 100%;
-  height: 80px;
-  /* background-color: pink; */
-
-  div {
-    height: 100%;
-    /* padding: 0 50px; */
-    max-width: 1850px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
+import { useState } from "react";
+function Header() {
+  const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
+  const onMenuToggle = () => {
+    setMenuOpen(c => !c);
+  };
+  function clickLogout() {
+    Storage.clearAllItem();
   }
-`;
+  return (
+    <HeaderWrapper isMenuOpen={isMenuOpen}>
+      <LogoWrapper>
+        <a href="/main">
+          <Logo />
+        </a>
+        <HamburgerMenu src={menu} onClick={onMenuToggle}></HamburgerMenu>
+      </LogoWrapper>
 
-const H1 = styled.h1`
-  width: 250px;
-  height: 100%;
-  /* background-color: #cbcbcb; */
+      {Storage.getTokenItem() ? (
+        <NavWrapper isMenuOpen={isMenuOpen}>
+          <li>
+            <Link to="/serviceintro">서비스 소개</Link>
+          </li>
+          <li>
+            <Link to="/mypage">마이페이지</Link>
+          </li>
+          <li>
+            <Link onClick={clickLogout} to="/">
+              로그아웃
+            </Link>
+          </li>
+        </NavWrapper>
+      ) : (
+        <NavWrapper isMenuOpen={isMenuOpen}>
+          <li>
+            <Link to="/serviceintro">서비스 소개</Link>
+          </li>
+          <li>
+            <Link to="/login">로그인</Link>
+          </li>
+        </NavWrapper>
+      )}
+    </HeaderWrapper>
+  );
+}
+const LogoWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
-
-  a {
-    display: block;
-    width: 100%;
-    img {
-      width: 100%;
-    }
+  @media screen and (max-width: 720px) {
+    width: 100vw;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+`;
+const HamburgerMenu = styled.img`
+  width: 30px;
+  height: 30px;
+  @media screen and (min-width: 721px) {
+    display: none;
   }
 `;
 
-const Nav = styled.nav`
-  width: 20%;
-  min-width: 500px;
+const HeaderWrapper = styled.header<{ isMenuOpen: boolean }>`
+  width: 100vw;
+  height: auto;
   display: flex;
-  justify-content: flex-end;
-  padding-top: 3rem;
-  padding-right: 5rem;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px 0 30px;
+  box-sizing: border-box;
+  @media screen and (max-width: 720px) {
+    flex-direction: column;
+    justify-content: start;
+    height: ${props => (props.isMenuOpen ? "200px" : "55px")};
+  }
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.13);
+  transition: 0.45s ease-in-out all;
+`;
 
-  ul {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    li {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      font-size: 14px;
+const NavWrapper = styled.nav<{ isMenuOpen: boolean }>`
+  display: flex;
+  justify-content: center;
+  li {
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-left: 30px;
+    transition: 0.35s linear;
+    @media screen and (max-width: 720px) {
+      opacity: ${props => (props.isMenuOpen ? "1" : "0")};
+      transform: ${props => (props.isMenuOpen ? "0" : "translateY(-100px)")};
+      font-size: ${props => (props.isMenuOpen ? "1.1em" : "0")};
+      padding: 13px 0;
     }
+  }
+  li: hover {
+    font-size: 1.15em;
+  }
+  @media screen and (max-width: 720px) {
+    flex-direction: column;
   }
 `;
 
 const Logo = styled.img.attrs({ src: LogoImg })`
-  width: 100px;
-  padding-top: 3rem;
-  padding-left: 5rem;
+  width: 200px;
 `;
-
-const LogoutWrapper = styled(Link)``;
-
-function Header() {
-  function clickLogout() {
-    Storage.clearAllItem();
-  }
-
-  return (
-    <>
-      <HeaderTag>
-        <div>
-          <H1>
-            <a href="/main">
-              <Logo />
-            </a>
-          </H1>
-          <Nav>
-            <ul>
-              <a href="/serviceintro">
-                <li>서비스 소개</li>
-              </a>
-              {/* <a
-                style={{ textDecoration: "none", color: "black" }}
-                href="/mypage"
-              >
-                <li>마이페이지</li>
-              </a> */}
-              {Storage.getTokenItem() ? (
-                <>
-                  <Link to="/mypage">
-                    <li>마이페이지</li>
-                  </Link>
-                  <LogoutWrapper onClick={clickLogout} to="/">
-                    <li>로그아웃</li>
-                  </LogoutWrapper>
-                </>
-              ) : (
-                <>
-                  <Link to="/login">
-                    <li>로그인</li>
-                  </Link>
-                </>
-              )}
-            </ul>
-          </Nav>
-        </div>
-      </HeaderTag>
-    </>
-  );
-}
 
 export default Header;
