@@ -76,7 +76,7 @@ export const CalcSkipButton = styled.div`
   margin-right: 1rem;
 `;
 
-export const CalcButton = styled.div`
+export const CalcButton = styled.button`
   padding-top: 1rem;
   padding-bottom: 1rem;
   font-size: 14px;
