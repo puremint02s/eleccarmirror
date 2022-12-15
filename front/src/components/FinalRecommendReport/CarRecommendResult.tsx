@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import BlueCarImg from "assets/img/BlueCar.png";
 import SocialShare from "hooks/SocialShareHook";
 
 interface CarData {
@@ -11,6 +10,7 @@ interface CarData {
   MPG: number;
   cost: number;
   homepage: string;
+  img?: string;
 }
 
 function CarRecommendResult({ ...props }: CarData) {
@@ -23,14 +23,14 @@ function CarRecommendResult({ ...props }: CarData) {
       <RecommendResultWrapper>
         <RecommendResultContentWrapper>
           <RecommendResultTitle>나에게 맞는 전기차는?</RecommendResultTitle>
-          <RecommendResultCarImage src={BlueCarImg} alt="추천 차량 이미지" />
+          <RecommendResultCarImage src={props.img} alt="추천 차량 이미지" />
           <RecommendResultContent>
             제조사: {props.brand} <br />
             모델: {props.model} <br />
-            주행거리: {props.distance}km <br />
-            배터리용량: {props.battery}kWh <br />
+            1회 충전시 주행거리: {props.distance}km <br />
+            배터리 용량: {props.battery}kWh <br />
             전비: {props.MPG}km/kWh <br />
-            가격: {props.cost}만원
+            가격: {props.cost}원 ~
           </RecommendResultContent>
           <GotoBrandHompageButton onClick={handleClickBrandHomepage}>
             공식 홈페이지 방문

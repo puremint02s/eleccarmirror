@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import SignUpCodePopUp from "components/SignUp/SignUpCodePopUp";
 import { useForm } from "react-hook-form";
@@ -15,32 +15,37 @@ interface SignForm {
   confirmPassword?: string;
   age?: string;
   address?: string;
+  car_owned?: boolean;
+  elec_car_owned?: boolean;
 }
 
 const SignUpPage = () => {
   const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
   const [signUpCodePopUpOpen, setSignUpCodePopUpOpen] = useState(false);
   const [inputAddress, setInputAddress] = useState("");
+  const [carOwned, setCarOwned] = useState(false);
+  const [elecCarOwned, setElecCarOwned] = useState(false);
   const doSignup = useMutation(Api.RegisterRequest, {
     onSuccess: message => {
       navigate("/login");
       alert({ success: message });
     },
     onError: error => {
-      alert({ error });
+      console.log({ error });
     },
   });
   const navigate = useNavigate();
-  const popUpOpen = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setAddressPopUpOpen(true);
-  };
+
+  useEffect(() => {
+    setValue("address", inputAddress);
+  }, [inputAddress]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
+    setValue,
   } = useForm<SignForm>({
     mode: "onChange",
     defaultValues: {
@@ -49,13 +54,21 @@ const SignUpPage = () => {
       nickname: "",
       password: "",
       confirmPassword: "",
+      age: "20대",
+      address: inputAddress,
+      car_owned: false,
+      elec_car_owned: false,
     },
   });
+  const popUpOpen = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setAddressPopUpOpen(true);
+  };
 
   const signUp = handleSubmit(registerForm => {
     delete registerForm.confirmPassword;
     doSignup.mutate(registerForm);
-    console.log("33");
+    // console.log(registerForm);
   });
 
   return (
@@ -297,12 +310,13 @@ const SignUpPage = () => {
                   boxSizing: "border-box",
                   margin: "10px 10px 10px 0px",
                 }}
+                {...register("age")}
               >
-                <option value={2}>20대</option>
-                <option value={3}>30대</option>
-                <option value={4}>40대</option>
-                <option value={5}>50대</option>
-                <option value={6}>60대 이상</option>
+                <option value="20대">20대</option>
+                <option value="30대">30대</option>
+                <option value="40대">40대</option>
+                <option value="50대">50대</option>
+                <option value="60대">60대 이상</option>
               </select>
             </div>
             <div
@@ -328,11 +342,12 @@ const SignUpPage = () => {
                   }}
                   id="address"
                   type={"text"}
-                  name="address"
                   placeholder="주소"
-                  defaultValue={inputAddress}
+                  value={inputAddress}
+                  {...register("address")}
                 />
                 <button
+                  type="button"
                   onClick={popUpOpen}
                   style={{
                     width: "100%",
@@ -345,7 +360,60 @@ const SignUpPage = () => {
                   주소 검색
                 </button>
               </div>
+              <div>
+                차량을 소지하고 계신가요?
+                <label htmlFor="car_owned">
+                  <input
+                    type="radio"
+                    name="car_owned"
+                    {...(register("car_owned"),
+                    {
+                      onChange: e => setCarOwned(true),
+                    })}
+                  />
+                  예
+                </label>
+                <label htmlFor="car_owned">
+                  <input
+                    type="radio"
+                    name="car_owned"
+                    {...(register("car_owned"),
+                    {
+                      onChange: e => setCarOwned(false),
+                    })}
+                  />
+                  아니요
+                </label>
+              </div>
+              {carOwned && (
+                <div>
+                  차량의 종류를 선택해주세요
+                  <label htmlFor="elec_car_owned">
+                    <input
+                      type="radio"
+                      name="elec_car"
+                      {...(register("elec_car_owned"),
+                      {
+                        onChange: e => setElecCarOwned(true),
+                      })}
+                    />
+                    내연기관
+                  </label>
+                  <label htmlFor="elec_car_owned">
+                    <input
+                      type="radio"
+                      name="elec_car"
+                      {...(register("elec_car_owned"),
+                      {
+                        onChange: e => setElecCarOwned(false),
+                      })}
+                    />
+                    전기차
+                  </label>
+                </div>
+              )}
             </div>
+
             <button
               style={{
                 width: "100%",

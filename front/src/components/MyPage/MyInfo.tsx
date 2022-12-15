@@ -26,7 +26,7 @@ function MyInfo() {
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
 
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "70b691cb-c989-4503-86a2-f17dc87b77b8",
+    "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
   );
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function MyInfo() {
   useEffect(() => {
     async function getUserOilingRecord() {
       const res = await getUserRefuelRecord(
-        "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음, 상태관리로 main page에서 현재 로그인한 user_id 만들어놔야 할 것 같음
+        "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
       );
       setRecords(res);
       setRecordId(res[0]._id);
@@ -55,6 +55,8 @@ function MyInfo() {
     }
     getUserOilingRecord();
   }, []);
+
+  console.log(records);
 
   const handleRefuelRecordDelete = async (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -89,13 +91,22 @@ function MyInfo() {
       <MyPageWrapper>
         <MyPageContentWrapper>
           <div style={{ paddingTop: 100 }}>
+            {currentCarModel ? (
+              <>
+                <Link to={R.CARREGISTER}>
+                  <ReregisterCarBtn>차량 재등록하러 가기</ReregisterCarBtn>
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
             <MyPageContentTitle>나의 차량 정보</MyPageContentTitle>
             <MyPageContent>
               {!currentCarModel ? (
                 <>
-                  <p>차량이 생기셨나요?</p>
+                  <NewRegisterCarDesc>차량이 생기셨나요?</NewRegisterCarDesc>
                   <Link to={R.CARREGISTER}>
-                    <button>차량 등록하러 가기</button>
+                    <NewRegisterCarBtn>차량 등록하러 가기</NewRegisterCarBtn>
                   </Link>
                 </>
               ) : (
@@ -174,39 +185,6 @@ function MyInfo() {
                         <button onClick={handleRefuelRecordDelete}>삭제</button>
                       </td>
                     </tr>
-                    // records.map((record, index) => {
-                    //   return (
-                    //     <tr key={index}>
-                    //       <td>{record.oilingDate.substring(0, 10)}</td>
-                    //       <td>{record.gasType}</td>
-                    //       <td>{record.gasAmount}L</td>
-                    //       <td>{record.odometer}km</td>
-                    //       <td>
-                    //         <button
-                    //           onClick={() =>
-                    //             setModifyingRefuelRecord(!modifyingRefuelRecord)
-                    //           }
-                    //         >
-                    //           수정
-                    //         </button>
-                    //         {modifyingRefuelRecord && (
-                    //           <Modal
-                    //             closeModal={() =>
-                    //               setModifyingRefuelRecord(
-                    //                 !modifyingRefuelRecord,
-                    //               )
-                    //             }
-                    //           >
-                    //             <ModifyRecord _id={recordId} />
-                    //           </Modal>
-                    //         )}
-                    //         <button onClick={handleRefuelRecordDelete}>
-                    //           삭제
-                    //         </button>
-                    //       </td>
-                    //     </tr>
-                    //   );
-                    // })
                   )}
                 </tbody>
               </table>
@@ -324,4 +302,30 @@ const RefuelWrap = styled.div`
       }
     }
   }
+`;
+
+const ReregisterCarBtn = styled.button`
+  float: right;
+  cursor: pointer;
+  padding: 5px 10px 5px 10px;
+  border-radius: 28px;
+  border: none;
+  font-size: 12px;
+  color: #636363;
+`;
+
+const NewRegisterCarDesc = styled.p`
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 15px;
+`;
+
+const NewRegisterCarBtn = styled.button`
+  cursor: pointer;
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 15px;
+  border-radius: 28px;
+  border: none;
+  font-size: 12px;
+  color: #636363;
 `;

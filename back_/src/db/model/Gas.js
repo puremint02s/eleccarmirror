@@ -47,7 +47,7 @@ class Gas {
 
     static async delete(obj_id) {
         try {
-            const deleteGas = await GasModel.deleteOne({ obj_id });
+            const deleteGas = await GasModel.deleteOne({ _id: obj_id });
 
             return deleteGas;
         } catch (err) {

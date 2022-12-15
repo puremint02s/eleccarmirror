@@ -89,48 +89,89 @@ const MainPage = () => {
   }, [userQuery, stepQuery, carQuery]);
 
   return (
-    <MainPageWrapper>
-      <Bot isVisible={isChatbotOpen} />
-      <ChatBotButton isOpen={isChatbotOpen} onClick={onChatBotToggle}>
-        {isChatbotOpen ? <XIcon>✕</XIcon> : <CarIcon src={carBtnImg} />}
-      </ChatBotButton>
-      <Header />
-      <MainArea>
-        <MainSectionTop>
-          <SubSectionTop>
-            {user && <UserWelcome userName={user.nickname}></UserWelcome>}
-          </SubSectionTop>
-          <SubSectionTop>
-            {step && <ImageText>{stepText[parseInt(step.step)]}</ImageText>}
-            {step && (
-              <RecomendStepImage src={stepImages[parseInt(step.step)]} />
-            )}
-          </SubSectionTop>
-        </MainSectionTop>
-        <MainSectionBottom>
-          <SubSectionBottom>
-            <HotPosts></HotPosts>
-          </SubSectionBottom>
-          <SubSectionBottom>
-            {car && <ElecCarReport car={car.recommended} />}
-          </SubSectionBottom>
-        </MainSectionBottom>
-      </MainArea>
-    </MainPageWrapper>
+    <>
+      <MainPageWrapper>
+        <Bot isVisible={isChatbotOpen} />
+        <ChatBotButton isOpen={isChatbotOpen} onClick={onChatBotToggle}>
+          {isChatbotOpen ? <XIcon>✕</XIcon> : <CarIcon src={carBtnImg} />}
+        </ChatBotButton>
+        <Header />
+        <MainArea>
+          <MainSectionTop>
+            <SubSectionTop>
+              {user && <UserWelcome userName={user.nickname}></UserWelcome>}
+            </SubSectionTop>
+            <SubSectionTop>
+              {step && <ImageText>{stepText[parseInt(step.step)]}</ImageText>}
+              {step && (
+                <RecomendStepImage src={stepImages[parseInt(step.step)]} />
+              )}
+            </SubSectionTop>
+          </MainSectionTop>
+          <MainSectionBottom>
+            <SubSectionBottom>
+              <HotPosts></HotPosts>
+            </SubSectionBottom>
+            <SubSectionBottom>
+              {car && <ElecCarReport car={car.recommended} />}
+            </SubSectionBottom>
+          </MainSectionBottom>
+        </MainArea>
+      </MainPageWrapper>
+      <BG>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path
+            fill="#0099ff"
+            fillOpacity="1"
+            d="M0,128L60,149.3C120,171,240,213,360,208C480,203,600,149,720,160C840,171,960,245,1080,234.7C1200,224,1320,128,1380,80L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+          ></path>
+        </svg>
+      </BG>
+      <BG2></BG2>
+    </>
   );
 };
 export default MainPage;
+const BG = styled.div`
+  position: fixed;
+  padding: 0;
+  z-index: -3;
+  bottom: -10px;
+  width: 100vw;
+  height: auto;
+  svg {
+    margin: 0px;
+  }
+`;
+const BG2 = styled.div`
+  position: fixed;
+  z-index: -5;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: whitesmoke;
+`;
 const RecomendStepImage = styled.img`
   width: 500px;
   @media screen and (max-width: 720px) {
     width: 90vw;
   }
+  @media screen and (max-height: 719px) {
+    width: 100%;
+  }
 `;
 const MainArea = styled.main`
-  padding: 0 50px 0 50px;
   height: auto;
+  padding: 0 10vw;
+  box-sizing: border-box;
+  @media screen and (min-width: 1440px) {
+    padding: 0 15vw;
+  }
   @media screen and (max-width: 720px) {
     padding: 0px 10px;
+  }
+  @media screen and (max-height: 719px) {
+    padding: 0 0;
   }
 `;
 const MainSectionTop = styled.section`
@@ -184,13 +225,20 @@ const SubSectionBottom = styled.section`
     padding-top: 50px;
     flex-direction: column;
   }
+  @media screen and (max-height: 719px) {
+    font-size: 1em;
+  }
 `;
 const MainPageWrapper = styled.div`
+  background-color: rgba(0, 0, 0, 0);
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 720px) {
+    height: auto;
+  }
+  @media screen and (max-height: 719px) {
     height: auto;
   }
 `;
@@ -223,7 +271,7 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
 
   margin-top: 10px;
   border-radius: 35px;
-  background-color: #0a84ff;
+  background-color: salmon;
   color: white;
   font-size: 24px;
   display: flex;
@@ -231,7 +279,7 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
   align-items: center;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   &:hover {
-    background-color: salmon;
+    background-color: 0a84ff;
   }
   @media screen and (max-height: 719px) {
     display: none;

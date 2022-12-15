@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import { currentUserGet, modifyUserInfo } from "apis/UserApi";
-import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 
 function ModifyInfo() {
   const [userEmail, setUserEmail] = useState("");
@@ -13,13 +12,6 @@ function ModifyInfo() {
   const [inputAddress, setInputAddress] = useState("");
   const [carOwned, setCarOwned] = useState(false);
   const [elecCarOwned, setElecCarOwned] = useState(false);
-
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
-
-  const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "70b691cb-c989-4503-86a2-f17dc87b77b8",
-  );
 
   useEffect(() => {
     async function getUserInfo() {
@@ -63,14 +55,6 @@ function ModifyInfo() {
 
   function getSelectedValue(event: React.ChangeEvent<HTMLSelectElement>) {
     setAge(event.target.value);
-  }
-
-  function getSelectedBrand(event: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectedBrand(event.target.value);
-  }
-
-  function getSelectedModel(event: React.ChangeEvent<HTMLSelectElement>) {
-    setSelectedModel(event.target.value);
   }
 
   const handleModifyInfoCancel = () => location.reload();
@@ -227,95 +211,6 @@ function ModifyInfo() {
                 </ModifyInfoContentTr>
               </ModifyInfoContent>
             </form>
-            <form>
-              <ModifyInfoContent>
-                <ModifyInfoContentSubTitle>차량정보</ModifyInfoContentSubTitle>
-                <MyPageContent>
-                  <ul>
-                    <li>
-                      <span>제조사</span>
-                      <p>
-                        <ModifyCarInfoModelSelect onChange={getSelectedBrand}>
-                          <option value="hyundai">현대</option>
-                          <option value="kia">기아</option>
-                          <option value="ssangyong">쌍용</option>
-                          <option value="genesis">제네시스</option>
-                          <option value="renault">르노코리아</option>
-                          <option value="chevrolet">쉐보레</option>
-                        </ModifyCarInfoModelSelect>
-                      </p>
-                    </li>
-                    <li>
-                      <span>차종</span>
-                      <p>
-                        {selectedBrand === "hyundai" ? (
-                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
-                            <option value="avante">아반떼</option>
-                            <option value="sonata">쏘나타</option>
-                            <option value="grandeur">그랜저</option>
-                            <option value="palisade">팰리세이드</option>
-                            <option value="casper">캐스퍼</option>
-                            <option value="sanatafe">싼타페</option>
-                            <option value="tucson">투싼</option>
-                            <option value="kona">코나</option>
-                            <option value="venue">베뉴</option>
-                          </ModifyCarInfoModelSelect>
-                        ) : selectedBrand === "kia" ? (
-                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
-                            <option value="K3">K3</option>
-                            <option value="K5">K5</option>
-                            <option value="K8">K8</option>
-                            <option value="K9">K9</option>
-                            <option value="sorento">쏘렌토</option>
-                            <option value="carnival">카니발</option>
-                            <option value="sportage">스포티지</option>
-                            <option value="ray">레이</option>
-                            <option value="seltos">셀토스</option>
-                          </ModifyCarInfoModelSelect>
-                        ) : selectedBrand === "ssangyong" ? (
-                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
-                            <option value="torres">토레스</option>
-                            <option value="rexton sport">렉스턴 스포츠</option>
-                            <option value="rexton sports khan">
-                              렉스턴 스포츠 칸
-                            </option>
-                            <option value="rexton">렉스턴</option>
-                            <option value="tivoli">티볼리</option>
-                          </ModifyCarInfoModelSelect>
-                        ) : selectedBrand === "genesis" ? (
-                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
-                            <option value="G80">G80</option>
-                            <option value="G90">G90</option>
-                            <option value="GV70">GV70</option>
-                          </ModifyCarInfoModelSelect>
-                        ) : selectedBrand === "renault" ? (
-                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
-                            <option value="QM6">QM6</option>
-                            <option value="XM3">XM3</option>
-                            <option value="SM6">SM6</option>
-                          </ModifyCarInfoModelSelect>
-                        ) : (
-                          <ModifyCarInfoModelSelect onChange={getSelectedModel}>
-                            <option value="trailblazer">트레일블레이저</option>
-                            <option value="spark">스파크</option>
-                          </ModifyCarInfoModelSelect>
-                        )}
-                      </p>
-                    </li>
-                    <li>
-                      <span>평균 연비</span>
-                      <p>{currentUserCalcEfficiency}km/L</p>
-                    </li>
-                  </ul>
-                </MyPageContent>
-              </ModifyInfoContent>
-              <CarInfoModifyBtnWrapper>
-                <ModifyInfoBtn>차량정보 수정하기</ModifyInfoBtn>
-                <ModifyInfoCancelBtn onClick={handleModifyInfoCancel}>
-                  취소
-                </ModifyInfoCancelBtn>
-              </CarInfoModifyBtnWrapper>
-            </form>
           </ModifyInfoContentSubWrapper>
         </ModifyInfoContentWrapper>
       </ModifyInfoWrapper>
@@ -440,49 +335,4 @@ const ModifyInfoCancelBtn = styled.button`
   margin-left: 0.5rem;
   cursor: pointer;
   display: inline;
-`;
-
-const ModifyCarInfoModelSelect = styled.select`
-  width: 100px;
-  height: 30px;
-  padding-left: 10px;
-  box-sizing: border-box;
-  text-align: center;
-`;
-
-const MyPageContent = styled.div`
-  width: 50rem;
-  height: auto;
-  text-align: center;
-  ul {
-    width: 100%;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-around;
-    li {
-      width: 30%;
-      & + li {
-        border-left: 1px solid #eaeaea;
-      }
-
-      span {
-        display: block;
-        text-align: center;
-        font-size: 14px;
-        color: #ababab;
-      }
-
-      p {
-        text-align: center;
-        font-size: 16px;
-        padding-top: 10px;
-        font-weight: 500;
-      }
-    }
-  }
-`;
-
-const CarInfoModifyBtnWrapper = styled.div`
-  padding-top: 30px;
-  padding-bottom: 50px;
 `;
