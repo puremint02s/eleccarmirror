@@ -162,11 +162,11 @@ const CarConfirmPopup = ({
                 <UploadImage
                   src={`${process.env.REACT_APP_BACK_SERVER_URL}/${fileName}`}
                 />
-                <ResultSubTitleText>AI가 분석한 유사 차량</ResultSubTitleText>
+                <ResultSubTitleText>AI가 분석한 유사도</ResultSubTitleText>
                 <ResultTextCenter>
-                  AI가 유사하다고 판단한 상위 4개 모델입니다. <br />
-                  만약 리스트에 나의 차량이 없다면 가장 유사하다고 판단되는
-                  차량을 리스트에서 골라주세요 :)
+                  AI가 유사하다고 판단한 상위 4개 모델입니다. 만약 리스트에 나의
+                  차량이 없다면 가장 유사하다고 판단되는 차량을 리스트에서
+                  골라주세요 :)
                 </ResultTextCenter>
                 {chartData && <Chart chartData={chartData} />}
 
@@ -236,6 +236,16 @@ const PopUp = styled.div`
 
   padding: 50px;
   box-sizing: border-box;
+
+  @media screen and (max-width: 720px) {
+    width: 90vw;
+    height: 90vh;
+  }
+  @media screen and (max-height: 719px) {
+    width: 90vw;
+    height: 90vh;
+    overflow: scroll;
+  }
 `;
 const PopUpScroll = styled.div`
   overflow: scroll;
@@ -254,6 +264,11 @@ const PopUpScroll = styled.div`
 
   padding: 50px;
   box-sizing: border-box;
+  @media screen and (max-width: 720px) {
+    padding: 10px;
+    width: 90vw;
+    height: 90vh;
+  }
 `;
 
 const LoadingWrapper = styled.div`
@@ -337,6 +352,10 @@ const ResultTextCenter = styled.div`
   font-size: 18px;
   font-weight: 400;
   margin: 10px 0 40px 0;
+  line-height: 36px;
+  @media screen and (max-width: 720px) {
+    width: 70vw;
+  }
 `;
 const ResultText2 = styled.span`
   display: flex;
