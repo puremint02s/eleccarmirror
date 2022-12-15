@@ -222,7 +222,7 @@ function CommunityLoad() {
           <C.CommunityContent>
             <button
               onClick={() => {
-                navigate(`/community/?page=${location.search.slice(-1)}`);
+                navigate(`/community?page=${location.search.slice(-1)}`);
               }}
             >
               목록으로
