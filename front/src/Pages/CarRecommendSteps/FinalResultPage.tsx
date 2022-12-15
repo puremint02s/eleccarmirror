@@ -61,24 +61,28 @@ function FinalResultPage() {
 
   useEffect(() => {
     const i = currentUserCalcMPG;
-    if (i < 3) {
-      setCurrentUserMPGtype("A");
-    } else if (i >= 3 && i < 3.5) {
-      setCurrentUserMPGtype("B");
-    } else if (i >= 3.5 && i < 4) {
-      setCurrentUserMPGtype("C");
-    } else if (i >= 4 && i < 4.5) {
-      setCurrentUserMPGtype("D");
-    } else if (i >= 4.5 && i < 5) {
-      setCurrentUserMPGtype("E");
-    } else if (i >= 5 && i < 5.5) {
-      setCurrentUserMPGtype("F");
-    } else if (i >= 5.5 && i < 6) {
-      setCurrentUserMPGtype("G");
-    } else if (i >= 6 && i < 6.5) {
-      setCurrentUserMPGtype("H");
+    if (!isNaN(i)) {
+      if (i < 3) {
+        setCurrentUserMPGtype("A");
+      } else if (i >= 3 && i < 3.5) {
+        setCurrentUserMPGtype("B");
+      } else if (i >= 3.5 && i < 4) {
+        setCurrentUserMPGtype("C");
+      } else if (i >= 4 && i < 4.5) {
+        setCurrentUserMPGtype("D");
+      } else if (i >= 4.5 && i < 5) {
+        setCurrentUserMPGtype("E");
+      } else if (i >= 5 && i < 5.5) {
+        setCurrentUserMPGtype("F");
+      } else if (i >= 5.5 && i < 6) {
+        setCurrentUserMPGtype("G");
+      } else if (i >= 6 && i < 6.5) {
+        setCurrentUserMPGtype("H");
+      } else if (i >= 6.5) {
+        setCurrentUserMPGtype("I");
+      }
     } else {
-      setCurrentUserMPGtype("I");
+      setCurrentUserMPGtype("none");
     }
   }, []);
 
@@ -94,7 +98,7 @@ function FinalResultPage() {
   useEffect(() => {
     async function setCurrentUserCarInfo() {
       const res = await getCarInfo();
-      const carInformation = res.data.current;
+      const carInformation = res?.data?.current;
       if (carInformation) {
         setCurrentCarModel(carInformation.model);
       }
@@ -334,6 +338,9 @@ function FinalResultPage() {
                   homepage={ListI[1].homepage}
                   img={ListI[1].img}
                 />
+              )}
+              {currentUserMPGtype === "none" && (
+                <>계산된 평균연비가 존재하지 않습니다.</>
               )}
             </Modal>
           )}
