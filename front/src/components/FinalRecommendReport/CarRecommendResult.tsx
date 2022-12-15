@@ -32,8 +32,8 @@ function CarRecommendResult({ ...props }: CarData) {
   useEffect(() => {
     async function getCurrentCar() {
       const res = await getCarInfo();
-      setCurrentCarModel(res.data.current.model);
-      setCurrentCarBrand(res.data.current.brand);
+      setCurrentCarModel(res?.data?.current.model);
+      setCurrentCarBrand(res?.data?.current.brand);
     }
     getCurrentCar();
   }, []);
