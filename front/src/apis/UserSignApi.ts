@@ -39,7 +39,8 @@ export const registerRequest = async (registerForm: SignForm) => {
   return res.data;
 };
 
-export const registerUserGet = async (email: any) => {
-  const res = await axiosInstance.get("/users/same/", email);
+export const registerUserGet = async (id: object | undefined) => {
+  const res = await axiosInstance.get(`/users/same/`, id);
+  console.log("dd", res.data);
   return res;
 };

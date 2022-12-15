@@ -25,7 +25,6 @@ class User {
   static async findByIdValue({ id }) {
     try {
       const findValue = await UserModel.findOne({ id });
-
       return findValue;
     } catch (err) {
       console.log("이것이 바로 에러", err);
@@ -45,6 +44,7 @@ class User {
   static async findByEmail({ id }) {
     try {
       const user = await UserModel.findOne({ id });
+      console.log(user)
       return user;
     } catch (err) {
       console.log("이것이 바로 에러", err);

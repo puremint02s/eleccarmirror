@@ -179,6 +179,8 @@ userRouter.get("/users/same", async function (req, res, next) {
 
     res.status(201).send(sameUser);
   } catch (err) {
+    const errorMessage = "중복된 아이디 입니다.";
+    return { errorMessage };
     next(err);
   }
 });

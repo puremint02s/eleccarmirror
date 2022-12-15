@@ -128,15 +128,18 @@ class userAuthService {
 
   //유저정보 중복체크
   static async getUserInfomation({ id }) {
-    const userSame = await User.findByIdValue({ id });
+    const userSame = await User.findByEmail({ id });
     try {
-    } catch {
       if (!userSame) {
+        const successMessage = "올바른 아이디입니다";
+        return { successMessage };
+      }
+      if (userSame) {
         const errorMessage =
-          "해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+          "해당 아이디는 가입 내역이 있습니다. 다시 한 번 확인해 주세요.";
         return { errorMessage };
       }
-    }
+    } catch {}
 
     return userSame;
   }
