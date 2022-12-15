@@ -50,6 +50,7 @@ function FinalResultPage() {
   const [userMbtiType, setUserMbtiType] = useState("");
   const [currentCarModel, setCurrentCarModel] = useState("");
   const [currentUserMPGtype, setCurrentUserMPGtype] = useState("");
+  const [recommendedIndex, setRecommendedIndex] = useState(0);
 
   const currentUser = useContext(UserStateContext);
 
@@ -64,22 +65,31 @@ function FinalResultPage() {
     if (!isNaN(i)) {
       if (i < 3) {
         setCurrentUserMPGtype("A");
+        setRecommendedIndex(Math.floor(Math.random() * (4 - 1) + 1));
       } else if (i >= 3 && i < 3.5) {
         setCurrentUserMPGtype("B");
+        setRecommendedIndex(Math.floor(Math.random() * (4 - 1) + 1));
       } else if (i >= 3.5 && i < 4) {
         setCurrentUserMPGtype("C");
+        setRecommendedIndex(Math.floor(Math.random() * (5 - 1) + 1));
       } else if (i >= 4 && i < 4.5) {
         setCurrentUserMPGtype("D");
+        setRecommendedIndex(Math.floor(Math.random() * (12 - 1) + 1));
       } else if (i >= 4.5 && i < 5) {
         setCurrentUserMPGtype("E");
+        setRecommendedIndex(Math.floor(Math.random() * (4 - 1) + 1));
       } else if (i >= 5 && i < 5.5) {
         setCurrentUserMPGtype("F");
+        setRecommendedIndex(Math.floor(Math.random() * (6 - 1) + 1));
       } else if (i >= 5.5 && i < 6) {
         setCurrentUserMPGtype("G");
+        setRecommendedIndex(1);
       } else if (i >= 6 && i < 6.5) {
         setCurrentUserMPGtype("H");
+        setRecommendedIndex(1);
       } else if (i >= 6.5) {
         setCurrentUserMPGtype("I");
+        setRecommendedIndex(1);
       }
     } else {
       setCurrentUserMPGtype("none");
@@ -197,110 +207,74 @@ function FinalResultPage() {
             >
               {currentUserMPGtype === "A" && (
                 <CarRecommendResult
-                  brand={ListA[Math.floor(Math.random() * (4 - 1) + 1)].brand}
-                  model={ListA[Math.floor(Math.random() * (4 - 1) + 1)].model}
-                  distance={
-                    ListA[Math.floor(Math.random() * (4 - 1) + 1)].distance
-                  }
-                  battery={
-                    ListA[Math.floor(Math.random() * (4 - 1) + 1)].battery
-                  }
-                  MPG={ListA[Math.floor(Math.random() * (4 - 1) + 1)].MPG}
-                  cost={ListA[Math.floor(Math.random() * (4 - 1) + 1)].cost}
-                  homepage={
-                    ListA[Math.floor(Math.random() * (4 - 1) + 1)].homepage
-                  }
-                  img={ListA[Math.floor(Math.random() * (4 - 1) + 1)].img}
+                  brand={ListA[recommendedIndex].brand}
+                  model={ListA[recommendedIndex].model}
+                  distance={ListA[recommendedIndex].distance}
+                  battery={ListA[recommendedIndex].battery}
+                  MPG={ListA[recommendedIndex].MPG}
+                  cost={ListA[recommendedIndex].cost}
+                  homepage={ListA[recommendedIndex].homepage}
+                  img={ListA[recommendedIndex].img}
                 />
               )}
               {currentUserMPGtype === "B" && (
                 <CarRecommendResult
-                  brand={ListB[Math.floor(Math.random() * (4 - 1) + 1)].brand}
-                  model={ListB[Math.floor(Math.random() * (4 - 1) + 1)].model}
-                  distance={
-                    ListB[Math.floor(Math.random() * (4 - 1) + 1)].distance
-                  }
-                  battery={
-                    ListB[Math.floor(Math.random() * (4 - 1) + 1)].battery
-                  }
-                  MPG={ListB[Math.floor(Math.random() * (4 - 1) + 1)].MPG}
-                  cost={ListB[Math.floor(Math.random() * (4 - 1) + 1)].cost}
-                  homepage={
-                    ListB[Math.floor(Math.random() * (4 - 1) + 1)].homepage
-                  }
-                  img={ListB[Math.floor(Math.random() * (4 - 1) + 1)].img}
+                  brand={ListB[recommendedIndex].brand}
+                  model={ListB[recommendedIndex].model}
+                  distance={ListB[recommendedIndex].distance}
+                  battery={ListB[recommendedIndex].battery}
+                  MPG={ListB[recommendedIndex].MPG}
+                  cost={ListB[recommendedIndex].cost}
+                  homepage={ListB[recommendedIndex].homepage}
+                  img={ListB[recommendedIndex].img}
                 />
               )}
               {currentUserMPGtype === "C" && (
                 <CarRecommendResult
-                  brand={ListC[Math.floor(Math.random() * (5 - 1) + 1)].brand}
-                  model={ListC[Math.floor(Math.random() * (5 - 1) + 1)].model}
-                  distance={
-                    ListC[Math.floor(Math.random() * (5 - 1) + 1)].distance
-                  }
-                  battery={
-                    ListC[Math.floor(Math.random() * (5 - 1) + 1)].battery
-                  }
-                  MPG={ListC[Math.floor(Math.random() * (5 - 1) + 1)].MPG}
-                  cost={ListC[Math.floor(Math.random() * (5 - 1) + 1)].cost}
-                  homepage={
-                    ListC[Math.floor(Math.random() * (5 - 1) + 1)].homepage
-                  }
-                  img={ListC[Math.floor(Math.random() * (5 - 1) + 1)].img}
+                  brand={ListC[recommendedIndex].brand}
+                  model={ListC[recommendedIndex].model}
+                  distance={ListC[recommendedIndex].distance}
+                  battery={ListC[recommendedIndex].battery}
+                  MPG={ListC[recommendedIndex].MPG}
+                  cost={ListC[recommendedIndex].cost}
+                  homepage={ListC[recommendedIndex].homepage}
+                  img={ListC[recommendedIndex].img}
                 />
               )}
               {currentUserMPGtype === "D" && (
                 <CarRecommendResult
-                  brand={ListD[Math.floor(Math.random() * (12 - 1) + 1)].brand}
-                  model={ListD[Math.floor(Math.random() * (12 - 1) + 1)].model}
-                  distance={
-                    ListD[Math.floor(Math.random() * (12 - 1) + 1)].distance
-                  }
-                  battery={
-                    ListD[Math.floor(Math.random() * (12 - 1) + 1)].battery
-                  }
-                  MPG={ListD[Math.floor(Math.random() * (12 - 1) + 1)].MPG}
-                  cost={ListD[Math.floor(Math.random() * (12 - 1) + 1)].cost}
-                  homepage={
-                    ListD[Math.floor(Math.random() * (12 - 1) + 1)].homepage
-                  }
-                  img={ListD[Math.floor(Math.random() * (12 - 1) + 1)].img}
+                  brand={ListD[recommendedIndex].brand}
+                  model={ListD[recommendedIndex].model}
+                  distance={ListD[recommendedIndex].distance}
+                  battery={ListD[recommendedIndex].battery}
+                  MPG={ListD[recommendedIndex].MPG}
+                  cost={ListD[recommendedIndex].cost}
+                  homepage={ListD[recommendedIndex].homepage}
+                  img={ListD[recommendedIndex].img}
                 />
               )}
               {currentUserMPGtype === "E" && (
                 <CarRecommendResult
-                  brand={ListE[Math.floor(Math.random() * (4 - 1) + 1)].brand}
-                  model={ListE[Math.floor(Math.random() * (4 - 1) + 1)].model}
-                  distance={
-                    ListE[Math.floor(Math.random() * (4 - 1) + 1)].distance
-                  }
-                  battery={
-                    ListE[Math.floor(Math.random() * (4 - 1) + 1)].battery
-                  }
-                  MPG={ListE[Math.floor(Math.random() * (4 - 1) + 1)].MPG}
-                  cost={ListE[Math.floor(Math.random() * (4 - 1) + 1)].cost}
-                  homepage={
-                    ListE[Math.floor(Math.random() * (4 - 1) + 1)].homepage
-                  }
-                  img={ListE[Math.floor(Math.random() * (4 - 1) + 1)].img}
+                  brand={ListE[recommendedIndex].brand}
+                  model={ListE[recommendedIndex].model}
+                  distance={ListE[recommendedIndex].distance}
+                  battery={ListE[recommendedIndex].battery}
+                  MPG={ListE[recommendedIndex].MPG}
+                  cost={ListE[recommendedIndex].cost}
+                  homepage={ListE[recommendedIndex].homepage}
+                  img={ListE[recommendedIndex].img}
                 />
               )}
               {currentUserMPGtype === "F" && (
                 <CarRecommendResult
-                  brand={ListF[Math.floor(Math.random() * (6 - 1) + 1)].brand}
-                  model={ListF[Math.floor(Math.random() * (6 - 1) + 1)].model}
-                  distance={
-                    ListF[Math.floor(Math.random() * (6 - 1) + 1)].distance
-                  }
-                  battery={
-                    ListF[Math.floor(Math.random() * (6 - 1) + 1)].battery
-                  }
-                  MPG={ListF[Math.floor(Math.random() * (6 - 1) + 1)].MPG}
-                  cost={ListF[Math.floor(Math.random() * (6 - 1) + 1)].cost}
-                  homepage={
-                    ListF[Math.floor(Math.random() * (6 - 1) + 1)].homepage
-                  }
-                  img={ListF[Math.floor(Math.random() * (6 - 1) + 1)].img}
+                  brand={ListF[recommendedIndex].brand}
+                  model={ListF[recommendedIndex].model}
+                  distance={ListF[recommendedIndex].distance}
+                  battery={ListF[recommendedIndex].battery}
+                  MPG={ListF[recommendedIndex].MPG}
+                  cost={ListF[recommendedIndex].cost}
+                  homepage={ListF[recommendedIndex].homepage}
+                  img={ListF[recommendedIndex].img}
                 />
               )}
               {currentUserMPGtype === "G" && (

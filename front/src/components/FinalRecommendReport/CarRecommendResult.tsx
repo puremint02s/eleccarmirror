@@ -38,7 +38,9 @@ function CarRecommendResult({ ...props }: CarData) {
     getCurrentCar();
   }, []);
 
-  const postSelectRecommendedCar = () => {
+  const navigate = useNavigate();
+  const handleClickBrandHomepage = () => window.open(props.homepage);
+  const handleClickMain = () => {
     const recommendedResult: CarInfo = {
       current: {
         model: currentCarModel,
@@ -50,12 +52,8 @@ function CarRecommendResult({ ...props }: CarData) {
       },
     };
     updateCarInfo(recommendedResult);
-    alert("나의 추천 차량이 등록되었습니다.");
+    navigate("/main");
   };
-
-  const navigate = useNavigate();
-  const handleClickBrandHomepage = () => window.open(props.homepage);
-  const handleClickMain = () => navigate("/main");
 
   return (
     <>
@@ -72,13 +70,10 @@ function CarRecommendResult({ ...props }: CarData) {
             가격: {props.cost}원 ~
           </RecommendResultContent>
           <GotoBrandHompageButton onClick={handleClickBrandHomepage}>
-            공식 홈페이지 <br /> 방문
+            공식 홈페이지 방문
           </GotoBrandHompageButton>
-          <SelectRecommendedCarButton onClick={postSelectRecommendedCar}>
-            추천 차량으로 <br /> 선택하기
-          </SelectRecommendedCarButton>
           <GotoMainButton onClick={handleClickMain}>
-            메인으로 <br /> 이동
+            메인으로 이동
           </GotoMainButton>
           <SocialShare />
         </RecommendResultContentWrapper>
@@ -120,54 +115,25 @@ const GotoBrandHompageButton = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
   color: #898989;
-  font-size: 14px;
+  font-size: 15px;
   text-align: center;
-  width: 25%;
+  width: 35%;
   cursor: pointer;
   background-color: #f6f6f6;
   margin-top: 1rem;
   display: inline-block;
   margin-right: 1rem;
-  &:hover {
-    background-color: #0a84ff;
-    color: white;
-    transition: 0.5s;
-  }
-`;
-
-const SelectRecommendedCarButton = styled.div`
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-size: 14px;
-  text-align: center;
-  width: 25%;
-  cursor: pointer;
-  margin-top: 1rem;
-  margin-right: 1rem;
-  display: inline-block;
-  color: #898989;
-  background-color: #f6f6f6;
-  &:hover {
-    background-color: #0a84ff;
-    color: white;
-    transition: 0.5s;
-  }
 `;
 
 const GotoMainButton = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
-  font-size: 14px;
+  font-size: 15px;
   text-align: center;
-  width: 25%;
+  width: 35%;
   cursor: pointer;
-  color: #898989;
-  background-color: #f6f6f6;
+  color: white;
+  background-color: #0a84ff;
   margin-top: 1rem;
   display: inline-block;
-  &:hover {
-    background-color: #0a84ff;
-    color: white;
-    transition: 0.5s;
-  }
 `;
