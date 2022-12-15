@@ -18,9 +18,6 @@ function CalcAverageEfficiency(currentUserId: string) {
     }
     getRefuelRecord(currentUserId);
   }, []);
-  console.log(firstAmount);
-  console.log(secondAmount);
-  console.log(secondOdometer);
 
   const calcResult = (secondOdometer / (secondAmount - firstAmount)).toFixed(2);
   const intCalcResult = parseInt(calcResult);
