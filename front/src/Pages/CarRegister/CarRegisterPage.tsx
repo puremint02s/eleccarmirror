@@ -126,6 +126,7 @@ const ImageBox = styled.div<ImageStyledProps>`
   background-repeat: no-repeat;
   background-position: center center;
   background-size: auto;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
   @media screen and (max-height: 719px) {
     width: 100px;
     height: 100px;
