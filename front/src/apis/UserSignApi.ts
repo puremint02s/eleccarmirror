@@ -33,8 +33,13 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export const RegisterRequest = async (registerForm: SignForm) => {
+export const registerRequest = async (registerForm: SignForm) => {
   const res = await axiosInstance.post("/user/register", registerForm);
   console.log(res.data);
   return res.data;
+};
+
+export const registerUserGet = async (email: any) => {
+  const res = await axiosInstance.get("/users/same/", email);
+  return res;
 };
