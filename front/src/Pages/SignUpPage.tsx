@@ -6,6 +6,7 @@ import * as Api from "apis/UserSignApi";
 import logo from "assets/img/MyElecCar logo.png";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 interface SignForm {
   email?: string;
@@ -28,9 +29,10 @@ const SignUpPage = () => {
   const doSignup = useMutation(Api.RegisterRequest, {
     onSuccess: message => {
       navigate("/login");
-      alert({ success: message });
+      swal("회원가입 완료", "회원가입 되었습니다.", message);
     },
     onError: error => {
+      swal("회원가입 불가", "존재하는 아이디입니다.");
       console.log({ error });
     },
   });
