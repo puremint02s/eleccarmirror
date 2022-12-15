@@ -88,6 +88,13 @@ const CarConfirmPopup = ({
   }, [predictionList]);
   return (
     <>
+      <CloseBtn
+        onClick={() => {
+          setPopUpOpen(false);
+        }}
+      >
+        ✕
+      </CloseBtn>
       {
         <PopUpWrapper
           onClick={() => {
@@ -196,7 +203,18 @@ const CarConfirmPopup = ({
     </>
   );
 };
-
+const CloseBtn = styled.button`
+  position: fixed;
+  top: 8vh;
+  font-size: 24px;
+  z-index: 9999;
+  font-weight: 800;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    color: red;
+  }
+`;
 const ResultImage = styled.img`
   width: 400px;
   height: 250px;
@@ -268,6 +286,11 @@ const PopUpScroll = styled.div`
     padding: 10px;
     width: 90vw;
     height: 90vh;
+  }
+  @media screen and (max-height: 719px) {
+    width: 90vw;
+    height: 90vh;
+    overflow: scroll;
   }
 `;
 
