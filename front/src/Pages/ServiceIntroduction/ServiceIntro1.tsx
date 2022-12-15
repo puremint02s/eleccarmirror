@@ -80,6 +80,9 @@ const Section1Button = styled.button`
   background-color: white;
   border: none;
   cursor: pointer;
+  @media screen and (max-width: 720px) {
+    width: 40vw;
+  }
 `;
 
 const LogoWrapper = styled.img`
