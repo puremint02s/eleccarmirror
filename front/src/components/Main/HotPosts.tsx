@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import * as CommunityApi from "apis/CommunityApi";
 import * as CommentApi from "apis/CommentApi";
 import { useNavigate } from "react-router";
@@ -132,7 +132,7 @@ const HotPosts = () => {
                   </p>
                 </div>
                 <p style={{ display: "flex", alignItems: "center" }}>
-                  {item.nickname}
+                  <span>{item.nickname}</span>
                 </p>
               </PostWrapper>
             ))
@@ -191,10 +191,14 @@ const HotPostsMain = styled.div`
     color: #898989;
     display: flex;
     justify-content: space-between;
+
+    &:last-child {
+      border: none;
+    }
   }
-  div: last-child {
+  /* div: last-child {
     border: none;
-  }
+  } */
   @media screen and (max-width: 720px) {
     height: auto;
   }
@@ -209,17 +213,45 @@ const HotPostsMain = styled.div`
 
 const PostWrapper = styled.div`
   border-bottom: 2px solid #e8e8e8;
+
+  & > p {
+    min-width: 100px;
+    display: flex;
+    justify-content: flex-end;
+    span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100px;
+    }
+  }
 `;
 const PostTitle = styled.button`
   font-size: 1.1em;
   padding: 2px 0.5em;
   margin-right: 0.5em;
   border-radius: 5px;
-  &: hover {
+  transition: 0.3s ease-in-out all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 400px;
+  /* width: 50%; */
+  @media screen and (max-width: 1300px) {
+    max-width: 200px;
+  }
+  @media screen and (max-width: 910px) {
+    max-width: 100px;
+  }
+  @media screen and (max-width: 720px) {
+    max-width: 300px;
+  }
+
+  &:hover {
     color: white;
     background-color: #0a84ff;
   }
-  transition: 0.3s ease-in-out all;
 `;
 const LoadingWrapper = styled.div`
   width: 100%;

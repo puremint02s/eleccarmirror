@@ -149,18 +149,18 @@ function Community(props: any) {
           <CommunityStyle.CommunityContent>
             <MyInfo />
             <CommunityStyle.BoardWrap>
-              <table>
-                <thead>
-                  <tr>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                  </tr>
-                </thead>
-                <tbody>
+              <div className="table">
+                <div className="thead">
+                  <div className="tr">
+                    <p>제목</p>
+                    <p>작성자</p>
+                    <p>작성일</p>
+                  </div>
+                </div>
+                <div className="tbody">
                   {contentsPerPage.length === 0 ? (
-                    <tr>
-                      <td
+                    <div className="tr">
+                      <p
                         style={{
                           display: "flex",
                           justifyContent: "center",
@@ -170,13 +170,13 @@ function Community(props: any) {
                         }}
                       >
                         게시글이 없습니다
-                      </td>
-                    </tr>
+                      </p>
+                    </div>
                   ) : (
                     contentsPerPage.map((item, index) => {
                       return (
-                        <tr key={index}>
-                          <td>
+                        <div className="tr" key={index}>
+                          <div className="td">
                             <button
                               type="button"
                               name={item._id}
@@ -194,15 +194,19 @@ function Community(props: any) {
                                 </span>
                               ) : null}
                             </p>
-                          </td>
-                          <td>{item.nickname}</td>
-                          <td>{item.createdAt?.substring(0, 10)}</td>
-                        </tr>
+                          </div>
+                          <div className="td nickname">
+                            <p>{item.nickname}</p>
+                          </div>
+                          <div className="td">
+                            {item.createdAt?.substring(0, 10)}
+                          </div>
+                        </div>
                       );
                     })
                   )}
-                </tbody>
-              </table>
+                </div>
+              </div>
               <Pagination currentPage={currentPage} getData={getData} />
             </CommunityStyle.BoardWrap>
           </CommunityStyle.CommunityContent>
