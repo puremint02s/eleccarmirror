@@ -7,6 +7,12 @@ import CarConfirmPopup from "components/CarRegister/CarConfirmPopup";
 import Header from "components/common/Header";
 import TextBubbleBox from "components/CarRegister/TextBubbleBox";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import * as ImageUploadApi from "apis/ImageUpload";
+interface carData {
+  filename: string;
+  prediction: Array<number>;
+}
 
 function CarRegisterPage() {
   const navigate = useNavigate();
@@ -15,8 +21,10 @@ function CarRegisterPage() {
   const imageInput = useRef<HTMLInputElement>(null);
 
   const [isPopUpOpen, setPopUpOpen] = useState(false);
-  const [fileName, setFileName] = useState("");
-  const [predictionList, setPredictionList] = useState([]);
+
+  const { mutate, isLoading, data } = useMutation("carData", (data: any) =>
+    ImageUploadApi.postImage(data),
+  );
 
   const onUpload = useCallback(() => {
     imageInput?.current?.click();
@@ -24,22 +32,13 @@ function CarRegisterPage() {
 
   const onChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const imageFormData = new FormData();
-    [].forEach.call(e.target.files, imageFile => {
-      imageFormData.append("image", imageFile);
-    });
     setPopUpOpen(true);
-    axios
-      .post(`${BACK_SERVER_URL}/images`, imageFormData)
-      .then(res => {
-        setFileName(res.data.filename);
-        setPredictionList(res.data.prediction);
-      })
-      .catch(err => {
-        alert("이미지 업로드 과정중 오류가 발생하였습니다.");
-        setPopUpOpen(false);
-      });
-    console.log("request to back server");
+
+    const imageFormData = new FormData();
+    Array.from(e.target.files).forEach(imageFile =>
+      imageFormData.append("image", imageFile),
+    );
+    mutate(imageFormData);
     e.target.value = "";
   };
 
@@ -67,8 +66,8 @@ function CarRegisterPage() {
       {isPopUpOpen && (
         <CarConfirmPopup
           setPopUpOpen={setPopUpOpen}
-          fileName={fileName}
-          predictionList={predictionList}
+          fileName={data?.filename}
+          predictionList={data?.prediction}
         />
       )}
 

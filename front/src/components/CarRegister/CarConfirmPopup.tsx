@@ -62,30 +62,29 @@ const CarConfirmPopup = ({
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("userToken") === undefined) {
-      navigate("/login");
-    }
     setTimeout(() => {
       setLoading(false);
     }, 3000);
-    const values: Array<string> = Object.keys(dic);
-    const keys: Array<number> = Object.values(dic);
-    const result = keys.map(v => ({
-      label: values[v],
-      value: predictionList[v] * 100,
-    }));
-    result.sort((a, b) => b.value - a.value);
-    const chartData = [...result].splice(0, 4);
-    chartData.push({
-      label: "etc",
-      value:
-        100 -
-        chartData[0].value -
-        chartData[1].value -
-        chartData[2].value -
-        chartData[3].value,
-    });
-    setChartData(chartData);
+    if (fileName && predictionList) {
+      const values: Array<string> = Object.keys(dic);
+      const keys: Array<number> = Object.values(dic);
+      const result = keys.map(v => ({
+        label: values[v],
+        value: predictionList[v] * 100,
+      }));
+      result.sort((a, b) => b.value - a.value);
+      const chartData = [...result].splice(0, 4);
+      chartData.push({
+        label: "etc",
+        value:
+          100 -
+          chartData[0].value -
+          chartData[1].value -
+          chartData[2].value -
+          chartData[3].value,
+      });
+      setChartData(chartData);
+    }
   }, [predictionList]);
   return (
     <>
