@@ -11,13 +11,16 @@ function CalcAverageEfficiency(currentUserId: string) {
       const res = await getUserRefuelRecord(currentUserId);
       // console.log(res);
       if (res) {
-        setFirstAmount(res[res.length - 1].gas_amount);
-        setSecondAmount(res[res.length - 2].gas_amount);
-        setSecondOdometer(res[res.length - 2].odometer);
+        setFirstAmount(res[res.length - 2].gas_amount);
+        setSecondAmount(res[res.length - 1].gas_amount);
+        setSecondOdometer(res[res.length - 1].odometer);
       }
     }
     getRefuelRecord(currentUserId);
   }, []);
+  console.log(firstAmount);
+  console.log(secondAmount);
+  console.log(secondOdometer);
 
   const calcResult = (secondOdometer / (secondAmount - firstAmount)).toFixed(2);
   const intCalcResult = parseInt(calcResult);
