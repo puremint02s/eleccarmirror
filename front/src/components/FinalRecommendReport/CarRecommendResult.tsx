@@ -92,6 +92,9 @@ const RecommendResultWrapper = styled.div`
 const RecommendResultContentWrapper = styled.div`
   width: 400px;
   display: inline-block;
+  @media screen and (max-width: 720px) {
+    width: 50vw;
+  }
 `;
 
 const RecommendResultTitle = styled.p`
@@ -123,6 +126,9 @@ const GotoBrandHompageButton = styled.div`
   margin-top: 1rem;
   display: inline-block;
   margin-right: 1rem;
+  @media screen and (max-width: 720px) {
+    width: 20vw;
+  }
 `;
 
 const GotoMainButton = styled.div`
@@ -136,4 +142,7 @@ const GotoMainButton = styled.div`
   background-color: #0a84ff;
   margin-top: 1rem;
   display: inline-block;
+  @media screen and (max-width: 720px) {
+    width: 20vw;
+  }
 `;
