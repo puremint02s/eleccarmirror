@@ -2,21 +2,19 @@ import styled from "styled-components/macro";
 import tempImage from "assets/img/GreyQuestionCar.png";
 import blueCar from "assets/img/BlueCar.png";
 import loading from "assets/img/loading2.gif";
-
-import * as StepApi from "apis/StepApi";
+import * as CarRegisterApi from "apis/CarRegisterApi";
 
 import { useQuery } from "react-query";
 
 const ElecCarReport = ({ step }: { step: string | undefined }) => {
-  const stepQuery = useQuery("step", StepApi.getStepInfo).data;
-  console.log(stepQuery);
+  const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
   return (
     <>
       <ReportWrapper>
         <ReportHeaderWrapper>
           <ReportHeaderText>전기차 추천 리포트</ReportHeaderText>
           <a href="/carregister">
-            <ReportHeaderText>추천 다시 받기</ReportHeaderText>
+            <ReportHeaderText>추천 새로 받기</ReportHeaderText>
           </a>
         </ReportHeaderWrapper>
         <ReportMainArea>
@@ -26,72 +24,73 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
                 <img style={{ width: "100px", height: "auto" }} src={blueCar} />
                 <img style={{ width: "80px", height: "auto" }} src={loading} />
               </div>
-              <span>나에게 알맞는 전기차 찾는중...</span>
+              <span>전기차 추천 과정 진행중...</span>
             </LoadingWrapper>
           ) : (
-            <></>
-          )}
-          {/* <ReportTopSection>
-            <ReportText>현재 차량</ReportText>
-            <ReportTopSub>
-              <div>
-                <span>유형</span>
-                <span>{car.model}</span>
-              </div>
-              <div>
-                <span>평균연비</span>
-                <span>{car.model}</span>
-              </div>
-            </ReportTopSub>
-            <ReportTopSub>
-              <div>
-                <span>차종</span>
-                <span>{car.model}</span>
-              </div>
-              <div>
-                <span>제조사</span>
-                <span>{car.brand}</span>
-              </div>
-            </ReportTopSub>
-          </ReportTopSection>
-          <ReportBottomSection>
-            <ReportText>
-              <span>추천 차량</span>
-            </ReportText>
-            <ReportBottomSubSection>
-              <CarInfoWrapper>
-                <CarImage src={tempImage} />
-              </CarInfoWrapper>
-              <CarInfoWrapper>
-                <CarInfoTextWrapper>
+            <>
+              <ReportTopSection>
+                <ReportText>현재 차량</ReportText>
+                <ReportTopSub>
+                  <div>
+                    <span>유형</span>
+                    <span>{car?.model}</span>
+                  </div>
+                  <div>
+                    <span>평균연비</span>
+                    <span>{car?.model}</span>
+                  </div>
+                </ReportTopSub>
+                <ReportTopSub>
+                  <div>
+                    <span>차종</span>
+                    <span>{car?.model}</span>
+                  </div>
                   <div>
                     <span>제조사</span>
-                    <span>ㅇㅇㅇ</span>
+                    <span>{car?.brand}</span>
                   </div>
-                  <div>
-                    <span>모델</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                  <div>
-                    <span>주행거리</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                  <div>
-                    <span>배터리 용량</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                  <div>
-                    <span>전비</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                  <div>
-                    <span>가격</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                </CarInfoTextWrapper>
-              </CarInfoWrapper>
-            </ReportBottomSubSection>
-          </ReportBottomSection> */}
+                </ReportTopSub>
+              </ReportTopSection>
+              <ReportBottomSection>
+                <ReportText>
+                  <span>추천 차량</span>
+                </ReportText>
+                <ReportBottomSubSection>
+                  <CarInfoWrapper>
+                    <CarImage src={tempImage} />
+                  </CarInfoWrapper>
+                  <CarInfoWrapper>
+                    <CarInfoTextWrapper>
+                      <div>
+                        <span>제조사</span>
+                        <span>ㅇㅇㅇ</span>
+                      </div>
+                      <div>
+                        <span>모델</span>
+                        <span>ㅇㅇㅇ</span>
+                      </div>
+                      <div>
+                        <span>주행거리</span>
+                        <span>ㅇㅇㅇ</span>
+                      </div>
+                      <div>
+                        <span>배터리 용량</span>
+                        <span>ㅇㅇㅇ</span>
+                      </div>
+                      <div>
+                        <span>전비</span>
+                        <span>ㅇㅇㅇ</span>
+                      </div>
+                      <div>
+                        <span>가격</span>
+                        <span>ㅇㅇㅇ</span>
+                      </div>
+                    </CarInfoTextWrapper>
+                  </CarInfoWrapper>
+                </ReportBottomSubSection>
+              </ReportBottomSection>
+            </>
+          )}
         </ReportMainArea>
       </ReportWrapper>
     </>
@@ -140,6 +139,10 @@ const ReportHeaderText = styled.span`
   padding: 0 16px;
   font-size: 1.2em;
   font-weight: 600;
+  &:hover {
+    color: salmon;
+  }
+  transition: 0.3s ease-in-out all;
 `;
 const ReportMainArea = styled.div`
   background-color: white;

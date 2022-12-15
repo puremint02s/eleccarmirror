@@ -170,6 +170,12 @@ const HotPostsTitle = styled.div`
     font-size: 1.2em;
     font-weight: 600;
   }
+  & > a > span:hover {
+    color: salmon;
+  }
+  & > a > span {
+    transition: 0.3s ease-in-out all;
+  }
 `;
 
 const HotPostsMain = styled.div`

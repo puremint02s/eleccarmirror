@@ -56,7 +56,6 @@ const MainPage = () => {
   const [isChatbotOpen, setChatbotOpen] = useState(false);
   const user = useQuery("user", UserApi.currentUserGet)?.data?.data;
   const step = useQuery("step", StepApi.getStepInfo)?.data?.data?.step;
-  // const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
 
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
@@ -66,6 +65,14 @@ const MainPage = () => {
       StepApi.postStepInfo("0");
     }
   }, [step]);
+
+  const onNext = () => {
+    if (step == 0 || undefined) navigate("/carregister");
+    if (step == 1) navigate("/test");
+    if (step == 2) navigate("/calcefficency");
+    if (step == 3) navigate("/finalresult");
+  };
+
   return (
     <>
       <MainPageWrapper>
@@ -81,7 +88,10 @@ const MainPage = () => {
             </SubSectionTop>
             <SubSectionTop>
               {step ? (
-                <ImageText>{stepText[parseInt(step)]}</ImageText>
+                <>
+                  <ImageText>{stepText[parseInt(step)]}</ImageText>
+                  <NextButton onClick={onNext}>계속 진행하기</NextButton>
+                </>
               ) : (
                 <ImageText>{stepText[0]}</ImageText>
               )}
@@ -116,6 +126,20 @@ const MainPage = () => {
   );
 };
 export default MainPage;
+const NextButton = styled.button`
+  font-size: 0.8em;
+  color: white;
+  background-color: #0a84ff;
+  border: none;
+  border-radius: 50px;
+  padding: 6px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease-in-out all;
+  &:hover {
+    background-color: salmon;
+  }
+`;
 const BG = styled.div`
   position: fixed;
   padding: 0;
@@ -265,8 +289,5 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
   &:hover {
     background-color: 0a84ff;
   }
-  // @media screen and (max-height: 719px) {
-  //   display: none;
-  // }
   transition: 0.3s ease-in-out all;
 `;
