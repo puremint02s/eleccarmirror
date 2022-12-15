@@ -65,13 +65,14 @@ const MainPage = () => {
   const userQuery = useQuery("user", UserApi.currentUserGet).data;
   const stepQuery = useQuery("step", StepApi.getStepInfo).data;
   const carQuery = useQuery("car", CarRegisterApi.getCarInfo).data;
-  // console.log(carQuery);
+  console.log(stepQuery);
   useEffect(() => {
+    if (stepQuery?.data === null) {
+      StepApi.postStepInfo("0");
+    }
     setUser(userQuery?.data);
     setStep(stepQuery?.data);
     setCar(carQuery?.data);
-    console.log(user);
-    console.log(car);
     if (sessionStorage.getItem("userToken") === undefined) {
       navigate("/login");
     }
@@ -91,9 +92,15 @@ const MainPage = () => {
               {user && <UserWelcome userName={user.nickname}></UserWelcome>}
             </SubSectionTop>
             <SubSectionTop>
-              {step && <ImageText>{stepText[parseInt(step.step)]}</ImageText>}
-              {step && (
+              {step ? (
+                <ImageText>{stepText[parseInt(step.step)]}</ImageText>
+              ) : (
+                <ImageText>{stepText[0]}</ImageText>
+              )}
+              {step ? (
                 <RecomendStepImage src={stepImages[parseInt(step.step)]} />
+              ) : (
+                <RecomendStepImage src={stepImages[0]} />
               )}
             </SubSectionTop>
           </MainSectionTop>
@@ -102,7 +109,7 @@ const MainPage = () => {
               <HotPosts></HotPosts>
             </SubSectionBottom>
             <SubSectionBottom>
-              {car && <ElecCarReport car={car.recommended} />}
+              {stepQuery && <ElecCarReport step={step?.step} />}
             </SubSectionBottom>
           </MainSectionBottom>
         </MainArea>
@@ -203,7 +210,7 @@ const SubSectionTop = styled.section`
   }
 `;
 const SubSectionBottom = styled.section`
-  width: 50vw;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: Center;

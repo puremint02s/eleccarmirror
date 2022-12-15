@@ -64,4 +64,4 @@ def predict():
 
 if __name__ == "__main__":
     # debug=True, 코드 수정시 자동으로 플라스크 꺼졌다가 다시 켜져서 브라우저에 적용
-    app.run(port=4000, debug=True)
+    app.run(host='0.0.0.0', port=5005)
