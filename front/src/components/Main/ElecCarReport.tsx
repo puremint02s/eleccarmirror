@@ -40,7 +40,9 @@ const ElecCarReport = ({ car }: { car: CarProps }) => {
             </ReportTopSub>
           </ReportTopSection>
           <ReportBottomSection>
-            <ReportText>추천 차량</ReportText>
+            <ReportText>
+              <span>추천 차량</span>
+            </ReportText>
             <ReportBottomSubSection>
               <CarInfoWrapper>
                 <CarImage src={tempImage} />
@@ -89,6 +91,10 @@ const ReportWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 720px) {
+    padding: 10px;
+    padding-bottom: 30px;
+  }
 `;
 const ReportHeaderWrapper = styled.div`
   height: 50px;
@@ -97,37 +103,55 @@ const ReportHeaderWrapper = styled.div`
   align-items: center;
 `;
 const ReportHeaderText = styled.span`
+  text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9);
+
+  padding: 0 16px;
   font-size: 1.2em;
   font-weight: 600;
 `;
 const ReportMainArea = styled.div`
+  background-color: white;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  border: 1px solid #e8e8e8;
+  // border: 1px solid #e8e8e8;
+  box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.08);
   height: calc(100% - 50px);
   overflow: hidden;
   padding: 0 10px;
   box-sizing: border-box;
   color: #898989;
+  @media screen and (max-width: 720px) {
+    padding-bottom: 0px;
+  }
+  @media screen and (max-height: 719px) {
+    height: 300px;
+  }
 `;
 const ReportTopSection = styled.section`
   width: 100%;
   height: 40%;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1.5px solid #e8e8e8;
+  @media screen and (max-height: 719px) {
+    height: 30%;
+  }
 `;
 const ReportText = styled.div`
   color: "darkgrey";
-  padding: 10px 10px 0 10px;
+  padding: 6px 10px;
   height: 30px;
   display: flex;
   justify-content: start;
   align-items: center;
   font-weight: 600;
-  border-bottom: 1px solid #e8e8e8;
+  border-bottom: 1.5px solid #e8e8e8;
   @media screen and (max-width: 720px) {
     padding: 15px;
+  }
+  @media screen and (max-height: 719px) {
+    height: 20px;
   }
 `;
 const ReportTopSub = styled.div`
@@ -148,6 +172,12 @@ const ReportTopSub = styled.div`
         width: 50%;
       }
     }
+    @media screen and (max-height: 719px) {
+      padding: 10px 10px;
+      span: first-child {
+        width: 50%;
+      }
+    }
   }
 `;
 const ReportBottomSection = styled.div`
@@ -156,10 +186,14 @@ const ReportBottomSection = styled.div`
 `;
 const ReportBottomSubSection = styled.section`
   display: flex;
+  align-items: center;
   height: calc(100% - 30px);
   @media screen and (max-width: 720px) {
     height: auto;
     flex-direction: column;
+  }
+  @media screen and (max-height: 719px) {
+    height: 90%;
   }
 `;
 const CarImage = styled.img`
@@ -185,15 +219,18 @@ const CarInfoWrapper = styled.div`
 `;
 const CarInfoTextWrapper = styled.div`
   overflow: scroll;
-  width: 100%;
+  width: 80%;
   height: 100%;
   div {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    padding: 8px;
     span {
       padding: 0 8px;
     }
+  }
+  @media screen and (max-height: 719px) {
+    width: 95%;
   }
 `;
 

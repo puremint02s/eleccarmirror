@@ -124,8 +124,13 @@ export const BoardWrap = styled.div`
 
           button {
             background-color: transparent;
+            font-size: 16px;
             margin-right: 20px;
             cursor: pointer;
+            transition: all 0.3s;
+            &:hover {
+              color: #0a84ff;
+            }
           }
 
           & > p {

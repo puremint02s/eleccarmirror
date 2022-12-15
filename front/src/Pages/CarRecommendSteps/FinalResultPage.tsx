@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "components/common/Header";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
+import GreyCarImg from "assets/img/GreyQuestionCar.png";
 import Modal from "components/common/Modal";
 import CarRecommendResult from "components/FinalRecommendReport/CarRecommendResult";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
@@ -93,6 +94,7 @@ function FinalResultPage() {
                 MPG={MbtiRecommendCar[userMbtiType].MPG}
                 cost={MbtiRecommendCar[userMbtiType].cost}
                 homepage={MbtiRecommendCar[userMbtiType].homepage}
+                img={MbtiRecommendCar[userMbtiType].img}
               />
             </Modal>
           )}
@@ -107,7 +109,7 @@ function FinalResultPage() {
             <img
               style={{ width: 100, paddingBottom: 15 }}
               src={BlueCarImg}
-              alt="유형 이미지"
+              alt="현재 차량 이미지"
             />
             <p>{currentCarModel}</p>
           </ResultButton>
@@ -125,6 +127,7 @@ function FinalResultPage() {
                 MPG={dummyCarData.MPG}
                 cost={dummyCarData.cost}
                 homepage={dummyCarData.homepage}
+                img={GreyCarImg}
               />
             </Modal>
           )}
@@ -139,7 +142,7 @@ function FinalResultPage() {
             <img
               style={{ width: 100, paddingBottom: 15 }}
               src={BlueCarImg}
-              alt="유형 이미지"
+              alt="평균연비 이미지"
             />
             <p>{currentUserCalcEfficiency} km/L</p>
           </ResultButton>
@@ -157,6 +160,7 @@ function FinalResultPage() {
                 MPG={dummyCarData.MPG}
                 cost={dummyCarData.cost}
                 homepage={dummyCarData.homepage}
+                img={GreyCarImg}
               />
             </Modal>
           )}
@@ -193,7 +197,8 @@ const ResultButtonTitleWrapper = styled.p`
 `;
 
 export const ResultButton = styled.button`
-  padding: 40px;
+  width: 200px;
+  height: 200px;
   font-size: 16px;
   margin-top: 1rem;
   cursor: pointer;
