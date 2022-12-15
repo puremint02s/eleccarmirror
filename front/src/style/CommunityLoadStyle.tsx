@@ -36,10 +36,55 @@ export const Title = styled.div`
 
     &:first-child {
       line-height: 70px;
+      & > p {
+        button {
+          display: inline-block;
+          padding: 4px 8px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: all 0.3s;
+
+          &:hover {
+            background-color: #d2e0ec;
+          }
+        }
+      }
     }
 
     h2 {
       font-size: 30px;
+    }
+
+    & > input {
+      width: 100%;
+      border: 1px solid #aaa;
+      padding: 20px 0;
+      text-indent: 10px;
+      font-size: 17px;
+    }
+
+    b {
+      color: #7c7c7c;
+    }
+  }
+
+  & > div:last-child {
+    & > p:last-child {
+      button {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        & + button {
+          margin-left: 10px;
+        }
+
+        &:hover {
+          background-color: #d2e0ec;
+        }
+      }
     }
   }
 `;
@@ -47,10 +92,42 @@ export const Title = styled.div`
 export const Content = styled.div`
   padding-top: 20px;
   height: 500px;
+  .contentArea {
+    height: 80%;
+    textarea {
+      border-color: #aaa;
+      resize: none;
+      width: 98%;
+      height: 98%;
+      padding: 1%;
+      font-size: 16px;
+    }
+  }
 `;
 
 export const Hashtags = styled.div`
   padding-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  & > p {
+    padding-right: 20px;
+  }
+  .contentArea {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 400px;
+      border: 1px solid #aaa;
+      padding: 13px;
+      font-size: 16px;
+    }
+    .hashtags-tip {
+      background-color: transparent;
+      font-size: 14px;
+      color: #a14e35;
+    }
+  }
   span {
     background-color: #0a84ff;
     padding: 5px;

@@ -238,7 +238,7 @@ const PostTitle = styled.button`
   white-space: nowrap;
   max-width: 400px;
   /* width: 50%; */
-  @media screen and (max-width: 1300px) {
+  @media screen and (max-width: 1340px) {
     max-width: 200px;
   }
   @media screen and (max-width: 910px) {
