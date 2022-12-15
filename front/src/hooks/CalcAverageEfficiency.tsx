@@ -3,17 +3,18 @@ import { getUserRefuelRecord } from "apis/RefuelRecordApi";
 
 function CalcAverageEfficiency(currentUserId: string) {
   const [firstAmount, setFirstAmount] = useState(0);
-  const [firstOdometer, setFirstOdometer] = useState(0);
   const [secondAmount, setSecondAmount] = useState(0);
   const [secondOdometer, setSecondOdometer] = useState(0);
 
   useEffect(() => {
     async function getRefuelRecord(currentUserId: string) {
       const res = await getUserRefuelRecord(currentUserId);
-      setFirstAmount(res[res.length - 1].gas_amount);
-      setFirstOdometer(res[res.length - 1].odometer);
-      setSecondAmount(res[res.length - 2].gas_amount);
-      setSecondOdometer(res[res.length - 2].odometer);
+      // console.log(res);
+      if (res) {
+        setFirstAmount(res[res.length - 1].gas_amount);
+        setSecondAmount(res[res.length - 2].gas_amount);
+        setSecondOdometer(res[res.length - 2].odometer);
+      }
     }
     getRefuelRecord(currentUserId);
   }, []);
@@ -22,7 +23,7 @@ function CalcAverageEfficiency(currentUserId: string) {
   const intCalcResult = parseInt(calcResult);
   const averageEfficiency = Math.abs(intCalcResult);
 
-  return <>{averageEfficiency}</>;
+  return { averageEfficiency };
 }
 
 export default CalcAverageEfficiency;

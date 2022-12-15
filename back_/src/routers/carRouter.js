@@ -7,15 +7,15 @@ const carRouter = Router();
 carRouter.post("/car", login_required, async function (req, res, next) {
     try {
         const newData = {
-            user_id: req.currentUserId,
-            current: {
-                model: req.body.current.model,
-                brand: req.body.current.brand,
-            },
-            recommended: {
-                model: req.body.current.model,
-                brand: req.body.current.brand,
-            },
+          user_id: req.currentUserId,
+          current: {
+            model: req.body.current.model,
+            brand: req.body.current.brand,
+          },
+          recommended: {
+            model: req.body.recommended.model,
+            brand: req.body.recommended.brand,
+          },
         };
 
         const newCar = await carService.addCar(newData);
@@ -42,14 +42,14 @@ carRouter.put("/car", login_required, async function (req, res, next) {
     try {
         const user_id = req.currentUserId;
         const updatedData = {
-            current: {
-                model: req.body.current.model,
-                brand: req.body.current.brand,
-            },
-            recommended: {
-                model: req.body.current.model,
-                brand: req.body.current.brand,
-            },
+          current: {
+            model: req.body.current.model,
+            brand: req.body.current.brand,
+          },
+          recommended: {
+            model: req.body.recommended.model,
+            brand: req.body.recommended.brand,
+          },
         };
 
         const updateUserCar = await carService.updateCar(user_id, updatedData);

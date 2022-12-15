@@ -18,6 +18,7 @@ import {
 } from "style/CalcEfficiencyStyle";
 import { currentUserGet } from "apis/UserApi";
 import { AddRefuelRecord } from "apis/RefuelRecordApi";
+import { updateStepInfo } from "apis/StepApi";
 
 function CalcEfficiencyPage() {
   const [firstOilingDate, setFirstOilingDate] = useState(new Date());
@@ -72,7 +73,10 @@ function CalcEfficiencyPage() {
 
   const navigate = useNavigate();
   const SkipCalcAndGoFinalResult = () => navigate("/finalresult");
-  const SubmitAndGotoFinalResult = () => navigate("/finalresult");
+  const SubmitAndGotoFinalResult = () => {
+    updateStepInfo("3");
+    navigate("/finalresult");
+  };
 
   return (
     <CalcEfficiencyWrapper>
