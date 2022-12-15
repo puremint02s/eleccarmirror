@@ -38,12 +38,16 @@ function Community(props: any) {
   const [allCommunity, setAllCommunity] = useState<Community[] | []>([]);
   // const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
   const [commentCount, setCommentCount] = useState<Comment[] | []>([]);
+  const [pageParams, setPageParams] = useState<any>(null);
+
+  console.log("Community location path", location.search.slice(-1));
 
   const getData = (currentPage: number) => {
     setCurrentPage(currentPage);
   };
 
   useEffect(() => {
+    setPageParams(location.search.slice(-1));
     const api = async () => {
       try {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
@@ -77,9 +81,10 @@ function Community(props: any) {
 
   const moveToEachContent = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name: id } = e.target as HTMLButtonElement;
-    navigate(`/community/${id}`, {
+    navigate(`/community/${id}?page=${currentPage}`, {
       state: {
         id,
+        page: currentPage,
       },
     });
   };
