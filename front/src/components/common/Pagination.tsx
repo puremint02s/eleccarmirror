@@ -158,6 +158,7 @@ const Pagination = ({ currentPage, getData }: any) => {
       return;
     }
     paginationRef.current[0].style.color = "#0a84ff";
+
     for (let i = 0; i < totalPage.length; i++) {
       const page = totalPage[i];
       console.log("this", page);

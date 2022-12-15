@@ -33,7 +33,9 @@ type Comment = {
 function Community(props: any) {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(location.search.slice(-1)),
+  );
   const [contentsPerPage, setcontentsPerPage] = useState<Community[] | []>([]);
   const [allCommunity, setAllCommunity] = useState<Community[] | []>([]);
   // const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
@@ -43,17 +45,22 @@ function Community(props: any) {
   console.log("Community location path", location.search.slice(-1));
 
   const getData = (currentPage: number) => {
+    currentPage = Number(location.search.slice(-1));
     setCurrentPage(currentPage);
   };
 
   useEffect(() => {
     setPageParams(location.search.slice(-1));
+
+    setCurrentPage(Number(location.search.slice(-1)));
+
+    console.log("currentPage", currentPage);
     const api = async () => {
       try {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
         setcontentsPerPage(result.findContent);
 
-        // console.log("result.findContent", result.findContent);
+        console.log("result.findContent", result.findContent);
       } catch (err) {
         console.log("err=>", err);
       }
@@ -77,7 +84,9 @@ function Community(props: any) {
       }
     };
     api();
-  }, [currentPage]);
+  }, [currentPage, pageParams]);
+
+  console.log("pageParams", pageParams);
 
   const moveToEachContent = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name: id } = e.target as HTMLButtonElement;
