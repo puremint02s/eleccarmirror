@@ -38,19 +38,51 @@ export const Content = styled.div`
       outline: none;
     }
 
-    textarea {
-      padding: 2%;
-      width: 96%;
-      height: 223px;
-      border: 1px solid #303030;
-      outline: none;
-      resize: none;
-    }
+    & > div {
+      width: 100%;
+      height: auto;
+      textarea {
+        padding: 2%;
+        width: 96%;
+        height: 223px;
+        border: 1px solid #303030;
+        outline: none;
+        resize: none;
+      }
 
-    span {
-      display: block;
-      color: #ff4f18;
-      padding-top: 10px;
+      span {
+        display: block;
+        color: #ff4f18;
+        padding-top: 10px;
+      }
+
+      &:last-child {
+        .imgBox {
+          width: 200px;
+          height: 200px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid #aaa;
+          margin-bottom: 30px;
+          img {
+            width: 100%;
+          }
+        }
+        & > input {
+          border: none;
+          opacity: 0;
+          width: 0;
+          height: 0;
+          overflow: hidden;
+        }
+
+        button {
+          padding: 10px 20px;
+          border-radius: 9px;
+          cursor: pointer;
+        }
+      }
     }
   }
 `;
