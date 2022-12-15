@@ -89,20 +89,7 @@ class userAuthService {
       password,
       correctPasswordHash
     );
-    // 비밀번호 일치 여부 확인
-    const correctPasswordHash = user.password;
-    console.log("password ===>", password);
-    console.log("correctPasswordHash", correctPasswordHash);
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      correctPasswordHash
-    );
 
-    if (!isPasswordCorrect) {
-      const errorMessage =
-        "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
-    }
     if (!isPasswordCorrect) {
       const errorMessage =
         "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.";
@@ -112,23 +99,12 @@ class userAuthService {
     // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
     const token = jwt.sign({ user_id: user.user_id }, secretKey);
-    // 로그인 성공 -> JWT 웹 토큰 생성
-    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-    const token = jwt.sign({ user_id: user.user_id }, secretKey);
 
     // 반환할 loginuser 객체를 위한 변수 설정
     const user_id = user.user_id;
     // const id = user.id;
     // 반환할 loginuser 객체를 위한 변수 설정
-    const user_id = user.user_id;
-    // const id = user.id;
 
-    const loginUser = {
-      token,
-      user_id,
-      id: user.id,
-      errorMessage: null,
-    };
     const loginUser = {
       token,
       user_id,
@@ -138,12 +114,7 @@ class userAuthService {
 
     return loginUser;
   }
-    return loginUser;
-  }
 
-  //유저정보 불러오기
-  static async getUserInfo(user_id) {
-    const user = await User.findById(user_id);
   //유저정보 불러오기
   static async getUserInfo(user_id) {
     const user = await User.findById(user_id);
@@ -153,25 +124,18 @@ class userAuthService {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
-    if (!user) {
-      const errorMessage =
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
-    }
-
-    return user;
-  }
-    return user;
   }
 
   //유저정보 중복체크
   static async getUserInfomation({ id }) {
     const userSame = await User.findByIdValue({ id });
-
-    if (!userSame) {
-      const errorMessage =
-        "해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+    try {
+    } catch {
+      if (!userSame) {
+        const errorMessage =
+          "해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+        return { errorMessage };
+      }
     }
 
     return userSame;
@@ -189,19 +153,6 @@ class userAuthService {
       car_owned,
       elec_car_owned,
     } = newInput;
-  //유저정보 수정
-  static async updateUser(newInput) {
-    const {
-      user_id,
-      email,
-      id,
-      nickname,
-      age,
-      address,
-      car_owned,
-      elec_car_owned,
-    } = newInput;
-
     let user = await User.findById(user_id);
 
     console.log("user 찾음?", user);
@@ -225,13 +176,13 @@ class userAuthService {
       console.log("email is updated");
       const fieldToUpdate = "email";
       const updateValue = email;
-    if (user.email !== email) {
-      console.log("email is updated");
-      const fieldToUpdate = "email";
-      const updateValue = email;
+      if (user.email !== email) {
+        console.log("email is updated");
+        const fieldToUpdate = "email";
+        const updateValue = email;
 
-      user = await User.update({ user_id, fieldToUpdate, updateValue });
-    }
+        user = await User.update({ user_id, fieldToUpdate, updateValue });
+      }
       user = await User.update({ user_id, fieldToUpdate, updateValue });
     }
 
@@ -239,13 +190,13 @@ class userAuthService {
       console.log("id is updated");
       const fieldToUpdate = "id";
       const updateValue = id;
-    if (user.id !== id) {
-      console.log("id is updated");
-      const fieldToUpdate = "id";
-      const updateValue = id;
+      if (user.id !== id) {
+        console.log("id is updated");
+        const fieldToUpdate = "id";
+        const updateValue = id;
 
-      user = await User.update({ user_id, fieldToUpdate, updateValue });
-    }
+        user = await User.update({ user_id, fieldToUpdate, updateValue });
+      }
       user = await User.update({ user_id, fieldToUpdate, updateValue });
     }
 
@@ -253,13 +204,13 @@ class userAuthService {
       console.log("nickname is updated");
       const fieldToUpdate = "nickname";
       const updateValue = nickname;
-    if (user.nickname !== nickname) {
-      console.log("nickname is updated");
-      const fieldToUpdate = "nickname";
-      const updateValue = nickname;
+      if (user.nickname !== nickname) {
+        console.log("nickname is updated");
+        const fieldToUpdate = "nickname";
+        const updateValue = nickname;
 
-      user = await User.update({ user_id, fieldToUpdate, updateValue });
-    }
+        user = await User.update({ user_id, fieldToUpdate, updateValue });
+      }
       user = await User.update({ user_id, fieldToUpdate, updateValue });
     }
 
@@ -267,13 +218,13 @@ class userAuthService {
       console.log("age is updated");
       const fieldToUpdate = "age";
       const updateValue = age;
-    if (user.age !== age) {
-      console.log("age is updated");
-      const fieldToUpdate = "age";
-      const updateValue = age;
+      if (user.age !== age) {
+        console.log("age is updated");
+        const fieldToUpdate = "age";
+        const updateValue = age;
 
-      user = await User.update({ user_id, fieldToUpdate, updateValue });
-    }
+        user = await User.update({ user_id, fieldToUpdate, updateValue });
+      }
       user = await User.update({ user_id, fieldToUpdate, updateValue });
     }
 
@@ -281,13 +232,13 @@ class userAuthService {
       console.log("address is updated");
       const fieldToUpdate = "address";
       const updateValue = address;
-    if (user.address !== address) {
-      console.log("address is updated");
-      const fieldToUpdate = "address";
-      const updateValue = address;
+      if (user.address !== address) {
+        console.log("address is updated");
+        const fieldToUpdate = "address";
+        const updateValue = address;
 
-      user = await User.update({ user_id, fieldToUpdate, updateValue });
-    }
+        user = await User.update({ user_id, fieldToUpdate, updateValue });
+      }
       user = await User.update({ user_id, fieldToUpdate, updateValue });
     }
 
@@ -295,13 +246,13 @@ class userAuthService {
       console.log("car_owned is updated");
       const fieldToUpdate = "car_owned";
       const updateValue = car_owned;
-    if (user.car_owned !== car_owned) {
-      console.log("car_owned is updated");
-      const fieldToUpdate = "car_owned";
-      const updateValue = car_owned;
+      if (user.car_owned !== car_owned) {
+        console.log("car_owned is updated");
+        const fieldToUpdate = "car_owned";
+        const updateValue = car_owned;
 
-      user = await User.update({ user_id, fieldToUpdate, updateValue });
-    }
+        user = await User.update({ user_id, fieldToUpdate, updateValue });
+      }
       user = await User.update({ user_id, fieldToUpdate, updateValue });
     }
 
@@ -309,21 +260,13 @@ class userAuthService {
       console.log("elec_car_owned is updated");
       const fieldToUpdate = "elec_car_owned";
       const updateValue = elec_car_owned;
-    if (user.elec_car_owned !== elec_car_owned) {
-      console.log("elec_car_owned is updated");
-      const fieldToUpdate = "elec_car_owned";
-      const updateValue = elec_car_owned;
 
-      user = await User.update({ user_id, fieldToUpdate, updateValue });
-    }
       user = await User.update({ user_id, fieldToUpdate, updateValue });
     }
 
     console.log("nothing to update");
     console.log("nothing to update");
 
-    return user;
-  }
     return user;
   }
 }
