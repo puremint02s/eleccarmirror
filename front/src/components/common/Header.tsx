@@ -88,6 +88,7 @@ const HeaderWrapper = styled.header<{ isMenuOpen: boolean }>`
 const NavWrapper = styled.nav<{ isMenuOpen: boolean }>`
   display: flex;
   justify-content: center;
+  align-items: center;
   li {
     font-weight: 600;
     font-size: 1.1em;
@@ -97,6 +98,7 @@ const NavWrapper = styled.nav<{ isMenuOpen: boolean }>`
     @media screen and (max-width: 720px) {
       opacity: ${props => (props.isMenuOpen ? "1" : "0")};
       padding: 13px 0;
+      margin-left: 0px;
     }
   }
   li: hover {

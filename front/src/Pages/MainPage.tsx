@@ -58,31 +58,21 @@ const MainPage = () => {
   const [car, setCar] = useState<CarInfo>();
 
   const [isChatbotOpen, setChatbotOpen] = useState(false);
-  const [dummyPosts, setDummyPosts] = useState([
-    { userName: "더미 유저1", title: "더미 게시글 1" },
-    { userName: "더미 유저2", title: "더미 게시글 1" },
-    { userName: "더미 유저3", title: "더미 게시글 1" },
-    { userName: "더미 유저4", title: "더미 게시글 1" },
-    { userName: "더미 유저5", title: "더미 게시글 1" },
-    { userName: "더미 유저1", title: "더미 게시글 1" },
-    { userName: "더미 유저2", title: "더미 게시글 1" },
-    { userName: "더미 유저3", title: "더미 게시글 1" },
-    { userName: "더미 유저4", title: "더미 게시글 1" },
-    { userName: "더미 유저5", title: "더미 게시글 1" },
-  ]);
+
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
   };
   const userQuery = useQuery("user", UserApi.currentUserGet).data;
   const stepQuery = useQuery("step", StepApi.getStepInfo).data;
   const carQuery = useQuery("car", CarRegisterApi.getCarInfo).data;
-  // console.log(carQuery);
+  console.log(stepQuery);
   useEffect(() => {
+    if (stepQuery?.data === null) {
+      StepApi.postStepInfo("0");
+    }
     setUser(userQuery?.data);
     setStep(stepQuery?.data);
     setCar(carQuery?.data);
-    console.log(user);
-    console.log(car);
     if (sessionStorage.getItem("userToken") === undefined) {
       navigate("/login");
     }
@@ -102,9 +92,15 @@ const MainPage = () => {
               {user && <UserWelcome userName={user.nickname}></UserWelcome>}
             </SubSectionTop>
             <SubSectionTop>
-              {step && <ImageText>{stepText[parseInt(step.step)]}</ImageText>}
-              {step && (
+              {step ? (
+                <ImageText>{stepText[parseInt(step.step)]}</ImageText>
+              ) : (
+                <ImageText>{stepText[0]}</ImageText>
+              )}
+              {step ? (
                 <RecomendStepImage src={stepImages[parseInt(step.step)]} />
+              ) : (
+                <RecomendStepImage src={stepImages[0]} />
               )}
             </SubSectionTop>
           </MainSectionTop>
@@ -113,7 +109,7 @@ const MainPage = () => {
               <HotPosts></HotPosts>
             </SubSectionBottom>
             <SubSectionBottom>
-              {car && <ElecCarReport car={car.recommended} />}
+              {stepQuery && <ElecCarReport step={step?.step} />}
             </SubSectionBottom>
           </MainSectionBottom>
         </MainArea>
@@ -214,7 +210,7 @@ const SubSectionTop = styled.section`
   }
 `;
 const SubSectionBottom = styled.section`
-  width: 50vw;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: Center;
@@ -281,8 +277,8 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
   &:hover {
     background-color: 0a84ff;
   }
-  @media screen and (max-height: 719px) {
-    display: none;
-  }
+  // @media screen and (max-height: 719px) {
+  //   display: none;
+  // }
   transition: 0.3s ease-in-out all;
 `;

@@ -5,7 +5,7 @@ import loading from "assets/img/loading2.gif";
 import tempImage from "assets/img/GreyQuestionCar.png";
 import Chart from "./Chart";
 import { useNavigate } from "react-router-dom";
-import dic from "assets/data/dic.json";
+import dic from "assets/data/dic2.json";
 import * as StepApi from "apis/StepApi";
 import * as CarRegisterApi from "apis/CarRegisterApi";
 
@@ -117,7 +117,10 @@ const CarConfirmPopup = ({
             >
               <ResultWrapper>
                 <ResultTitleText>이 차가 맞나요?</ResultTitleText>
-                <ResultImage src={tempImage} />
+                <ResultImage
+                  src={`
+                  currentCarImages/${chartData[0].label.split(" ")[1]}.png`}
+                />
                 {/* vm에 저장해둔 분류 모델 이미지가 나와야 합니다. */}
                 <ResultText>
                   <span>제조사</span>
@@ -196,9 +199,10 @@ const CarConfirmPopup = ({
 };
 
 const ResultImage = styled.img`
-  width: 250px;
+  width: 400px;
   height: 250px;
-  object-fit: cover;
+  // object-fit: cover;
+  object-fit: contain;
   padding: 20px;
 `;
 const UploadImage = styled.img`

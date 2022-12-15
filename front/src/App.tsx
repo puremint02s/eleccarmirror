@@ -15,7 +15,10 @@ import { loginReducer } from "utils/reducer";
 import { currentUserGet } from "apis/UserApi";
 
 const Login = lazy(() => import("./Pages/LoginPage"));
-const Start = lazy(() => import("Pages/StartPage"));
+const SignUpLogin = lazy(() => import("Pages/StartPage"));
+const Start = lazy(
+  () => import("Pages/ServiceIntroduction/ServiceIntroduction"),
+);
 const Find = lazy(() => import("./Pages/FindUserInfo/FindPage"));
 const FindId = lazy(() => import("./Pages/FindUserInfo/FindIdPage"));
 const FindPwd = lazy(() => import("./Pages/FindUserInfo/FindPwdPage"));
@@ -44,6 +47,7 @@ const queryClient = new QueryClient();
 
 const ROUTE = {
   START: "/",
+  SIGNUPLOGIN: "/signuplogin",
   MAIN: "/main",
   LOGIN: "/login",
   FIND: "/find",
@@ -109,6 +113,7 @@ function App() {
               <QueryClientProvider client={queryClient}>
                 <Routes>
                   <Route path={ROUTE.START} element={<Start />} />
+                  <Route path={ROUTE.SIGNUPLOGIN} element={<SignUpLogin />} />
                   <Route path={ROUTE.MAIN} element={<MainPage />} />
                   <Route path={ROUTE.SERVICEINTRO} element={<ServiceIntro />} />
                   <Route path={ROUTE.LOGIN} element={<Login />} />

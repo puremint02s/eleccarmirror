@@ -18,7 +18,7 @@ communityRouter.post(
 
             const { title, content, hashtags } = req.body;
 
-            const filteredHashtags = hashtags.split(",");
+            const filteredHashtags = hashtags.replace(/\s/g, "").split(",");
 
             const data = {
                 user_id,

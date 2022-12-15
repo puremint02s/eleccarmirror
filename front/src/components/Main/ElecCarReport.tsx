@@ -1,11 +1,15 @@
 import styled from "styled-components/macro";
 import tempImage from "assets/img/GreyQuestionCar.png";
+import blueCar from "assets/img/BlueCar.png";
+import loading from "assets/img/loading2.gif";
 
-interface CarProps {
-  model: string;
-  brand: string;
-}
-const ElecCarReport = ({ car }: { car: CarProps }) => {
+import * as StepApi from "apis/StepApi";
+
+import { useQuery } from "react-query";
+
+const ElecCarReport = ({ step }: { step: string | undefined }) => {
+  const stepQuery = useQuery("step", StepApi.getStepInfo).data;
+  console.log(stepQuery);
   return (
     <>
       <ReportWrapper>
@@ -16,7 +20,18 @@ const ElecCarReport = ({ car }: { car: CarProps }) => {
           </a>
         </ReportHeaderWrapper>
         <ReportMainArea>
-          <ReportTopSection>
+          {step !== "3" ? (
+            <LoadingWrapper>
+              <div>
+                <img style={{ width: "100px", height: "auto" }} src={blueCar} />
+                <img style={{ width: "80px", height: "auto" }} src={loading} />
+              </div>
+              <span>나에게 알맞는 전기차 찾는중...</span>
+            </LoadingWrapper>
+          ) : (
+            <></>
+          )}
+          {/* <ReportTopSection>
             <ReportText>현재 차량</ReportText>
             <ReportTopSub>
               <div>
@@ -76,13 +91,30 @@ const ElecCarReport = ({ car }: { car: CarProps }) => {
                 </CarInfoTextWrapper>
               </CarInfoWrapper>
             </ReportBottomSubSection>
-          </ReportBottomSection>
+          </ReportBottomSection> */}
         </ReportMainArea>
       </ReportWrapper>
     </>
   );
 };
 // cursor: "pointer",
+
+const LoadingWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center;
+  span {
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 30px;
+  }
+  @media screen and (max-width: 720px) {
+    height: 300px;
+  }
+`;
 
 const ReportWrapper = styled.div`
   width: 100%;

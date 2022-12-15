@@ -6,11 +6,20 @@ import { useNavigate } from "react-router-dom";
 import * as uploadStyle from "style/CommunityUploadStyle";
 import * as CommunityApi from "apis/CommunityApi";
 
+const BACK_SERVER_URL = process.env.REACT_APP_BACK_SERVER_URL;
+
 const CommunityUpload = () => {
   const navigate = useNavigate();
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const hashTagsRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageContent, setImageContent] = useState<Blob | string>("");
+  const [uploadImages, setUploadImages] = useState<{
+    file: File;
+    thumbnail: string;
+    type: string;
+  }>();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -56,25 +65,59 @@ const CommunityUpload = () => {
   let uploadData;
   const uploadContent = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validation()) {
       return;
     }
-
     uploadData = {
       title,
       content,
       hashtags: hashTagsRef?.current?.value,
     };
-
     try {
       const res = await CommunityApi.uploadCommunity(uploadData);
     } catch (err) {
       console.log("err=>", err);
     }
 
+    const formData = new FormData();
+    formData.append("image", imageContent);
+
+    // const congif = {
+    //   headers:
+    // }
+
+    axios
+      .post(`${BACK_SERVER_URL}/images`, formData)
+      .then(res => {
+        console.log("파일 올라갔니", res.data);
+      })
+      .catch(err => {
+        console.log("file is not uploaded", err);
+      });
+
     navigate(`/community`);
   };
+
+  console.log("imageFile?.file.name", imageContent);
+
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      // console.log("e.target.files", e.target.files[0]);
+      setImageContent(e.target.files[0]);
+      const url = URL.createObjectURL(e.target.files[0]);
+      setUploadImages({
+        file: e.target.files[0],
+        thumbnail: url,
+        type: e.target.files[0].type.slice(0, 5),
+      });
+    }
+  };
+
+  const clickFileInput = () => {
+    fileInputRef.current?.click();
+    // console.log("image click");
+  };
+
   return (
     <>
       <Header />
@@ -97,17 +140,39 @@ const CommunityUpload = () => {
               <span>{titleWarn}</span>
             </div>
           </uploadStyle.Content>
+
           <uploadStyle.Content>
             <p>내용</p>
             <div className="contentArea">
-              <textarea
-                placeholder="내용을 입력해주세요"
-                ref={contentRef}
-                onChange={e => {
-                  setContent(e.target.value);
-                }}
-              ></textarea>
-              <span>{contentWarn}</span>
+              <div>
+                <textarea
+                  placeholder="내용을 입력해주세요"
+                  ref={contentRef}
+                  onChange={e => {
+                    setContent(e.target.value);
+                  }}
+                ></textarea>
+                <span>{contentWarn}</span>
+              </div>
+              <div>
+                <p className="imgBox">
+                  <img
+                    src={uploadImages?.thumbnail}
+                    alt={uploadImages?.thumbnail}
+                    // onClick={clickFileInput}
+                  />
+                </p>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  onChange={uploadImage}
+                />
+                <button type="button" onClick={clickFileInput}>
+                  파일 업로드
+                </button>
+              </div>
             </div>
           </uploadStyle.Content>
           <uploadStyle.HashTags>
