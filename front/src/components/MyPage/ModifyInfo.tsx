@@ -222,6 +222,7 @@ export default ModifyInfo;
 
 const ModifyInfoWrapper = styled.div`
   display: flex;
+  margin-left: 20vw;
 `;
 
 const ModifyInfoContentWrapper = styled.div`
@@ -252,7 +253,7 @@ const ModifyInfoContentSubTitle = styled.caption`
 `;
 
 const ModifyInfoContent = styled.table`
-  width: 50rem;
+  width: 50vw;
   height: auto;
   padding-top: 10px;
   padding-bottom: 10px;

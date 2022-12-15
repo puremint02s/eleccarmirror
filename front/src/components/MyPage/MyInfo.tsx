@@ -182,6 +182,7 @@ export default MyInfo;
 
 const MyPageWrapper = styled.div`
   display: flex;
+  margin-left: 20vw;
   padding-bottom: 5rem;
 `;
 
@@ -201,7 +202,7 @@ const MyPageContentTitle = styled.p`
 `;
 
 const MyPageContent = styled.div`
-  width: 50rem;
+  width: 50vw;
   height: auto;
   text-align: center;
   padding-top: 10px;
@@ -247,7 +248,7 @@ const AddRefuelButton = styled.button`
 `;
 
 const RefuelWrap = styled.div`
-  width: 50rem;
+  width: 50vw;
   border-top: 2px solid #e0e0e0;
 
   table {
