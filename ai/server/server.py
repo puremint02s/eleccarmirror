@@ -24,9 +24,9 @@ import matplotlib.pyplot as plt
 
 
 app = Flask(__name__)
-dicModelIndex = {'kia mohave': 0, 'hyundai kona': 1, 'kia sorento': 2, 'genesis g90': 3, 'chevrolet trailblazer': 4, 'kia sportage': 5, 'ssangyong torres': 6, 'genesis g70': 7, 'hyundai palisade': 8, 'renault qm6': 9, 'kia k3': 10, 'kia k5': 11, 'hyundai avante': 12, 'ssangyong rexton': 13, 'kia seltos': 14,
-                 'chevrolet spark': 15, 'hyundai santafe': 16, 'hyundai venue': 17, 'kia carnival': 18, 'kia morning': 19, 'renault xm3': 20, 'hyundai sonata': 21, 'hyundai grandeur': 22, 'genesis g80': 23, 'renault sm6': 24, 'kia k9': 25, 'hyundai tucson': 26, 'hyundai casper': 27, 'kia k8': 28, 'ssangyong tivoli': 29, 'kia ray': 30}
-dicIndexModel = {v: k for k, v in dicModelIndex.items()}
+# dicModelIndex = {'kia mohave': 0, 'hyundai kona': 1, 'kia sorento': 2, 'genesis g90': 3, 'chevrolet trailblazer': 4, 'kia sportage': 5, 'ssangyong torres': 6, 'genesis g70': 7, 'hyundai palisade': 8, 'renault qm6': 9, 'kia k3': 10, 'kia k5': 11, 'hyundai avante': 12, 'ssangyong rexton': 13, 'kia seltos': 14,
+#                  'chevrolet spark': 15, 'hyundai santafe': 16, 'hyundai venue': 17, 'kia carnival': 18, 'kia morning': 19, 'renault xm3': 20, 'hyundai sonata': 21, 'hyundai grandeur': 22, 'genesis g80': 23, 'renault sm6': 24, 'kia k9': 25, 'hyundai tucson': 26, 'hyundai casper': 27, 'kia k8': 28, 'ssangyong tivoli': 29, 'kia ray': 30}
+# dicIndexModel = {v: k for k, v in dicModelIndex.items()}
 
 
 @app.route('/')
@@ -64,4 +64,4 @@ def predict():
 
 if __name__ == "__main__":
     # debug=True, 코드 수정시 자동으로 플라스크 꺼졌다가 다시 켜져서 브라우저에 적용
-    app.run(port=4000, debug=True)
+    app.run(host='0.0.0.0', port=5005)

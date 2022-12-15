@@ -78,7 +78,7 @@ export const RESULT_CAR: ResultCarProps = {
     name: "EFAN",
     desc: "비싸도 괜찮음/디자인 중시/브랜드 상관 없음/보급형 성능 ok",
   },
-  ewbh: {
+  EWBH: {
     name: "EWBH",
     desc: "비싸도 괜찮음/외관 크게 고려 X/브랜드 중시/고성능 선호",
   },
