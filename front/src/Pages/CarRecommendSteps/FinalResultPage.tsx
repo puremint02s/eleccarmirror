@@ -59,6 +59,7 @@ function FinalResultPage() {
   );
   const currentUserCalcMPG =
     (currentUserCalcEfficiency.averageEfficiency / 1559) * 324;
+  // console.log(currentUserCalcMPG);
 
   useEffect(() => {
     const i = currentUserCalcMPG;

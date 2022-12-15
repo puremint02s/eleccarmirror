@@ -15,6 +15,8 @@ import DeleteRecord from "./DeleteRefuelRecord";
 function MyInfo() {
   const [currentCarModel, setCurrentCarModel] = useState("");
   const [currentCarBrand, setCurrentCarBrand] = useState("");
+  const [recommendedCarModel, setRecommendedCarModel] = useState("");
+  const [recommendedCarBrand, setRecommendedCarBrand] = useState("");
   const [records, setRecords] = useState([]);
 
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
@@ -30,10 +32,15 @@ function MyInfo() {
   useEffect(() => {
     async function setCurrentUserCarInfo() {
       const res = await getCarInfo();
-      const carInformation = res.data.current;
-      if (carInformation) {
-        setCurrentCarModel(carInformation.model);
-        setCurrentCarBrand(carInformation.brand);
+      const currentCarInformation = res.data.current;
+      if (currentCarInformation) {
+        setCurrentCarModel(currentCarInformation.model);
+        setCurrentCarBrand(currentCarInformation.brand);
+      }
+      const recommendedCarInformation = res.data.recommended;
+      if (recommendedCarInformation) {
+        setRecommendedCarModel(recommendedCarInformation.model);
+        setRecommendedCarBrand(recommendedCarInformation.brand);
       }
     }
     setCurrentUserCarInfo();
@@ -87,8 +94,38 @@ function MyInfo() {
                 </ul>
               )}
             </MyPageContent>
+            {!recommendedCarModel ? (
+              <>
+                <NewRegisterCarDesc>
+                  등록된 추천 차량이 없습니다.
+                </NewRegisterCarDesc>
+                <Link to={R.CARREGISTER}>
+                  <NewRegisterCarBtn>차량 추천받으러 가기</NewRegisterCarBtn>
+                </Link>
+              </>
+            ) : (
+              <>
+                <MyPageContentTitle>나의 추천 차량 정보</MyPageContentTitle>
+                <MyPageContent>
+                  <ul>
+                    <li>
+                      <span>제조사</span>
+                      <p>{recommendedCarBrand}</p>
+                    </li>
+                    <li>
+                      <span>차종</span>
+                      <p>{recommendedCarModel}</p>
+                    </li>
+                    {/* <li>
+                      <span>평균 연비</span>
+                      <p>{currentUserCalcEfficiency.averageEfficiency}km/L</p>
+                    </li> */}
+                  </ul>
+                </MyPageContent>
+              </>
+            )}
           </div>
-          <div style={{ paddingTop: 100 }}>
+          <div style={{ paddingTop: 50 }}>
             <MyPageContentTitle>
               이전 주유 기록 (최근 3개월)
               <AddRefuelButton
@@ -207,6 +244,7 @@ const MyPageContent = styled.div`
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  margin-bottom: 30px;
   border-top: 2px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
   ul {
