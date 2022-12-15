@@ -7,7 +7,6 @@ function ModifyInfo() {
   const [userEmail, setUserEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [nickname, setNickname] = useState("");
-  // const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
   const [inputAddress, setInputAddress] = useState("");
   const [carOwned, setCarOwned] = useState(false);
@@ -19,7 +18,6 @@ function ModifyInfo() {
       setUserEmail(res.data.email);
       setUserId(res.data.id);
       setNickname(res.data.nickname);
-      // setPassword(res.data.password);
       setAge(res.data.age);
       setInputAddress(res.data.address);
       setCarOwned(res.data.car_owned);
@@ -101,21 +99,6 @@ function ModifyInfo() {
                     ></ModifyInfoContentInput>
                   </ModifyInfoContentInputWrapper>
                 </ModifyInfoContentTr>
-                {/* <ModifyInfoContentTr>
-                  <ModifyInfoContentTitle>비밀번호</ModifyInfoContentTitle>
-                  <ModifyInfoContentInputWrapper>
-                    <ModifyInfoContentInput
-                      placeholder={password}
-                      onChange={e => setPassword(e.target.value)}
-                    ></ModifyInfoContentInput>
-                  </ModifyInfoContentInputWrapper>
-                </ModifyInfoContentTr>
-                <ModifyInfoContentTr>
-                  <ModifyInfoContentTitle>비밀번호 확인</ModifyInfoContentTitle>
-                  <ModifyInfoContentInputWrapper>
-                    <ModifyInfoContentInput />
-                  </ModifyInfoContentInputWrapper>
-                </ModifyInfoContentTr> */}
                 <ModifyInfoContentTr>
                   <ModifyInfoContentTitle>나이</ModifyInfoContentTitle>
                   <ModifyInfoContentInputWrapper>
@@ -203,7 +186,6 @@ function ModifyInfo() {
                     <ModifyInfoBtn type="submit">
                       회원정보 수정하기
                     </ModifyInfoBtn>
-                    <ModifyInfoBtn>회원 탈퇴하기</ModifyInfoBtn>
                     <ModifyInfoCancelBtn onClick={handleModifyInfoCancel}>
                       취소
                     </ModifyInfoCancelBtn>

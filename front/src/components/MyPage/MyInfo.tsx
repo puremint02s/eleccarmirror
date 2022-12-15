@@ -125,90 +125,98 @@ function MyInfo() {
               </>
             )}
           </div>
-          <div style={{ paddingTop: 50 }}>
-            <MyPageContentTitle>
-              이전 주유 기록 (최근 3개월)
-              <AddRefuelButton
-                onClick={() => setAddingRefuelRecord(!addingRefuelRecord)}
-              >
-                + 주유내역
-              </AddRefuelButton>
-              {addingRefuelRecord && (
-                <Modal
-                  closeModal={() => setAddingRefuelRecord(!addingRefuelRecord)}
+          {currentCarModel && (
+            <div style={{ paddingTop: 50 }}>
+              <MyPageContentTitle>
+                이전 주유 기록 (최근 3개월)
+                <AddRefuelButton
+                  onClick={() => setAddingRefuelRecord(!addingRefuelRecord)}
                 >
-                  <AddNewRefuelRecord />
-                </Modal>
-              )}
-            </MyPageContentTitle>
-            <RefuelWrap>
-              <table>
-                <thead>
-                  <tr>
-                    <th>주유 날짜</th>
-                    <th>유종</th>
-                    <th>주유량(L)</th>
-                    <th>누적 주행 거리(km)</th>
-                    <th> </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {!records[0] ? (
+                  + 주유내역
+                </AddRefuelButton>
+                {addingRefuelRecord && (
+                  <Modal
+                    closeModal={() =>
+                      setAddingRefuelRecord(!addingRefuelRecord)
+                    }
+                  >
+                    <AddNewRefuelRecord />
+                  </Modal>
+                )}
+              </MyPageContentTitle>
+              <RefuelWrap>
+                <table>
+                  <thead>
                     <tr>
-                      <td>주유내역이 존재하지 않습니다.</td>
+                      <th>주유 날짜</th>
+                      <th>유종</th>
+                      <th>주유량(L)</th>
+                      <th>누적 주행 거리(km)</th>
+                      <th> </th>
                     </tr>
-                  ) : (
-                    records.map((item, index) => {
-                      return (
-                        <tr key={index}>
-                          <td>{item.oiling_date.substring(0, 10)}</td>
-                          <td>{item.gas_type}</td>
-                          <td>{item.gas_amount}L</td>
-                          <td>{item.odometer}km</td>
-                          <td>
-                            <button
-                              onClick={() =>
-                                setModifyingRefuelRecord(!modifyingRefuelRecord)
-                              }
-                            >
-                              수정
-                            </button>
-                            {modifyingRefuelRecord && (
-                              <Modal
-                                closeModal={() =>
+                  </thead>
+                  <tbody>
+                    {!records[0] ? (
+                      <tr>
+                        <td>주유내역이 존재하지 않습니다.</td>
+                      </tr>
+                    ) : (
+                      records.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item.oiling_date.substring(0, 10)}</td>
+                            <td>{item.gas_type}</td>
+                            <td>{item.gas_amount}L</td>
+                            <td>{item.odometer}km</td>
+                            <td>
+                              <button
+                                onClick={() =>
                                   setModifyingRefuelRecord(
                                     !modifyingRefuelRecord,
                                   )
                                 }
                               >
-                                <ModifyRecord _id={item._id} />
-                              </Modal>
-                            )}
-                            <button
-                              onClick={() =>
-                                setDeletingRefuelRecord(!deletingRefuelRecord)
-                              }
-                            >
-                              삭제
-                            </button>
-                            {deletingRefuelRecord && (
-                              <ConfirmModal
-                                closeModal={() =>
+                                수정
+                              </button>
+                              {modifyingRefuelRecord && (
+                                <Modal
+                                  closeModal={() =>
+                                    setModifyingRefuelRecord(
+                                      !modifyingRefuelRecord,
+                                    )
+                                  }
+                                >
+                                  <ModifyRecord _id={item._id} />
+                                </Modal>
+                              )}
+                              <button
+                                onClick={() =>
                                   setDeletingRefuelRecord(!deletingRefuelRecord)
                                 }
                               >
-                                <DeleteRecord _id={item._id} />
-                              </ConfirmModal>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
-            </RefuelWrap>
-          </div>
+                                삭제
+                              </button>
+                              {deletingRefuelRecord && (
+                                <ConfirmModal
+                                  closeModal={() =>
+                                    setDeletingRefuelRecord(
+                                      !deletingRefuelRecord,
+                                    )
+                                  }
+                                >
+                                  <DeleteRecord _id={item._id} />
+                                </ConfirmModal>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </RefuelWrap>
+            </div>
+          )}
         </MyPageContentWrapper>
       </MyPageWrapper>
     </>

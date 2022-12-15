@@ -8,6 +8,7 @@ import styled from "styled-components";
 function ServiceIntroduction() {
   const outerDivRef: any = useRef();
   const [scrollIndex, setScrollIndex] = useState(1);
+  const dividerHeight = 5;
 
   useEffect(() => {
     const wheelHandler = (e: React.WheelEvent) => {
@@ -19,21 +20,21 @@ function ServiceIntroduction() {
       if (deltaY > 0) {
         if (scrollTop >= 0 && scrollTop < pageHeight) {
           outerDivRef.current.scrollTo({
-            top: pageHeight,
+            top: pageHeight + dividerHeight,
             left: 0,
             behavior: "smooth",
           });
           setScrollIndex(2);
         } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
           outerDivRef.current.scrollTo({
-            top: pageHeight * 2,
+            top: pageHeight * 2 + dividerHeight * 2,
             left: 0,
             behavior: "smooth",
           });
           setScrollIndex(3);
         } else {
           outerDivRef.current.scrollTo({
-            top: pageHeight * 2,
+            top: pageHeight * 2 + dividerHeight * 2,
             left: 0,
             behavior: "smooth",
           });
@@ -56,7 +57,7 @@ function ServiceIntroduction() {
           setScrollIndex(1);
         } else {
           outerDivRef.current.scrollTo({
-            top: pageHeight,
+            top: pageHeight + dividerHeight,
             left: 0,
             behavior: "smooth",
           });
@@ -78,9 +79,11 @@ function ServiceIntroduction() {
         <Section1>
           <ServiceIntro1 />
         </Section1>
+        <Divider />
         <Section2>
           <ServiceIntro2 />
         </Section2>
+        <Divider />
         <Section3>
           <ServiceIntro3 />
         </Section3>
@@ -120,4 +123,10 @@ const Section3 = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
+`;
+
+const Divider = styled.div`
+  width: 100vw;
+  height: 5px;
+  background-color: transparent;
 `;
