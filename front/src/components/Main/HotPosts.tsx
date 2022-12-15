@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import * as CommunityApi from "apis/CommunityApi";
 import * as CommentApi from "apis/CommentApi";
 import { useNavigate } from "react-router";
@@ -49,8 +49,9 @@ const HotPosts = () => {
           }
         }
 
-        console.log("arr", arr);
-        setCommunitys(arr.slice(0, 10));
+        const resultHotPosts = [...arr.slice(0, 10)].reverse();
+        console.log("resultHotPosts", resultHotPosts);
+        setCommunitys(resultHotPosts);
       } catch (err) {
         console.log(err);
       }
@@ -112,7 +113,7 @@ const HotPosts = () => {
           ) : (
             communitys.map((item, index) => (
               <PostWrapper key={index}>
-                <div style={{ width: "auto" }}>
+                <PostTitleWrapper>
                   <PostTitle
                     type="button"
                     name={item._id}
@@ -130,10 +131,10 @@ const HotPosts = () => {
                       </div>
                     ) : null}
                   </p>
-                </div>
-                <p style={{ display: "flex", alignItems: "center" }}>
-                  {item.nickname}
-                </p>
+                </PostTitleWrapper>
+                <PostWriter>
+                  <div>{item.nickname}</div>
+                </PostWriter>
               </PostWrapper>
             ))
           )}
@@ -163,12 +164,14 @@ const HotPostsTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  span {
+  & > span,
+  a span {
     text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.9);
     font-size: 1.2em;
     font-weight: 600;
   }
 `;
+
 const HotPostsMain = styled.div`
   background-color: white;
   border-radius: 16px;
@@ -178,53 +181,91 @@ const HotPostsMain = styled.div`
   justify-content: start;
   align-items: center;
   height: calc(100% - 50px);
-  // border: 1px solid #e8e8e8;
   box-shadow: 0px 7px 15px rgba(0, 0, 0, 0.08);
 
   padding: 10px;
   box-sizing: border-box;
-  div {
-    width: 100%;
-    padding: 5px 5px;
-    padding-right: 10px;
-    box-sizing: border-box;
-    color: #898989;
-    display: flex;
-    justify-content: space-between;
-  }
-  div: last-child {
-    border: none;
-  }
+
   @media screen and (max-width: 720px) {
     height: auto;
-  }
-  p {
-    div {
-      display: flex;
-      align-items: center;
-      height: 30px;
-    }
   }
 `;
 
 const PostWrapper = styled.div`
   border-bottom: 2px solid #e8e8e8;
+  display: flex;
+  width: 100%;
+  padding: 5px 5px;
+  padding-right: 10px;
+  box-sizing: border-box;
+  color: #898989;
+  display: flex;
+  justify-content: space-between;
+  &:last-child {
+    border: none;
+  }
+`;
+const PostTitleWrapper = styled.div`
+  width: 70%;
+  display: flex;
+  align-items: center;
 `;
 const PostTitle = styled.button`
+  max-width: 100%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 1.1em;
-  padding: 2px 0.5em;
+  height: 1.5em;
+  padding: 0 0.5em;
   margin-right: 0.5em;
   border-radius: 5px;
-  &: hover {
+  transition: 0.3s ease-in-out all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 400px;
+  /* width: 50%; */
+  @media screen and (max-width: 1340px) {
+    max-width: 200px;
+  }
+  @media screen and (max-width: 910px) {
+    max-width: 100px;
+  }
+  @media screen and (max-width: 720px) {
+    max-width: 300px;
+  }
+
+  &:hover {
     color: white;
     background-color: #0a84ff;
   }
-  transition: 0.3s ease-in-out all;
 `;
+const PostWriter = styled.div`
+  width: 25%;
+  height: 100%;
+  text-align: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  & > div {
+    white-space: nowrap;
+    display: block;
+    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.1em;
+  }
+`;
+
 const LoadingWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center !important;
   align-items: center;
+  @media screen and (max-width: 720px) {
+    height: 300px;
+  }
 `;

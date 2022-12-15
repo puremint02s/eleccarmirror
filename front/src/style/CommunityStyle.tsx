@@ -81,24 +81,31 @@ export const BoardWrap = styled.div`
     margin-left: 0px;
   }
 
-  table {
+  .table {
     width: 100%;
     border-collapse: collapse;
     border-bottom: 5px solid #eaeaea;
     margin-bottom: 60px;
+    display: table;
 
-    thead {
+    .thead {
       height: 45px;
+      line-height: 45px;
       border-bottom: 5px solid #eaeaea;
-      tr {
-        th {
-          @media screen and (max-width: 768px) {
+      display: table-row-group;
+      .tr {
+        display: table-row;
+        p {
+          display: table-cell;
+          text-align: center;
+
+          @media screen and (max-width: 720px) {
             font-size: 14px;
           }
           &:first-child {
             width: 80%;
 
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: 720px) {
               width: 40%;
             }
           }
@@ -106,14 +113,31 @@ export const BoardWrap = styled.div`
       }
     }
 
-    tbody {
-      tr {
+    .tbody {
+      display: table-row-group;
+      .tr {
+        display: table-row;
         border-bottom: 1px solid #e8e8e8;
         height: 48px;
-        td {
+        .td {
+          display: table-cell;
           text-align: center;
 
-          @media screen and (max-width: 768px) {
+          &.nickname {
+            p {
+              margin: 0 auto;
+              max-width: 130px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+
+              @media screen and (max-width: 720px) {
+                max-width: 50px;
+              }
+            }
+          }
+
+          @media screen and (max-width: 720px) {
             font-size: 14px;
           }
 
@@ -123,6 +147,10 @@ export const BoardWrap = styled.div`
           }
 
           button {
+            max-width: 800px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             background-color: transparent;
             font-size: 16px;
             margin-right: 20px;
@@ -130,6 +158,10 @@ export const BoardWrap = styled.div`
             transition: all 0.3s;
             &:hover {
               color: #0a84ff;
+            }
+
+            @media screen and (max-width: 720px) {
+              max-width: 220px;
             }
           }
 

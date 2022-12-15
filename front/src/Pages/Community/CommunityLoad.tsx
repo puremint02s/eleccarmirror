@@ -36,12 +36,8 @@ function CommunityLoad() {
   const navigate = useNavigate();
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const commentEditRef = useRef<HTMLInputElement>(null);
-
-  const toEditTitleRef = useRef(null);
-  const toEditContentRef = useRef(null);
-  const toEditHashTagsRef = useRef(null);
-
   const [contents, setContents] = useState<contentProps | null>(null);
+  const [hashTags, setHashTags] = useState<string[] | []>([]);
   const [user, setUser] = useState<userProps>();
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState<commentProps[] | []>([]);
@@ -65,6 +61,12 @@ function CommunityLoad() {
         console.log("cccc", data);
 
         setContents(data);
+
+        const hashtags = data.hashtags.filter((item: any) => {
+          return item !== "";
+        });
+
+        setHashTags(hashtags);
       } catch (err) {
         console.log("err=>", err);
       }
@@ -86,7 +88,7 @@ function CommunityLoad() {
     };
 
     api();
-  }, [comment, isCommentRemoved, isEditSelected]);
+  }, [comment, isCommentRemoved, isEditSelected, isContentEdit]);
 
   const uploadComment = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -101,10 +103,6 @@ function CommunityLoad() {
 
       setComment(result);
       setResetTextArea("");
-
-      // if (!commentRef.current) {
-      //   return;
-      // }
     } catch (err) {
       console.log(err);
     }
@@ -177,28 +175,43 @@ function CommunityLoad() {
     setIsContentEdit(true);
     setTitleContent(contents?.title);
     setContentsContent(contents?.content);
-    setHashtagsContent(contents?.hashtags);
+    setHashtagsContent(hashTags);
   };
 
-  console.log("commentList", commentList);
+  console.log("titleContent", titleContent);
+  console.log("contents title", contents?.title);
 
   const onUpdateContent = async () => {
     try {
       const _id = contents?._id;
+
+      const hashtagData =
+        typeof hashtagsContent === "string"
+          ? hashtagsContent
+              .replace(/\s/g, "")
+              .split(",")
+              .filter((item: any) => {
+                return item !== "";
+              })
+          : null;
+
       const data = {
         _id,
         title: titleContent,
         content: contentsContent,
-        hashtags: hashtagsContent,
+        hashtags: hashtagData,
       };
       const result = await CommunityApi.updateCommunity(data);
       console.log(result);
-      setIsContentEdit(false);
-      navigate(`/community`);
+
+      navigate(`/community/${_id}`);
     } catch (err) {
       console.log(err);
     }
+    setIsContentEdit(false);
   };
+
+  console.log("hashTags", hashTags);
 
   return (
     <>
@@ -210,7 +223,17 @@ function CommunityLoad() {
             <C.Title>
               {isContentEdit ? (
                 <>
-                  <p>제목</p>
+                  <div>
+                    <p>제목</p>
+                    {contents?.user_id !== user?.user_id &&
+                    isContentEdit ? null : (
+                      <p>
+                        <button type="button" onClick={onUpdateContent}>
+                          수정완료
+                        </button>
+                      </p>
+                    )}
+                  </div>
                   <div>
                     <input
                       type="text"
@@ -230,7 +253,9 @@ function CommunityLoad() {
                 </div>
               )}
               <div>
-                <p>{contents?.nickname}</p>
+                <p>
+                  <b>작성자 |</b> {contents?.nickname}
+                </p>
                 {contents?.user_id === user?.user_id && !isContentEdit ? (
                   <p>
                     <button type="button" onClick={editContent}>
@@ -240,13 +265,7 @@ function CommunityLoad() {
                       삭제
                     </button>
                   </p>
-                ) : (
-                  <p>
-                    <button type="button" onClick={onUpdateContent}>
-                      수정완료
-                    </button>
-                  </p>
-                )}
+                ) : null}
               </div>
             </C.Title>
             <C.Content>
@@ -281,8 +300,8 @@ function CommunityLoad() {
                     </span>
                   </div>
                 </>
-              ) : contents?.hashtags[0] === "" ? null : (
-                contents?.hashtags.map((item, index) => {
+              ) : hashTags[0] === "" ? null : (
+                hashTags.map((item, index) => {
                   return <span key={index}>{item}</span>;
                 })
               )}
