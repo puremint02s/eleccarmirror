@@ -3,11 +3,28 @@ import tempImage from "assets/img/GreyQuestionCar.png";
 import blueCar from "assets/img/BlueCar.png";
 import loading from "assets/img/loading2.gif";
 import * as CarRegisterApi from "apis/CarRegisterApi";
-
+import { Result } from "assets/data/CarOutputList";
 import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
+
+type Car = {
+  brand: string;
+  model: string;
+  distance: number;
+  battery: number;
+  MPG: number;
+  cost: number;
+  homepage: string;
+  img?: string;
+};
 
 const ElecCarReport = ({ step }: { step: string | undefined }) => {
   const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
+  const [recomendedCar, setRecomendedCar] = useState<Car>();
+  useEffect(() => {
+    const foundCar = Result.find(v => v.model === car?.recommended?.model);
+    setRecomendedCar(foundCar);
+  }, [car]);
   return (
     <>
       <ReportWrapper>
@@ -33,21 +50,21 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
                 <ReportTopSub>
                   <div>
                     <span>유형</span>
-                    <span>{car?.model}</span>
+                    <span>{car?.current.model}</span>
                   </div>
                   <div>
                     <span>평균연비</span>
-                    <span>{car?.model}</span>
+                    <span>{car?.current.model}</span>
                   </div>
                 </ReportTopSub>
                 <ReportTopSub>
                   <div>
                     <span>차종</span>
-                    <span>{car?.model}</span>
+                    <span>{car?.current.model}</span>
                   </div>
                   <div>
                     <span>제조사</span>
-                    <span>{car?.brand}</span>
+                    <span>{car?.current.brand}</span>
                   </div>
                 </ReportTopSub>
               </ReportTopSection>
@@ -63,27 +80,29 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
                     <CarInfoTextWrapper>
                       <div>
                         <span>제조사</span>
-                        <span>ㅇㅇㅇ</span>
+                        <span>{car?.recommended.brand}</span>
                       </div>
                       <div>
                         <span>모델</span>
-                        <span>ㅇㅇㅇ</span>
+                        <span>{car?.recommended.model}</span>
                       </div>
                       <div>
                         <span>주행거리</span>
-                        <span>ㅇㅇㅇ</span>
+                        <span>{recomendedCar?.distance}</span>
                       </div>
                       <div>
                         <span>배터리 용량</span>
-                        <span>ㅇㅇㅇ</span>
+                        <span>{recomendedCar?.battery}</span>
                       </div>
                       <div>
                         <span>전비</span>
-                        <span>ㅇㅇㅇ</span>
+                        <span>{recomendedCar?.MPG}</span>
                       </div>
                       <div>
                         <span>가격</span>
-                        <span>ㅇㅇㅇ</span>
+                        <span>
+                          {recomendedCar?.cost.toLocaleString("en-US")}
+                        </span>
                       </div>
                     </CarInfoTextWrapper>
                   </CarInfoWrapper>
@@ -250,6 +269,7 @@ const CarInfoWrapper = styled.div`
   @media screen and (max-width: 720px) {
     width: 100%;
     height: auto;
+    padding-bottom: 40px;
   }
 `;
 const CarInfoTextWrapper = styled.div`
