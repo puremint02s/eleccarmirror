@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const ShareButtonWrapper = styled.div`
   margin-top: 2rem;
-  margin-bottom: 2rem;
 `;
 
 export const ShareButtonTitle = styled.p`

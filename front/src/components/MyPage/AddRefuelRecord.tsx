@@ -31,13 +31,12 @@ function AddNewRefuelRecord() {
     e.preventDefault();
     try {
       const res = await AddRefuelRecord(
-        currentUserId, // 현재 로그인 유저 아이디 전역에서 관리하는 거 받아오기
+        currentUserId,
         oilingDate,
         gasType,
         gasAmount,
         odometer,
       );
-      console.log(res);
       window.alert("주유기록이 등록되었습니다.");
       window.location.replace("/mypage");
     } catch (e) {

@@ -1,4 +1,4 @@
-import { axiosInstance, axiosLoginInstance } from "./AxiosInstance";
+import { axiosInstance } from "./AxiosInstance";
 interface CarProps {
   model: string;
   brand: string;
