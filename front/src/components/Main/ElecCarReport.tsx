@@ -74,7 +74,7 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
                 </ReportText>
                 <ReportBottomSubSection>
                   <CarInfoWrapper>
-                    <CarImage src={tempImage} />
+                    <CarImage src={recomendedCar?.img} />
                   </CarInfoWrapper>
                   <CarInfoWrapper>
                     <CarInfoTextWrapper>
@@ -95,7 +95,7 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
                         <span>{recomendedCar?.battery}</span>
                       </div>
                       <div>
-                        <span>전비</span>
+                        <span>전비(Km/kWh)</span>
                         <span>{recomendedCar?.MPG}</span>
                       </div>
                       <div>
@@ -251,9 +251,9 @@ const ReportBottomSubSection = styled.section`
   }
 `;
 const CarImage = styled.img`
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
   @media screen and (max-width: 720px) {
     width: 70vw;
     height: auto;
