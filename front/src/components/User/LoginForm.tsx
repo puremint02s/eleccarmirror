@@ -6,18 +6,14 @@ import {
   LoginInputTitle,
   LoginInput,
   FootBox,
-  // RememberMeTitle,
   FindEmailPwdButton,
   ButtonBox,
   InputErrorMessage,
   LoginButton,
-  KakaoLoginButton,
-  GoogleLoginButton,
 } from "style/LoginFormStyle";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 import LogoImg from "assets/img/MyElecCar logo.png";
 import { R } from "App";
-import styled from "styled-components";
 
 interface CommonType {
   id: string;
@@ -66,17 +62,12 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
           <InputErrorMessage>비밀번호를 다시 확인해주세요.</InputErrorMessage>
         )}
         <FootBox>
-          {/* <input type="checkbox" />
-          <RememberMeTitle>remember me</RememberMeTitle> */}
-          {/* 구현할지 안 할지 모르는 기능이라서 */}
           <a href="/find">
             <FindEmailPwdButton>아이디/비밀번호 찾기</FindEmailPwdButton>
           </a>
         </FootBox>
         <ButtonBox>
           <LoginButton type="submit">로그인</LoginButton>
-          <KakaoLoginButton>카카오톡으로 시작</KakaoLoginButton>
-          <GoogleLoginButton>구글로 시작</GoogleLoginButton>
         </ButtonBox>
       </LoginFormWrapper>
     </LoginFormBox>
@@ -84,13 +75,3 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
 }
 
 export default LoginForm;
-
-const Label = styled.label`
-  position: relative;
-
-  button {
-    position: absolute;
-    top: 0;
-    right: 5px;
-  }
-`;
