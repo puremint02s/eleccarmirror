@@ -53,31 +53,19 @@ const MainPage = () => {
   ];
   const navigate = useNavigate();
 
-  const [user, setUser] = useState<UserInfo>();
-  const [step, setStep] = useState<{ step: string }>();
-  const [car, setCar] = useState<CarInfo>();
-
   const [isChatbotOpen, setChatbotOpen] = useState(false);
+  const user = useQuery("user", UserApi.currentUserGet)?.data?.data;
+  const step = useQuery("step", StepApi.getStepInfo)?.data?.data?.step;
+  // const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
 
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
   };
-  const userQuery = useQuery("user", UserApi.currentUserGet).data;
-  const stepQuery = useQuery("step", StepApi.getStepInfo).data;
-  const carQuery = useQuery("car", CarRegisterApi.getCarInfo).data;
-  console.log(stepQuery);
   useEffect(() => {
-    if (stepQuery?.data === null) {
+    if (step === null) {
       StepApi.postStepInfo("0");
     }
-    setUser(userQuery?.data);
-    setStep(stepQuery?.data);
-    setCar(carQuery?.data);
-    if (sessionStorage.getItem("userToken") === undefined) {
-      navigate("/login");
-    }
-  }, [userQuery, stepQuery, carQuery]);
-
+  }, [step]);
   return (
     <>
       <MainPageWrapper>
@@ -93,12 +81,12 @@ const MainPage = () => {
             </SubSectionTop>
             <SubSectionTop>
               {step ? (
-                <ImageText>{stepText[parseInt(step.step)]}</ImageText>
+                <ImageText>{stepText[parseInt(step)]}</ImageText>
               ) : (
                 <ImageText>{stepText[0]}</ImageText>
               )}
               {step ? (
-                <RecomendStepImage src={stepImages[parseInt(step.step)]} />
+                <RecomendStepImage src={stepImages[parseInt(step)]} />
               ) : (
                 <RecomendStepImage src={stepImages[0]} />
               )}
@@ -109,7 +97,7 @@ const MainPage = () => {
               <HotPosts></HotPosts>
             </SubSectionBottom>
             <SubSectionBottom>
-              {stepQuery && <ElecCarReport step={step?.step} />}
+              {step && <ElecCarReport step={step} />}
             </SubSectionBottom>
           </MainSectionBottom>
         </MainArea>

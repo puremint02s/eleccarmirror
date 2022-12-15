@@ -1,4 +1,3 @@
-import { axiosInstance, axiosLoginInstance } from "./AxiosInstance";
 import axios from "axios";
 
 const BASE_URL =

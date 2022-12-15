@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { useCallback, useState, useRef, useEffect } from "react";
-import axios from "axios";
 import uploadImg from "assets/img/upload.png";
 import CarConfirmPopup from "components/CarRegister/CarConfirmPopup";
 import Header from "components/common/Header";
@@ -9,17 +8,11 @@ import TextBubbleBox from "components/CarRegister/TextBubbleBox";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import * as ImageUploadApi from "apis/ImageUpload";
-interface carData {
-  filename: string;
-  prediction: Array<number>;
-}
 
 function CarRegisterPage() {
   const navigate = useNavigate();
 
-  const BACK_SERVER_URL = process.env.REACT_APP_BACK_SERVER_URL;
   const imageInput = useRef<HTMLInputElement>(null);
-
   const [isPopUpOpen, setPopUpOpen] = useState(false);
 
   const { mutate, isLoading, data } = useMutation("carData", (data: any) =>
