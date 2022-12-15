@@ -24,7 +24,33 @@ userRouter.post("/user/register", async function (req, res, next) {
       car_owned,
       elec_car_owned,
     } = req.body;
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
+    }
+    const {
+      email,
+      id,
+      nickname,
+      password,
+      age,
+      address,
+      car_owned,
+      elec_car_owned,
+    } = req.body;
 
+    const newUser = await userAuthService.addUser({
+      email,
+      id,
+      nickname,
+      password,
+      age,
+      address,
+      car_owned,
+      elec_car_owned,
+    });
     const newUser = await userAuthService.addUser({
       email,
       id,
@@ -40,13 +66,24 @@ userRouter.post("/user/register", async function (req, res, next) {
   } catch (err) {
     next(err);
   }
+    return res.status(201).json(newUser);
+  } catch (err) {
+    next(err);
+  }
 });
 
 //로그인
 userRouter.post("/user/login", async function (req, res, next) {
   try {
     const { id, password } = req.body;
+  try {
+    const { id, password } = req.body;
 
+    const user = await userAuthService.getUser({ id, password });
+    res.status(200).send(user);
+  } catch (err) {
+    next(err);
+  }
     const user = await userAuthService.getUser({ id, password });
     res.status(200).send(user);
   } catch (err) {
@@ -61,11 +98,23 @@ userRouter.get(
   async function (req, res, next) {
     try {
       const user_id = req.currentUserId;
+  "/user/current",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const user_id = req.currentUserId;
 
+      console.log("currentUserId", user_id);
       console.log("currentUserId", user_id);
 
       const currentUserInfo = await userAuthService.getUserInfo(user_id);
+      const currentUserInfo = await userAuthService.getUserInfo(user_id);
 
+      res.status(200).send(currentUserInfo);
+    } catch (err) {
+      next(err);
+    }
+  }
       res.status(200).send(currentUserInfo);
     } catch (err) {
       next(err);
@@ -75,6 +124,8 @@ userRouter.get(
 
 //유저정보 수정
 userRouter.put("/user", login_required, async function (req, res, next) {
+  try {
+    const user_id = req.currentUserId;
   try {
     const user_id = req.currentUserId;
 
@@ -99,11 +150,19 @@ userRouter.put("/user", login_required, async function (req, res, next) {
     };
 
     const updateUserInfo = await userAuthService.updateUser(newInput);
+    const updateUserInfo = await userAuthService.updateUser(newInput);
 
     if (updateUserInfo.errorMessage) {
       throw new Error(updateUserInfo.errorMessage);
     }
+    if (updateUserInfo.errorMessage) {
+      throw new Error(updateUserInfo.errorMessage);
+    }
 
+    return res.status(201).json(updateUserInfo);
+  } catch (err) {
+    next(err);
+  }
     return res.status(201).json(updateUserInfo);
   } catch (err) {
     next(err);
@@ -118,6 +177,23 @@ userRouter.get("/user/:id", login_required, async function (req, res, next) {
     const currentUser = await userAuthService.getUserInfo(user_id);
 
     res.status(201).send(currentUser);
+  } catch (err) {
+    next(err);
+  }
+    res.status(201).send(currentUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
+//유저정보 중복체크
+userRouter.get("/users/same", async function (req, res, next) {
+  try {
+    const { id } = req.body;
+    // const user = await userAuthService.getUser({ id, password });
+    const sameUser = await userAuthService.getUserInfomation({ id });
+
+    res.status(201).send(sameUser);
   } catch (err) {
     next(err);
   }

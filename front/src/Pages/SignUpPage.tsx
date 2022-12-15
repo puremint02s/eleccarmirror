@@ -26,16 +26,25 @@ const SignUpPage = () => {
   const [inputAddress, setInputAddress] = useState("");
   const [carOwned, setCarOwned] = useState(false);
   const [elecCarOwned, setElecCarOwned] = useState(false);
-  const doSignup = useMutation(Api.RegisterRequest, {
+  const doSignup = useMutation(Api.registerRequest, {
     onSuccess: message => {
       navigate("/login");
-      swal("회원가입 완료", "회원가입 되었습니다.", message);
+      console.log({ success: message });
     },
     onError: error => {
-      swal("회원가입 불가", "존재하는 아이디입니다.");
       console.log({ error });
     },
   });
+
+  const doSameCheck = useMutation(Api.registerUserGet, {
+    onSuccess: message => {
+      console.log({ success: message });
+    },
+    onError: error => {
+      console.log({ error });
+    },
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,7 +79,15 @@ const SignUpPage = () => {
   const signUp = handleSubmit(registerForm => {
     delete registerForm.confirmPassword;
     doSignup.mutate(registerForm);
+
     // console.log(registerForm);
+  });
+
+  const signSame = handleSubmit(registerForm => {
+    // const id = registerForm.id;
+    // doSameCheck.mutate(id);
+    // console.log(registerForm);
+    console.log("dd");
   });
 
   return (
@@ -125,6 +142,41 @@ const SignUpPage = () => {
                 width: "320px",
               }}
             >
+              <label htmlFor="id">아이디</label>
+              <input
+                style={{
+                  width: "100%",
+                  height: "40px",
+                  backgroundColor: "#F6F6F6",
+                  paddingLeft: "10px",
+                  boxSizing: "border-box",
+                  margin: "10px 0",
+                }}
+                id="id"
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                {...register("id", {
+                  required: "아이디를 입력해주세요",
+                  pattern: {
+                    value: /^(?=.*[A-Za-z0-9]).{4,10}$/,
+                    message: "영문, 숫자로 4~10글자 입력해주세요.",
+                  },
+                  onChange: signSame,
+                })}
+              />
+              <div>{errors.id && errors.id?.message}</div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "start",
+                padding: "5px 0",
+                width: "320px",
+              }}
+            >
               <label htmlFor="email">이메일</label>
               <input
                 style={{
@@ -148,39 +200,6 @@ const SignUpPage = () => {
                 })}
               />
               <div>{errors.email && errors.email?.message}</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                padding: "5px 0",
-                width: "320px",
-              }}
-            >
-              <label htmlFor="id">아이디</label>
-              <input
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  backgroundColor: "#F6F6F6",
-                  paddingLeft: "10px",
-                  boxSizing: "border-box",
-                  margin: "10px 0",
-                }}
-                id="id"
-                type="text"
-                placeholder="아이디를 입력해주세요"
-                {...register("id", {
-                  required: "아이디를 입력해주세요",
-                  pattern: {
-                    value: /^(?=.*[A-Za-z0-9]).{4,10}$/,
-                    message: "영문, 숫자로 4~10글자 입력해주세요.",
-                  },
-                })}
-              />
-              <div>{errors.id && errors.id?.message}</div>
             </div>
 
             <div
