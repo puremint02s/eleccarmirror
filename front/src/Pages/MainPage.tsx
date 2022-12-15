@@ -56,7 +56,6 @@ const MainPage = () => {
   const [isChatbotOpen, setChatbotOpen] = useState(false);
   const user = useQuery("user", UserApi.currentUserGet)?.data?.data;
   const step = useQuery("step", StepApi.getStepInfo)?.data?.data?.step;
-
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
   };
@@ -64,8 +63,11 @@ const MainPage = () => {
     if (step === null) {
       StepApi.postStepInfo("0");
     }
+    if (step == 3) {
+      setNextText("결과 확인하기!!");
+    }
   }, [step]);
-
+  const [nextText, setNextText] = useState("계속 진행하기");
   const onNext = () => {
     if (step == 0 || undefined) navigate("/carregister");
     if (step == 1) navigate("/test");
@@ -90,7 +92,7 @@ const MainPage = () => {
               {step ? (
                 <>
                   <ImageText>{stepText[parseInt(step)]}</ImageText>
-                  <NextButton onClick={onNext}>계속 진행하기</NextButton>
+                  <NextButton onClick={onNext}>{nextText}</NextButton>
                 </>
               ) : (
                 <ImageText>{stepText[0]}</ImageText>
