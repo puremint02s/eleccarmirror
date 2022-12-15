@@ -18,6 +18,7 @@ import {
 } from "style/CarMbtiStyle";
 import BlueCarImg from "assets/img/BlueCar.png";
 import { carMbtiTypePost } from "apis/CarMbtiTestApi";
+import { updateStepInfo } from "apis/StepApi";
 import { R } from "App";
 
 function Result() {
@@ -34,15 +35,16 @@ function Result() {
     setType(type);
     async function postUserType() {
       const userType = { type };
-      console.log(userType);
-      const res = await carMbtiTypePost(userType);
-      console.log(res);
+      await carMbtiTypePost(userType);
     }
     postUserType();
   }, [car, navigate]);
 
   const handleClickRetry = () => navigate(R.CARMBTITEST);
-  const handleClickCalcEfficiency = () => navigate(R.CALCEFFICENCY);
+  const handleClickCalcEfficiency = () => {
+    updateStepInfo("2");
+    navigate(R.CALCEFFICENCY);
+  };
 
   if (!type) return <></>;
   return (

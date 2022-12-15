@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import SocialShare from "hooks/SocialShareHook";
+import { getCarInfo, updateCarInfo } from "apis/CarRegisterApi";
 
 interface CarData {
   brand: string;
@@ -10,13 +12,48 @@ interface CarData {
   MPG: number;
   cost: number;
   homepage: string;
-  img?: string;
+  img: string;
+}
+
+interface CarProps {
+  model: string;
+  brand: string;
+}
+
+interface CarInfo {
+  current: CarProps;
+  recommended: CarProps;
 }
 
 function CarRecommendResult({ ...props }: CarData) {
+  const [currentCarModel, setCurrentCarModel] = useState("");
+  const [currentCarBrand, setCurrentCarBrand] = useState("");
+
+  useEffect(() => {
+    async function getCurrentCar() {
+      const res = await getCarInfo();
+      setCurrentCarModel(res?.data?.current.model);
+      setCurrentCarBrand(res?.data?.current.brand);
+    }
+    getCurrentCar();
+  }, []);
+
   const navigate = useNavigate();
   const handleClickBrandHomepage = () => window.open(props.homepage);
-  const handleClickMain = () => navigate("/main");
+  const handleClickMain = () => {
+    const recommendedResult: CarInfo = {
+      current: {
+        model: currentCarModel,
+        brand: currentCarBrand,
+      },
+      recommended: {
+        model: props.model,
+        brand: props.brand,
+      },
+    };
+    updateCarInfo(recommendedResult);
+    navigate("/main");
+  };
 
   return (
     <>
@@ -53,7 +90,7 @@ const RecommendResultWrapper = styled.div`
 `;
 
 const RecommendResultContentWrapper = styled.div`
-  width: 280px;
+  width: 400px;
   display: inline-block;
 `;
 
@@ -78,9 +115,9 @@ const GotoBrandHompageButton = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
   color: #898989;
-  font-size: 14px;
+  font-size: 15px;
   text-align: center;
-  width: 130px;
+  width: 35%;
   cursor: pointer;
   background-color: #f6f6f6;
   margin-top: 1rem;
@@ -91,9 +128,9 @@ const GotoBrandHompageButton = styled.div`
 const GotoMainButton = styled.div`
   padding-top: 1rem;
   padding-bottom: 1rem;
-  font-size: 14px;
+  font-size: 15px;
   text-align: center;
-  width: 130px;
+  width: 35%;
   cursor: pointer;
   color: white;
   background-color: #0a84ff;
