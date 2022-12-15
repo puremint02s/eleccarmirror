@@ -103,6 +103,9 @@ const ContentBox = styled.div`
   color: white;
   text-align: center;
   border-radius: 7px;
+  @media screen and (max-width: 720px) {
+    width: 27vw;
+  }
 `;
 
 const IconWrapper = styled.img`
@@ -114,12 +117,19 @@ const ContentTitle = styled.p`
   margin-top: 4vh;
   font-size: 20px;
   line-height: 4vh;
+  @media screen and (max-width: 720px) {
+    font-size: 16px;
+  }
 `;
 
 const ContentParagraph = styled.p`
   margin-top: 2vh;
   font-size: 16px;
   line-height: 3vh;
+  @media screen and (max-width: 720px) {
+    font-size: 12px;
+    line-height: 1.2;
+  }
 `;
 
 const ModalOpenBtn = styled.button`
