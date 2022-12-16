@@ -41,13 +41,10 @@ http://kdt-ai5-team11.elicecoding.com:3000/
     <img src="https://img.shields.io/badge/ExpressJs-lightgrey?style=flat-square&logo=Express&logoColor=black"/>
     <img src="https://img.shields.io/badge/MongoDB-lightgrey?style=flat-square&logo=MongoDB&logoColor=green"/>
 
-## 필수 MVP 구현
+## 주요 기능
+- 내용
 
-- User [회원가입, 로그인]
-- Education [학력]
-- Project [프로젝트]
-- Award [수상이력]
-- Certificate [자격증]
+
 
 ## 추가 기능
 
