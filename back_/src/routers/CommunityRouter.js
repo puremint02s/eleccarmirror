@@ -4,19 +4,44 @@ import { communityService } from "../services/communityService.js";
 import { userAuthService } from "../services/userAuthService.js";
 import { login_required } from "../middlewares/login_required.js";
 
+import multer from "multer";
+
+const upload = multer({
+    //업로드한 이미지를 어디에 저장할지 - 로컬디스크
+    storage: multer.diskStorage({
+        //저장위치 결정 함수
+        destination(req, file, done) {
+            done(null, "uploads");
+        },
+        //파일명 결정 함수
+        filename(req, file, done) {
+            //파일 확장자 추출
+            const ext = path.extname(file.originalname);
+            //path에서 파일명 추출
+            const basename = path.basename(file.originalname, ext);
+            //파일명 + 시간 + 확장자
+            done(null, basename + "_" + new Date().getTime() + ext);
+        },
+    }),
+    limits: {
+        fileSize: 20 * 1024 * 1024, //20MB, MB=2^10*바이트, KM=2^3*바이트
+    },
+});
+
 const communityRouter = Router();
 
 //커뮤니티 글 등록
 communityRouter.post(
     "/community",
     login_required,
+    upload.single("image"),
     async function (req, res, next) {
         try {
             const user_id = req.currentUserId;
 
             const user = await userAuthService.getUserInfo(user_id);
 
-            const { title, content, hashtags } = req.body;
+            const { title, content, hashtags, filename } = req.body;
 
             const filteredHashtags = hashtags.replace(/\s/g, "").split(",");
 
@@ -27,6 +52,7 @@ communityRouter.post(
                 content,
                 hashtags: filteredHashtags,
                 creator: req.user_id,
+                filename: req.file.filename,
             };
 
             const uploadedContent = await communityService.addContent(data);
