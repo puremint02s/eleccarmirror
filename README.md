@@ -1,5 +1,5 @@
 # Team11 - 열일
-![Group_21](/uploads/25d82a4716a6d9d311e0141920ff61ce/Group_21.png)
+<img src="/uploads/25d82a4716a6d9d311e0141920ff61ce/Group_21.png" width="200"/>
 
 
 ## 사이트 링크
