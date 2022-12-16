@@ -31,13 +31,17 @@ const SignUpPage = () => {
   const [elecCarOwned, setElecCarOwned] = useState(false);
   const doSignup = useMutation(Api.registerRequest, {
     onSuccess: message => {
-      navigate("/login");
-      console.log({ success: message });
-      swal("회원가입 완료", "회원가입이 완료되었습니다.");
+      const signKey = String(Object.keys(message));
+      const signValue = String(Object.values(message));
+      if (signKey == "errorMessage") {
+        swal("회원가입 불가", signValue);
+      } else {
+        navigate("/login");
+        swal("회원가입 완료", signValue);
+      }
     },
     onError: error => {
       swal("회원가입 불가", "아이디가 중복되었습니다");
-      console.log({ error });
     },
   });
 
@@ -84,16 +88,8 @@ const SignUpPage = () => {
   const signUp = handleSubmit(registerForm => {
     delete registerForm.confirmPassword;
     doSignup.mutate(registerForm);
-
-    // console.log(registerForm);
   });
 
-  // const signSame = handleSubmit(registerForm => {
-  //   const id = registerForm.id;
-  //   doSameCheck.mutate(id);
-  //   // console.log(registerForm);
-  //   console.log("dd");
-  // });
   const signSame = (id: object | undefined) => {
     doSameCheck.mutate(id);
     console.log(id);
