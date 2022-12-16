@@ -1,26 +1,28 @@
-import io
-# 파일 경로 접근시 필요한 python 내장 라이브러리
-from PIL import Image
-# Python Imaging Library. 파이썬 인터프리터에 다양한 이미지 파일 형식을 지원,
+import matplotlib.pyplot as plt
+from keras.utils import Sequence
+from keras.models import Sequential
+from tensorflow import keras
+import tensorflow
+from flask import jsonify
+from flask import render_template, redirect, url_for, request
+from flask import request
+from flask import Flask
 import numpy as np
+from PIL import Image
+import io
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+# 파일 경로 접근시 필요한 python 내장 라이브러리
+# Python Imaging Library. 파이썬 인터프리터에 다양한 이미지 파일 형식을 지원,
 # 강력한 이미지처리와 그래픽 기능 제공 오픈소스 라이브러리
 
 
-from flask import Flask
 # python web framework
-from flask import request
 # 웹 요청 관련 모듈
-from flask import render_template, redirect, url_for, request
 # flask에서 필요한 모듈
-from flask import jsonify
 # import JSON을 해도되지만 여기서는 flask 내부에서 지원하는 jsonify를 사용
 
-import tensorflow
-from tensorflow import keras
-from keras.models import Sequential
-from keras.utils import Sequence
 # 이 모듈이 없으면 사용자가 만든 generator에서 'shape'가 없다고 하는 에러가 발생할 수 있음
-import matplotlib.pyplot as plt
 
 
 app = Flask(__name__)
