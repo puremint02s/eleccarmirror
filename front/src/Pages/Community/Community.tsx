@@ -34,33 +34,48 @@ function Community(props: any) {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState<number>(
-    Number(location.search.slice(-1)),
+    Number(location.search.slice(-1)) || 1,
   );
+  // const [currentPage, setCurrentPage] = useState<number>(1);
   const [contentsPerPage, setcontentsPerPage] = useState<Community[] | []>([]);
   const [allCommunity, setAllCommunity] = useState<Community[] | []>([]);
   // const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
   const [commentCount, setCommentCount] = useState<Comment[] | []>([]);
-  const [pageParams, setPageParams] = useState<any>(null);
+  const [pageParams, setPageParams] = useState<any>(
+    location.search.slice(-1) || null,
+  );
 
-  console.log("Community location path", location.search.slice(-1));
+  // console.log("Community location path", location.search.slice(-1));
 
   const getData = (currentPage: number) => {
-    currentPage = Number(location.search.slice(-1));
+    if (location.search.slice(-1)) {
+      // currentPage = Number(location.search.slice(-1));
+    }
+
     setCurrentPage(currentPage);
   };
+  /*
+    currentPage 가 변화하지 않음
+    pageParams 도 변화하지 않음
+    location.search.slice(-1)는 변하고
+  */
 
   useEffect(() => {
-    setPageParams(location.search.slice(-1));
+    const pageLocation = location.search.slice(-1);
 
-    setCurrentPage(Number(location.search.slice(-1)));
+    setPageParams(pageLocation);
 
-    console.log("currentPage", currentPage);
+    if (location.search.slice(-1)) {
+      // setCurrentPage(Number(location.search.slice(-1)));
+    }
+
+    // console.log("currentPage", currentPage);
     const api = async () => {
       try {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
         setcontentsPerPage(result.findContent);
 
-        console.log("result.findContent", result.findContent);
+        // console.log("result.findContent", result);
       } catch (err) {
         console.log("err=>", err);
       }
@@ -86,7 +101,7 @@ function Community(props: any) {
     api();
   }, [currentPage, pageParams]);
 
-  console.log("pageParams", pageParams);
+  // console.log("pageParams", pageParams);
 
   const moveToEachContent = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name: id } = e.target as HTMLButtonElement;
