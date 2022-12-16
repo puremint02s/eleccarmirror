@@ -20,6 +20,7 @@ type Car = {
 
 const ElecCarReport = ({ step }: { step: string | undefined }) => {
   const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
+  console.log("car", car);
   const [recomendedCar, setRecomendedCar] = useState<Car>();
   useEffect(() => {
     const foundCar = Result.find(v => v.model === car?.recommended?.model);

@@ -144,6 +144,7 @@ const BlueLargeButton = styled.button`
   text-align: center;
   color: #ffffff;
   margin: 0 auto;
+  border-radius: 10px;
   @media screen and (max-width: 720px) {
     width: 90vw;
   }

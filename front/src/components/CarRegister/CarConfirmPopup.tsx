@@ -42,6 +42,24 @@ const CarConfirmPopup = ({
   const onAnalysisTabToggle = () => {
     setAnalysisTabToggle(c => !c);
   };
+  const otherCarSelect = (label: string) => {
+    if (label) {
+      console.log(label);
+      const tempCar: CarInfo = {
+        current: {
+          model: label.split(" ")[1],
+          brand: label.split(" ")[0],
+        },
+        recommended: {
+          model: label.split(" ")[1],
+          brand: label.split(" ")[0],
+        },
+      };
+      CarRegisterApi.updateCarInfo(tempCar);
+      StepApi.updateStepInfo("1");
+      navigate("/test");
+    }
+  };
   const finishCarRegister = () => {
     if (chartData) {
       const tempCar: CarInfo = {
@@ -56,9 +74,9 @@ const CarConfirmPopup = ({
       };
       console.log(tempCar);
       CarRegisterApi.updateCarInfo(tempCar);
+      StepApi.updateStepInfo("1");
+      navigate("/test");
     }
-    StepApi.updateStepInfo("1");
-    navigate("/test");
   };
 
   useEffect(() => {
@@ -176,12 +194,19 @@ const CarConfirmPopup = ({
                   골라주세요 :)
                 </ResultTextCenter>
                 {chartData && <Chart chartData={chartData} />}
-
+                {/* (v.label)=>{otherCarSelect(v.label);} */}
                 <ResultWrapper>
                   {chartData &&
                     chartData.map((v: data) => (
                       <ResultText2 key={v.value}>
-                        <span>{v.label}</span>
+                        <span
+                          className={v.label}
+                          onClick={e => {
+                            otherCarSelect(e.currentTarget.innerHTML);
+                          }}
+                        >
+                          {v.label}
+                        </span>
                         <span>{v.value.toFixed(2)}%</span>
                       </ResultText2>
                     ))}
@@ -225,7 +250,7 @@ const ResultImage = styled.img`
 const UploadImage = styled.img`
   width: 250px;
   height: 250px;
-  object-fit: cover;
+  object-fit: contain;
   padding: 20px;
 `;
 
@@ -252,6 +277,7 @@ const PopUp = styled.div`
   top: 50%;
   left: 50%;
 
+  border-radius: 10px;
   padding: 50px;
   box-sizing: border-box;
 
@@ -280,6 +306,7 @@ const PopUpScroll = styled.div`
   top: 50%;
   left: 50%;
 
+  border-radius: 10px;
   padding: 50px;
   box-sizing: border-box;
   @media screen and (max-width: 720px) {
@@ -418,6 +445,7 @@ const BlueButton = styled.button`
   line-height: 20px;
   text-align: center;
   color: #ffffff;
+  border-radius: 10px;
 `;
 
 const BlueBoderButton = styled.button`
@@ -431,5 +459,6 @@ const BlueBoderButton = styled.button`
   color: #0a84ff;
   box-sizing: border-box;
   border: 2px solid #0a84ff;
+  border-radius: 10px;
 `;
 export default CarConfirmPopup;
