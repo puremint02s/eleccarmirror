@@ -60,8 +60,9 @@ const Pagination = ({ currentPage, getData }: any) => {
   const [pageLength, setPageLength] = useState(0);
   const [pageParams, setPageParams] = useState<any>(null);
   const paginationRef = useRef<HTMLLIElement[]>([]);
+  const [nextNum, setNextNum] = useState(pageLength / 5 || 0);
 
-  console.log("totalPage ==>", totalPage);
+  // console.log("totalPage ==>", totalPage);
 
   useEffect(() => {
     const api = async () => {
@@ -80,7 +81,7 @@ const Pagination = ({ currentPage, getData }: any) => {
           arr.push(pages.slice(i, i + 5));
         }
 
-        console.log("pages.length", pageLength);
+        // console.log("pages.length", pageLength);
         setPageLength(pages.length);
 
         setTotalPage(arr);
@@ -89,7 +90,7 @@ const Pagination = ({ currentPage, getData }: any) => {
         console.log(err);
       }
 
-      console.log("paginations", paginations);
+      // console.log("paginations", paginations);
     };
     api();
   }, [pageLength]);
@@ -122,7 +123,7 @@ const Pagination = ({ currentPage, getData }: any) => {
     } else {
       setNextButtonState(true);
     }
-  }, [currentPage, paginations, pageLength]);
+  }, [currentPage, paginations, pageLength, nextNum]);
 
   const loadPage = (e: React.MouseEvent<HTMLLIElement>) => {
     const currentPageNum = e.currentTarget.innerText;
@@ -130,6 +131,7 @@ const Pagination = ({ currentPage, getData }: any) => {
     navigate(`/community?page=${currentPageNum}`, {
       state: {
         page: currentPageNum,
+        // index: nextNum,
       },
     });
 
@@ -140,34 +142,49 @@ const Pagination = ({ currentPage, getData }: any) => {
     if (!paginationRef.current) {
       return;
     }
+    setNextNum(nextNum - 1);
 
     paginationRef.current[0].style.color = "#0a84ff";
-    for (let i = totalPage.length; i >= 0; i--) {
-      if (totalPage.indexOf(1) === null) {
-        setPaginations(totalPage[0]);
-      }
-      const page = totalPage[i];
-
-      setPaginations(page);
-      getData(totalPage[0][0]);
+    // for (let i = totalPage.length; i >= 0; i--) {
+    if (totalPage.indexOf(1) === null) {
+      setPaginations(totalPage[0]);
     }
+
+    setPrev(nextNum - 1);
+
+    // }
+  };
+
+  const setPrev = (nextNum: number) => {
+    const page = totalPage[nextNum];
+    console.log("PAGE", page, nextNum);
+
+    setPaginations(page);
+    getData(page[0]);
+    // getData(totalPage[0][0]);
   };
 
   const onNext = () => {
     if (!paginationRef.current) {
       return;
     }
+    setNextNum(nextNum + 1);
     paginationRef.current[0].style.color = "#0a84ff";
 
-    for (let i = 0; i < totalPage.length; i++) {
-      const page = totalPage[i];
-      console.log("this", page);
-      setPaginations(page);
-      getData(page[0]);
-    }
+    setNext(nextNum + 1);
+    // for (let i = 0; i < totalPage.length; i++) {
+
+    // }
   };
 
-  console.log("paginations2", paginations);
+  const setNext = (nextNum: number) => {
+    const page = totalPage[nextNum];
+    console.log("PAGE", page, nextNum);
+    setPaginations(page);
+    getData(page[0]);
+  };
+
+  console.log("nextNum", nextNum);
 
   return (
     <PaginationWrap>

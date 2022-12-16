@@ -128,6 +128,7 @@ function CommunityMyInfo() {
       try {
         const res = await UserApi.currentUserGet();
         setUser(res.data);
+        // console.log("res.data", res);
       } catch (err) {
         console.log(err);
       }
@@ -156,7 +157,7 @@ function CommunityMyInfo() {
         // setUserTestType(res.data[res.data.length - 1]);
         setUserTestType(res[res.length - 1]);
 
-        console.log("TTTYPE", res[res.length - 1].type);
+        // console.log("TTTYPE", res[res.length - 1].type);
       } catch (err) {
         console.log(err);
       }
@@ -196,7 +197,7 @@ function CommunityMyInfo() {
           </li>
           <li>
             <span>평균 연비</span>
-            <p>{currentUserCalcEfficiency}km/L</p>
+            <p>{currentUserCalcEfficiency.averageEfficiency}km/L</p>
           </li>
         </ul>
       </div>
