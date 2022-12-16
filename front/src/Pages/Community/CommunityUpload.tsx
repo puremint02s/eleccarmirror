@@ -19,7 +19,8 @@ const CommunityUpload = () => {
   const [titleWarn, setTitleWarn] = useState("");
   const [contentWarn, setContentWarn] = useState("");
   const [textLength, setTextLength] = useState(0);
-  const [imageContent, setImageContent] = useState<Blob | string>("");
+  // const [imageContent, setImageContent] = useState<Blob | string>("");
+  const [imageContent, setImageContent] = useState<any>("");
   const [uploadImages, setUploadImages] = useState<{
     file: File;
     thumbnail: string;
@@ -71,14 +72,13 @@ const CommunityUpload = () => {
     }
 
     const formData = new FormData();
-
-    formData.append("image", imageContent);
+    formData.append("file", imageContent);
 
     uploadData = {
       title,
       content,
       hashtags: hashTagsRef?.current?.value,
-      filename: formData,
+      file: formData,
     };
     try {
       const res = await CommunityApi.uploadCommunity(uploadData);
@@ -109,6 +109,8 @@ const CommunityUpload = () => {
     navigate(`/community`);
   };
 
+  console.log("imageContent", imageContent);
+
   const checkTextLength = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     // console.log("text lenght", e.currentTarget.value.length);
     const maxLength = 800;
@@ -124,8 +126,8 @@ const CommunityUpload = () => {
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       // console.log("e.target.files", e.target.files[0]);
-      // setImageContent(e.target.files[0]);
-      setImageContent(e.target.files[0].name);
+      setImageContent(e.target.files);
+      // setImageContent(e.target.files[0].name);
       const url = URL.createObjectURL(e.target.files[0]);
       setUploadImages({
         file: e.target.files[0],
@@ -189,6 +191,8 @@ const CommunityUpload = () => {
 
                   <input
                     type="file"
+                    id="file"
+                    name="file"
                     accept="image/*"
                     ref={fileInputRef}
                     onChange={uploadImage}
