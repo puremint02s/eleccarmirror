@@ -75,7 +75,7 @@ const MainPage = () => {
   }, [step]);
   const [nextText, setNextText] = useState("계속 진행하기");
   const onNext = () => {
-    if (step == 0 || undefined) navigate("/carregister");
+    if (step == 0 || undefined || null) navigate("/carregister");
     if (step == 1) navigate("/test");
     if (step == 2) navigate("/calcefficency");
     if (step == 3) navigate("/finalresult");
