@@ -43,7 +43,7 @@ const MyInfo = styled.div`
     .usertype {
       display: flex;
       justify-content: space-between;
-      width: 91px;
+      /* width: 91px; */
       i {
         color: #6897c6;
         font-size: 20px;
