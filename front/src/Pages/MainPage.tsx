@@ -17,7 +17,7 @@ import { useQuery } from "react-query";
 import * as UserApi from "apis/UserApi";
 import * as StepApi from "apis/StepApi";
 import * as CarRegisterApi from "apis/CarRegisterApi";
-
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 interface UserInfo {
@@ -56,12 +56,18 @@ const MainPage = () => {
   const [isChatbotOpen, setChatbotOpen] = useState(false);
   const user = useQuery("user", UserApi.currentUserGet)?.data?.data;
   const step = useQuery("step", StepApi.getStepInfo)?.data?.data?.step;
+  const { mutate, isLoading, data } = useMutation("step", (data: string) =>
+    StepApi.postStepInfo(data),
+  );
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
   };
   useEffect(() => {
-    if (step === null) {
-      StepApi.postStepInfo("0");
+    if (step === undefined) {
+      mutate("0");
+    }
+    if (step == 0) {
+      setNextText("추천 서비스 스타트!!");
     }
     if (step == 3) {
       setNextText("결과 확인하기!!");
@@ -74,7 +80,8 @@ const MainPage = () => {
     if (step == 2) navigate("/calcefficency");
     if (step == 3) navigate("/finalresult");
   };
-
+  console.log("step", step);
+  console.log("user", user);
   return (
     <>
       <MainPageWrapper>
@@ -90,13 +97,11 @@ const MainPage = () => {
             </SubSectionTop>
             <SubSectionTop>
               {step ? (
-                <>
-                  <ImageText>{stepText[parseInt(step)]}</ImageText>
-                  <NextButton onClick={onNext}>{nextText}</NextButton>
-                </>
+                <ImageText>{stepText[parseInt(step)]}</ImageText>
               ) : (
                 <ImageText>{stepText[0]}</ImageText>
               )}
+              <NextButton onClick={onNext}>{nextText}</NextButton>
               {step ? (
                 <RecomendStepImage src={stepImages[parseInt(step)]} />
               ) : (
@@ -109,7 +114,7 @@ const MainPage = () => {
               <HotPosts></HotPosts>
             </SubSectionBottom>
             <SubSectionBottom>
-              {step && <ElecCarReport step={step} />}
+              <ElecCarReport step={step} />
             </SubSectionBottom>
           </MainSectionBottom>
         </MainArea>
