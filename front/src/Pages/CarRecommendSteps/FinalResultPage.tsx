@@ -21,6 +21,7 @@ import {
   ListH,
   ListI,
 } from "assets/data/RecommendElecCarList";
+import { Result as ImageRecommend } from "assets/data/CarOutputList";
 
 interface CarData {
   brand: string;
@@ -122,6 +123,13 @@ function FinalResultPage() {
     setCurrentUserCarInfo();
   }, []);
 
+  function isMatch(element: any) {
+    if (element.model === recommendedCarModel) {
+      return true;
+    }
+  }
+  const ImageRecommendResult = ImageRecommend.find(isMatch);
+
   return (
     <>
       <Header />
@@ -179,14 +187,14 @@ function FinalResultPage() {
               }
             >
               <CarRecommendResult
-                brand={recommendedCarBrand}
-                model={recommendedCarModel}
-                distance={dummyCarData.distance}
-                battery={dummyCarData.battery}
-                MPG={dummyCarData.MPG}
-                cost={dummyCarData.cost}
-                homepage={dummyCarData.homepage}
-                img={GreyCarImg}
+                brand={ImageRecommendResult.brand}
+                model={ImageRecommendResult.model}
+                distance={ImageRecommendResult.distance}
+                battery={ImageRecommendResult.battery}
+                MPG={ImageRecommendResult.MPG}
+                cost={ImageRecommendResult.cost}
+                homepage={ImageRecommendResult.homepage}
+                img={ImageRecommendResult.img}
               />
             </Modal>
           )}

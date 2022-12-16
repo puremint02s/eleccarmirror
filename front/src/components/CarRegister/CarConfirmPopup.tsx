@@ -2,12 +2,13 @@ import styled from "styled-components/macro";
 import React, { useEffect, useState } from "react";
 import question from "assets/img/QuestionCar.png";
 import loading from "assets/img/loading2.gif";
-import tempImage from "assets/img/GreyQuestionCar.png";
 import Chart from "./Chart";
 import { useNavigate } from "react-router-dom";
 import dic from "assets/data/dic2.json";
 import * as StepApi from "apis/StepApi";
 import * as CarRegisterApi from "apis/CarRegisterApi";
+import * as Input from "assets/data/CarInputList";
+import * as Output from "assets/data/CarOutputList";
 
 interface propsTypes {
   predictionList: Array<number>;
@@ -45,16 +46,42 @@ const CarConfirmPopup = ({
   const otherCarSelect = (label: string) => {
     if (label) {
       console.log(label);
+      const tempArr: any = [];
+      const InputCar = Input.Result.find(v => v.label == chartData[0].label);
+      console.log("input car", InputCar);
+      console.log("output car", Output.Result);
+      Output.Result.map(v => {
+        let count = 0;
+        if (v.type == InputCar.type) count += 1;
+        if (v.engin == InputCar.engin) count += 1;
+        if (v.a == InputCar.a) count += 1;
+        if (v.b == InputCar.b) count += 1;
+        if (v.c == InputCar.c) count += 1;
+        if (v.d == InputCar.d) count += 1;
+        if (v.e == InputCar.e) count += 1;
+        if (v.f == InputCar.f) count += 1;
+        if (v.g == InputCar.g) count += 1;
+        tempArr.push(count);
+      });
+      const foundIndex = tempArr.reduce((max: number, val: number) =>
+        max > val ? max : val,
+      );
+
       const tempCar: CarInfo = {
         current: {
           model: label.split(" ")[1],
           brand: label.split(" ")[0],
         },
         recommended: {
-          model: label.split(" ")[1],
-          brand: label.split(" ")[0],
+          model: Output.Result[foundIndex].model,
+          brand: Output.Result[foundIndex].brand,
         },
       };
+
+      console.log(tempCar);
+      CarRegisterApi.postCarInfo(tempCar);
+      CarRegisterApi.updateCarInfo(tempCar);
+      StepApi.updateStepInfo("1");
       CarRegisterApi.updateCarInfo(tempCar);
       StepApi.updateStepInfo("1");
       navigate("/test");
@@ -62,14 +89,35 @@ const CarConfirmPopup = ({
   };
   const finishCarRegister = () => {
     if (chartData) {
+      const tempArr: any = [];
+      const InputCar = Input.Result.find(v => v.label == chartData[0].label);
+      console.log("input car", InputCar);
+      console.log("output car", Output.Result);
+      Output.Result.map(v => {
+        let count = 0;
+        if (v.type == InputCar.type) count += 1;
+        if (v.engin == InputCar.engin) count += 1;
+        if (v.a == InputCar.a) count += 1;
+        if (v.b == InputCar.b) count += 1;
+        if (v.c == InputCar.c) count += 1;
+        if (v.d == InputCar.d) count += 1;
+        if (v.e == InputCar.e) count += 1;
+        if (v.f == InputCar.f) count += 1;
+        if (v.g == InputCar.g) count += 1;
+        tempArr.push(count);
+      });
+      const foundIndex = tempArr.reduce((max: number, val: number) =>
+        max > val ? max : val,
+      );
+
       const tempCar: CarInfo = {
         current: {
           model: chartData[0].label.split(" ")[1],
           brand: chartData[0].label.split(" ")[0],
         },
         recommended: {
-          model: chartData[0].label.split(" ")[1],
-          brand: chartData[0].label.split(" ")[0],
+          model: Output.Result[foundIndex].model,
+          brand: Output.Result[foundIndex].brand,
         },
       };
       console.log(tempCar);
