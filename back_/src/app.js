@@ -15,8 +15,13 @@ const app = express();
 
 app.use(cors());
 app.use(express.static("./uploads")); //업로드한 이미지에 접근 위함
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(
+    express.urlencoded({
+        limit: "50mb",
+        extended: true,
+    })
+);
 
 app.use(userRouter);
 
