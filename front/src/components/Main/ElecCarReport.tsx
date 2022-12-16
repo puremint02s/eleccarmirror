@@ -7,7 +7,6 @@ import * as Output from "assets/data/CarOutputList";
 import { useQuery } from "react-query";
 import { useEffect, useState } from "react";
 import * as Input from "assets/data/CarInputList";
-import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 
 type Car = {
   brand: string;
@@ -20,13 +19,7 @@ type Car = {
   img?: string;
 };
 
-const ElecCarReport = ({
-  step,
-  user,
-}: {
-  step: string | undefined;
-  user: any;
-}) => {
+const ElecCarReport = ({ step }: { step: string | undefined }) => {
   const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
   console.log("car", car);
   const [recomendedCar, setRecomendedCar] = useState<Car>();
@@ -36,13 +29,9 @@ const ElecCarReport = ({
     );
     setRecomendedCar(foundCar);
   }, [car]);
-  const temp = Input.Result.find(
+  const currentCarInfo = Input.Result.find(
     v => v.label.split(" ")[1] === car?.current?.model,
   );
-
-  if (user !== null || user !== undefined) {
-    console.log(CalcAverageEfficiency(user?.id));
-  }
   return (
     <>
       <ReportWrapper>
@@ -68,15 +57,11 @@ const ElecCarReport = ({
                 <ReportTopSub>
                   <div>
                     <span>유형</span>
-                    <span>{temp?.type}</span>
+                    <span>{currentCarInfo?.type}</span>
                   </div>
                   <div>
-                    <span>평균연비</span>
-                    {/* {user !== undefined || user !== null ? (
-                      <span>
-                        {CalcAverageEfficiency(user)?.averageEfficiency}
-                      </span>
-                    ) : null} */}
+                    <span>평균연비(km/L)</span>
+                    <span>{currentCarInfo.kml}</span>
                   </div>
                 </ReportTopSub>
                 <ReportTopSub>
