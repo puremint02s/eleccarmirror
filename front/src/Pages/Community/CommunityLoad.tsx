@@ -17,7 +17,7 @@ type contentProps = {
   nickname: string;
   _id: string;
   user_id: string;
-  filename: string;
+  file: string;
 };
 
 type userProps = {
@@ -212,7 +212,7 @@ function CommunityLoad() {
     setIsContentEdit(false);
   };
 
-  console.log("filename", contents?.filename);
+  console.log("filename", contents?.file);
 
   return (
     <>
@@ -290,7 +290,7 @@ function CommunityLoad() {
               ) : (
                 <p>
                   <img
-                    src={`${process.env.REACT_APP_BACK_SERVER_URL}/${contents?.filename}`}
+                    src={`${process.env.REACT_APP_BACK_SERVER_URL}/${contents?.file}`}
                   />
                   {contents?.content}
                 </p>

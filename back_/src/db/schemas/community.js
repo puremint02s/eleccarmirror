@@ -22,11 +22,11 @@ const CommunitySchema = new Schema(
             type: Array,
             trim: true,
         },
-        // filename: {
-        //     type: Buffer,
-        //     contentType: String,
-        //     // trim: true,
-        // },
+        file: {
+            type: String,
+            // contentType: String,
+            // trim: true,
+        },
     },
     {
         timestamps: true,

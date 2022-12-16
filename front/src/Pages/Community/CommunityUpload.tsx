@@ -71,14 +71,17 @@ const CommunityUpload = () => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("file", imageContent);
+    // const formData = new FormData();
+    // formData.append("file", imageContent);
+
+    // const base = Buffer.from(imageContent, "utf8").toString("base64");
+    // const base = btoa(unescape(encodeURIComponent(imageContent)));
 
     uploadData = {
       title,
       content,
       hashtags: hashTagsRef?.current?.value,
-      file: formData,
+      file: imageContent,
     };
     try {
       const res = await CommunityApi.uploadCommunity(uploadData);
@@ -87,29 +90,12 @@ const CommunityUpload = () => {
       console.log("err=>", err);
     }
 
-    // const formData = new FormData();
-    // formData.append("image", imageContent);
-
-    // try {
-    //   const res = await ImageUploadApi.postCommunityImage(formData);
-    //   console.log("img res", res);
-    // } catch (err) {
-    //   console.log("파일 안올라갔어요", err);
-    // }
-
-    // axios
-    //   .post(`${BACK_SERVER_URL}/community/images`, formData)
-    //   .then(res => {
-    //     console.log("파일 올라갔니", res.data);
-    //   })
-    //   .catch(err => {
-    //     console.log("file is not uploaded", err);
-    //   });
-
     navigate(`/community`);
   };
 
-  console.log("imageContent", imageContent);
+  // console.log("imageContent", imageContent);
+
+  console.log("imageContent ====> ", imageContent);
 
   const checkTextLength = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     // console.log("text lenght", e.currentTarget.value.length);
@@ -121,13 +107,28 @@ const CommunityUpload = () => {
     }
   };
 
-  console.log("imageFile?.file.name", imageContent);
+  // console.log("imageFile?.file.name", imageContent);
 
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       // console.log("e.target.files", e.target.files[0]);
-      setImageContent(e.target.files);
+      // setImageContent(e.target.files);
       // setImageContent(e.target.files[0].name);
+
+      // Blob 타입의 이미지 파일을 base64 형태로 변환합니다.
+      const getBase64 = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setImageContent(reader.result);
+        };
+        reader.readAsDataURL(file);
+        reader.onerror = error => console.log(error);
+      };
+
+      getBase64(e.target.files[0]);
+
+      // setImageContent(result);
+
       const url = URL.createObjectURL(e.target.files[0]);
       setUploadImages({
         file: e.target.files[0],

@@ -1,52 +1,54 @@
 import is from "@sindresorhus/is";
-import multer from "multer";
+import fs from "fs";
 import { Router } from "express";
 import { communityService } from "../services/communityService.js";
 import { userAuthService } from "../services/userAuthService.js";
 import { login_required } from "../middlewares/login_required.js";
-import { uploadFiles } from "../middlewares/imageMiddleware.js";
 
 const communityRouter = Router();
-
-//multer를 이용해서 이미지 업로드, multer({속성값 객체})
-const upload = multer({
-    //업로드한 이미지를 어디에 저장할지 - 로컬디스크
-    storage: multer.diskStorage({
-        //저장위치 결정 함수
-        destination(req, file, done) {
-            done(null, "uploads");
-        },
-        //파일명 결정 함수
-        filename(req, file, done) {
-            //파일 확장자 추출
-            const ext = path.extname(file.originalname);
-            //path에서 파일명 추출
-            const basename = path.basename(file.originalname, ext);
-            //파일명 + 시간 + 확장자
-            done(null, basename + "_" + new Date().getTime() + ext);
-        },
-    }),
-    limits: {
-        fileSize: 20 * 1024 * 1024, //20MB, MB=2^10*바이트, KM=2^3*바이트
-    },
-});
 
 //커뮤니티 글 등록
 communityRouter.post(
     "/community",
     login_required,
-    upload.single("file"),
     async function (req, res, next) {
-        console.log("file", req.file); //undefined
-
         try {
             const user_id = req.currentUserId;
 
             const user = await userAuthService.getUserInfo(user_id);
 
-            const { title, content, hashtags } = req.body;
+            const { title, content, hashtags, file } = req.body;
 
             const filteredHashtags = hashtags.replace(/\s/g, "").split(",");
+
+            const block = file.split(";");
+            const contentType = block[0].split(":")[1].substr(6); //image/png= //png
+            const realData = block[1].split(",")[1];
+
+            const random = Math.random() * 1000000;
+
+            fs.writeFile(
+                `C:/Users/Ryu/Desktop/3rd_project/11/back_/communityUploads/${random}.${contentType}`,
+                realData,
+                "base64",
+                function (err) {
+                    console.log(err);
+                }
+            );
+            let yourfile;
+
+            fs.readFile(
+                `C:/Users/Ryu/Desktop/3rd_project/11/back_/communityUploads/${random}.${contentType}`,
+                (err, file) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    console.log("file", file);
+                    yourfile = file;
+                }
+            );
+
+            console.log("yourfile", yourfile);
 
             const data = {
                 user_id,
@@ -55,7 +57,7 @@ communityRouter.post(
                 content,
                 hashtags: filteredHashtags,
                 creator: req.user_id,
-                // filename: req.file.filename,
+                file: yourfile,
             };
 
             const uploadedContent = await communityService.addContent(data);
