@@ -27,7 +27,7 @@ http://kdt-ai5-team11.elicecoding.com:3000/
 
 - 프론트엔드 <br/>
     <img src="https://img.shields.io/badge/React-black?style=flat-square&logo=React&logoColor=61dbfb"/>
-    <img src="https://img.shields.io/badge/Bootstrap-563d7c?style=flat-square&logo=Bootstrap&logoColor=white"/>
+   
 
 - 백엔드 <br/>
     <img src="https://img.shields.io/badge/ExpressJs-lightgrey?style=flat-square&logo=Express&logoColor=black"/>
