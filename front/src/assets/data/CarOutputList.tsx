@@ -29,7 +29,7 @@ import TeslaModel3Img from "assets/data/CarImages/Tesla Model 3.jpg";
 import TeslaModelSImg from "assets/data/CarImages/Tesla Model S.jpg";
 import TeslaModelXImg from "assets/data/CarImages/Tesla Model X.png";
 import TeslaModelYImg from "assets/data/CarImages/Tesla Model Y.jpg";
-import AudiRSEtronGTImg from "assets/data/CarImages/Audi RS e-tron GT.png";
+import AudiRSEtronGTImg from "assets/data/CarImages/Audi_RS_e-tron_GT.png";
 
 type Car = {
   brand: string;
