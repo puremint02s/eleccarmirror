@@ -67,7 +67,7 @@ const ROUTE = {
   COMMUNITYLOAD: "/community/:id",
   MYPAGE: "/mypage",
   SERVICEINTRO: "/serviceintro",
-  ERROR: "/404",
+  ERROR: "/*",
 };
 
 declare global {

@@ -51,7 +51,7 @@ const PageUl = styled.div`
   }
 `;
 
-const Pagination = ({ currentPage, getData, pageParams }: any) => {
+const Pagination = ({ currentPage, getData }: any) => {
   const navigate = useNavigate();
   const [totalPage, setTotalPage] = useState<any[]>([]);
   const [paginations, setPaginations] = useState<any[]>([]);
@@ -136,7 +136,6 @@ const Pagination = ({ currentPage, getData, pageParams }: any) => {
     navigate(`/community?page=${currentPageNum}`, {
       state: {
         page: currentPageNum,
-        // index: nextNum,
       },
     });
 
@@ -176,6 +175,10 @@ const Pagination = ({ currentPage, getData, pageParams }: any) => {
       return;
     }
     setNextNum(nextNum + 1);
+    console.log(
+      "paginationRef.current[0]",
+      paginationRef.current[0].style.color,
+    );
     paginationRef.current[0].style.color = "#0a84ff";
 
     setNext(nextNum + 1);
