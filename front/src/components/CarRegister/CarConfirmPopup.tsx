@@ -73,6 +73,7 @@ const CarConfirmPopup = ({
         },
       };
       console.log(tempCar);
+      CarRegisterApi.postCarInfo(tempCar);
       CarRegisterApi.updateCarInfo(tempCar);
       StepApi.updateStepInfo("1");
       navigate("/test");
