@@ -114,7 +114,7 @@ const MainPage = () => {
               <HotPosts></HotPosts>
             </SubSectionBottom>
             <SubSectionBottom>
-              <ElecCarReport step={step} />
+              <ElecCarReport step={step} user={user} />
             </SubSectionBottom>
           </MainSectionBottom>
         </MainArea>
