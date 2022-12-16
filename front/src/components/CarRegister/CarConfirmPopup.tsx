@@ -2,12 +2,12 @@ import styled from "styled-components/macro";
 import React, { useEffect, useState } from "react";
 import question from "assets/img/QuestionCar.png";
 import loading from "assets/img/loading2.gif";
-import tempImage from "assets/img/GreyQuestionCar.png";
 import Chart from "./Chart";
 import { useNavigate } from "react-router-dom";
 import dic from "assets/data/dic2.json";
 import * as StepApi from "apis/StepApi";
 import * as CarRegisterApi from "apis/CarRegisterApi";
+import * as Input from "assets/data/CarInputList";
 
 interface propsTypes {
   predictionList: Array<number>;
@@ -62,6 +62,8 @@ const CarConfirmPopup = ({
   };
   const finishCarRegister = () => {
     if (chartData) {
+      const InputCar = Input.Result.find(v => v.label == chartData[0].label);
+      console.log("input car", InputCar);
       const tempCar: CarInfo = {
         current: {
           model: chartData[0].label.split(" ")[1],
