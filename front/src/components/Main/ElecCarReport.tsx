@@ -61,7 +61,7 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
                   </div>
                   <div>
                     <span>평균연비(km/L)</span>
-                    <span>{currentCarInfo.kml}</span>
+                    <span>{currentCarInfo?.kml}</span>
                   </div>
                 </ReportTopSub>
                 <ReportTopSub>
