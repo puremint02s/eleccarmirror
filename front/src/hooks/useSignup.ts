@@ -15,7 +15,7 @@ interface ErrorType {
 export default function useSignup() {
   const navigate = useNavigate();
 
-  const mutation = useMutation(Api.RegisterRequest, {
+  const mutation = useMutation(Api.registerRequest, {
     onSuccess: message => {
       navigate("/login");
       console.log({ success: message });

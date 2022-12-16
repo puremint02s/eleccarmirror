@@ -25,10 +25,6 @@ export const Content = styled.div`
     width: 90%;
     height: 58px;
 
-    &.contentArea {
-      height: auto;
-    }
-
     input {
       width: 100%;
       height: 100%;
@@ -36,6 +32,13 @@ export const Content = styled.div`
       text-indent: 2%;
       border: 1px solid #303030;
       outline: none;
+      font-size: 16px;
+    }
+
+    span {
+      display: block;
+      color: #ff4f18;
+      padding-top: 10px;
     }
 
     & > div {
@@ -50,23 +53,18 @@ export const Content = styled.div`
         resize: none;
       }
 
-      span {
-        display: block;
-        color: #ff4f18;
-        padding-top: 10px;
-      }
-
       &:last-child {
         .imgBox {
-          width: 200px;
-          height: 200px;
+          /* width: 200px; */
+          /* height: 200px; */
+          height: auto;
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
-          border: 1px solid #aaa;
           margin-bottom: 30px;
           img {
-            width: 100%;
+            width: 200px;
+            /* border: 1px solid #aaa; */
           }
         }
         & > input {
@@ -81,6 +79,28 @@ export const Content = styled.div`
           padding: 10px 20px;
           border-radius: 9px;
           cursor: pointer;
+        }
+      }
+    }
+
+    &.contentArea {
+      height: auto;
+
+      /* & > div:first-child {
+        margin-bottom: 20px;
+      } */
+
+      .textArea_wrap {
+        border: 1px solid #303030;
+        textarea {
+          line-height: 22px;
+          font-size: 16px;
+          border: none;
+        }
+
+        .textlength {
+          text-align: right;
+          padding: 18px;
         }
       }
     }

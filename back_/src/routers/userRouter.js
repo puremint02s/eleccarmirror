@@ -66,6 +66,8 @@ userRouter.get(
 
             const currentUserInfo = await userAuthService.getUserInfo(user_id);
 
+            console.log("currentUserId", currentUserInfo);
+
             res.status(200).send(currentUserInfo);
         } catch (err) {
             next(err);
@@ -119,6 +121,21 @@ userRouter.get("/user/:id", login_required, async function (req, res, next) {
 
         res.status(201).send(currentUser);
     } catch (err) {
+        next(err);
+    }
+});
+
+//유저정보 중복체크
+userRouter.get("/users/same", async function (req, res, next) {
+    try {
+        const { id } = req.body;
+        // const user = await userAuthService.getUser({ id, password });
+        const sameUser = await userAuthService.getUserInfomation({ id });
+
+        res.status(201).send(sameUser);
+    } catch (err) {
+        const errorMessage = "중복된 아이디 입니다.";
+        return { errorMessage };
         next(err);
     }
 });
