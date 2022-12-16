@@ -39,12 +39,45 @@ type Car = {
   cost: number;
   homepage: string;
   img?: string;
+
+  // type: string;
+  // engin: number;
+  // a: number;
+  // b: number;
+  // c: number;
+  // d: number;
+  // e: number;
+  // f: number;
+  // g: number;
 };
 
 export const Result: Car[] = [
   {
     brand: "아우디",
+    model: "e-tron",
+
+    // type: "준대형 SUV",
+    // engin: 4,
+    // a: 49,
+    // b: 19,
+    // c: 16,
+    // d: 29,
+    // e: 16,
+    // f: 16,
+    // g: 26,
+
+    distance: 328,
+    battery: 95,
+    MPG: 2.9,
+    cost: 97220000,
+    homepage:
+      "https://www.audi.co.kr/kr/web/ko/models/e-tron/audi-etron_2021.html",
+    img: AudiEtronImg,
+  },
+  {
+    brand: "아우디",
     model: "e-tron S",
+
     distance: 264,
     battery: 95,
     MPG: 2.7,
@@ -63,17 +96,6 @@ export const Result: Car[] = [
     homepage:
       "https://www.audi.co.kr/kr/web/ko/models/e-tron/audi-e-tron-s-sportback.html",
     img: AudiEtronSSportbackImg,
-  },
-  {
-    brand: "아우디",
-    model: "e-tron",
-    distance: 328,
-    battery: 95,
-    MPG: 2.9,
-    cost: 97220000,
-    homepage:
-      "https://www.audi.co.kr/kr/web/ko/models/e-tron/audi-etron_2021.html",
-    img: AudiEtronImg,
   },
   {
     brand: "아우디",
