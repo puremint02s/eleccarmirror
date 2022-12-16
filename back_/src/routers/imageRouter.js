@@ -39,6 +39,7 @@ const upload = multer({
     fileSize: 20 * 1024 * 1024, //20MB, MB=2^10*바이트, KM=2^3*바이트
   },
 });
+
 imageRouter.get("/images", async (req, res, next) => {
   console.log(process.env.SERVER_PORT);
   res.json("[TEST] imageRouter가 제대로 동작하고 있습니다.");
@@ -62,9 +63,12 @@ imageRouter.post(
     }
     console.log('REQUEST TO AI SERVER FROM BACK SERVER');
     request(options, async function (error, response, body) {
+      if (response === undefined) {
+        return res.status(400).json("파이썬 서버 에러");
+      }
       if (!error && response.statusCode == 200) {
         console.log('RESPONSE DATA : ' + response.body + " FROM AI SERVER")
-        res.json({
+        return res.status(200).json({
           filename: req.file.filename,
           prediction: response.body
         })

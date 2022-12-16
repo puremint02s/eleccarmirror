@@ -1,22 +1,23 @@
 import styled from "styled-components";
 
 import { useCallback, useState, useRef, useEffect } from "react";
-import axios from "axios";
 import uploadImg from "assets/img/upload.png";
 import CarConfirmPopup from "components/CarRegister/CarConfirmPopup";
 import Header from "components/common/Header";
 import TextBubbleBox from "components/CarRegister/TextBubbleBox";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import * as ImageUploadApi from "apis/ImageUpload";
 
 function CarRegisterPage() {
   const navigate = useNavigate();
 
-  const BACK_SERVER_URL = process.env.REACT_APP_BACK_SERVER_URL;
   const imageInput = useRef<HTMLInputElement>(null);
-
   const [isPopUpOpen, setPopUpOpen] = useState(false);
-  const [fileName, setFileName] = useState("");
-  const [predictionList, setPredictionList] = useState([]);
+
+  const { mutate, isLoading, data } = useMutation("carData", (data: any) =>
+    ImageUploadApi.postImage(data),
+  );
 
   const onUpload = useCallback(() => {
     imageInput?.current?.click();
@@ -24,22 +25,13 @@ function CarRegisterPage() {
 
   const onChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const imageFormData = new FormData();
-    [].forEach.call(e.target.files, imageFile => {
-      imageFormData.append("image", imageFile);
-    });
     setPopUpOpen(true);
-    axios
-      .post(`${BACK_SERVER_URL}/images`, imageFormData)
-      .then(res => {
-        setFileName(res.data.filename);
-        setPredictionList(res.data.prediction);
-      })
-      .catch(err => {
-        alert("이미지 업로드 과정중 오류가 발생하였습니다.");
-        setPopUpOpen(false);
-      });
-    console.log("request to back server");
+
+    const imageFormData = new FormData();
+    Array.from(e.target.files).forEach(imageFile =>
+      imageFormData.append("image", imageFile),
+    );
+    mutate(imageFormData);
     e.target.value = "";
   };
 
@@ -49,26 +41,28 @@ function CarRegisterPage() {
         <Header></Header>
       </HeaderWrapper>
       <MainArea>
-        <TitleWrapper>간편하게 나의 차량 등록하기</TitleWrapper>
-        <SubTitleWrapper>
-          차량 이미지를 업로드해보세요 제조사와 차종을 분류해드립니다.
-        </SubTitleWrapper>
-        {/* 이거 컴포넌트로 묶기 */}
+        <div>
+          <TitleWrapper>간편하게 나의 차량 등록하기</TitleWrapper>
+          <SubTitleWrapper>
+            차량 이미지를 업로드해보세요 제조사와 차종을 분류해드립니다.
+          </SubTitleWrapper>
+        </div>
+        <div>
+          <ImageWrapper>
+            <TextBubbleBox text="자동차의 전체 사진을 올려주세요!" />
+            <ImageBox back={uploadImg} onClick={onUpload} />
+          </ImageWrapper>
 
-        <ImageWrapper>
-          <TextBubbleBox text="자동차의 전체 사진을 올려주세요!" />
-          <ImageBox back={uploadImg} onClick={onUpload} />
-        </ImageWrapper>
-
-        <BlueLargeButton id="uploadDiv" onClick={onUpload}>
-          이미지 업로드
-        </BlueLargeButton>
+          <BlueLargeButton id="uploadDiv" onClick={onUpload}>
+            이미지 업로드
+          </BlueLargeButton>
+        </div>
       </MainArea>
       {isPopUpOpen && (
         <CarConfirmPopup
           setPopUpOpen={setPopUpOpen}
-          fileName={fileName}
-          predictionList={predictionList}
+          fileName={data?.filename}
+          predictionList={data?.prediction}
         />
       )}
 
@@ -91,6 +85,7 @@ const TitleWrapper = styled.div`
   align-items: center;
   font-size: 25px;
   height: 40px;
+  font-weight: 600;
   box-sizing: border-box;
   @media screen and (max-width: 720px) {
     padding: 0 30px;
@@ -102,13 +97,18 @@ const SubTitleWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 15px;
-  height: 30px;
+  font-size: 18px;
+  font-weight: 400;
+  height: 100px;
+  text-align: center;
   color: #898989;
   box-sizing: border-box;
   @media screen and (max-width: 720px) {
     padding: 0px 30px;
     width: 100vw;
+  }
+  @media screen and (max-height: 719px) {
+    padding-top: 0;
   }
 `;
 
@@ -126,6 +126,12 @@ const ImageBox = styled.div<ImageStyledProps>`
   background-repeat: no-repeat;
   background-position: center center;
   background-size: auto;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  @media screen and (max-height: 719px) {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+  }
 `;
 
 const BlueLargeButton = styled.button`
@@ -138,6 +144,7 @@ const BlueLargeButton = styled.button`
   text-align: center;
   color: #ffffff;
   margin: 0 auto;
+  border-radius: 10px;
   @media screen and (max-width: 720px) {
     width: 90vw;
   }
@@ -164,6 +171,11 @@ const CarRegisterPageWrapper = styled.div`
   @media screen and (max-width: 720px) {
     width: 100vw;
   }
+  @media screen and (max-height: 719px) {
+    // padding: 50px 0;
+    // height: 100vh;
+    overflow: scroll;
+  }
 `;
 const MainArea = styled.div`
   width: 100vw;
@@ -175,6 +187,17 @@ const MainArea = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media screen and (max-height: 719px) {
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    & > div {
+      width: 50vw;
+      padding: 10px;
+      padding-top: 30px;
+    }
+    justify-content: center;
+  }
 `;
 
 export default CarRegisterPage;
