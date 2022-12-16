@@ -51,14 +51,14 @@ const PageUl = styled.div`
   }
 `;
 
-const Pagination = ({ currentPage, getData }: any) => {
+const Pagination = ({ currentPage, getData, pageParams }: any) => {
   const navigate = useNavigate();
   const [totalPage, setTotalPage] = useState<any[]>([]);
   const [paginations, setPaginations] = useState<any[]>([]);
   const [prevButtonState, setPrevButtonState] = useState(false);
   const [nextButtonState, setNextButtonState] = useState(true);
   const [pageLength, setPageLength] = useState(0);
-  const [pageParams, setPageParams] = useState<any>(null);
+  // const [pageParams, setPageParams] = useState<any>(null);
   const paginationRef = useRef<HTMLLIElement[]>([]);
   const [nextNum, setNextNum] = useState(pageLength / 5 || 0);
 
@@ -123,6 +123,11 @@ const Pagination = ({ currentPage, getData }: any) => {
     } else {
       setNextButtonState(true);
     }
+
+    // if (pageParams) {
+    //   const page = totalPage[2];
+    //   setPaginations(page);
+    // }
   }, [currentPage, paginations, pageLength, nextNum]);
 
   const loadPage = (e: React.MouseEvent<HTMLLIElement>) => {
@@ -157,10 +162,12 @@ const Pagination = ({ currentPage, getData }: any) => {
 
   const setPrev = (nextNum: number) => {
     const page = totalPage[nextNum];
-    console.log("PAGE", page, nextNum);
+    // console.log("PAGE", page, nextNum);
 
     setPaginations(page);
     getData(page[0]);
+
+    console.log("page[0]", page[0]);
     // getData(totalPage[0][0]);
   };
 
@@ -179,12 +186,13 @@ const Pagination = ({ currentPage, getData }: any) => {
 
   const setNext = (nextNum: number) => {
     const page = totalPage[nextNum];
-    console.log("PAGE", page, nextNum);
+    // console.log("PAGE", page, nextNum);
     setPaginations(page);
     getData(page[0]);
+    console.log("page[0]", page[0]);
   };
 
-  console.log("nextNum", nextNum);
+  // console.log("nextNum", nextNum);
 
   return (
     <PaginationWrap>
