@@ -3,9 +3,11 @@ import tempImage from "assets/img/GreyQuestionCar.png";
 import blueCar from "assets/img/BlueCar.png";
 import loading from "assets/img/loading2.gif";
 import * as CarRegisterApi from "apis/CarRegisterApi";
-import { Result } from "assets/data/CarOutputList";
+import * as Output from "assets/data/CarOutputList";
 import { useQuery } from "react-query";
 import { useEffect, useState } from "react";
+import * as Input from "assets/data/CarInputList";
+import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 
 type Car = {
   brand: string;
@@ -18,14 +20,25 @@ type Car = {
   img?: string;
 };
 
-const ElecCarReport = ({ step }: { step: string | undefined }) => {
+const ElecCarReport = ({
+  step,
+  user,
+}: {
+  step: string | undefined;
+  user: string | undefined;
+}) => {
   const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
   console.log("car", car);
   const [recomendedCar, setRecomendedCar] = useState<Car>();
   useEffect(() => {
-    const foundCar = Result.find(v => v.model === car?.recommended?.model);
+    const foundCar = Output.Result.find(
+      v => v.model === car?.recommended?.model,
+    );
     setRecomendedCar(foundCar);
   }, [car]);
+  const temp = Input.Result.find(
+    v => v.label.split(" ")[1] === car?.current?.model,
+  );
   return (
     <>
       <ReportWrapper>
@@ -51,11 +64,15 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
                 <ReportTopSub>
                   <div>
                     <span>유형</span>
-                    <span>{car?.current.model}</span>
+                    <span>{temp?.type}</span>
                   </div>
                   <div>
                     <span>평균연비</span>
-                    <span>{car?.current.model}</span>
+                    {/* {user !== undefined || user !== null ? (
+                      <span>
+                        {CalcAverageEfficiency(user)?.averageEfficiency}
+                      </span>
+                    ) : null} */}
                   </div>
                 </ReportTopSub>
                 <ReportTopSub>
@@ -194,7 +211,7 @@ const ReportTopSection = styled.section`
   }
 `;
 const ReportText = styled.div`
-  color: "darkgrey";
+  color: rgba(0, 0, 0, 0.6);
   padding: 6px 10px;
   height: 30px;
   display: flex;
@@ -215,11 +232,11 @@ const ReportTopSub = styled.div`
   div {
     padding: 0 20px;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     span: first-child {
-      width: 30%;
+      width: auto;
     }
     @media screen and (max-width: 720px) {
       padding: 10px 10px;
@@ -275,14 +292,18 @@ const CarInfoWrapper = styled.div`
 `;
 const CarInfoTextWrapper = styled.div`
   overflow: scroll;
-  width: 80%;
+  width: 90%;
   height: 100%;
   div {
+    overflow: scroll;
     display: flex;
     justify-content: space-between;
-    padding: 8px;
+    padding: 8px 0;
     span {
       padding: 0 8px;
+    }
+    span: last-child {
+      text-align: end;
     }
   }
   @media screen and (max-height: 719px) {
