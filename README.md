@@ -1,5 +1,5 @@
 # Team11 - 열일
-![myElecCar](/uploads/441f484f5bc0eecea92c3a723355003c/Group_21.png)
+![Group_21](/uploads/4da17a62160a21abd4122702cd4e4418/Group_21.png)
 
 
 ## 사이트 링크
