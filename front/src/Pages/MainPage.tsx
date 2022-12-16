@@ -17,7 +17,7 @@ import { useQuery } from "react-query";
 import * as UserApi from "apis/UserApi";
 import * as StepApi from "apis/StepApi";
 import * as CarRegisterApi from "apis/CarRegisterApi";
-
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 interface UserInfo {
@@ -53,31 +53,35 @@ const MainPage = () => {
   ];
   const navigate = useNavigate();
 
-  const [user, setUser] = useState<UserInfo>();
-  const [step, setStep] = useState<{ step: string }>();
-  const [car, setCar] = useState<CarInfo>();
-
   const [isChatbotOpen, setChatbotOpen] = useState(false);
-
+  const user = useQuery("user", UserApi.currentUserGet)?.data?.data;
+  const step = useQuery("step", StepApi.getStepInfo)?.data?.data?.step;
+  const { mutate, isLoading, data } = useMutation("step", (data: string) =>
+    StepApi.postStepInfo(data),
+  );
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
   };
-  const userQuery = useQuery("user", UserApi.currentUserGet).data;
-  const stepQuery = useQuery("step", StepApi.getStepInfo).data;
-  const carQuery = useQuery("car", CarRegisterApi.getCarInfo).data;
-  console.log(stepQuery);
   useEffect(() => {
-    if (stepQuery?.data === null) {
-      StepApi.postStepInfo("0");
+    if (step === undefined) {
+      mutate("0");
     }
-    setUser(userQuery?.data);
-    setStep(stepQuery?.data);
-    setCar(carQuery?.data);
-    if (sessionStorage.getItem("userToken") === undefined) {
-      navigate("/login");
+    if (step == 0) {
+      setNextText("추천 서비스 스타트!!");
     }
-  }, [userQuery, stepQuery, carQuery]);
-
+    if (step == 3) {
+      setNextText("결과 확인하기!!");
+    }
+  }, [step]);
+  const [nextText, setNextText] = useState("계속 진행하기");
+  const onNext = () => {
+    if (step == 0 || undefined) navigate("/carregister");
+    if (step == 1) navigate("/test");
+    if (step == 2) navigate("/calcefficency");
+    if (step == 3) navigate("/finalresult");
+  };
+  console.log("step", step);
+  console.log("user", user);
   return (
     <>
       <MainPageWrapper>
@@ -93,12 +97,13 @@ const MainPage = () => {
             </SubSectionTop>
             <SubSectionTop>
               {step ? (
-                <ImageText>{stepText[parseInt(step.step)]}</ImageText>
+                <ImageText>{stepText[parseInt(step)]}</ImageText>
               ) : (
                 <ImageText>{stepText[0]}</ImageText>
               )}
+              <NextButton onClick={onNext}>{nextText}</NextButton>
               {step ? (
-                <RecomendStepImage src={stepImages[parseInt(step.step)]} />
+                <RecomendStepImage src={stepImages[parseInt(step)]} />
               ) : (
                 <RecomendStepImage src={stepImages[0]} />
               )}
@@ -109,7 +114,7 @@ const MainPage = () => {
               <HotPosts></HotPosts>
             </SubSectionBottom>
             <SubSectionBottom>
-              {stepQuery && <ElecCarReport step={step?.step} />}
+              <ElecCarReport step={step} />
             </SubSectionBottom>
           </MainSectionBottom>
         </MainArea>
@@ -128,6 +133,20 @@ const MainPage = () => {
   );
 };
 export default MainPage;
+const NextButton = styled.button`
+  font-size: 0.8em;
+  color: white;
+  background-color: #0a84ff;
+  border: none;
+  border-radius: 50px;
+  padding: 6px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease-in-out all;
+  &:hover {
+    background-color: salmon;
+  }
+`;
 const BG = styled.div`
   position: fixed;
   padding: 0;
@@ -277,8 +296,5 @@ const ChatBotButton = styled.button<{ isOpen: boolean }>`
   &:hover {
     background-color: 0a84ff;
   }
-  // @media screen and (max-height: 719px) {
-  //   display: none;
-  // }
   transition: 0.3s ease-in-out all;
 `;
