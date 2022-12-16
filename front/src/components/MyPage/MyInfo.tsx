@@ -1,41 +1,46 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserStateContext } from "App";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Pagination from "components/common/Pagination";
-import swal from "sweetalert";
 import { R } from "App";
-import { getUserRefuelRecord, deleteRefuelRecord } from "apis/RefuelRecordApi";
-import { getUserCarInfo } from "apis/CarInfoApi";
+import { getUserRefuelRecord } from "apis/RefuelRecordApi";
+import { getCarInfo } from "apis/CarRegisterApi";
 import Modal from "components/common/Modal";
+import ConfirmModal from "components/common/ConfirmModal";
 import AddNewRefuelRecord from "./AddRefuelRecord";
 import ModifyRecord from "./ModifyRefuelRecord";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
+import DeleteRecord from "./DeleteRefuelRecord";
 
 function MyInfo() {
   const [currentCarModel, setCurrentCarModel] = useState("");
   const [currentCarBrand, setCurrentCarBrand] = useState("");
-
-  const [recordId, setRecordId] = useState("");
-  const [oilingDate, setOilingDate] = useState("");
-  const [gasType, setGasType] = useState("");
-  const [gasAmount, setGasAmount] = useState("");
-  const [odometer, setOdometer] = useState("");
+  const [recommendedCarModel, setRecommendedCarModel] = useState("");
+  const [recommendedCarBrand, setRecommendedCarBrand] = useState("");
   const [records, setRecords] = useState([]);
 
   const [addingRefuelRecord, setAddingRefuelRecord] = useState(false);
   const [modifyingRefuelRecord, setModifyingRefuelRecord] = useState(false);
+  const [deletingRefuelRecord, setDeletingRefuelRecord] = useState(false);
+
+  const currentUser = useContext(UserStateContext);
 
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
+    currentUser?.user?.user_id,
   );
 
   useEffect(() => {
     async function setCurrentUserCarInfo() {
-      const res = await getUserCarInfo();
-      const carInformation = res.data.current;
-      if (carInformation) {
-        setCurrentCarModel(carInformation.model);
-        setCurrentCarBrand(carInformation.brand);
+      const res = await getCarInfo();
+      const currentCarInformation = res.data.current;
+      if (currentCarInformation) {
+        setCurrentCarModel(currentCarInformation.model);
+        setCurrentCarBrand(currentCarInformation.brand);
+      }
+      const recommendedCarInformation = res.data.recommended;
+      if (recommendedCarInformation) {
+        setRecommendedCarModel(recommendedCarInformation.model);
+        setRecommendedCarBrand(recommendedCarInformation.brand);
       }
     }
     setCurrentUserCarInfo();
@@ -43,48 +48,11 @@ function MyInfo() {
 
   useEffect(() => {
     async function getUserOilingRecord() {
-      const res = await getUserRefuelRecord(
-        "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
-      );
+      const res = await getUserRefuelRecord(currentUser?.user?.user_id);
       setRecords(res);
-      setRecordId(res[0]._id);
-      setOilingDate(res[0].oiling_date);
-      setGasType(res[0].gas_type);
-      setGasAmount(res[0].gas_amount);
-      setOdometer(res[0].odometer);
     }
     getUserOilingRecord();
   }, []);
-
-  console.log(records);
-
-  const handleRefuelRecordDelete = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const CurrentRecordId = recordId;
-
-    try {
-      swal({
-        title: "주유내역을 삭제하시겠습니까?",
-        text: "한 번 삭제된 내역은 복구할 수 없습니다.",
-        icon: "warning",
-        buttons: ["취소", "삭제"],
-        dangerMode: true,
-      }).then(async willDelete => {
-        if (willDelete) {
-          const data = { _id: CurrentRecordId };
-          await deleteRefuelRecord(data);
-          swal("삭제 완료", "주유내역이 정상적으로 삭제되었습니다.", "success");
-        } else {
-          swal("삭제 취소", "사용자가 삭제를 취소하였습니다.", "info");
-        }
-      });
-    } catch (err) {
-      alert("오류가 발생했습니다.");
-    }
-  };
 
   return (
     <>
@@ -121,75 +89,134 @@ function MyInfo() {
                   </li>
                   <li>
                     <span>평균 연비</span>
-                    <p>{currentUserCalcEfficiency}km/L</p>
+                    <p>{currentUserCalcEfficiency.averageEfficiency}km/L</p>
                   </li>
                 </ul>
               )}
             </MyPageContent>
+            {!recommendedCarModel ? (
+              <>
+                <NewRegisterCarDesc>
+                  등록된 추천 차량이 없습니다.
+                </NewRegisterCarDesc>
+                <Link to={R.CARREGISTER}>
+                  <NewRegisterCarBtn>차량 추천받으러 가기</NewRegisterCarBtn>
+                </Link>
+              </>
+            ) : (
+              <>
+                <MyPageContentTitle>나의 추천 차량 정보</MyPageContentTitle>
+                <MyPageContent>
+                  <ul>
+                    <li>
+                      <span>제조사</span>
+                      <p>{recommendedCarBrand}</p>
+                    </li>
+                    <li>
+                      <span>차종</span>
+                      <p>{recommendedCarModel}</p>
+                    </li>
+                    {/* <li>
+                      <span>평균 연비</span>
+                      <p>{currentUserCalcEfficiency.averageEfficiency}km/L</p>
+                    </li> */}
+                  </ul>
+                </MyPageContent>
+              </>
+            )}
           </div>
-          <div style={{ paddingTop: 100 }}>
-            <MyPageContentTitle>
-              이전 주유 기록 (최근 3개월)
-              <AddRefuelButton
-                onClick={() => setAddingRefuelRecord(!addingRefuelRecord)}
-              >
-                + 주유내역
-              </AddRefuelButton>
-              {addingRefuelRecord && (
-                <Modal
-                  closeModal={() => setAddingRefuelRecord(!addingRefuelRecord)}
+          {currentCarModel && (
+            <div style={{ paddingTop: 50 }}>
+              <MyPageContentTitle>
+                이전 주유 기록 (최근 3개월)
+                <AddRefuelButton
+                  onClick={() => setAddingRefuelRecord(!addingRefuelRecord)}
                 >
-                  <AddNewRefuelRecord />
-                </Modal>
-              )}
-            </MyPageContentTitle>
-            <RefuelWrap>
-              <table>
-                <thead>
-                  <tr>
-                    <th>주유 날짜</th>
-                    <th>유종</th>
-                    <th>주유량(L)</th>
-                    <th>누적 주행 거리(km)</th>
-                    <th> </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {!recordId ? (
+                  + 주유내역
+                </AddRefuelButton>
+                {addingRefuelRecord && (
+                  <Modal
+                    closeModal={() =>
+                      setAddingRefuelRecord(!addingRefuelRecord)
+                    }
+                  >
+                    <AddNewRefuelRecord />
+                  </Modal>
+                )}
+              </MyPageContentTitle>
+              <RefuelWrap>
+                <table>
+                  <thead>
                     <tr>
-                      <td>주유내역이 존재하지 않습니다.</td>
+                      <th>주유 날짜</th>
+                      <th>유종</th>
+                      <th>주유량(L)</th>
+                      <th>누적 주행 거리(km)</th>
+                      <th> </th>
                     </tr>
-                  ) : (
-                    <tr>
-                      <td>{oilingDate.substring(0, 10)}</td>
-                      <td>{gasType}</td>
-                      <td>{gasAmount}L</td>
-                      <td>{odometer}km</td>
-                      <td>
-                        <button
-                          onClick={() =>
-                            setModifyingRefuelRecord(!modifyingRefuelRecord)
-                          }
-                        >
-                          수정
-                        </button>
-                        {modifyingRefuelRecord && (
-                          <Modal
-                            closeModal={() =>
-                              setModifyingRefuelRecord(!modifyingRefuelRecord)
-                            }
-                          >
-                            <ModifyRecord _id={recordId} />
-                          </Modal>
-                        )}
-                        <button onClick={handleRefuelRecordDelete}>삭제</button>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </RefuelWrap>
-          </div>
+                  </thead>
+                  <tbody>
+                    {!records[0] ? (
+                      <tr>
+                        <td>주유내역이 존재하지 않습니다.</td>
+                      </tr>
+                    ) : (
+                      records.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item.oiling_date.substring(0, 10)}</td>
+                            <td>{item.gas_type}</td>
+                            <td>{item.gas_amount}L</td>
+                            <td>{item.odometer}km</td>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  setModifyingRefuelRecord(
+                                    !modifyingRefuelRecord,
+                                  )
+                                }
+                              >
+                                수정
+                              </button>
+                              {modifyingRefuelRecord && (
+                                <Modal
+                                  closeModal={() =>
+                                    setModifyingRefuelRecord(
+                                      !modifyingRefuelRecord,
+                                    )
+                                  }
+                                >
+                                  <ModifyRecord _id={item._id} />
+                                </Modal>
+                              )}
+                              <button
+                                onClick={() =>
+                                  setDeletingRefuelRecord(!deletingRefuelRecord)
+                                }
+                              >
+                                삭제
+                              </button>
+                              {deletingRefuelRecord && (
+                                <ConfirmModal
+                                  closeModal={() =>
+                                    setDeletingRefuelRecord(
+                                      !deletingRefuelRecord,
+                                    )
+                                  }
+                                >
+                                  <DeleteRecord _id={item._id} />
+                                </ConfirmModal>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })
+                    )}
+                  </tbody>
+                </table>
+              </RefuelWrap>
+            </div>
+          )}
         </MyPageContentWrapper>
       </MyPageWrapper>
     </>
@@ -200,6 +227,7 @@ export default MyInfo;
 
 const MyPageWrapper = styled.div`
   display: flex;
+  margin-left: 20vw;
   padding-bottom: 5rem;
 `;
 
@@ -219,11 +247,12 @@ const MyPageContentTitle = styled.p`
 `;
 
 const MyPageContent = styled.div`
-  width: 50rem;
+  width: 50vw;
   height: auto;
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
+  margin-bottom: 30px;
   border-top: 2px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
   ul {
@@ -265,7 +294,7 @@ const AddRefuelButton = styled.button`
 `;
 
 const RefuelWrap = styled.div`
-  width: 50rem;
+  width: 50vw;
   border-top: 2px solid #e0e0e0;
 
   table {

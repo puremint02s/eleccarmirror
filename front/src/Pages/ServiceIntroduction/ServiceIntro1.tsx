@@ -17,7 +17,7 @@ function ServiceIntro1() {
                 현재 나의 차, 성향, 주유기록을 통해 나에게 딱 맞는 전기차를
                 찾아봐요.
               </Subtitle>
-              <Link to="/">
+              <Link to="/signuplogin">
                 <Section1Button>회원가입하고 찾으러 가기</Section1Button>
               </Link>
             </LeftBackground3>
@@ -80,6 +80,9 @@ const Section1Button = styled.button`
   background-color: white;
   border: none;
   cursor: pointer;
+  @media screen and (max-width: 720px) {
+    width: 40vw;
+  }
 `;
 
 const LogoWrapper = styled.img`

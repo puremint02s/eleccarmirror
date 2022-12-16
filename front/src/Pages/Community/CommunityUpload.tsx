@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import React, { useRef, useState } from "react";
 import Header from "components/common/Header";
 import Main from "components/common/Main";
 import { useNavigate } from "react-router-dom";
@@ -11,12 +10,12 @@ const CommunityUpload = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const hashTagsRef = useRef<HTMLInputElement>(null);
-
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [hashtags, setHashtags] = useState([]);
   const [titleWarn, setTitleWarn] = useState("");
   const [contentWarn, setContentWarn] = useState("");
+  const [textLength, setTextLength] = useState(0);
 
   const toPreviousPage = () => {
     navigate(`/community`);
@@ -56,17 +55,14 @@ const CommunityUpload = () => {
   let uploadData;
   const uploadContent = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validation()) {
       return;
     }
-
     uploadData = {
       title,
       content,
       hashtags: hashTagsRef?.current?.value,
     };
-
     try {
       const res = await CommunityApi.uploadCommunity(uploadData);
     } catch (err) {
@@ -75,6 +71,17 @@ const CommunityUpload = () => {
 
     navigate(`/community`);
   };
+
+  const checkTextLength = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // console.log("text lenght", e.currentTarget.value.length);
+    const maxLength = 800;
+    if (e.currentTarget.value.length <= maxLength) {
+      setTextLength(e.currentTarget.value.length);
+    } else {
+      e.currentTarget.value = e.currentTarget.value.substring(0, maxLength);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -97,17 +104,23 @@ const CommunityUpload = () => {
               <span>{titleWarn}</span>
             </div>
           </uploadStyle.Content>
+
           <uploadStyle.Content>
             <p>내용</p>
             <div className="contentArea">
-              <textarea
-                placeholder="내용을 입력해주세요"
-                ref={contentRef}
-                onChange={e => {
-                  setContent(e.target.value);
-                }}
-              ></textarea>
-              <span>{contentWarn}</span>
+              <div>
+                <div className="textArea_wrap">
+                  <textarea
+                    placeholder="내용을 입력해주세요"
+                    ref={contentRef}
+                    onChange={e => {
+                      setContent(e.target.value);
+                    }}
+                    onKeyUp={checkTextLength}
+                  ></textarea>
+                  <p className="textlength">{textLength}/800</p>
+                </div>
+              </div>
             </div>
           </uploadStyle.Content>
           <uploadStyle.HashTags>
