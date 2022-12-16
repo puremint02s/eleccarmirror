@@ -1,21 +1,33 @@
 import React, { useRef, useState } from "react";
+import axios from "axios";
 import Header from "components/common/Header";
 import Main from "components/common/Main";
 import { useNavigate } from "react-router-dom";
 import * as uploadStyle from "style/CommunityUploadStyle";
 import * as CommunityApi from "apis/CommunityApi";
+import * as ImageUploadApi from "apis/ImageUpload";
 
 const CommunityUpload = () => {
   const navigate = useNavigate();
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const hashTagsRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [hashtags, setHashtags] = useState([]);
   const [titleWarn, setTitleWarn] = useState("");
   const [contentWarn, setContentWarn] = useState("");
   const [textLength, setTextLength] = useState(0);
+  // const [imageContent, setImageContent] = useState<Blob | string>("");
+  const [imageContent, setImageContent] = useState<any>("");
+  const [uploadImages, setUploadImages] = useState<{
+    file: File;
+    thumbnail: string;
+    type: string;
+  }>();
+
+  const BACK_SERVER_URL = process.env.REACT_APP_BACK_SERVER_URL;
 
   const toPreviousPage = () => {
     navigate(`/community`);
@@ -58,13 +70,16 @@ const CommunityUpload = () => {
     if (!validation()) {
       return;
     }
+
     uploadData = {
       title,
       content,
       hashtags: hashTagsRef?.current?.value,
+      file: imageContent,
     };
     try {
       const res = await CommunityApi.uploadCommunity(uploadData);
+      console.log("res", res);
     } catch (err) {
       console.log("err=>", err);
     }
@@ -72,14 +87,42 @@ const CommunityUpload = () => {
     navigate(`/community`);
   };
 
+  console.log("imageContent ====> ", imageContent);
+
   const checkTextLength = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // console.log("text lenght", e.currentTarget.value.length);
     const maxLength = 800;
     if (e.currentTarget.value.length <= maxLength) {
       setTextLength(e.currentTarget.value.length);
     } else {
       e.currentTarget.value = e.currentTarget.value.substring(0, maxLength);
     }
+  };
+
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      // Blob 타입의 이미지 파일을 base64 형태로 변환합니다.
+      const getBase64 = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setImageContent(reader.result);
+        };
+        reader.readAsDataURL(file);
+        reader.onerror = error => console.log(error);
+      };
+
+      getBase64(e.target.files[0]);
+
+      const url = URL.createObjectURL(e.target.files[0]);
+      setUploadImages({
+        file: e.target.files[0],
+        thumbnail: url,
+        type: e.target.files[0].type.slice(0, 5),
+      });
+    }
+  };
+
+  const clickFileInput = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -120,6 +163,26 @@ const CommunityUpload = () => {
                   ></textarea>
                   <p className="textlength">{textLength}/800</p>
                 </div>
+                {/* <div>
+                  <p className="imgBox">
+                    <img
+                      src={uploadImages?.thumbnail}
+                      alt={uploadImages?.thumbnail}
+                    />
+                  </p>
+
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={uploadImage}
+                  />
+                  <button type="button" onClick={clickFileInput}>
+                    파일 업로드
+                  </button>
+                </div> */}
               </div>
             </div>
           </uploadStyle.Content>

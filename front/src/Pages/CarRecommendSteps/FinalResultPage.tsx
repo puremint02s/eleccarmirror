@@ -21,6 +21,7 @@ import {
   ListH,
   ListI,
 } from "assets/data/RecommendElecCarList";
+import { Result as ImageRecommend } from "assets/data/CarOutputList";
 
 interface CarData {
   brand: string;
@@ -61,7 +62,6 @@ function FinalResultPage() {
   );
   const currentUserCalcMPG =
     (currentUserCalcEfficiency.averageEfficiency / 1559) * 324;
-  console.log(currentUserCalcMPG);
 
   useEffect(() => {
     const i = currentUserCalcMPG;
@@ -96,8 +96,9 @@ function FinalResultPage() {
       }
     } else {
       setCurrentUserMPGtype("none");
+      console.log("dkdk");
     }
-  }, []);
+  }, [currentUserCalcMPG]);
 
   useEffect(() => {
     async function getCurrentUserType() {
@@ -121,6 +122,13 @@ function FinalResultPage() {
     }
     setCurrentUserCarInfo();
   }, []);
+
+  function isMatch(element: any) {
+    if (element.model === recommendedCarModel) {
+      return true;
+    }
+  }
+  const ImageRecommendResult = ImageRecommend.find(isMatch);
 
   return (
     <>
@@ -179,14 +187,14 @@ function FinalResultPage() {
               }
             >
               <CarRecommendResult
-                brand={recommendedCarBrand}
-                model={recommendedCarModel}
-                distance={dummyCarData.distance}
-                battery={dummyCarData.battery}
-                MPG={dummyCarData.MPG}
-                cost={dummyCarData.cost}
-                homepage={dummyCarData.homepage}
-                img={GreyCarImg}
+                brand={ImageRecommendResult.brand}
+                model={ImageRecommendResult.model}
+                distance={ImageRecommendResult.distance}
+                battery={ImageRecommendResult.battery}
+                MPG={ImageRecommendResult.MPG}
+                cost={ImageRecommendResult.cost}
+                homepage={ImageRecommendResult.homepage}
+                img={ImageRecommendResult.img}
               />
             </Modal>
           )}

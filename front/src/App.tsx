@@ -9,6 +9,7 @@ import {
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "style/global-style";
 import { ThemeProvider } from "styled-components/macro";
+import "react-datepicker/dist/react-datepicker.css";
 import theme from "assets/data/chatBotTheme.json";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { loginReducer } from "utils/reducer";
@@ -66,7 +67,7 @@ const ROUTE = {
   COMMUNITYLOAD: "/community/:id",
   MYPAGE: "/mypage",
   SERVICEINTRO: "/serviceintro",
-  ERROR: "/404",
+  ERROR: "/*",
 };
 
 declare global {
