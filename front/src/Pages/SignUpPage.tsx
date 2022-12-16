@@ -353,6 +353,7 @@ const SignText = styled.input`
   padding-left: 10px;
   box-sizing: border-box;
   margin: 10px 0;
+  border-radius: 10px;
 `;
 
 const ErrorText = styled.div`
@@ -361,6 +362,7 @@ const ErrorText = styled.div`
 `;
 
 const SubmitButton = styled.button`
+  border-radius: 10px;
   width: 100%;
   height: 40px;
   background-color: #0a84ff;
@@ -369,6 +371,7 @@ const SubmitButton = styled.button`
 `;
 
 const AddressButton = styled.button`
+  border-radius: 10px;
   width: 100%;
   height: 40px;
   background-color: #303030;
@@ -383,9 +386,12 @@ const SignInput = styled.input`
   padding-left: 10px;
   box-sizing: border-box;
   margin: 10px 10px 10px 0px;
+  border-radius: 10px;
 `;
 
 const SignSelect = styled.select`
+  border-radius: 10px;
+  border: none;
   width: 100%;
   height: 40px;
   background-color: #f6f6f6;
