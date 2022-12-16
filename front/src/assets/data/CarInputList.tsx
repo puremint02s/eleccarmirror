@@ -1,35 +1,3 @@
-import AudiEtronGTImg from "assets/data/CarImages/Audi e-tron GT.png";
-import AudiEtronSSportbackImg from "assets/data/CarImages/Audi e-tron S sportback.png";
-import AudiEtronSImg from "assets/data/CarImages/Audi e-tron S.png";
-import AudiEtronSportbackImg from "assets/data/CarImages/Audi e-tron Sportback.jpg";
-import AudiEtronImg from "assets/data/CarImages/Audi e-tron.jpg";
-import AudiQ4EtronImg from "assets/data/CarImages/Audi Q4 e-tron.png";
-import AudiQ4SportbackEtronImg from "assets/data/CarImages/Audi Q4 Sportback e-tron.jpg";
-import BenzEQASUVImg from "assets/data/CarImages/Benz EQA SUV.png";
-import BenzEQBSUVImg from "assets/data/CarImages/Benz EQB SUV.jpg";
-import BenzEQESedanImg from "assets/data/CarImages/Benz EQE Sedan.jpg";
-import BenzEQSSedanImg from "assets/data/CarImages/Benz EQS Sedan.png";
-import BMWi4M50Img from "assets/data/CarImages/BMW i4 M50.jpg";
-import BMWi4Img from "assets/data/CarImages/BMW i4.jpg";
-import BMWi7Img from "assets/data/CarImages/BMW i7.png";
-import BMWiXM60Img from "assets/data/CarImages/BMW iX M60.png";
-import BMWiXImg from "assets/data/CarImages/BMW iX.jpg";
-import BMWiX3Img from "assets/data/CarImages/BMW iX3.png";
-import ChevroletBoltEvImg from "assets/data/CarImages/Chevrolet BOLT EV.png";
-import GenesisG80Img from "assets/data/CarImages/Genesis G80.png";
-import GenesisGV60Img from "assets/data/CarImages/Genesis GV60.png";
-import GenesisGV70Img from "assets/data/CarImages/Genesis GV70.png";
-import HyundaiIoniq5Img from "assets/data/CarImages/Hyundai Ioniq 5.png";
-import HyundaiIoniq6Img from "assets/data/CarImages/Hyundai Ioniq 6.png";
-import KiaEV6GTImg from "assets/data/CarImages/Kia EV6 GT.png";
-import KiaEV6Img from "assets/data/CarImages/Kia EV6.png";
-import KiaNiroEVImg from "assets/data/CarImages/Kia Niro EV.png";
-import KiaNiroPlusImg from "assets/data/CarImages/Kia Niro Plus.png";
-import TeslaModel3Img from "assets/data/CarImages/Tesla Model 3.jpg";
-import TeslaModelSImg from "assets/data/CarImages/Tesla Model S.jpg";
-import TeslaModelXImg from "assets/data/CarImages/Tesla Model X.png";
-import TeslaModelYImg from "assets/data/CarImages/Tesla Model Y.jpg";
-
 type Car = {
   label: string;
 
