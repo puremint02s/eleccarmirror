@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserStateContext } from "App";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "components/common/Header";
 import { CAR, RESULT_CAR } from "./Contents/result";
@@ -17,13 +18,20 @@ import {
   ResultListComponentWrapper,
 } from "style/CarMbtiStyle";
 import BlueCarImg from "assets/img/BlueCar.png";
-import { carMbtiTypePost } from "apis/CarMbtiTestApi";
+import {
+  carMbtiTypePost,
+  carMbtiTypeGet,
+  carMbtiTypeModify,
+} from "apis/CarMbtiTestApi";
 import { updateStepInfo } from "apis/StepApi";
 import { R } from "App";
 
 function Result() {
   const navigate = useNavigate();
   const [type, setType] = useState<string>("");
+
+  const currentUser = useContext(UserStateContext);
+  const currentUserId = currentUser?.user?.user_id;
 
   const { car } = useParams<{
     car: string;
@@ -34,8 +42,15 @@ function Result() {
     if (!type) return navigate(R.ERROR);
     setType(type);
     async function postUserType() {
-      const userType = { type };
-      await carMbtiTypePost(userType);
+      const res = await carMbtiTypeGet(currentUserId);
+      if (typeof res[0] === "undefined") {
+        const userType = { type };
+        await carMbtiTypePost(userType);
+      } else {
+        const _id = res[0]._id;
+        const userType = { type, _id };
+        await carMbtiTypeModify(userType);
+      }
     }
     postUserType();
   }, [car, navigate]);
