@@ -25,7 +25,7 @@ const ElecCarReport = ({
   user,
 }: {
   step: string | undefined;
-  user: string | undefined;
+  user: any;
 }) => {
   const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
   console.log("car", car);
@@ -39,6 +39,10 @@ const ElecCarReport = ({
   const temp = Input.Result.find(
     v => v.label.split(" ")[1] === car?.current?.model,
   );
+
+  if (user !== null || user !== undefined) {
+    console.log(CalcAverageEfficiency(user?.id));
+  }
   return (
     <>
       <ReportWrapper>
