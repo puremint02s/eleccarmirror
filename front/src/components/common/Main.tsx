@@ -12,7 +12,7 @@ const Main = styled.main<Props>`
   margin: 0 auto;
   padding: 0 2%;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1370px) {
     min-width: auto;
     padding: 0 4%;
   }
