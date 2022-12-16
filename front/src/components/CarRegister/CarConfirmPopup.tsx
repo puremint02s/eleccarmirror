@@ -190,11 +190,12 @@ const CarConfirmPopup = ({
             >
               <ResultWrapper>
                 <ResultTitleText>이 차가 맞나요?</ResultTitleText>
-                <ResultImage
-                  src={`
+                {chartData && (
+                  <ResultImage
+                    src={`
                   currentCarImages/${chartData[0].label.split(" ")[1]}.png`}
-                />
-                {/* vm에 저장해둔 분류 모델 이미지가 나와야 합니다. */}
+                  />
+                )}
                 <ResultText>
                   <span>제조사</span>
                   <span>{chartData && chartData[0].label.split(" ")[0]}</span>
