@@ -40,6 +40,15 @@ const MyInfo = styled.div`
       padding: 5px 10px;
       font-size: 14px;
     }
+    .usertype {
+      display: flex;
+      justify-content: space-between;
+      /* width: 91px; */
+      i {
+        color: #6897c6;
+        font-size: 20px;
+      }
+    }
   }
 
   .myInfo-info {
@@ -96,6 +105,7 @@ const MyInfo = styled.div`
 `;
 
 export const UploadButton = styled.button`
+  border-radius: 10px;
   width: 100%;
   padding: 15px 0;
   font-size: 18px;
@@ -103,6 +113,10 @@ export const UploadButton = styled.button`
   border: none;
   color: #fff;
   cursor: pointer;
+  transition: 0.3s ease-in-out all;
+  &:hover {
+    background-color: salmon;
+  }
 `;
 
 function CommunityMyInfo() {
@@ -172,6 +186,8 @@ function CommunityMyInfo() {
     api();
   }, [userCommunity]);
 
+  console.log("userTestType?.type", userTestType?.type);
+
   return (
     <MyInfo>
       <div className="myInfo-user">
@@ -179,21 +195,24 @@ function CommunityMyInfo() {
           <span className="username">{user?.nickname}</span>님
         </p>
         <span>
-          <span className="usertype">
-            {userTestType?.type === null ? "-" : userTestType?.type}
-          </span>
-          유형
+          {userTestType?.type === undefined ? (
+            <span className="usertype">
+              <i className="ri-emotion-unhappy-fill"></i> 유형 없음
+            </span>
+          ) : (
+            <span className="usertype">{userTestType?.type}유형</span>
+          )}
         </span>
       </div>
       <div className="myInfo-info">
         <ul>
           <li>
             <span>차종</span>
-            <p>{userCarInfo?.model === null ? "-" : userCarInfo?.model}</p>
+            <p>{userCarInfo?.model === undefined ? "-" : userCarInfo?.model}</p>
           </li>
           <li>
             <span>제조사</span>
-            <p>{userCarInfo?.brand === null ? "-" : userCarInfo?.brand}</p>
+            <p>{userCarInfo?.brand === undefined ? "-" : userCarInfo?.brand}</p>
           </li>
           <li>
             <span>평균 연비</span>

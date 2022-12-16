@@ -1,35 +1,3 @@
-import AudiEtronGTImg from "assets/data/CarImages/Audi e-tron GT.png";
-import AudiEtronSSportbackImg from "assets/data/CarImages/Audi e-tron S sportback.png";
-import AudiEtronSImg from "assets/data/CarImages/Audi e-tron S.png";
-import AudiEtronSportbackImg from "assets/data/CarImages/Audi e-tron Sportback.jpg";
-import AudiEtronImg from "assets/data/CarImages/Audi e-tron.jpg";
-import AudiQ4EtronImg from "assets/data/CarImages/Audi Q4 e-tron.png";
-import AudiQ4SportbackEtronImg from "assets/data/CarImages/Audi Q4 Sportback e-tron.jpg";
-import BenzEQASUVImg from "assets/data/CarImages/Benz EQA SUV.png";
-import BenzEQBSUVImg from "assets/data/CarImages/Benz EQB SUV.jpg";
-import BenzEQESedanImg from "assets/data/CarImages/Benz EQE Sedan.jpg";
-import BenzEQSSedanImg from "assets/data/CarImages/Benz EQS Sedan.png";
-import BMWi4M50Img from "assets/data/CarImages/BMW i4 M50.jpg";
-import BMWi4Img from "assets/data/CarImages/BMW i4.jpg";
-import BMWi7Img from "assets/data/CarImages/BMW i7.png";
-import BMWiXM60Img from "assets/data/CarImages/BMW iX M60.png";
-import BMWiXImg from "assets/data/CarImages/BMW iX.jpg";
-import BMWiX3Img from "assets/data/CarImages/BMW iX3.png";
-import ChevroletBoltEvImg from "assets/data/CarImages/Chevrolet BOLT EV.png";
-import GenesisG80Img from "assets/data/CarImages/Genesis G80.png";
-import GenesisGV60Img from "assets/data/CarImages/Genesis GV60.png";
-import GenesisGV70Img from "assets/data/CarImages/Genesis GV70.png";
-import HyundaiIoniq5Img from "assets/data/CarImages/Hyundai Ioniq 5.png";
-import HyundaiIoniq6Img from "assets/data/CarImages/Hyundai Ioniq 6.png";
-import KiaEV6GTImg from "assets/data/CarImages/Kia EV6 GT.png";
-import KiaEV6Img from "assets/data/CarImages/Kia EV6.png";
-import KiaNiroEVImg from "assets/data/CarImages/Kia Niro EV.png";
-import KiaNiroPlusImg from "assets/data/CarImages/Kia Niro Plus.png";
-import TeslaModel3Img from "assets/data/CarImages/Tesla Model 3.jpg";
-import TeslaModelSImg from "assets/data/CarImages/Tesla Model S.jpg";
-import TeslaModelXImg from "assets/data/CarImages/Tesla Model X.png";
-import TeslaModelYImg from "assets/data/CarImages/Tesla Model Y.jpg";
-
 type Car = {
   label: string;
 
@@ -42,6 +10,8 @@ type Car = {
   e: number;
   f: number;
   g: number;
+
+  kml: number;
 };
 
 export const Result: Car[] = [
@@ -57,6 +27,8 @@ export const Result: Car[] = [
     e: 14,
     f: 14,
     g: 9,
+
+    kml: 14.5,
   },
   {
     label: "chevrolet trailblazer",
@@ -70,6 +42,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 13,
+
+    kml: 12,
   },
   {
     label: "genesis g80",
@@ -83,6 +57,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 17,
+
+    kml: 9,
   },
   {
     label: "genesis g90",
@@ -96,6 +72,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 22,
+
+    kml: 8.2,
   },
   {
     label: "hyundai avante",
@@ -109,6 +87,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 12,
+
+    kml: 13,
   },
   {
     label: "hyundai casper",
@@ -122,6 +102,8 @@ export const Result: Car[] = [
     e: 13,
     f: 13,
     g: 9,
+
+    kml: 13,
   },
   {
     label: "hyundai grandeur",
@@ -135,6 +117,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 17,
+
+    kml: 16.8,
   },
   {
     label: "hyundai kona",
@@ -148,6 +132,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 13,
+
+    kml: 12.4,
   },
   {
     label: "hyundai palisade",
@@ -161,6 +147,8 @@ export const Result: Car[] = [
     e: 17,
     f: 17,
     g: 19,
+
+    kml: 10.5,
   },
   {
     label: "hyundai santafe",
@@ -174,6 +162,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 17,
+
+    kml: 11.8,
   },
   {
     label: "hyundai sonata",
@@ -187,6 +177,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
+
+    kml: 11.7,
   },
   {
     label: "hyundai tucson",
@@ -200,6 +192,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
+
+    kml: 12.4,
   },
   {
     label: "hyundai venue",
@@ -213,6 +207,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 11,
+
+    kml: 13.6,
   },
   {
     label: "kia carnival",
@@ -226,6 +222,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 11,
+
+    kml: 11.3,
   },
   {
     label: "kia k3",
@@ -239,6 +237,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 12,
+
+    kml: 14.7,
   },
   {
     label: "kia k5",
@@ -252,6 +252,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
+
+    kml: 11.9,
   },
   {
     label: "kia k8",
@@ -265,6 +267,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 16,
+
+    kml: 17.5,
   },
   {
     label: "kia k9",
@@ -278,6 +282,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 20,
+
+    kml: 8.6,
   },
   {
     label: "kia mohave",
@@ -291,6 +297,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 22,
+
+    kml: 9.3,
   },
   {
     label: "kia morning",
@@ -304,6 +312,8 @@ export const Result: Car[] = [
     e: 14,
     f: 15,
     g: 9,
+
+    kml: 15.7,
   },
   {
     label: "kia ray",
@@ -317,6 +327,8 @@ export const Result: Car[] = [
     e: 14,
     f: 14,
     g: 10,
+
+    kml: 13,
   },
   {
     label: "kia seltos",
@@ -330,6 +342,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 13,
+
+    kml: 11.7,
   },
   {
     label: "kia sorento",
@@ -343,6 +357,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 17,
+
+    kml: 12.3,
   },
   {
     label: "kia sportage",
@@ -356,6 +372,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 15,
+
+    kml: 12.5,
   },
   {
     label: "renault qm6",
@@ -369,6 +387,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 15,
+
+    kml: 10.4,
   },
   {
     label: "renault sm6",
@@ -382,6 +402,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
+
+    kml: 11.8,
   },
   {
     label: "renault xm3",
@@ -395,6 +417,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
+
+    kml: 13.6,
   },
   {
     label: "ssangyong rexton",
@@ -408,6 +432,8 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 20,
+
+    kml: 10.3,
   },
   {
     label: "genesis g70",
@@ -421,6 +447,8 @@ export const Result: Car[] = [
     e: 15,
     f: 16,
     g: 16,
+
+    kml: 10.2,
   },
   {
     label: "ssangyong tivoli",
@@ -434,6 +462,8 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 13,
+
+    kml: 11.4,
   },
   {
     label: "ssangyong torres",
@@ -447,5 +477,7 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 15,
+
+    kml: 10.8,
   },
 ];
