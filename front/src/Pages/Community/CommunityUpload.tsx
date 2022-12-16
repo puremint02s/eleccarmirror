@@ -71,12 +71,6 @@ const CommunityUpload = () => {
       return;
     }
 
-    // const formData = new FormData();
-    // formData.append("file", imageContent);
-
-    // const base = Buffer.from(imageContent, "utf8").toString("base64");
-    // const base = btoa(unescape(encodeURIComponent(imageContent)));
-
     uploadData = {
       title,
       content,
@@ -93,12 +87,9 @@ const CommunityUpload = () => {
     navigate(`/community`);
   };
 
-  // console.log("imageContent", imageContent);
-
   console.log("imageContent ====> ", imageContent);
 
   const checkTextLength = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // console.log("text lenght", e.currentTarget.value.length);
     const maxLength = 800;
     if (e.currentTarget.value.length <= maxLength) {
       setTextLength(e.currentTarget.value.length);
@@ -107,14 +98,8 @@ const CommunityUpload = () => {
     }
   };
 
-  // console.log("imageFile?.file.name", imageContent);
-
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      // console.log("e.target.files", e.target.files[0]);
-      // setImageContent(e.target.files);
-      // setImageContent(e.target.files[0].name);
-
       // Blob 타입의 이미지 파일을 base64 형태로 변환합니다.
       const getBase64 = (file: File) => {
         const reader = new FileReader();
@@ -127,8 +112,6 @@ const CommunityUpload = () => {
 
       getBase64(e.target.files[0]);
 
-      // setImageContent(result);
-
       const url = URL.createObjectURL(e.target.files[0]);
       setUploadImages({
         file: e.target.files[0],
@@ -140,7 +123,6 @@ const CommunityUpload = () => {
 
   const clickFileInput = () => {
     fileInputRef.current?.click();
-    // console.log("image click");
   };
 
   return (
@@ -181,12 +163,11 @@ const CommunityUpload = () => {
                   ></textarea>
                   <p className="textlength">{textLength}/800</p>
                 </div>
-                <div>
+                {/* <div>
                   <p className="imgBox">
                     <img
                       src={uploadImages?.thumbnail}
                       alt={uploadImages?.thumbnail}
-                      // onClick={clickFileInput}
                     />
                   </p>
 
@@ -201,7 +182,7 @@ const CommunityUpload = () => {
                   <button type="button" onClick={clickFileInput}>
                     파일 업로드
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </uploadStyle.Content>

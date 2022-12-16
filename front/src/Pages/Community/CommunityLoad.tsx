@@ -132,10 +132,10 @@ function CommunityLoad() {
     const commentId = e.currentTarget.name;
 
     if (isRemove) {
+      setIsCommentRemoved(true);
       try {
         const data = { _id: commentId };
         await CommentApi.deleteComment(data);
-        setIsCommentRemoved(true);
       } catch (err) {
         console.log(err);
       }
@@ -289,9 +289,9 @@ function CommunityLoad() {
                 </div>
               ) : (
                 <p>
-                  <img
+                  {/* <img
                     src={`${process.env.REACT_APP_BACK_SERVER_URL}/${contents?.file}`}
-                  />
+                  /> */}
                   {contents?.content}
                 </p>
               )}
