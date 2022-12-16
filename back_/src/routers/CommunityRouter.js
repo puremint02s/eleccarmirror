@@ -1,11 +1,14 @@
 import is from "@sindresorhus/is";
+import multer from "multer";
 import { Router } from "express";
 import { communityService } from "../services/communityService.js";
 import { userAuthService } from "../services/userAuthService.js";
 import { login_required } from "../middlewares/login_required.js";
+import { uploadFiles } from "../middlewares/imageMiddleware.js";
 
-import multer from "multer";
+const communityRouter = Router();
 
+//multer를 이용해서 이미지 업로드, multer({속성값 객체})
 const upload = multer({
     //업로드한 이미지를 어디에 저장할지 - 로컬디스크
     storage: multer.diskStorage({
@@ -28,20 +31,20 @@ const upload = multer({
     },
 });
 
-const communityRouter = Router();
-
 //커뮤니티 글 등록
 communityRouter.post(
     "/community",
     login_required,
-    upload.single("image"),
+    upload.single("file"),
     async function (req, res, next) {
+        console.log("file", req.file); //undefined
+
         try {
             const user_id = req.currentUserId;
 
             const user = await userAuthService.getUserInfo(user_id);
 
-            const { title, content, hashtags, filename } = req.body;
+            const { title, content, hashtags } = req.body;
 
             const filteredHashtags = hashtags.replace(/\s/g, "").split(",");
 
@@ -52,7 +55,7 @@ communityRouter.post(
                 content,
                 hashtags: filteredHashtags,
                 creator: req.user_id,
-                filename: req.file.filename,
+                // filename: req.file.filename,
             };
 
             const uploadedContent = await communityService.addContent(data);
