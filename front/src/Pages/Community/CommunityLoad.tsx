@@ -17,6 +17,7 @@ type contentProps = {
   nickname: string;
   _id: string;
   user_id: string;
+  filename: string;
 };
 
 type userProps = {
@@ -211,7 +212,7 @@ function CommunityLoad() {
     setIsContentEdit(false);
   };
 
-  console.log("hashTags", hashTags);
+  console.log("filename", contents?.filename);
 
   return (
     <>
@@ -222,7 +223,7 @@ function CommunityLoad() {
           <C.CommunityContent>
             <button
               onClick={() => {
-                navigate(`/community?page=${location.search.slice(-1)}`);
+                navigate(`/community?page=${location.search.split("=")[1]}`);
               }}
             >
               목록으로
@@ -287,7 +288,12 @@ function CommunityLoad() {
                   ></textarea>
                 </div>
               ) : (
-                <p>{contents?.content}</p>
+                <p>
+                  <img
+                    src={`${process.env.REACT_APP_BACK_SERVER_URL}/${contents?.filename}`}
+                  />
+                  {contents?.content}
+                </p>
               )}
             </C.Content>
             <C.Hashtags>
