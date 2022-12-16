@@ -6,12 +6,14 @@ import CarConfirmPopup from "components/CarRegister/CarConfirmPopup";
 import Header from "components/common/Header";
 import TextBubbleBox from "components/CarRegister/TextBubbleBox";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import * as ImageUploadApi from "apis/ImageUpload";
+import * as UserApi from "apis/UserApi";
 
 function CarRegisterPage() {
   const navigate = useNavigate();
-
+  const user = useQuery("user", UserApi.currentUserGet)?.data?.data;
+  console.log("user", user);
   const imageInput = useRef<HTMLInputElement>(null);
   const [isPopUpOpen, setPopUpOpen] = useState(false);
 
@@ -42,9 +44,14 @@ function CarRegisterPage() {
       </HeaderWrapper>
       <MainArea>
         <div>
-          <TitleWrapper>간편하게 나의 차량 등록하기</TitleWrapper>
+          <TitleWrapper>
+            {user?.carowned
+              ? "간편하게 나의 차량 등록하기"
+              : "디자인이 취향인 차량 등록하기"}
+          </TitleWrapper>
           <SubTitleWrapper>
-            차량 이미지를 업로드해보세요 제조사와 차종을 분류해드립니다.
+            현재 차량을 소지하고 계시지 않으시군요! 평소 멋있다고 생각했던
+            차량의 이미지를 업로드해보세요 제조사와 차종을 분류해드립니다.
           </SubTitleWrapper>
         </div>
         <div>
