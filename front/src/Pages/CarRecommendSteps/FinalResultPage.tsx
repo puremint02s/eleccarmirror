@@ -49,6 +49,8 @@ function FinalResultPage() {
     useState(false);
   const [userMbtiType, setUserMbtiType] = useState("");
   const [currentCarModel, setCurrentCarModel] = useState("");
+  const [recommendedCarModel, setRecomendedCarModel] = useState("");
+  const [recommendedCarBrand, setRecomendedCarBrand] = useState("");
   const [currentUserMPGtype, setCurrentUserMPGtype] = useState("");
   const [recommendedIndex, setRecommendedIndex] = useState(0);
 
@@ -110,8 +112,11 @@ function FinalResultPage() {
     async function setCurrentUserCarInfo() {
       const res = await getCarInfo();
       const carInformation = res?.data?.current;
+      const recommendedInfo = res?.data?.recommended;
       if (carInformation) {
         setCurrentCarModel(carInformation.model);
+        setRecomendedCarModel(recommendedInfo.model);
+        setRecomendedCarBrand(recommendedInfo.brand);
       }
     }
     setCurrentUserCarInfo();
@@ -174,8 +179,8 @@ function FinalResultPage() {
               }
             >
               <CarRecommendResult
-                brand={dummyCarData.brand}
-                model={dummyCarData.model}
+                brand={recommendedCarBrand}
+                model={recommendedCarModel}
                 distance={dummyCarData.distance}
                 battery={dummyCarData.battery}
                 MPG={dummyCarData.MPG}
