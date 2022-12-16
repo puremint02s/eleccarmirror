@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import AddressPopUp from "components/SignUp/AddressPopUp";
 import SignUpCodePopUp from "components/SignUp/SignUpCodePopUp";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,10 @@ import * as Api from "apis/UserSignApi";
 import logo from "assets/img/MyElecCar logo.png";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+import styled from "styled-components";
+import _ from "lodash";
+import { isConstTypeReference } from "typescript";
 
 interface SignForm {
   email?: string;
@@ -25,15 +29,27 @@ const SignUpPage = () => {
   const [inputAddress, setInputAddress] = useState("");
   const [carOwned, setCarOwned] = useState(false);
   const [elecCarOwned, setElecCarOwned] = useState(false);
-  const doSignup = useMutation(Api.RegisterRequest, {
+  const doSignup = useMutation(Api.registerRequest, {
     onSuccess: message => {
       navigate("/login");
-      alert({ success: message });
+      console.log({ success: message });
+      swal("회원가입 완료", "회원가입이 완료되었습니다.");
+    },
+    onError: error => {
+      swal("회원가입 불가", "아이디가 중복되었습니다");
+      console.log({ error });
+    },
+  });
+
+  const doSameCheck = useMutation(Api.registerUserGet, {
+    onSuccess: message => {
+      console.log({ success: message });
     },
     onError: error => {
       console.log({ error });
     },
   });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,8 +84,29 @@ const SignUpPage = () => {
   const signUp = handleSubmit(registerForm => {
     delete registerForm.confirmPassword;
     doSignup.mutate(registerForm);
+
     // console.log(registerForm);
   });
+
+  // const signSame = handleSubmit(registerForm => {
+  //   const id = registerForm.id;
+  //   doSameCheck.mutate(id);
+  //   // console.log(registerForm);
+  //   console.log("dd");
+  // });
+  const signSame = (id: object | undefined) => {
+    doSameCheck.mutate(id);
+    console.log(id);
+  };
+
+  const delayedQueryCall = useCallback<any>(
+    _.debounce(q => signSame(q), 500),
+    [],
+  );
+  const handleSearchChange = (e: React.ChangeEvent<any>) => {
+    const target = { event: e.target.value };
+    delayedQueryCall(target);
+  };
 
   return (
     <>
@@ -82,57 +119,31 @@ const SignUpPage = () => {
       {signUpCodePopUpOpen && (
         <SignUpCodePopUp setSignUpCodePopUpOpen={setSignUpCodePopUpOpen} />
       )}
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            width: "80%",
-            height: "90%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <img style={{ width: 180 }} src={logo} alt="서비스 로고" />
-          <form
-            onSubmit={signUp}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "50px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                padding: "5px 0",
-                width: "320px",
-              }}
-            >
+      <Wrapper>
+        <Wrap>
+          <SignImg src={logo} alt="서비스 로고" />
+          <SignContent onSubmit={signUp}>
+            <SignWrap>
+              <label htmlFor="id">아이디</label>
+              <SignText
+                id="id"
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                {...register("id", {
+                  required: "아이디를 입력해주세요",
+                  pattern: {
+                    value: /^(?=.*[A-Za-z0-9]).{4,10}$/,
+                    message: "영문, 숫자로 4~10글자 입력해주세요.",
+                  },
+                  onChange: handleSearchChange,
+                })}
+              />
+              <ErrorText>{errors.id && errors.id?.message}</ErrorText>
+            </SignWrap>
+
+            <SignWrap>
               <label htmlFor="email">이메일</label>
-              <input
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  backgroundColor: "#F6F6F6",
-                  paddingLeft: "10px",
-                  boxSizing: "border-box",
-                  margin: "10px 0",
-                }}
+              <SignText
                 id="email"
                 type="email"
                 placeholder="이메일을 입력해주세요."
@@ -145,62 +156,12 @@ const SignUpPage = () => {
                   },
                 })}
               />
-              <div>{errors.email && errors.email?.message}</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                padding: "5px 0",
-                width: "320px",
-              }}
-            >
-              <label htmlFor="id">아이디</label>
-              <input
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  backgroundColor: "#F6F6F6",
-                  paddingLeft: "10px",
-                  boxSizing: "border-box",
-                  margin: "10px 0",
-                }}
-                id="id"
-                type="text"
-                placeholder="아이디를 입력해주세요"
-                {...register("id", {
-                  required: "아이디를 입력해주세요",
-                  pattern: {
-                    value: /^(?=.*[A-Za-z0-9]).{4,10}$/,
-                    message: "영문, 숫자로 4~10글자 입력해주세요.",
-                  },
-                })}
-              />
-              <div>{errors.id && errors.id?.message}</div>
-            </div>
+              <ErrorText>{errors.email && errors.email?.message}</ErrorText>
+            </SignWrap>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                padding: "5px 0",
-                width: "320px",
-              }}
-            >
+            <SignWrap>
               <label htmlFor="nickname">닉네임</label>
-              <input
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  backgroundColor: "#F6F6F6",
-                  paddingLeft: "10px",
-                  boxSizing: "border-box",
-                  margin: "10px 0",
-                }}
+              <SignText
                 id="nickname"
                 type="name"
                 placeholder="닉네임을 입력해주세요"
@@ -212,28 +173,13 @@ const SignUpPage = () => {
                   },
                 })}
               />
-              <div>{errors.nickname && errors.nickname?.message}</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                padding: "5px 0",
-                width: "320px",
-              }}
-            >
+              <ErrorText>
+                {errors.nickname && errors.nickname?.message}
+              </ErrorText>
+            </SignWrap>
+            <SignWrap>
               <label htmlFor="password">비밀번호</label>
-              <input
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  backgroundColor: "#F6F6F6",
-                  paddingLeft: "10px",
-                  boxSizing: "border-box",
-                  margin: "10px 0",
-                }}
+              <SignText
                 id="password"
                 type="password"
                 placeholder="비밀번호를 입력해주세요."
@@ -249,28 +195,13 @@ const SignUpPage = () => {
                   },
                 })}
               />
-              <div>{errors.password && errors.password?.message}</div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                padding: "5px 0",
-                width: "320px",
-              }}
-            >
+              <ErrorText>
+                {errors.password && errors.password?.message}
+              </ErrorText>
+            </SignWrap>
+            <SignWrap>
               <label htmlFor="confirmPassword">비밀번호 재확인</label>
-              <input
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  backgroundColor: "#F6F6F6",
-                  paddingLeft: "10px",
-                  boxSizing: "border-box",
-                  margin: "10px 0",
-                }}
+              <SignText
                 id="confirmPassword"
                 type="password"
                 placeholder="비밀번호를 다시 한번 입력해주세요."
@@ -286,81 +217,36 @@ const SignUpPage = () => {
                   },
                 })}
               />
-              <div>
+              <ErrorText>
                 {errors.confirmPassword && errors.confirmPassword?.message}
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                padding: "5px 0",
-                width: "320px",
-              }}
-            >
+              </ErrorText>
+            </SignWrap>
+            <SignWrap>
               <label htmlFor="age">나이</label>
-              <select
-                style={{
-                  width: "100%",
-                  height: "40px",
-                  backgroundColor: "#F6F6F6",
-                  paddingLeft: "10px",
-                  boxSizing: "border-box",
-                  margin: "10px 10px 10px 0px",
-                }}
-                {...register("age")}
-              >
+              <SignSelect {...register("age")}>
                 <option value="20대">20대</option>
                 <option value="30대">30대</option>
                 <option value="40대">40대</option>
                 <option value="50대">50대</option>
                 <option value="60대">60대 이상</option>
-              </select>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                padding: "5px 0",
-                width: "320px",
-              }}
-            >
+              </SignSelect>
+            </SignWrap>
+            <SignWrap>
               <label htmlFor="address">주소</label>
-              <div style={{ display: "flex", width: "100%" }}>
-                <input
-                  style={{
-                    width: "150%",
-                    height: "40px",
-                    backgroundColor: "#F6F6F6",
-                    paddingLeft: "10px",
-                    boxSizing: "border-box",
-                    margin: "10px 10px 10px 0px",
-                  }}
+              <AddressWrap>
+                <SignInput
                   id="address"
                   type={"text"}
                   placeholder="주소"
                   value={inputAddress}
                   {...register("address")}
                 />
-                <button
-                  type="button"
-                  onClick={popUpOpen}
-                  style={{
-                    width: "100%",
-                    height: "40px",
-                    backgroundColor: "#303030",
-                    color: "white",
-                    margin: "10px 0",
-                  }}
-                >
+                <AddressButton type="button" onClick={popUpOpen} style={{}}>
                   주소 검색
-                </button>
-              </div>
-              <div>
+                </AddressButton>
+              </AddressWrap>
+              <RadioWrap>
+                <br />
                 차량을 소지하고 계신가요?
                 <label htmlFor="car_owned">
                   <input
@@ -384,9 +270,10 @@ const SignUpPage = () => {
                   />
                   아니요
                 </label>
-              </div>
+              </RadioWrap>
               {carOwned && (
-                <div>
+                <RadioWrap>
+                  <br />
                   차량의 종류를 선택해주세요
                   <label htmlFor="elec_car_owned">
                     <input
@@ -410,27 +297,112 @@ const SignUpPage = () => {
                     />
                     전기차
                   </label>
-                </div>
+                </RadioWrap>
               )}
-            </div>
+            </SignWrap>
 
-            <button
-              style={{
-                width: "100%",
-                height: "40px",
-                backgroundColor: "#0A84FF",
-                color: "white",
-                margin: "10px 0",
-              }}
-              type="submit"
-            >
-              회원가입
-            </button>
-          </form>
-        </div>
-      </div>
+            <SubmitButton type="submit">회원가입</SubmitButton>
+          </SignContent>
+        </Wrap>
+      </Wrapper>
     </>
   );
 };
 
 export default SignUpPage;
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Wrap = styled.div`
+  width: 80%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SignContent = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+`;
+
+const SignWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding: 5px 0;
+  width: 320px;
+`;
+
+const SignText = styled.input`
+  width: 100%;
+  height: 40px;
+  background-color: #f6f6f6;
+  padding-left: 10px;
+  box-sizing: border-box;
+  margin: 10px 0;
+`;
+
+const ErrorText = styled.div`
+  color: red;
+  font-size: 0.9rem;
+`;
+
+const SubmitButton = styled.button`
+  width: 100%;
+  height: 40px;
+  background-color: #0a84ff;
+  color: white;
+  margin: 10px 0;
+`;
+
+const AddressButton = styled.button`
+  width: 100%;
+  height: 40px;
+  background-color: #303030;
+  color: white;
+  margin: 10px 0;
+`;
+
+const SignInput = styled.input`
+  width: 150%;
+  height: 40px;
+  background-color: #f6f6f6;
+  padding-left: 10px;
+  box-sizing: border-box;
+  margin: 10px 10px 10px 0px;
+`;
+
+const SignSelect = styled.select`
+  width: 100%;
+  height: 40px;
+  background-color: #f6f6f6;
+  padding-left: 10px;
+  box-sizing: border-box;
+  margin: 10px 10px 10px 0px;
+`;
+
+const SignImg = styled.img`
+  width: 180px;
+`;
+
+const AddressWrap = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const RadioWrap = styled.div`
+  font-size: 0.8rem;
+`;

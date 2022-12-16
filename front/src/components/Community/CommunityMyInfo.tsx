@@ -6,6 +6,7 @@ import * as UserApi from "apis/UserApi";
 import * as CommunityApi from "apis/CommunityApi";
 import * as CarMbtiTestApi from "apis/CarMbtiTestApi";
 import * as CarApi from "apis/CarApi";
+import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
 
 const MyInfo = styled.div`
   width: 300px;
@@ -114,6 +115,10 @@ function CommunityMyInfo() {
     brand: string;
   }>();
 
+  const currentUserCalcEfficiency = CalcAverageEfficiency(
+    "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
+  );
+
   const toUploadPage = () => {
     navigate(`/community/upload`);
   };
@@ -123,6 +128,7 @@ function CommunityMyInfo() {
       try {
         const res = await UserApi.currentUserGet();
         setUser(res.data);
+        // console.log("res.data", res);
       } catch (err) {
         console.log(err);
       }
@@ -148,7 +154,10 @@ function CommunityMyInfo() {
         const res = await CarMbtiTestApi.carMbtiTypeGet({
           user_id: user?.user_id,
         });
-        setUserTestType(res.data[res.data.length - 1]);
+        // setUserTestType(res.data[res.data.length - 1]);
+        setUserTestType(res[res.length - 1]);
+
+        // console.log("TTTYPE", res[res.length - 1].type);
       } catch (err) {
         console.log(err);
       }
@@ -188,7 +197,7 @@ function CommunityMyInfo() {
           </li>
           <li>
             <span>평균 연비</span>
-            <p>10km/L</p>
+            <p>{currentUserCalcEfficiency.averageEfficiency}km/L</p>
           </li>
         </ul>
       </div>

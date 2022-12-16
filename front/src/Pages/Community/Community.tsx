@@ -33,23 +33,49 @@ type Comment = {
 function Community(props: any) {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(location.search.slice(-1)) || 1,
+  );
+  // const [currentPage, setCurrentPage] = useState<number>(1);
   const [contentsPerPage, setcontentsPerPage] = useState<Community[] | []>([]);
   const [allCommunity, setAllCommunity] = useState<Community[] | []>([]);
   // const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
   const [commentCount, setCommentCount] = useState<Comment[] | []>([]);
+  const [pageParams, setPageParams] = useState<any>(
+    location.search.slice(-1) || null,
+  );
+
+  console.log("Community location path", location.search.split("=")[1]);
 
   const getData = (currentPage: number) => {
+    if (location.search.split("=")[1]) {
+      currentPage = Number(location.search.split("=")[1]);
+    }
+
     setCurrentPage(currentPage);
   };
+  /*
+    currentPage 가 변화하지 않음
+    pageParams 도 변화하지 않음
+    location.search.slice(-1)는 변하고
+  */
 
   useEffect(() => {
+    const pageLocation = location.search.split("=")[1];
+
+    setPageParams(pageLocation);
+
+    if (location.search.split("=")[1]) {
+      setCurrentPage(Number(location.search.split("=")[1]));
+    }
+
+    console.log("currentPage", currentPage);
     const api = async () => {
       try {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
         setcontentsPerPage(result.findContent);
 
-        // console.log("result.findContent", result.findContent);
+        // console.log("result.findContent", result);
       } catch (err) {
         console.log("err=>", err);
       }
@@ -73,13 +99,16 @@ function Community(props: any) {
       }
     };
     api();
-  }, [currentPage]);
+  }, [currentPage, pageParams]);
+
+  console.log("pageParams", pageParams);
 
   const moveToEachContent = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name: id } = e.target as HTMLButtonElement;
-    navigate(`/community/${id}`, {
+    navigate(`/community/${id}?page=${currentPage}`, {
       state: {
         id,
+        page: currentPage,
       },
     });
   };
@@ -229,7 +258,11 @@ function Community(props: any) {
                   )}
                 </div>
               </div>
-              <Pagination currentPage={currentPage} getData={getData} />
+              <Pagination
+                currentPage={currentPage}
+                getData={getData}
+                pageParams={pageParams}
+              />
             </CommunityStyle.BoardWrap>
           </CommunityStyle.CommunityContent>
         </CommunityStyle.CommunityWrap>
