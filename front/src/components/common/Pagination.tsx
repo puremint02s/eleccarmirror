@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import * as CommunityApi from "apis/CommunityApi";
 
@@ -51,11 +52,13 @@ const PageUl = styled.div`
 `;
 
 const Pagination = ({ currentPage, getData }: any) => {
+  const navigate = useNavigate();
   const [totalPage, setTotalPage] = useState<any[]>([]);
   const [paginations, setPaginations] = useState<any[]>([]);
   const [prevButtonState, setPrevButtonState] = useState(false);
   const [nextButtonState, setNextButtonState] = useState(true);
   const [pageLength, setPageLength] = useState(0);
+  const [pageParams, setPageParams] = useState<any>(null);
   const paginationRef = useRef<HTMLLIElement[]>([]);
 
   console.log("totalPage ==>", totalPage);
@@ -124,6 +127,12 @@ const Pagination = ({ currentPage, getData }: any) => {
   const loadPage = (e: React.MouseEvent<HTMLLIElement>) => {
     const currentPageNum = e.currentTarget.innerText;
 
+    navigate(`/community?page=${currentPageNum}`, {
+      state: {
+        page: currentPageNum,
+      },
+    });
+
     getData(currentPageNum);
   };
 
@@ -149,6 +158,7 @@ const Pagination = ({ currentPage, getData }: any) => {
       return;
     }
     paginationRef.current[0].style.color = "#0a84ff";
+
     for (let i = 0; i < totalPage.length; i++) {
       const page = totalPage[i];
       console.log("this", page);

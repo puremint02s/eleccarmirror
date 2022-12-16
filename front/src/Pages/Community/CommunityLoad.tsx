@@ -220,6 +220,13 @@ function CommunityLoad() {
         <C.CommunityLoadWrap>
           <MyInfo />
           <C.CommunityContent>
+            <button
+              onClick={() => {
+                navigate(`/community?page=${location.search.slice(-1)}`);
+              }}
+            >
+              목록으로
+            </button>
             <C.Title>
               {isContentEdit ? (
                 <>
