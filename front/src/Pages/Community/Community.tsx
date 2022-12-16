@@ -45,11 +45,11 @@ function Community(props: any) {
     location.search.slice(-1) || null,
   );
 
-  // console.log("Community location path", location.search.slice(-1));
+  console.log("Community location path", location.search.split("=")[1]);
 
   const getData = (currentPage: number) => {
-    if (location.search.slice(-1)) {
-      // currentPage = Number(location.search.slice(-1));
+    if (location.search.split("=")[1]) {
+      currentPage = Number(location.search.split("=")[1]);
     }
 
     setCurrentPage(currentPage);
@@ -61,15 +61,15 @@ function Community(props: any) {
   */
 
   useEffect(() => {
-    const pageLocation = location.search.slice(-1);
+    const pageLocation = location.search.split("=")[1];
 
     setPageParams(pageLocation);
 
-    if (location.search.slice(-1)) {
-      // setCurrentPage(Number(location.search.slice(-1)));
+    if (location.search.split("=")[1]) {
+      setCurrentPage(Number(location.search.split("=")[1]));
     }
 
-    // console.log("currentPage", currentPage);
+    console.log("currentPage", currentPage);
     const api = async () => {
       try {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
@@ -101,7 +101,7 @@ function Community(props: any) {
     api();
   }, [currentPage, pageParams]);
 
-  // console.log("pageParams", pageParams);
+  console.log("pageParams", pageParams);
 
   const moveToEachContent = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name: id } = e.target as HTMLButtonElement;
@@ -258,7 +258,11 @@ function Community(props: any) {
                   )}
                 </div>
               </div>
-              <Pagination currentPage={currentPage} getData={getData} />
+              <Pagination
+                currentPage={currentPage}
+                getData={getData}
+                pageParams={pageParams}
+              />
             </CommunityStyle.BoardWrap>
           </CommunityStyle.CommunityContent>
         </CommunityStyle.CommunityWrap>
