@@ -5,7 +5,7 @@ import loading from "assets/img/loading2.gif";
 import tempImage from "assets/img/GreyQuestionCar.png";
 import Chart from "./Chart";
 import { useNavigate } from "react-router-dom";
-import dic from "assets/data/dic.json";
+import dic from "assets/data/dic2.json";
 import * as StepApi from "apis/StepApi";
 import * as CarRegisterApi from "apis/CarRegisterApi";
 
@@ -42,6 +42,24 @@ const CarConfirmPopup = ({
   const onAnalysisTabToggle = () => {
     setAnalysisTabToggle(c => !c);
   };
+  const otherCarSelect = (label: string) => {
+    if (label) {
+      console.log(label);
+      const tempCar: CarInfo = {
+        current: {
+          model: label.split(" ")[1],
+          brand: label.split(" ")[0],
+        },
+        recommended: {
+          model: label.split(" ")[1],
+          brand: label.split(" ")[0],
+        },
+      };
+      CarRegisterApi.updateCarInfo(tempCar);
+      StepApi.updateStepInfo("1");
+      navigate("/test");
+    }
+  };
   const finishCarRegister = () => {
     if (chartData) {
       const tempCar: CarInfo = {
@@ -55,40 +73,47 @@ const CarConfirmPopup = ({
         },
       };
       console.log(tempCar);
+      CarRegisterApi.postCarInfo(tempCar);
       CarRegisterApi.updateCarInfo(tempCar);
+      StepApi.updateStepInfo("1");
+      navigate("/test");
     }
-    StepApi.updateStepInfo("1");
-    navigate("/test");
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("userToken") === undefined) {
-      navigate("/login");
-    }
     setTimeout(() => {
       setLoading(false);
     }, 3000);
-    const values: Array<string> = Object.keys(dic);
-    const keys: Array<number> = Object.values(dic);
-    const result = keys.map(v => ({
-      label: values[v],
-      value: predictionList[v] * 100,
-    }));
-    result.sort((a, b) => b.value - a.value);
-    const chartData = [...result].splice(0, 4);
-    chartData.push({
-      label: "etc",
-      value:
-        100 -
-        chartData[0].value -
-        chartData[1].value -
-        chartData[2].value -
-        chartData[3].value,
-    });
-    setChartData(chartData);
+    if (fileName && predictionList) {
+      const values: Array<string> = Object.keys(dic);
+      const keys: Array<number> = Object.values(dic);
+      const result = keys.map(v => ({
+        label: values[v],
+        value: predictionList[v] * 100,
+      }));
+      result.sort((a, b) => b.value - a.value);
+      const chartData = [...result].splice(0, 4);
+      chartData.push({
+        label: "etc",
+        value:
+          100 -
+          chartData[0].value -
+          chartData[1].value -
+          chartData[2].value -
+          chartData[3].value,
+      });
+      setChartData(chartData);
+    }
   }, [predictionList]);
   return (
     <>
+      <CloseBtn
+        onClick={() => {
+          setPopUpOpen(false);
+        }}
+      >
+        ✕
+      </CloseBtn>
       {
         <PopUpWrapper
           onClick={() => {
@@ -117,7 +142,10 @@ const CarConfirmPopup = ({
             >
               <ResultWrapper>
                 <ResultTitleText>이 차가 맞나요?</ResultTitleText>
-                <ResultImage src={tempImage} />
+                <ResultImage
+                  src={`
+                  currentCarImages/${chartData[0].label.split(" ")[1]}.png`}
+                />
                 {/* vm에 저장해둔 분류 모델 이미지가 나와야 합니다. */}
                 <ResultText>
                   <span>제조사</span>
@@ -160,19 +188,26 @@ const CarConfirmPopup = ({
                 <UploadImage
                   src={`${process.env.REACT_APP_BACK_SERVER_URL}/${fileName}`}
                 />
-                <ResultSubTitleText>AI가 분석한 유사 차량</ResultSubTitleText>
+                <ResultSubTitleText>AI가 분석한 유사도</ResultSubTitleText>
                 <ResultTextCenter>
-                  AI가 유사하다고 판단한 상위 4개 모델입니다. <br />
-                  만약 리스트에 나의 차량이 없다면 가장 유사하다고 판단되는
-                  차량을 리스트에서 골라주세요 :)
+                  AI가 유사하다고 판단한 상위 4개 모델입니다. 만약 리스트에 나의
+                  차량이 없다면 가장 유사하다고 판단되는 차량을 리스트에서
+                  골라주세요 :)
                 </ResultTextCenter>
                 {chartData && <Chart chartData={chartData} />}
-
+                {/* (v.label)=>{otherCarSelect(v.label);} */}
                 <ResultWrapper>
                   {chartData &&
                     chartData.map((v: data) => (
                       <ResultText2 key={v.value}>
-                        <span>{v.label}</span>
+                        <span
+                          className={v.label}
+                          onClick={e => {
+                            otherCarSelect(e.currentTarget.innerHTML);
+                          }}
+                        >
+                          {v.label}
+                        </span>
                         <span>{v.value.toFixed(2)}%</span>
                       </ResultText2>
                     ))}
@@ -194,17 +229,29 @@ const CarConfirmPopup = ({
     </>
   );
 };
-
+const CloseBtn = styled.button`
+  position: fixed;
+  top: 8vh;
+  font-size: 24px;
+  z-index: 9999;
+  font-weight: 800;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all ease-in-out 0.3s;
+  &:hover {
+    color: red;
+  }
+`;
 const ResultImage = styled.img`
-  width: 250px;
+  width: 400px;
   height: 250px;
-  object-fit: cover;
+  // object-fit: cover;
+  object-fit: contain;
   padding: 20px;
 `;
 const UploadImage = styled.img`
   width: 250px;
   height: 250px;
-  object-fit: cover;
+  object-fit: contain;
   padding: 20px;
 `;
 
@@ -231,8 +278,19 @@ const PopUp = styled.div`
   top: 50%;
   left: 50%;
 
+  border-radius: 10px;
   padding: 50px;
   box-sizing: border-box;
+
+  @media screen and (max-width: 720px) {
+    width: 90vw;
+    height: 90vh;
+  }
+  @media screen and (max-height: 719px) {
+    width: 90vw;
+    height: 90vh;
+    overflow: scroll;
+  }
 `;
 const PopUpScroll = styled.div`
   overflow: scroll;
@@ -249,8 +307,19 @@ const PopUpScroll = styled.div`
   top: 50%;
   left: 50%;
 
+  border-radius: 10px;
   padding: 50px;
   box-sizing: border-box;
+  @media screen and (max-width: 720px) {
+    padding: 10px;
+    width: 90vw;
+    height: 90vh;
+  }
+  @media screen and (max-height: 719px) {
+    width: 90vw;
+    height: 90vh;
+    overflow: scroll;
+  }
 `;
 
 const LoadingWrapper = styled.div`
@@ -334,6 +403,10 @@ const ResultTextCenter = styled.div`
   font-size: 18px;
   font-weight: 400;
   margin: 10px 0 40px 0;
+  line-height: 36px;
+  @media screen and (max-width: 720px) {
+    width: 70vw;
+  }
 `;
 const ResultText2 = styled.span`
   display: flex;
@@ -373,6 +446,7 @@ const BlueButton = styled.button`
   line-height: 20px;
   text-align: center;
   color: #ffffff;
+  border-radius: 10px;
 `;
 
 const BlueBoderButton = styled.button`
@@ -386,5 +460,6 @@ const BlueBoderButton = styled.button`
   color: #0a84ff;
   box-sizing: border-box;
   border: 2px solid #0a84ff;
+  border-radius: 10px;
 `;
 export default CarConfirmPopup;

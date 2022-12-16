@@ -10,7 +10,7 @@ export const axiosInstance = axios.create({
     "Content-Type": "application/json",
     Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
   },
-  timeout: 3000,
+  timeout: 10000,
 });
 
 export const axiosLoginInstance = axios.create({
@@ -19,7 +19,7 @@ export const axiosLoginInstance = axios.create({
     "Content-Type": "application/json",
     Authorization: `Bearer ${sessionStorage.getItem("user_id")}`,
   },
-  timeout: 3000,
+  timeout: 10000,
 });
 
 axiosInstance.interceptors.request.use(

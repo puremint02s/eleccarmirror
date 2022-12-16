@@ -33,23 +33,49 @@ type Comment = {
 function Community(props: any) {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLInputElement>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(location.search.slice(-1)) || 1,
+  );
+  // const [currentPage, setCurrentPage] = useState<number>(1);
   const [contentsPerPage, setcontentsPerPage] = useState<Community[] | []>([]);
   const [allCommunity, setAllCommunity] = useState<Community[] | []>([]);
   // const [searchedContent, setSearchedContent] = useState<Community[] | []>([]);
   const [commentCount, setCommentCount] = useState<Comment[] | []>([]);
+  const [pageParams, setPageParams] = useState<any>(
+    location.search.slice(-1) || null,
+  );
+
+  console.log("Community location path", location.search.split("=")[1]);
 
   const getData = (currentPage: number) => {
+    if (location.search.split("=")[1]) {
+      currentPage = Number(location.search.split("=")[1]);
+    }
+
     setCurrentPage(currentPage);
   };
+  /*
+    currentPage 가 변화하지 않음
+    pageParams 도 변화하지 않음
+    location.search.slice(-1)는 변하고
+  */
 
   useEffect(() => {
+    const pageLocation = location.search.split("=")[1];
+
+    setPageParams(pageLocation);
+
+    if (location.search.split("=")[1]) {
+      setCurrentPage(Number(location.search.split("=")[1]));
+    }
+
+    console.log("currentPage", currentPage);
     const api = async () => {
       try {
         const result = await CommunityApi.getCommunityPerPage(currentPage);
         setcontentsPerPage(result.findContent);
 
-        // console.log("result.findContent", result.findContent);
+        // console.log("result.findContent", result);
       } catch (err) {
         console.log("err=>", err);
       }
@@ -73,20 +99,29 @@ function Community(props: any) {
       }
     };
     api();
-  }, [currentPage]);
+  }, [currentPage, pageParams]);
+
+  console.log("pageParams", pageParams);
 
   const moveToEachContent = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name: id } = e.target as HTMLButtonElement;
-    navigate(`/community/${id}`, {
+    navigate(`/community/${id}?page=${currentPage}`, {
       state: {
         id,
+        page: currentPage,
       },
     });
   };
 
+  // console.log("allCommunity", allCommunity);
+
   const searchContents = (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     const searchValue = searchRef?.current?.value;
+
+    if (searchValue === "") {
+      return;
+    }
 
     const result = allCommunity.filter(item => {
       //글제목
@@ -94,6 +129,8 @@ function Community(props: any) {
 
       //글내용
       const content = item.content?.includes(searchValue!);
+
+      const nickname = item.nickname?.includes(searchValue!);
 
       //해시태그
       for (let i = 0; i < Number(item.hashtags?.length); i++) {
@@ -113,7 +150,21 @@ function Community(props: any) {
       if (content) {
         return content;
       }
+      if (nickname) {
+        return nickname;
+      }
     });
+
+    ///---- 검색결과 10 단위로 나눠서 뿌려주는 작업 (미루기)----
+    // const resultArray = [];
+
+    // for (let i = 0; i < result.length; i += 10) {
+    //   resultArray.push(result.slice(i, i + 10));
+    // }
+
+    // console.log("resultArray", resultArray);
+
+    // result.skip(10 * (currentPage - 1))
 
     setcontentsPerPage(result);
   };
@@ -149,18 +200,18 @@ function Community(props: any) {
           <CommunityStyle.CommunityContent>
             <MyInfo />
             <CommunityStyle.BoardWrap>
-              <table>
-                <thead>
-                  <tr>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                  </tr>
-                </thead>
-                <tbody>
+              <div className="table">
+                <div className="thead">
+                  <div className="tr">
+                    <p>제목</p>
+                    <p>작성자</p>
+                    <p>작성일</p>
+                  </div>
+                </div>
+                <div className="tbody">
                   {contentsPerPage.length === 0 ? (
-                    <tr>
-                      <td
+                    <div className="tr">
+                      <p
                         style={{
                           display: "flex",
                           justifyContent: "center",
@@ -170,13 +221,13 @@ function Community(props: any) {
                         }}
                       >
                         게시글이 없습니다
-                      </td>
-                    </tr>
+                      </p>
+                    </div>
                   ) : (
                     contentsPerPage.map((item, index) => {
                       return (
-                        <tr key={index}>
-                          <td>
+                        <div className="tr" key={index}>
+                          <div className="td">
                             <button
                               type="button"
                               name={item._id}
@@ -194,16 +245,24 @@ function Community(props: any) {
                                 </span>
                               ) : null}
                             </p>
-                          </td>
-                          <td>{item.nickname}</td>
-                          <td>{item.createdAt?.substring(0, 10)}</td>
-                        </tr>
+                          </div>
+                          <div className="td nickname">
+                            <p>{item.nickname}</p>
+                          </div>
+                          <div className="td">
+                            {item.createdAt?.substring(0, 10)}
+                          </div>
+                        </div>
                       );
                     })
                   )}
-                </tbody>
-              </table>
-              <Pagination currentPage={currentPage} getData={getData} />
+                </div>
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                getData={getData}
+                pageParams={pageParams}
+              />
             </CommunityStyle.BoardWrap>
           </CommunityStyle.CommunityContent>
         </CommunityStyle.CommunityWrap>

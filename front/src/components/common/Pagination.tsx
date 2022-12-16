@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import * as CommunityApi from "apis/CommunityApi";
-import e from "express";
 
 const PaginationWrap = styled.div`
   display: flex;
@@ -52,36 +51,21 @@ const PageUl = styled.div`
   }
 `;
 
-const Pagination = ({ currentPage, getData }: any) => {
+const Pagination = ({ currentPage, getData, pageParams }: any) => {
+  const navigate = useNavigate();
   const [totalPage, setTotalPage] = useState<any[]>([]);
   const [paginations, setPaginations] = useState<any[]>([]);
-  // const [pagination, setPagination] = useState([1]);
-  // const [currentPageNum , setCurrentPageNum] = useState("");
   const [prevButtonState, setPrevButtonState] = useState(false);
   const [nextButtonState, setNextButtonState] = useState(true);
   const [pageLength, setPageLength] = useState(0);
+  // const [pageParams, setPageParams] = useState<any>(null);
   const paginationRef = useRef<HTMLLIElement[]>([]);
+  const [nextNum, setNextNum] = useState(pageLength / 5 || 0);
 
-  //참고 링크 : https://gurtn.tistory.com/174
-  // const division = (data: any, size: number) => {
-  //   const arr = [];
-
-  //   for (let i = 0; i < data.length; i += size) {
-  //     //data.length : 총 pagination 숫자 수 => 6
-  //     arr.push(data.slice(i, i + size));
-  //     // console.log("arr", arr);
-  //   }
-
-  //   return arr;
-  // };
-
-  // const pagination = division(totalPage, 5);
-
-  console.log("totalPage ==>", totalPage);
+  // console.log("totalPage ==>", totalPage);
 
   useEffect(() => {
     const api = async () => {
-      // const arr = [];
       try {
         const result = await CommunityApi.getCommunityPerPage(1);
 
@@ -97,7 +81,7 @@ const Pagination = ({ currentPage, getData }: any) => {
           arr.push(pages.slice(i, i + 5));
         }
 
-        console.log("pages.length", pageLength);
+        // console.log("pages.length", pageLength);
         setPageLength(pages.length);
 
         setTotalPage(arr);
@@ -106,7 +90,7 @@ const Pagination = ({ currentPage, getData }: any) => {
         console.log(err);
       }
 
-      console.log("paginations", paginations);
+      // console.log("paginations", paginations);
     };
     api();
   }, [pageLength]);
@@ -134,19 +118,27 @@ const Pagination = ({ currentPage, getData }: any) => {
       setPrevButtonState(true);
     }
 
-    // console.log("pagpaginations.lengtheLength", paginations.length); //[1,2,3,4,5] 5
-    // //[6] 1
-    // console.log("pageLengthssss", pageLength); //1,2,3,4,5,6.... => 6
-
     if (pageLength <= 5 || paginations.length < 5) {
       setNextButtonState(false);
     } else {
       setNextButtonState(true);
     }
-  }, [currentPage, paginations, pageLength]);
+
+    // if (pageParams) {
+    //   const page = totalPage[2];
+    //   setPaginations(page);
+    // }
+  }, [currentPage, paginations, pageLength, nextNum]);
 
   const loadPage = (e: React.MouseEvent<HTMLLIElement>) => {
     const currentPageNum = e.currentTarget.innerText;
+
+    navigate(`/community?page=${currentPageNum}`, {
+      state: {
+        page: currentPageNum,
+        // index: nextNum,
+      },
+    });
 
     getData(currentPageNum);
   };
@@ -155,34 +147,52 @@ const Pagination = ({ currentPage, getData }: any) => {
     if (!paginationRef.current) {
       return;
     }
+    setNextNum(nextNum - 1);
 
     paginationRef.current[0].style.color = "#0a84ff";
-    for (let i = totalPage.length; i >= 0; i--) {
-      if (totalPage.indexOf(1) === null) {
-        setPaginations(totalPage[0]);
-      }
-      const page = totalPage[i];
-
-      setPaginations(page);
-      // console.log("page1", pagination[0][0]);
-      getData(totalPage[0][0]);
+    // for (let i = totalPage.length; i >= 0; i--) {
+    if (totalPage.indexOf(1) === null) {
+      setPaginations(totalPage[0]);
     }
+
+    setPrev(nextNum - 1);
+
+    // }
+  };
+
+  const setPrev = (nextNum: number) => {
+    const page = totalPage[nextNum];
+    // console.log("PAGE", page, nextNum);
+
+    setPaginations(page);
+    getData(page[0]);
+
+    console.log("page[0]", page[0]);
+    // getData(totalPage[0][0]);
   };
 
   const onNext = () => {
     if (!paginationRef.current) {
       return;
     }
+    setNextNum(nextNum + 1);
     paginationRef.current[0].style.color = "#0a84ff";
-    for (let i = 0; i < totalPage.length; i++) {
-      const page = totalPage[i];
-      console.log("this", page);
-      setPaginations(page);
-      getData(page[0]);
-    }
+
+    setNext(nextNum + 1);
+    // for (let i = 0; i < totalPage.length; i++) {
+
+    // }
   };
 
-  console.log("paginations2", paginations);
+  const setNext = (nextNum: number) => {
+    const page = totalPage[nextNum];
+    // console.log("PAGE", page, nextNum);
+    setPaginations(page);
+    getData(page[0]);
+    console.log("page[0]", page[0]);
+  };
+
+  // console.log("nextNum", nextNum);
 
   return (
     <PaginationWrap>

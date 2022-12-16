@@ -29,7 +29,6 @@ const Bot = ({ isVisible }) => {
             options: [
               { value: 1, label: "서비스 소개", trigger: "service" },
               { value: 2, label: "지역별 전기차 보조금", trigger: "money" },
-              { value: 3, label: "1대1 문의", trigger: "onetoone" },
             ],
           },
           {
@@ -77,11 +76,6 @@ const Bot = ({ isVisible }) => {
             message:
               "현재 사용중이신 차량의 연비를 평균 연비를 계산하고 비슷한 수준의 전비를 가진 전기차를 추천해드립니다.",
             trigger: "service4",
-          },
-          {
-            id: "onetoone",
-            message: "구현 예정입니다... :(",
-            trigger: "welcome2",
           },
           {
             id: "money",
@@ -142,7 +136,9 @@ const ChatBotWrapper = styled.div`
     width: 95vw;
   }
   @media screen and (max-height: 719px) {
-    display: none;
+    transform: scale(0.7, 0.7);
+    right: 30px;
+    bottom: -70px;
   }
 
   transition: 0.3s ease-in-out opacity; 

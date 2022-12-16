@@ -37,6 +37,10 @@ const ModalBody = styled.div`
   border-radius: 10px;
   box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
   color: black;
+  @media screen and (max-width: 720px) {
+    width: 60vw;
+    height: 70vh;
+  }
 `;
 
 const ModalCloseBtn = styled.button`

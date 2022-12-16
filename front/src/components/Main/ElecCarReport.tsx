@@ -1,88 +1,139 @@
 import styled from "styled-components/macro";
 import tempImage from "assets/img/GreyQuestionCar.png";
+import blueCar from "assets/img/BlueCar.png";
+import loading from "assets/img/loading2.gif";
+import * as CarRegisterApi from "apis/CarRegisterApi";
+import { Result } from "assets/data/CarOutputList";
+import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
 
-interface CarProps {
-  model: string;
+type Car = {
   brand: string;
-}
-const ElecCarReport = ({ car }: { car: CarProps }) => {
+  model: string;
+  distance: number;
+  battery: number;
+  MPG: number;
+  cost: number;
+  homepage: string;
+  img?: string;
+};
+
+const ElecCarReport = ({ step }: { step: string | undefined }) => {
+  const car = useQuery("car", CarRegisterApi.getCarInfo)?.data?.data;
+  console.log("car", car);
+  const [recomendedCar, setRecomendedCar] = useState<Car>();
+  useEffect(() => {
+    const foundCar = Result.find(v => v.model === car?.recommended?.model);
+    setRecomendedCar(foundCar);
+  }, [car]);
   return (
     <>
       <ReportWrapper>
         <ReportHeaderWrapper>
           <ReportHeaderText>전기차 추천 리포트</ReportHeaderText>
           <a href="/carregister">
-            <ReportHeaderText>추천 다시 받기</ReportHeaderText>
+            <ReportHeaderText>추천 새로 받기</ReportHeaderText>
           </a>
         </ReportHeaderWrapper>
         <ReportMainArea>
-          <ReportTopSection>
-            <ReportText>현재 차량</ReportText>
-            <ReportTopSub>
+          {step !== "3" ? (
+            <LoadingWrapper>
               <div>
-                <span>유형</span>
-                <span>{car.model}</span>
+                <img style={{ width: "100px", height: "auto" }} src={blueCar} />
+                <img style={{ width: "80px", height: "auto" }} src={loading} />
               </div>
-              <div>
-                <span>평균연비</span>
-                <span>{car.model}</span>
-              </div>
-            </ReportTopSub>
-            <ReportTopSub>
-              <div>
-                <span>차종</span>
-                <span>{car.model}</span>
-              </div>
-              <div>
-                <span>제조사</span>
-                <span>{car.brand}</span>
-              </div>
-            </ReportTopSub>
-          </ReportTopSection>
-          <ReportBottomSection>
-            <ReportText>
-              <span>추천 차량</span>
-            </ReportText>
-            <ReportBottomSubSection>
-              <CarInfoWrapper>
-                <CarImage src={tempImage} />
-              </CarInfoWrapper>
-              <CarInfoWrapper>
-                <CarInfoTextWrapper>
+              <span>전기차 추천 과정 진행중...</span>
+            </LoadingWrapper>
+          ) : (
+            <>
+              <ReportTopSection>
+                <ReportText>현재 차량</ReportText>
+                <ReportTopSub>
+                  <div>
+                    <span>유형</span>
+                    <span>{car?.current.model}</span>
+                  </div>
+                  <div>
+                    <span>평균연비</span>
+                    <span>{car?.current.model}</span>
+                  </div>
+                </ReportTopSub>
+                <ReportTopSub>
+                  <div>
+                    <span>차종</span>
+                    <span>{car?.current.model}</span>
+                  </div>
                   <div>
                     <span>제조사</span>
-                    <span>ㅇㅇㅇ</span>
+                    <span>{car?.current.brand}</span>
                   </div>
-                  <div>
-                    <span>모델</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                  <div>
-                    <span>주행거리</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                  <div>
-                    <span>배터리 용량</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                  <div>
-                    <span>전비</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                  <div>
-                    <span>가격</span>
-                    <span>ㅇㅇㅇ</span>
-                  </div>
-                </CarInfoTextWrapper>
-              </CarInfoWrapper>
-            </ReportBottomSubSection>
-          </ReportBottomSection>
+                </ReportTopSub>
+              </ReportTopSection>
+              <ReportBottomSection>
+                <ReportText>
+                  <span>추천 차량</span>
+                </ReportText>
+                <ReportBottomSubSection>
+                  <CarInfoWrapper>
+                    <CarImage src={recomendedCar?.img} />
+                  </CarInfoWrapper>
+                  <CarInfoWrapper>
+                    <CarInfoTextWrapper>
+                      <div>
+                        <span>제조사</span>
+                        <span>{car?.recommended.brand}</span>
+                      </div>
+                      <div>
+                        <span>모델</span>
+                        <span>{car?.recommended.model}</span>
+                      </div>
+                      <div>
+                        <span>주행거리</span>
+                        <span>{recomendedCar?.distance}</span>
+                      </div>
+                      <div>
+                        <span>배터리 용량</span>
+                        <span>{recomendedCar?.battery}</span>
+                      </div>
+                      <div>
+                        <span>전비(Km/kWh)</span>
+                        <span>{recomendedCar?.MPG}</span>
+                      </div>
+                      <div>
+                        <span>가격</span>
+                        <span>
+                          {recomendedCar?.cost.toLocaleString("en-US")}
+                        </span>
+                      </div>
+                    </CarInfoTextWrapper>
+                  </CarInfoWrapper>
+                </ReportBottomSubSection>
+              </ReportBottomSection>
+            </>
+          )}
         </ReportMainArea>
       </ReportWrapper>
     </>
   );
 };
 // cursor: "pointer",
+
+const LoadingWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center;
+  span {
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 30px;
+  }
+  @media screen and (max-width: 720px) {
+    height: 300px;
+  }
+`;
 
 const ReportWrapper = styled.div`
   width: 100%;
@@ -108,6 +159,10 @@ const ReportHeaderText = styled.span`
   padding: 0 16px;
   font-size: 1.2em;
   font-weight: 600;
+  &:hover {
+    color: salmon;
+  }
+  transition: 0.3s ease-in-out all;
 `;
 const ReportMainArea = styled.div`
   background-color: white;
@@ -197,9 +252,9 @@ const ReportBottomSubSection = styled.section`
   }
 `;
 const CarImage = styled.img`
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
   @media screen and (max-width: 720px) {
     width: 70vw;
     height: auto;
@@ -215,6 +270,7 @@ const CarInfoWrapper = styled.div`
   @media screen and (max-width: 720px) {
     width: 100%;
     height: auto;
+    padding-bottom: 40px;
   }
 `;
 const CarInfoTextWrapper = styled.div`

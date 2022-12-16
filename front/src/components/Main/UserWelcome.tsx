@@ -61,6 +61,10 @@ const RefuelButton = styled.button`
   width: 160px;
   font-weight: 600;
   cursor: pointer;
+  transition: 0.3s ease-in-out all;
+  &:hover {
+    background-color: salmon;
+  }
 `;
 
 export default UserWelcome;
