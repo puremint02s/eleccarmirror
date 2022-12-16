@@ -45,7 +45,7 @@ function CarRegisterPage() {
       <MainArea>
         <div>
           <TitleWrapper>
-            {user?.carowned
+            {user?.car_owned === true
               ? "간편하게 나의 차량 등록하기"
               : "디자인이 취향인 차량 등록하기"}
           </TitleWrapper>
