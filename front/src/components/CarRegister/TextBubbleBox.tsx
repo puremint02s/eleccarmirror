@@ -15,14 +15,14 @@ const TextBubbleBox = ({ text }: propInterface) => {
 const BubbleBody = styled.div`
   text-align: center;
   margin: 0 auto;
-  padding-bottom: 1px;
-  font-size: 11px;
+  padding: 6px;
+  font-size: 1.1em;
   color: #907b53;
   width: 269.02px;
   height: 43px;
   line-height: 43px;
   background: #ffeab3;
-  border-radius: 5px;
+  border-radius: 10px;
 `;
 const BubbleTail = styled.div`
   margin: 0 auto;
