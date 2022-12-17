@@ -102,6 +102,7 @@ const ContentBoxWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 30vh;
   @media screen and (max-width: 720px) {
     flex-direction: column;
     align-items: start;
