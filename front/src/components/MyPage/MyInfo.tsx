@@ -229,6 +229,9 @@ const MyPageWrapper = styled.div`
   display: flex;
   margin-left: 20vw;
   padding-bottom: 5rem;
+  @media screen and (max-width: 720px) {
+    margin-left: 0vw;
+  }
 `;
 
 const MyPageContentWrapper = styled.div`
@@ -237,6 +240,9 @@ const MyPageContentWrapper = styled.div`
   display: inline;
   flex-direction: column;
   justify-content: center;
+  @media screen and (max-width: 720px) {
+    padding-left: 0rem;
+  }
 `;
 
 const MyPageContentTitle = styled.p`
