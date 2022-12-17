@@ -205,6 +205,12 @@ export default ModifyInfo;
 const ModifyInfoWrapper = styled.div`
   display: flex;
   margin-left: 20vw;
+  @media screen and (max-width: 720px) {
+    margin-left: 25vw;
+  }
+  @media screen and (max-width: 720px) {
+    padding-left: 0rem;
+  }
 `;
 
 const ModifyInfoContentWrapper = styled.div`
