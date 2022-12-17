@@ -173,7 +173,14 @@ function App() {
                       </PrivateRoute>
                     }
                   />
-                  <Route path={ROUTE.LOADING} element={<Loading />} />
+                  <Route
+                    path={ROUTE.LOADING}
+                    element={
+                      <PrivateRoute>
+                        <Loading />
+                      </PrivateRoute>
+                    }
+                  />
                   <Route
                     path={`${ROUTE.CARMBTIRESULT}/:car`}
                     element={
