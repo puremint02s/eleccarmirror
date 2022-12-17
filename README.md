@@ -9,7 +9,7 @@
 <br/>
 
 ## 사이트 링크
-:point_right:  [myElecCar](http://kdt-ai5-team11.elicecoding.com)
+**:point_right:  [myElecCar 서비스 보러 가기](http://kdt-ai5-team11.elicecoding.com) :point_left:**
 
 <br/>
 
