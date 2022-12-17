@@ -61,11 +61,6 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
         {errors.password && (
           <InputErrorMessage>비밀번호를 다시 확인해주세요.</InputErrorMessage>
         )}
-        <FootBox>
-          <a href="/find">
-            <FindEmailPwdButton>아이디/비밀번호 찾기</FindEmailPwdButton>
-          </a>
-        </FootBox>
         <ButtonBox>
           <LoginButton type="submit">로그인</LoginButton>
         </ButtonBox>
