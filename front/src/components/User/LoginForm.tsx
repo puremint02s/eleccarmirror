@@ -5,8 +5,6 @@ import {
   LoginFormWrapper,
   LoginInputTitle,
   LoginInput,
-  FootBox,
-  FindEmailPwdButton,
   ButtonBox,
   InputErrorMessage,
   LoginButton,
@@ -53,7 +51,7 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
             required: true,
             minLength: 7,
             maxLength: 20,
-            pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+            pattern: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{7,25}$/,
           })}
           placeholder="비밀번호를 입력해주세요."
         />
