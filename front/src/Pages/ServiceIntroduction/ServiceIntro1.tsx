@@ -63,6 +63,7 @@ const LeftBackground2 = styled.div`
   width: 40vw;
   height: 70%;
   background-color: #0a84ff;
+  @media screen and (max-width: 720px) {
     width: 80vw;
   }
 `;
