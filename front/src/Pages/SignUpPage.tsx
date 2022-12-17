@@ -19,16 +19,37 @@ interface SignForm {
   confirmPassword?: string;
   age?: string;
   address?: string;
-  car_owned?: boolean;
-  elec_car_owned?: boolean;
+  carOwned?: boolean;
+  elecCarOwned?: boolean;
 }
 
 const SignUpPage = () => {
   const [addressPopUpOpen, setAddressPopUpOpen] = useState(false);
   const [signUpCodePopUpOpen, setSignUpCodePopUpOpen] = useState(false);
   const [inputAddress, setInputAddress] = useState("");
+  const [answer, setAnswer] = useState(undefined);
   const [carOwned, setCarOwned] = useState(false);
   const [elecCarOwned, setElecCarOwned] = useState(false);
+
+  function handleCarOwnedChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+
+    if (value == "yes") {
+      setCarOwned(true);
+    } else {
+      setCarOwned(false);
+    }
+  }
+  function handleElecCarOwnedChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+
+    if (value == "yes") {
+      setElecCarOwned(true);
+    } else {
+      setElecCarOwned(false);
+    }
+  }
+
   const doSignup = useMutation(Api.registerRequest, {
     onSuccess: message => {
       const signKey = String(Object.keys(message));
@@ -58,7 +79,10 @@ const SignUpPage = () => {
 
   useEffect(() => {
     setValue("address", inputAddress);
-  }, [inputAddress]);
+    setValue("carOwned", carOwned);
+
+    setValue("elecCarOwned", elecCarOwned);
+  }, [inputAddress, carOwned, elecCarOwned]);
 
   const {
     register,
@@ -76,8 +100,8 @@ const SignUpPage = () => {
       confirmPassword: "",
       age: "20대",
       address: inputAddress,
-      car_owned: false,
-      elec_car_owned: false,
+      carOwned: false,
+      elecCarOwned: false,
     },
   });
   const popUpOpen = (e: React.MouseEvent) => {
@@ -92,7 +116,6 @@ const SignUpPage = () => {
 
   const signSame = (id: object | undefined) => {
     doSameCheck.mutate(id);
-    console.log(id);
   };
 
   const delayedQueryCall = useCallback<any>(
@@ -244,24 +267,28 @@ const SignUpPage = () => {
               <RadioWrap>
                 <br />
                 차량을 소지하고 계신가요?
-                <label htmlFor="car_owned">
+                <label htmlFor="carOwned">
                   <input
                     type="radio"
-                    name="car_owned"
-                    {...(register("car_owned"),
+                    name="carOwned"
+                    value="yes"
+                    checked={carOwned === true}
+                    {...(register("carOwned"),
                     {
-                      onChange: e => setCarOwned(true),
+                      onChange: handleCarOwnedChange,
                     })}
                   />
                   예
                 </label>
-                <label htmlFor="car_owned">
+                <label htmlFor="carOwned">
                   <input
                     type="radio"
-                    name="car_owned"
-                    {...(register("car_owned"),
+                    name="carOwned"
+                    value="no"
+                    checked={carOwned === false}
+                    {...(register("carOwned"),
                     {
-                      onChange: e => setCarOwned(false),
+                      onChange: handleCarOwnedChange,
                     })}
                   />
                   아니요
@@ -271,27 +298,31 @@ const SignUpPage = () => {
                 <RadioWrap>
                   <br />
                   차량의 종류를 선택해주세요
-                  <label htmlFor="elec_car_owned">
+                  <label htmlFor="elecCarOwned">
                     <input
                       type="radio"
-                      name="elec_car"
-                      {...(register("elec_car_owned"),
+                      name="elecCarOwned"
+                      value="yes"
+                      checked={elecCarOwned === true}
+                      {...(register("elecCarOwned"),
                       {
-                        onChange: e => setElecCarOwned(true),
-                      })}
-                    />
-                    내연기관
-                  </label>
-                  <label htmlFor="elec_car_owned">
-                    <input
-                      type="radio"
-                      name="elec_car"
-                      {...(register("elec_car_owned"),
-                      {
-                        onChange: e => setElecCarOwned(false),
+                        onChange: handleElecCarOwnedChange,
                       })}
                     />
                     전기차
+                  </label>
+                  <label htmlFor="elecCarOwned">
+                    <input
+                      type="radio"
+                      name="elecCarOwned"
+                      value="no"
+                      checked={elecCarOwned === false}
+                      {...(register("elecCarOwned"),
+                      {
+                        onChange: handleElecCarOwnedChange,
+                      })}
+                    />
+                    내연기관
                   </label>
                 </RadioWrap>
               )}
