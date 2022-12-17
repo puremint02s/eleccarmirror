@@ -1,4 +1,3 @@
-
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0A84FF&height=300&section=header&text=myElecCar&fontSize=90&fontColor=fff)
 
 <img src="/uploads/25d82a4716a6d9d311e0141920ff61ce/Group_21.png" width="100"/>
@@ -50,7 +49,7 @@
 
 ## 📃 API 문서
 
-:bookmark_tabs:  [myElecCar BE API](https://www.notion.so/elice/BE-API-eff46ad7b4ed4b64b8c3819842262af1)
+[myElecCar BE API](https://www.notion.so/elice/BE-API-eff46ad7b4ed4b64b8c3819842262af1)
 
 <br/>
 
@@ -92,14 +91,14 @@
 <br/> 
 <br/> 
 
-### 모델 학습 결과
+### 📈 모델 학습 결과
 <br/>
 <img src="/uploads/ec55f240205f952e3dee7086a2e7ad8e/화면_캡처_2022-12-17_104052.png" width="300"/>
 
 <br/>
 <br/>
 
-### 학습된 모델로 평가 결과
+### 📊 학습된 모델로 평가 결과
 
 <br/>
 <img src="/uploads/a0d57971ac8ac4903be8c04697d8a695/화면_캡처_2022-12-17_104113.png" width="300"/>
