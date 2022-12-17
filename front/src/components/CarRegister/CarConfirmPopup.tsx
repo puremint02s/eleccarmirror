@@ -235,7 +235,7 @@ const CarConfirmPopup = ({
                 <ResultTitleText>분석 결과</ResultTitleText>
                 <ResultSubTitleText>내가 업로드한 사진</ResultSubTitleText>
                 <UploadImage
-                  src={`http://kdt-ai5-team11.elicecoding.com:5000/${fileName}`}
+                  src={`http://kdt-ai5-team11.elicecoding.com:5001/${fileName}`}
                 />
                 <ResultSubTitleText>AI가 분석한 유사도</ResultSubTitleText>
                 <ResultTextCenter>
