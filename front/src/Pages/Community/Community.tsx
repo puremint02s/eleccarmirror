@@ -237,7 +237,7 @@ function Community(props: any) {
                             >
                               {item.title}
                             </button>
-                            <p style={{ padding: "10px 0" }}>
+                            <p>
                               {onCommentCount(item._id)! >= 0 ? (
                                 <span className="commentWrap">
                                   <i className="ri-message-3-fill"></i>
