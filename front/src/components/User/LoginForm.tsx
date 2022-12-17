@@ -51,10 +51,9 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
           type="password"
           {...register("password", {
             required: true,
-            // minLength: 7,
-            // maxLength: 20,
-            // pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
-            // 테스트용 계정 비밀번호가 1111이라 임시로 조건 해제
+            minLength: 7,
+            maxLength: 20,
+            pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
           })}
           placeholder="비밀번호를 입력해주세요."
         />
