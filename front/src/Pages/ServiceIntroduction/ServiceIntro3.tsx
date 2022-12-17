@@ -52,6 +52,10 @@ const TitleWrapper = styled.p`
   font-size: 30px;
   padding-top: 20vh;
   padding-left: 10vw;
+  @media screen and (max-width: 720px) {
+    padding-top: 10vh;
+    padding-left: 10vw;
+  }
 `;
 
 const Section3Wrapper = styled.div`
@@ -61,6 +65,10 @@ const Section3Wrapper = styled.div`
 const PostboxWrapper = styled.div`
   padding-top: 5vh;
   padding-left: 10vw;
+  @media screen and (max-width: 720px) {
+    padding-left: 5vh;
+    padding-top: 3vh;
+  }
 `;
 
 const Postbox = styled.div`
@@ -69,6 +77,12 @@ const Postbox = styled.div`
   background-color: white;
   margin-top: 3vh;
   position: relative;
+  @media screen and (max-width: 720px) {
+    width: 50vw;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Postbox2 = styled.div`
@@ -78,6 +92,12 @@ const Postbox2 = styled.div`
   margin-top: 3vh;
   position: relative;
   opacity: 0.5;
+  @media screen and (max-width: 720px) {
+    width: 50vw;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Postbox3 = styled.div`
@@ -87,6 +107,12 @@ const Postbox3 = styled.div`
   margin-top: 3vh;
   position: relative;
   opacity: 0.3;
+  @media screen and (max-width: 720px) {
+    width: 50vw;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const PostboxTitle = styled.p`
@@ -96,6 +122,10 @@ const PostboxTitle = styled.p`
   top: 50%;
   left: 20%;
   transform: translate(-50%, -50%);
+  @media screen and (max-width: 720px) {
+    top: 30%;
+    left: 40%;
+  }
 `;
 
 const PostboxWriter = styled.p`
@@ -105,6 +135,10 @@ const PostboxWriter = styled.p`
   top: 50%;
   right: 0%;
   transform: translate(-50%, -50%);
+  @media screen and (max-width: 720px) {
+    top: 80%;
+    left: 40%;
+  }
 `;
 
 const Section3Paragraph = styled.div`
@@ -112,6 +146,9 @@ const Section3Paragraph = styled.div`
   padding-left: 15vh;
   font-size: 16px;
   line-height: 4vh;
+  @media screen and (max-width: 720px) {
+    display: none;
+  }
 `;
 
 const Section3Button = styled.button`

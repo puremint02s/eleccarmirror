@@ -63,6 +63,8 @@ const LeftBackground2 = styled.div`
   width: 40vw;
   height: 70%;
   background-color: #0a84ff;
+    width: 80vw;
+  }
 `;
 
 const LeftBackground3 = styled.div`
@@ -77,6 +79,8 @@ const Title1 = styled.span`
   font-size: 30px;
   margin-bottom: 25px;
   color: white;
+    width: 100%
+  }
 `;
 
 const Subtitle = styled.span`
@@ -93,6 +97,7 @@ const Section1Button = styled.button`
   background-color: white;
   border: none;
   cursor: pointer;
+  border-radius: 10px;
   @media screen and (max-width: 720px) {
     width: 40vw;
   }
