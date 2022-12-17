@@ -14,15 +14,13 @@ import theme from "assets/data/chatBotTheme.json";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { loginReducer } from "utils/reducer";
 import { currentUserGet } from "apis/UserApi";
+import { PrivateRoute, PublicRoute } from "components/Route/RouteHandling";
 
 const Login = lazy(() => import("./Pages/LoginPage"));
 const SignUpLogin = lazy(() => import("Pages/StartPage"));
 const Start = lazy(
   () => import("Pages/ServiceIntroduction/ServiceIntroduction"),
 );
-const Find = lazy(() => import("./Pages/FindUserInfo/FindPage"));
-const FindId = lazy(() => import("./Pages/FindUserInfo/FindIdPage"));
-const FindPwd = lazy(() => import("./Pages/FindUserInfo/FindPwdPage"));
 const CarMbti = lazy(() => import("./Pages/CarRecommendSteps/CarMbtiPage"));
 const TestContents = lazy(() => import("./components/CarMbti/TestContents"));
 const Loading = lazy(() => import("./components/CarMbti/Loading"));
@@ -51,9 +49,6 @@ const ROUTE = {
   SIGNUPLOGIN: "/signuplogin",
   MAIN: "/main",
   LOGIN: "/login",
-  FIND: "/find",
-  FINDID: "/find/id",
-  FINDPWD: "/find/pwd",
   SIGNUP: "/signup",
   COMMUNITY: "/community",
   CARREGISTER: "/carregister",
@@ -113,41 +108,128 @@ function App() {
               <GlobalStyle />
               <QueryClientProvider client={queryClient}>
                 <Routes>
-                  <Route path={ROUTE.START} element={<Start />} />
-                  <Route path={ROUTE.SIGNUPLOGIN} element={<SignUpLogin />} />
-                  <Route path={ROUTE.MAIN} element={<MainPage />} />
                   <Route path={ROUTE.SERVICEINTRO} element={<ServiceIntro />} />
-                  <Route path={ROUTE.LOGIN} element={<Login />} />
-                  <Route path={ROUTE.FIND} element={<Find />} />
-                  <Route path={ROUTE.FINDID} element={<FindId />} />
-                  <Route path={ROUTE.FINDPWD} element={<FindPwd />} />
-                  <Route path={ROUTE.SIGNUP} element={<SignUp />} />
-                  <Route path={ROUTE.COMMUNITY} element={<Community />} />
-                  <Route path={ROUTE.CARREGISTER} element={<CarRegister />} />
-                  <Route path={ROUTE.CARMBTI} element={<CarMbti />} />
-                  <Route path={ROUTE.CARMBTITEST} element={<TestContents />} />
+                  <Route
+                    path={ROUTE.START}
+                    element={
+                      <PublicRoute>
+                        <Start />
+                      </PublicRoute>
+                    }
+                  />
+                  <Route
+                    path={ROUTE.SIGNUPLOGIN}
+                    element={
+                      <PublicRoute>
+                        <SignUpLogin />
+                      </PublicRoute>
+                    }
+                  />
+                  <Route
+                    path={ROUTE.SIGNUP}
+                    element={
+                      <PublicRoute>
+                        <SignUp />
+                      </PublicRoute>
+                    }
+                  />
+                  <Route
+                    path={ROUTE.LOGIN}
+                    element={
+                      <PublicRoute>
+                        <Login />
+                      </PublicRoute>
+                    }
+                  />
+                  <Route
+                    path={ROUTE.MAIN}
+                    element={
+                      <PrivateRoute>
+                        <MainPage />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path={ROUTE.CARREGISTER}
+                    element={
+                      <PrivateRoute>
+                        <CarRegister />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path={ROUTE.CARMBTI}
+                    element={
+                      <PrivateRoute>
+                        <CarMbti />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path={ROUTE.CARMBTITEST}
+                    element={
+                      <PrivateRoute>
+                        <TestContents />
+                      </PrivateRoute>
+                    }
+                  />
                   <Route path={ROUTE.LOADING} element={<Loading />} />
                   <Route
                     path={`${ROUTE.CARMBTIRESULT}/:car`}
-                    element={<MbtiResult />}
+                    element={
+                      <PrivateRoute>
+                        <MbtiResult />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     path={ROUTE.CALCEFFICENCY}
-                    element={<CalcEfficency />}
+                    element={
+                      <PrivateRoute>
+                        <CalcEfficency />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     path={ROUTE.FINALRESULT}
-                    element={<FinalResultPage />}
+                    element={
+                      <PrivateRoute>
+                        <FinalResultPage />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path={ROUTE.COMMUNITY}
+                    element={
+                      <PrivateRoute>
+                        <Community />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     path={ROUTE.COMMUNITYUPLOAD}
-                    element={<CommunityUpload />}
+                    element={
+                      <PrivateRoute>
+                        <CommunityUpload />
+                      </PrivateRoute>
+                    }
                   />
                   <Route
                     path={ROUTE.COMMUNITYLOAD}
-                    element={<CommunityLoad />}
+                    element={
+                      <PrivateRoute>
+                        <CommunityLoad />
+                      </PrivateRoute>
+                    }
                   />
-                  <Route path={ROUTE.MYPAGE} element={<MyPage />} />
+                  <Route
+                    path={ROUTE.MYPAGE}
+                    element={
+                      <PrivateRoute>
+                        <MyPage />
+                      </PrivateRoute>
+                    }
+                  />
                   <Route path={ROUTE.ERROR} element={<Error />} />
                 </Routes>
               </QueryClientProvider>

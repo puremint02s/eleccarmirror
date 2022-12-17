@@ -7,9 +7,9 @@ function ErrorPage() {
     <>
       <ErrorWrapper>
         <ErrorImageWrapper src={GreyCarImg} />
-        <ErrorMessage>잘못된 주소예요... 😢</ErrorMessage>
-        <Link to="/main">
-          <GotoMainBtn>메인으로 돌아가기</GotoMainBtn>
+        <ErrorMessage>잘못된 접근이예요... 😢</ErrorMessage>
+        <Link to="/">
+          <GotoMainBtn>처음으로 돌아가기</GotoMainBtn>
         </Link>
       </ErrorWrapper>
     </>
