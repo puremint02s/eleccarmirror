@@ -58,7 +58,7 @@ const SignUpPage = () => {
         swal("회원가입 불가", signValue);
       } else {
         navigate("/login");
-        swal("회원가입 완료", signValue);
+        swal("회원가입 완료", "회원가입이 완료되었습니다.");
       }
     },
     onError: error => {
