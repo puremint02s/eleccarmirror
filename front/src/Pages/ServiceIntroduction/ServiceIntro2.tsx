@@ -102,7 +102,12 @@ const ContentBoxWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 25vh;
+  @media screen and (max-width: 720px) {
+    flex-direction: column;
+    align-items: start;
+    padding-left: 5vw;
+    padding-top: 3vh;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -114,13 +119,17 @@ const ContentBox = styled.div`
   text-align: center;
   border-radius: 7px;
   @media screen and (max-width: 720px) {
-    width: 27vw;
+    width: 50vw;
+    height: 30vh;
   }
 `;
 
 const IconWrapper = styled.img`
   margin-top: 7vh;
   width: 4vw;
+  @media screen and (max-width: 720px) {
+    margin-top: 2vh;
+  }
 `;
 
 const ContentTitle = styled.p`
