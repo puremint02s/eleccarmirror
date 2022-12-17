@@ -1,3 +1,4 @@
+
 ![header](https://capsule-render.vercel.app/api?type=waving&color=0A84FF&height=300&section=header&text=myElecCar&fontSize=90&fontColor=fff)
 
 <img src="/uploads/25d82a4716a6d9d311e0141920ff61ce/Group_21.png" width="100"/>
@@ -22,7 +23,7 @@
 
 
 
-## 팀원
+## 😉 팀원
 
 | 프론트, 인공지능 | 프론트 | 프론트 | 프론트, 백엔드 |
 | --- | --- | --- | --- |
@@ -39,7 +40,7 @@
 
 <br/>
 
-## 사용 언어
+## ⚙ 사용 언어
 
 | 💻 프론트엔드 | 💾 백엔드 | 🤖 인공지능 |
 | --- | --- | --- |
@@ -47,15 +48,16 @@
 
 <br/>
 
-## API 문서
+## 📃 API 문서
 
 :bookmark_tabs:  [myElecCar BE API](https://www.notion.so/elice/BE-API-eff46ad7b4ed4b64b8c3819842262af1)
 
 <br/>
 
-# 핵심 서비스
-## 1️⃣ 3가지 전기차 추천 플로우
+# 👑 핵심 서비스
+## 3가지 전기차 추천 플로우
 ### 🚩 현재 차량을 등록하여 등록한 차량의 브랜드와 모델을 인공지능 모델로 예측합니다
+- 회원가입 시, 현재 차량 소지 여부를 확인 후, 차량이 없다면 본인이 원하는 드림카를 업로드 하도록 유도합니다.
 <br/>
 <br/>
 <img src="/uploads/7e3f7997da0a0d59a1e527b932c42c9a/화면_캡처_2022-12-17_052921.png" width="300"/>
@@ -64,6 +66,7 @@
 <br/>
 
 ### 🚩 간단한 성향 테스트를 통해 사용자의 구매 성향을 파악합니다
+
 <br/>
 <br/>
 <img src="/uploads/6e12a8b8e1bd26d54707c98cf70e0fa3/화면_캡처_2022-12-17_053055.png" width="300"/>
@@ -72,6 +75,7 @@
 
 
 ### 🚩 현재 보유 중인 차량의 실제 연비를 계산하여 추천합니다
+- 차량을 소지한 경우 주유 내역을 통해 연비를 계산 후, 그에 해당하는 전비를 가진 전기차를 추천해드립니다.
 <br/>
 <br/>
 <img src="/uploads/bbf67b84c1d6608539b279dd481884c1/화면_캡처_2022-12-17_053214.png" width="300"/>
