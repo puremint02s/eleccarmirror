@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components/macro";
 import * as UserApi from "apis/UserApi";
@@ -7,13 +7,14 @@ import * as CommunityApi from "apis/CommunityApi";
 import * as CarMbtiTestApi from "apis/CarMbtiTestApi";
 import * as CarApi from "apis/CarApi";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
+import { UserStateContext } from "App";
 
 const MyInfo = styled.div`
   width: 300px;
   height: auto;
   border-top: 2px solid #303030;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1370px) {
     width: 100%;
   }
 
@@ -129,8 +130,10 @@ function CommunityMyInfo() {
     brand: string;
   }>();
 
+  const currentUser = useContext(UserStateContext);
+
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
+    currentUser?.user?.user_id, //임시로 현재 user_id 집어넣음
   );
 
   const toUploadPage = () => {

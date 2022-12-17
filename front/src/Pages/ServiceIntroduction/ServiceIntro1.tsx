@@ -40,9 +40,13 @@ const Section1Wrapper = styled.div`
 
 const RightBackground = styled.div`
   display: flex;
-  width: 60vw;
+  /* width: 60vw; */
+  width: 80vw;
   background-image: url(${Service1BGImg});
-  background-size: 60vw 100vh;
+  /* background-size: 60vw 100vh; */
+  background-size: 1300px 100vh;
+  background-repeat: no-repeat;
+  background-position: -20px 0;
 `;
 
 const LeftBackground = styled.div`
