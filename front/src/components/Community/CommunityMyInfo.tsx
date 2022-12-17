@@ -106,6 +106,7 @@ const MyInfo = styled.div`
 `;
 
 export const UploadButton = styled.button`
+  border-radius: 10px;
   width: 100%;
   padding: 15px 0;
   font-size: 18px;
@@ -113,6 +114,10 @@ export const UploadButton = styled.button`
   border: none;
   color: #fff;
   cursor: pointer;
+  transition: 0.3s ease-in-out all;
+  &:hover {
+    background-color: salmon;
+  }
 `;
 
 function CommunityMyInfo() {
