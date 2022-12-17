@@ -15,7 +15,7 @@ export const SearchBar = styled.div`
   height: 27px;
   margin-bottom: 10px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1370px) {
     width: 100%;
     height: 35px;
     overflow: hidden;
@@ -39,7 +39,7 @@ export const SearchBar = styled.div`
         text-indent: 10px;
         outline: none;
         width: 70%;
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1370px) {
           width: 100%;
           height: 100%;
         }
@@ -52,7 +52,7 @@ export const SearchBar = styled.div`
         width: 30%;
         cursor: pointer;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1370px) {
           width: 80px;
         }
       }
@@ -67,7 +67,7 @@ export const CommunityContent = styled.div`
   justify-content: space-between;
   flex-direction: unset;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1370px) {
     flex-direction: column;
   }
 `;
@@ -76,7 +76,7 @@ export const BoardWrap = styled.div`
   width: calc(100% - 280px);
   margin-left: 20px;
   border-top: 2px solid #303030;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1370px) {
     width: 100%;
     margin-left: 0px;
   }
@@ -99,14 +99,18 @@ export const BoardWrap = styled.div`
           display: table-cell;
           text-align: center;
 
-          @media screen and (max-width: 720px) {
+          @media screen and (max-width: 1370px) {
             font-size: 14px;
           }
           &:first-child {
             width: 80%;
 
+            @media screen and (max-width: 1370px) {
+              width: 70%;
+            }
+
             @media screen and (max-width: 720px) {
-              width: 40%;
+              width: 50%;
             }
           }
         }
@@ -131,19 +135,20 @@ export const BoardWrap = styled.div`
               overflow: hidden;
               text-overflow: ellipsis;
 
-              @media screen and (max-width: 720px) {
+              @media screen and (max-width: 1370px) {
                 max-width: 50px;
               }
             }
           }
 
-          @media screen and (max-width: 720px) {
+          @media screen and (max-width: 1370px) {
             font-size: 14px;
           }
 
           &:first-child {
             text-align: left;
             display: flex;
+            padding: 10px 0;
           }
 
           button {
@@ -160,7 +165,7 @@ export const BoardWrap = styled.div`
               color: #0a84ff;
             }
 
-            @media screen and (max-width: 720px) {
+            @media screen and (max-width: 1370px) {
               max-width: 220px;
             }
           }

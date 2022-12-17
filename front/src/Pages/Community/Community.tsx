@@ -45,11 +45,11 @@ function Community(props: any) {
     location.search.slice(-1) || null,
   );
 
-  console.log("Community location path", location.search.split("=")[1]);
+  // console.log("Community location path", location.search.split("=")[1]);
 
   const getData = (currentPage: number) => {
     if (location.search.split("=")[1]) {
-      currentPage = Number(location.search.split("=")[1]);
+      // currentPage = Number(location.search.split("=")[1]);
     }
 
     setCurrentPage(currentPage);
@@ -66,7 +66,7 @@ function Community(props: any) {
     setPageParams(pageLocation);
 
     if (location.search.split("=")[1]) {
-      setCurrentPage(Number(location.search.split("=")[1]));
+      // setCurrentPage(Number(location.search.split("=")[1]));
     }
 
     console.log("currentPage", currentPage);
@@ -237,7 +237,7 @@ function Community(props: any) {
                             >
                               {item.title}
                             </button>
-                            <p style={{ padding: "10px 0" }}>
+                            <p>
                               {onCommentCount(item._id)! >= 0 ? (
                                 <span className="commentWrap">
                                   <i className="ri-message-3-fill"></i>
@@ -258,11 +258,7 @@ function Community(props: any) {
                   )}
                 </div>
               </div>
-              <Pagination
-                currentPage={currentPage}
-                getData={getData}
-                pageParams={pageParams}
-              />
+              <Pagination currentPage={currentPage} getData={getData} />
             </CommunityStyle.BoardWrap>
           </CommunityStyle.CommunityContent>
         </CommunityStyle.CommunityWrap>

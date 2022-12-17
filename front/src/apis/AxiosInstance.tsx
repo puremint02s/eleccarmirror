@@ -1,8 +1,12 @@
 import axios from "axios";
 
-const backendPortNumber = "4005";
+const backendPortNumber = "5000";
 const BASE_URL =
-  "http://" + window.location.hostname + ":" + backendPortNumber + "/";
+  "http://" +
+  window.location.hostname +
+  ":" +
+  process.env.REACT_APP_BACK_SERVER_PORT +
+  "/";
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,

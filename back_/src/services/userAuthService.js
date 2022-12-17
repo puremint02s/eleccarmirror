@@ -69,19 +69,11 @@ class userAuthService {
   static async getUser({ id, password }) {
     const user = await User.findByEmail({ id });
 
-    console.log("user 정보", user);
-    console.log("user 정보", user);
-
-    if (!user) {
-      const errorMessage =
-        "해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
-    }
-    if (!user) {
-      const errorMessage =
-        "해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
-    }
+        if (!user) {
+            const errorMessage =
+                "해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+            return { errorMessage };
+        }
 
     // 비밀번호 일치 여부 확인
     const correctPasswordHash = user.password;
@@ -130,54 +122,47 @@ class userAuthService {
     return user;
   }
 
-  //유저정보 중복체크
-  static async getUserInfomation({ id }) {
-    const userSame = await User.findByEmail({ id });
-    try {
-      if (!userSame) {
-        const successMessage = "올바른 아이디입니다";
-        return { successMessage };
-      }
-      if (userSame) {
-        const errorMessage =
-          "해당 아이디는 가입 내역이 있습니다. 다시 한 번 확인해 주세요.";
-        return { errorMessage };
-      }
-    } catch {}
+    //유저정보 중복체크
+    static async getUserInfomation({ id }) {
+        const userSame = await User.findByEmail({ id });
+        try {
+            if (!userSame) {
+                const successMessage = "올바른 아이디입니다";
+                return { successMessage };
+            }
+            if (userSame) {
+                const errorMessage =
+                    "해당 아이디는 가입 내역이 있습니다. 다시 한 번 확인해 주세요.";
+                return { errorMessage };
+            }
+        } catch (err) {
+            console.log(err);
+        }
 
     return userSame;
   }
 
-  //유저정보 수정
-  static async updateUser(newInput) {
-    const {
-      user_id,
-      email,
-      id,
-      nickname,
-      age,
-      address,
-      car_owned,
-      elec_car_owned,
-    } = newInput;
-    let user = await User.findById(user_id);
+    //유저정보 수정
+    static async updateUser(newInput) {
+        const {
+            user_id,
+            email,
+            id,
+            nickname,
+            age,
+            address,
+            car_owned,
+            elec_car_owned,
+        } = newInput;
+        let user = await User.findById(user_id);
 
-    console.log("user 찾음?", user);
-
-    // db에서 찾지 못한 경우, 에러 메시지 반환
-    if (!user) {
-      const errorMessage =
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
-    }
-    console.log("id", id, "user.id", user.id);
-    // db에서 찾지 못한 경우, 에러 메시지 반환
-    if (!user) {
-      const errorMessage =
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
-    }
-    console.log("id", id, "user.id", user.id);
+        // db에서 찾지 못한 경우, 에러 메시지 반환
+        if (!user) {
+            const errorMessage =
+                "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+            return { errorMessage };
+        }
+        // console.log("id", id, "user.id", user.id);
 
     if (user.email !== email) {
       console.log("email is updated");
