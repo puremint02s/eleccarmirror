@@ -62,7 +62,6 @@ function FinalResultPage() {
   );
   const currentUserCalcMPG =
     (currentUserCalcEfficiency.averageEfficiency / 1559) * 324;
-  console.log(currentUserCalcMPG);
 
   useEffect(() => {
     const i = currentUserCalcMPG;
@@ -97,8 +96,9 @@ function FinalResultPage() {
       }
     } else {
       setCurrentUserMPGtype("none");
+      console.log("dkdk");
     }
-  }, []);
+  }, [currentUserCalcMPG]);
 
   useEffect(() => {
     async function getCurrentUserType() {

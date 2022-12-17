@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import WhiteLogoImg from "assets/img/MyElecCar white logo.png";
+import Service1BGImg from "assets/img/Service1BG.png";
 
 function ServiceIntro1() {
   return (
@@ -23,6 +24,7 @@ function ServiceIntro1() {
             </LeftBackground3>
           </LeftBackground2>
         </LeftBackground>
+        <RightBackground />
       </Section1Wrapper>
     </>
   );
@@ -36,6 +38,17 @@ const Section1Wrapper = styled.div`
   height: 100vh;
 `;
 
+const RightBackground = styled.div`
+  display: flex;
+  /* width: 60vw; */
+  width: 80vw;
+  background-image: url(${Service1BGImg});
+  /* background-size: 60vw 100vh; */
+  background-size: 1300px 100vh;
+  background-repeat: no-repeat;
+  background-position: -20px 0;
+`;
+
 const LeftBackground = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,7 +60,7 @@ const LeftBackground2 = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60vw;
+  width: 40vw;
   height: 70%;
   background-color: #0a84ff;
 `;
