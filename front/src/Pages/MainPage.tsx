@@ -59,6 +59,9 @@ const MainPage = () => {
   const { mutate, isLoading, data } = useMutation("step", (data: string) =>
     StepApi.postStepInfo(data),
   );
+  if (step === undefined || null) {
+    mutate("0");
+  }
   const onChatBotToggle = () => {
     setChatbotOpen((c: boolean) => !c);
   };
