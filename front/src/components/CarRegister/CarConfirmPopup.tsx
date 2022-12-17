@@ -495,10 +495,6 @@ const BlueButton = styled.button`
   text-align: center;
   color: #ffffff;
   border-radius: 10px;
-  transition: 0.3s ease-in-out all;
-  &:hover {
-    background: salmon;
-  }
 `;
 
 const BlueBoderButton = styled.button`
@@ -513,10 +509,5 @@ const BlueBoderButton = styled.button`
   box-sizing: border-box;
   border: 2px solid #0a84ff;
   border-radius: 10px;
-  transition: 0.3s ease-in-out all;
-  &:hover {
-    color: salmon;
-    border: 2px solid salmon;
-  }
 `;
 export default CarConfirmPopup;

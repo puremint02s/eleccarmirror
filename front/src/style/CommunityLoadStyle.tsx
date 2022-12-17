@@ -19,13 +19,6 @@ export const CommunityContent = styled.div`
   margin-left: 20px;
   border-top: 2px solid #303030;
 
-  & > button {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
   @media screen and (max-width: 768px) {
     width: 100%;
     margin-left: 0px;

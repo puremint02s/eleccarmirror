@@ -34,7 +34,6 @@ export const LoginInput = styled.input`
   padding-bottom: 1rem;
   padding-left: 1rem;
   margin-top: 0.5rem;
-  border-radius: 10px;
 `;
 
 export const FootBox = styled.div`
@@ -85,7 +84,6 @@ export const LoginButton = styled.button`
   cursor: pointer;
   font-size: 15px;
   margin-top: 1rem;
-  border-radius: 10px;
 `;
 
 export const KakaoLoginButton = styled.button`

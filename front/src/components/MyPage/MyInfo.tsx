@@ -291,11 +291,6 @@ const AddRefuelButton = styled.button`
   border: none;
   font-size: 12px;
   color: #636363;
-  transition: 0.3s ease-in-out all;
-  &:hover {
-    color: white;
-    background-color: salmon;
-  }
 `;
 
 const RefuelWrap = styled.div`
@@ -346,11 +341,6 @@ const ReregisterCarBtn = styled.button`
   border: none;
   font-size: 12px;
   color: #636363;
-  transition: 0.3s ease-in-out all;
-  &:hover {
-    color: white;
-    background-color: salmon;
-  }
 `;
 
 const NewRegisterCarDesc = styled.p`

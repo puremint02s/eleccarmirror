@@ -8,9 +8,7 @@ function ServiceIntro3() {
       <Section3Wrapper>
         <PostboxWrapper>
           <Postbox>
-            <PostboxTitle>
-              저 이거 살 건데 고속도로 주행 가능한가요?
-            </PostboxTitle>
+            <PostboxTitle>고속도로에서 방전됐을 때 꿀팁</PostboxTitle>
             <PostboxWriter>전기차 박사</PostboxWriter>
           </Postbox>
           <Postbox>
@@ -18,12 +16,12 @@ function ServiceIntro3() {
             <PostboxWriter>배터리 0퍼</PostboxWriter>
           </Postbox>
           <Postbox2>
-            <PostboxTitle>EV6 디자인 정말 좋네요!</PostboxTitle>
+            <PostboxTitle>고속도로에서 방전됐을 때 꿀팁</PostboxTitle>
             <PostboxWriter>피카츄 주인</PostboxWriter>
           </Postbox2>
           <Postbox3>
-            <PostboxTitle>전기차 보조금 질문 있어요!</PostboxTitle>
-            <PostboxWriter>토르의 전기차</PostboxWriter>
+            <PostboxTitle>고속도로에서 방전됐을 때 꿀팁</PostboxTitle>
+            <PostboxWriter>전기차 박사</PostboxWriter>
           </Postbox3>
         </PostboxWrapper>
         <Section3Paragraph>

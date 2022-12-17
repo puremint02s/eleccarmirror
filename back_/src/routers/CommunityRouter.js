@@ -1,5 +1,4 @@
 import is from "@sindresorhus/is";
-import fs from "fs";
 import { Router } from "express";
 import { communityService } from "../services/communityService.js";
 import { userAuthService } from "../services/userAuthService.js";
@@ -17,36 +16,9 @@ communityRouter.post(
 
             const user = await userAuthService.getUserInfo(user_id);
 
-            const { title, content, hashtags, file } = req.body;
+            const { title, content, hashtags } = req.body;
 
             const filteredHashtags = hashtags.replace(/\s/g, "").split(",");
-
-            // const block = file.split(";");
-            // const contentType = block[0].split(":")[1].substr(6); //image/png= //png
-            // const realData = block[1].split(",")[1];
-
-            // const random = Math.random() * 1000000;
-
-            // fs.writeFile(
-            //     `C:/Users/Ryu/Desktop/3rd_project/11/back_/communityUploads/${random}.${contentType}`,
-            //     realData,
-            //     "base64",
-            //     function (err) {
-            //         console.log(err);
-            //     }
-            // );
-            // let yourfile;
-
-            // fs.readFile(
-            //     `C:/Users/Ryu/Desktop/3rd_project/11/back_/communityUploads/${random}.${contentType}`,
-            //     (err, file) => {
-            //         if (err) {
-            //             console.log(err);
-            //         }
-            //         console.log("file", file);
-            //         yourfile = file;
-            //     }
-            // );
 
             const data = {
                 user_id,
@@ -55,7 +27,6 @@ communityRouter.post(
                 content,
                 hashtags: filteredHashtags,
                 creator: req.user_id,
-                // file: yourfile,
             };
 
             const uploadedContent = await communityService.addContent(data);
@@ -76,8 +47,8 @@ communityRouter.get(
             const page = Number(req.query.page || 1);
             const perPage = Number(req.query.perPage || 10);
 
-            // console.log("page =>", page);
-            // console.log("perPage =>", perPage);
+            console.log("page =>", page);
+            console.log("perPage =>", perPage);
 
             const content = await communityService.getContents(page, perPage);
 

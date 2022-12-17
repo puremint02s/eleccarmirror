@@ -1,5 +1,4 @@
 import axios from "axios";
-import { axiosInstance } from "./AxiosInstance";
 
 const BASE_URL =
   "http://" +
@@ -15,13 +14,5 @@ interface carData {
 
 export const postImage = async (image: any) => {
   const { data } = await axios.post(`${BASE_URL}images`, image);
-  return data;
-};
-
-export const postCommunityImage = async (image: any) => {
-  const { data } = await axiosInstance.post(
-    `${BASE_URL}community/images`,
-    image,
-  );
   return data;
 };

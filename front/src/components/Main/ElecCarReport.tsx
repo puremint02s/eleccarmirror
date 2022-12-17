@@ -3,10 +3,9 @@ import tempImage from "assets/img/GreyQuestionCar.png";
 import blueCar from "assets/img/BlueCar.png";
 import loading from "assets/img/loading2.gif";
 import * as CarRegisterApi from "apis/CarRegisterApi";
-import * as Output from "assets/data/CarOutputList";
+import { Result } from "assets/data/CarOutputList";
 import { useQuery } from "react-query";
 import { useEffect, useState } from "react";
-import * as Input from "assets/data/CarInputList";
 
 type Car = {
   brand: string;
@@ -24,14 +23,9 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
   console.log("car", car);
   const [recomendedCar, setRecomendedCar] = useState<Car>();
   useEffect(() => {
-    const foundCar = Output.Result.find(
-      v => v.model === car?.recommended?.model,
-    );
+    const foundCar = Result.find(v => v.model === car?.recommended?.model);
     setRecomendedCar(foundCar);
   }, [car]);
-  const currentCarInfo = Input.Result.find(
-    v => v.label.split(" ")[1] === car?.current?.model,
-  );
   return (
     <>
       <ReportWrapper>
@@ -57,11 +51,11 @@ const ElecCarReport = ({ step }: { step: string | undefined }) => {
                 <ReportTopSub>
                   <div>
                     <span>유형</span>
-                    <span>{currentCarInfo?.type}</span>
+                    <span>{car?.current.model}</span>
                   </div>
                   <div>
-                    <span>평균연비(km/L)</span>
-                    <span>{currentCarInfo.kml}</span>
+                    <span>평균연비</span>
+                    <span>{car?.current.model}</span>
                   </div>
                 </ReportTopSub>
                 <ReportTopSub>
@@ -200,7 +194,7 @@ const ReportTopSection = styled.section`
   }
 `;
 const ReportText = styled.div`
-  color: rgba(0, 0, 0, 0.6);
+  color: "darkgrey";
   padding: 6px 10px;
   height: 30px;
   display: flex;
@@ -221,11 +215,11 @@ const ReportTopSub = styled.div`
   div {
     padding: 0 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
     width: 100%;
     span: first-child {
-      width: auto;
+      width: 30%;
     }
     @media screen and (max-width: 720px) {
       padding: 10px 10px;
@@ -281,18 +275,14 @@ const CarInfoWrapper = styled.div`
 `;
 const CarInfoTextWrapper = styled.div`
   overflow: scroll;
-  width: 90%;
+  width: 80%;
   height: 100%;
   div {
-    overflow: scroll;
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 8px;
     span {
       padding: 0 8px;
-    }
-    span: last-child {
-      text-align: end;
     }
   }
   @media screen and (max-height: 719px) {

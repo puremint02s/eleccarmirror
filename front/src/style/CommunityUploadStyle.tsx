@@ -9,9 +9,7 @@ export const Title = styled.div`
   }
 `;
 
-export const UploadContent = styled.form.attrs({
-  enctype: "multipart/form-data",
-})`
+export const UploadContent = styled.form`
   width: 100%;
   height: auto;
 `;

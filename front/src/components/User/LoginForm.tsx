@@ -51,15 +51,21 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
           type="password"
           {...register("password", {
             required: true,
-            minLength: 7,
-            maxLength: 20,
-            pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+            // minLength: 7,
+            // maxLength: 20,
+            // pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
+            // 테스트용 계정 비밀번호가 1111이라 임시로 조건 해제
           })}
           placeholder="비밀번호를 입력해주세요."
         />
         {errors.password && (
           <InputErrorMessage>비밀번호를 다시 확인해주세요.</InputErrorMessage>
         )}
+        <FootBox>
+          <a href="/find">
+            <FindEmailPwdButton>아이디/비밀번호 찾기</FindEmailPwdButton>
+          </a>
+        </FootBox>
         <ButtonBox>
           <LoginButton type="submit">로그인</LoginButton>
         </ButtonBox>

@@ -9,8 +9,3 @@ export const carMbtiTypeGet = async (user_id: object) => {
   const res = await axiosInstance.get("/type", user_id);
   return res.data;
 };
-
-export const carMbtiTypeModify = async (modify: object) => {
-  const res = await axiosInstance.put("/type", modify);
-  return res;
-};

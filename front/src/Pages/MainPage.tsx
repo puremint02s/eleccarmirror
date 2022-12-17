@@ -63,7 +63,7 @@ const MainPage = () => {
     setChatbotOpen((c: boolean) => !c);
   };
   useEffect(() => {
-    if (step === undefined || null) {
+    if (step === undefined) {
       mutate("0");
     }
     if (step == 0) {
@@ -80,6 +80,8 @@ const MainPage = () => {
     if (step == 2) navigate("/calcefficency");
     if (step == 3) navigate("/finalresult");
   };
+  console.log("step", step);
+  console.log("user", user);
   return (
     <>
       <MainPageWrapper>

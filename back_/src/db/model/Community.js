@@ -69,7 +69,7 @@ class Community {
     }
 
     static async update(newInput) {
-        // console.log("newInput =>", newInput);
+        console.log("newInput =>", newInput);
         try {
             const { _id, title, content, hashtags } = newInput;
             const update = { title, content, hashtags };

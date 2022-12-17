@@ -10,8 +10,6 @@ type Car = {
   e: number;
   f: number;
   g: number;
-
-  kml: number;
 };
 
 export const Result: Car[] = [
@@ -27,8 +25,6 @@ export const Result: Car[] = [
     e: 14,
     f: 14,
     g: 9,
-
-    kml: 14.5,
   },
   {
     label: "chevrolet trailblazer",
@@ -42,8 +38,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 13,
-
-    kml: 12,
   },
   {
     label: "genesis g80",
@@ -57,8 +51,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 17,
-
-    kml: 9,
   },
   {
     label: "genesis g90",
@@ -72,8 +64,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 22,
-
-    kml: 8.2,
   },
   {
     label: "hyundai avante",
@@ -87,8 +77,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 12,
-
-    kml: 13,
   },
   {
     label: "hyundai casper",
@@ -102,8 +90,6 @@ export const Result: Car[] = [
     e: 13,
     f: 13,
     g: 9,
-
-    kml: 13,
   },
   {
     label: "hyundai grandeur",
@@ -117,8 +103,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 17,
-
-    kml: 16.8,
   },
   {
     label: "hyundai kona",
@@ -132,8 +116,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 13,
-
-    kml: 12.4,
   },
   {
     label: "hyundai palisade",
@@ -147,8 +129,6 @@ export const Result: Car[] = [
     e: 17,
     f: 17,
     g: 19,
-
-    kml: 10.5,
   },
   {
     label: "hyundai santafe",
@@ -162,8 +142,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 17,
-
-    kml: 11.8,
   },
   {
     label: "hyundai sonata",
@@ -177,8 +155,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
-
-    kml: 11.7,
   },
   {
     label: "hyundai tucson",
@@ -192,8 +168,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
-
-    kml: 12.4,
   },
   {
     label: "hyundai venue",
@@ -207,8 +181,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 11,
-
-    kml: 13.6,
   },
   {
     label: "kia carnival",
@@ -222,8 +194,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 11,
-
-    kml: 11.3,
   },
   {
     label: "kia k3",
@@ -237,8 +207,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 12,
-
-    kml: 14.7,
   },
   {
     label: "kia k5",
@@ -252,8 +220,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
-
-    kml: 11.9,
   },
   {
     label: "kia k8",
@@ -267,8 +233,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 16,
-
-    kml: 17.5,
   },
   {
     label: "kia k9",
@@ -282,8 +246,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 20,
-
-    kml: 8.6,
   },
   {
     label: "kia mohave",
@@ -297,8 +259,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 22,
-
-    kml: 9.3,
   },
   {
     label: "kia morning",
@@ -312,8 +272,6 @@ export const Result: Car[] = [
     e: 14,
     f: 15,
     g: 9,
-
-    kml: 15.7,
   },
   {
     label: "kia ray",
@@ -327,8 +285,6 @@ export const Result: Car[] = [
     e: 14,
     f: 14,
     g: 10,
-
-    kml: 13,
   },
   {
     label: "kia seltos",
@@ -342,8 +298,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 13,
-
-    kml: 11.7,
   },
   {
     label: "kia sorento",
@@ -357,8 +311,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 17,
-
-    kml: 12.3,
   },
   {
     label: "kia sportage",
@@ -372,8 +324,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 15,
-
-    kml: 12.5,
   },
   {
     label: "renault qm6",
@@ -387,8 +337,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 15,
-
-    kml: 10.4,
   },
   {
     label: "renault sm6",
@@ -402,8 +350,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
-
-    kml: 11.8,
   },
   {
     label: "renault xm3",
@@ -417,8 +363,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 14,
-
-    kml: 13.6,
   },
   {
     label: "ssangyong rexton",
@@ -432,8 +376,6 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 20,
-
-    kml: 10.3,
   },
   {
     label: "genesis g70",
@@ -447,8 +389,6 @@ export const Result: Car[] = [
     e: 15,
     f: 16,
     g: 16,
-
-    kml: 10.2,
   },
   {
     label: "ssangyong tivoli",
@@ -462,8 +402,6 @@ export const Result: Car[] = [
     e: 15,
     f: 15,
     g: 13,
-
-    kml: 11.4,
   },
   {
     label: "ssangyong torres",
@@ -477,7 +415,5 @@ export const Result: Car[] = [
     e: 16,
     f: 16,
     g: 15,
-
-    kml: 10.8,
   },
 ];

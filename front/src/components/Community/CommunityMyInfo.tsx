@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components/macro";
 import * as UserApi from "apis/UserApi";
@@ -7,14 +7,13 @@ import * as CommunityApi from "apis/CommunityApi";
 import * as CarMbtiTestApi from "apis/CarMbtiTestApi";
 import * as CarApi from "apis/CarApi";
 import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
-import { UserStateContext } from "App";
 
 const MyInfo = styled.div`
   width: 300px;
   height: auto;
   border-top: 2px solid #303030;
 
-  @media screen and (max-width: 1370px) {
+  @media screen and (max-width: 768px) {
     width: 100%;
   }
 
@@ -40,15 +39,6 @@ const MyInfo = styled.div`
       border-radius: 20px;
       padding: 5px 10px;
       font-size: 14px;
-    }
-    .usertype {
-      display: flex;
-      justify-content: space-between;
-      /* width: 91px; */
-      i {
-        color: #6897c6;
-        font-size: 20px;
-      }
     }
   }
 
@@ -106,7 +96,6 @@ const MyInfo = styled.div`
 `;
 
 export const UploadButton = styled.button`
-  border-radius: 10px;
   width: 100%;
   padding: 15px 0;
   font-size: 18px;
@@ -114,10 +103,6 @@ export const UploadButton = styled.button`
   border: none;
   color: #fff;
   cursor: pointer;
-  transition: 0.3s ease-in-out all;
-  &:hover {
-    background-color: salmon;
-  }
 `;
 
 function CommunityMyInfo() {
@@ -130,10 +115,8 @@ function CommunityMyInfo() {
     brand: string;
   }>();
 
-  const currentUser = useContext(UserStateContext);
-
   const currentUserCalcEfficiency = CalcAverageEfficiency(
-    currentUser?.user?.user_id, //임시로 현재 user_id 집어넣음
+    "70b691cb-c989-4503-86a2-f17dc87b77b8", //임시로 현재 user_id 집어넣음
   );
 
   const toUploadPage = () => {
@@ -189,8 +172,6 @@ function CommunityMyInfo() {
     api();
   }, [userCommunity]);
 
-  console.log("userTestType?.type", userTestType?.type);
-
   return (
     <MyInfo>
       <div className="myInfo-user">
@@ -198,24 +179,21 @@ function CommunityMyInfo() {
           <span className="username">{user?.nickname}</span>님
         </p>
         <span>
-          {userTestType?.type === undefined ? (
-            <span className="usertype">
-              <i className="ri-emotion-unhappy-fill"></i> 유형 없음
-            </span>
-          ) : (
-            <span className="usertype">{userTestType?.type}유형</span>
-          )}
+          <span className="usertype">
+            {userTestType?.type === null ? "-" : userTestType?.type}
+          </span>
+          유형
         </span>
       </div>
       <div className="myInfo-info">
         <ul>
           <li>
             <span>차종</span>
-            <p>{userCarInfo?.model === undefined ? "-" : userCarInfo?.model}</p>
+            <p>{userCarInfo?.model === null ? "-" : userCarInfo?.model}</p>
           </li>
           <li>
             <span>제조사</span>
-            <p>{userCarInfo?.brand === undefined ? "-" : userCarInfo?.brand}</p>
+            <p>{userCarInfo?.brand === null ? "-" : userCarInfo?.brand}</p>
           </li>
           <li>
             <span>평균 연비</span>

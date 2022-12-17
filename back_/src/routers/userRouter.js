@@ -61,7 +61,12 @@ userRouter.get(
     async function (req, res, next) {
         try {
             const user_id = req.currentUserId;
+
+            console.log("currentUserId", user_id);
+
             const currentUserInfo = await userAuthService.getUserInfo(user_id);
+
+            console.log("currentUserId", currentUserInfo);
 
             res.status(200).send(currentUserInfo);
         } catch (err) {
