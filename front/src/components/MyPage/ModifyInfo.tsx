@@ -208,9 +208,6 @@ const ModifyInfoWrapper = styled.div`
   @media screen and (max-width: 720px) {
     margin-left: 25vw;
   }
-  @media screen and (max-width: 720px) {
-    padding-left: 0rem;
-  }
 `;
 
 const ModifyInfoContentWrapper = styled.div`
@@ -219,6 +216,9 @@ const ModifyInfoContentWrapper = styled.div`
   display: inline;
   flex-direction: column;
   justify-content: center;
+  @media screen and (max-width: 720px) {
+    padding-left: 0rem;
+  }
 `;
 
 const ModifyInfoContentSubWrapper = styled.div`
