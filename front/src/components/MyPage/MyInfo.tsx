@@ -230,7 +230,7 @@ const MyPageWrapper = styled.div`
   margin-left: 20vw;
   padding-bottom: 5rem;
   @media screen and (max-width: 720px) {
-    margin-left: 0vw;
+    margin-left: 25vw;
   }
 `;
 
