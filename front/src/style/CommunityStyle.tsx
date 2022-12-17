@@ -148,6 +148,7 @@ export const BoardWrap = styled.div`
           &:first-child {
             text-align: left;
             display: flex;
+            padding: 10px 0;
           }
 
           button {
