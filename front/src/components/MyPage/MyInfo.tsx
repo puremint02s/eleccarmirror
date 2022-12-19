@@ -346,6 +346,9 @@ const RefuelWrap = styled.div`
       }
     }
   }
+  @media screen and (max-width: 720px) {
+    width: 70vw;
+  }
 `;
 
 const ReregisterCarBtn = styled.button`
