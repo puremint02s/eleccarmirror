@@ -33,6 +33,7 @@ export const LoginInput = styled.input`
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 1rem;
+  box-sizing: border-box;
   margin-top: 0.5rem;
   border-radius: 10px;
 `;
@@ -72,7 +73,6 @@ export const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 0.5rem;
 `;
 
 export const LoginButton = styled.button`
