@@ -47,6 +47,9 @@ const RightBackground = styled.div`
   background-size: 1300px 100vh;
   background-repeat: no-repeat;
   background-position: -20px 0;
+  @media screen and (max-width: 720px) {
+    display: none;
+  }
 `;
 
 const LeftBackground = styled.div`
