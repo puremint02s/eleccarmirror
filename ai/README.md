@@ -7,3 +7,10 @@ pip freeze > requirements.txt
 
 #패키지 한번에 설치
 pip install -r requirements.txt
+
+설치 모듈 정리
+sudo pip install pillow
+sudo pip install numpy
+sudo pip install flask
+sudo pip install tensorflow
+sudo pip install matplotlib

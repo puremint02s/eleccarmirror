@@ -21,6 +21,16 @@ class Comment {
         }
     }
 
+    static async findCommentAll() {
+        try {
+            const getAllComment = await CommentModel.find({});
+
+            return getAllComment;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     static async findCommunityOne(id) {
         try {
             const getCommunityComment = await CommentModel.find({

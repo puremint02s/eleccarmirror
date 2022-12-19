@@ -37,10 +37,12 @@ const UserSchema = new Schema(
         },
         car_owned: {
             type: Boolean,
+            required: true,
             default: false,
         },
         elec_car_owned: {
             type: Boolean,
+            required: true,
             default: false,
         },
         gas: {

@@ -6,6 +6,10 @@ const CommunitySchema = new Schema(
             type: String,
             required: true,
         },
+        nickname: {
+            type: String,
+            // required: true,
+        },
         title: {
             type: String,
             required: true,
@@ -15,8 +19,13 @@ const CommunitySchema = new Schema(
             required: true,
         },
         hashtags: {
-            type: String,
+            type: Array,
             trim: true,
+        },
+        file: {
+            type: String,
+            // contentType: String,
+            // trim: true,
         },
     },
     {
