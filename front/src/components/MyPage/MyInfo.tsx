@@ -230,7 +230,7 @@ const MyPageWrapper = styled.div`
   margin-left: 20vw;
   padding-bottom: 5rem;
   @media screen and (max-width: 720px) {
-    margin-left: 25vw;
+    margin-left: 15vw;
   }
 `;
 
@@ -261,6 +261,7 @@ const MyPageContent = styled.div`
   margin-bottom: 30px;
   border-top: 2px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
+
   ul {
     width: 100%;
     padding: 10px 0;
@@ -286,6 +287,9 @@ const MyPageContent = styled.div`
         font-weight: 500;
       }
     }
+  }
+  @media screen and (max-width: 720px) {
+    width: 70vw;
   }
 `;
 
