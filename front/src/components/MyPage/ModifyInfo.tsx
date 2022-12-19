@@ -206,7 +206,7 @@ const ModifyInfoWrapper = styled.div`
   display: flex;
   margin-left: 20vw;
   @media screen and (max-width: 720px) {
-    margin-left: 25vw;
+    margin-left: 15vw;
   }
 `;
 
@@ -247,6 +247,9 @@ const ModifyInfoContent = styled.table`
   padding-bottom: 10px;
   border-top: 2px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
+  @media screen and (max-width: 720px) {
+    width: 70vw;
+  }
 `;
 
 const ModifyInfoContentTitle = styled.td`
