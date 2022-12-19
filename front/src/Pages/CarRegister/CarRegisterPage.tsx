@@ -194,16 +194,19 @@ const MainArea = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media screen and (max-height: 719px) {
+  @media screen and (max-height: 640px) {
     flex-direction: row;
     padding: 0;
     margin: 0;
     & > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       width: 50vw;
       padding: 10px;
       padding-top: 30px;
     }
-    justify-content: center;
   }
 `;
 
