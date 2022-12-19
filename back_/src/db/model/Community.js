@@ -12,6 +12,16 @@ class Community {
         }
     }
 
+    static async findAllContents() {
+        try {
+            const result = await CommunityModel.find({});
+
+            return result;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     static async findAll(page, perPage) {
         try {
             const total = await CommunityModel.countDocuments({});
@@ -59,7 +69,7 @@ class Community {
     }
 
     static async update(newInput) {
-        console.log("newInput =>", newInput);
+        // console.log("newInput =>", newInput);
         try {
             const { _id, title, content, hashtags } = newInput;
             const update = { title, content, hashtags };
@@ -67,6 +77,25 @@ class Community {
             const updateContent = await CommunityModel.updateOne(
                 { _id },
                 update,
+                {
+                    returnOriginal: false,
+                }
+            );
+
+            return updateContent;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    static async updateAll(newInput) {
+        try {
+            const { user_id, nickname } = newInput;
+            // const update = { title, content, hashtags };
+
+            const updateContent = await CommunityModel.updateMany(
+                { user_id },
+                { nickname },
                 {
                     returnOriginal: false,
                 }

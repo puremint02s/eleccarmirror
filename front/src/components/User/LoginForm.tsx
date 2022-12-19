@@ -5,15 +5,10 @@ import {
   LoginFormWrapper,
   LoginInputTitle,
   LoginInput,
-  FootBox,
-  // RememberMeTitle,
-  FindEmailPwdButton,
   ButtonBox,
   InputErrorMessage,
   LoginButton,
-  KakaoLoginButton,
-  GoogleLoginButton,
-} from "../../style/LoginFormStyle";
+} from "style/LoginFormStyle";
 import { UseFormRegister, FieldErrorsImpl } from "react-hook-form";
 import LogoImg from "assets/img/MyElecCar logo.png";
 import { R } from "App";
@@ -51,30 +46,20 @@ function LoginForm({ register, errors, onLoginSubmitEvent }: LoginFormProps) {
         )}
         <LoginInputTitle>비밀번호</LoginInputTitle>
         <LoginInput
+          type="password"
           {...register("password", {
             required: true,
-            // minLength: 7,
-            // maxLength: 20,
-            // pattern: /^.(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/,
-            // 테스트용 계정 비밀번호가 1111이라 임시로 조건 해제
+            minLength: 7,
+            maxLength: 20,
+            pattern: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{7,25}$/,
           })}
           placeholder="비밀번호를 입력해주세요."
         />
         {errors.password && (
           <InputErrorMessage>비밀번호를 다시 확인해주세요.</InputErrorMessage>
         )}
-        <FootBox>
-          {/* <input type="checkbox" />
-          <RememberMeTitle>remember me</RememberMeTitle> */}
-          {/* 구현할지 안 할지 모르는 기능이라서 */}
-          <a href="/find">
-            <FindEmailPwdButton>아이디/비밀번호 찾기</FindEmailPwdButton>
-          </a>
-        </FootBox>
         <ButtonBox>
           <LoginButton type="submit">로그인</LoginButton>
-          <KakaoLoginButton>카카오톡으로 시작</KakaoLoginButton>
-          <GoogleLoginButton>구글로 시작</GoogleLoginButton>
         </ButtonBox>
       </LoginFormWrapper>
     </LoginFormBox>

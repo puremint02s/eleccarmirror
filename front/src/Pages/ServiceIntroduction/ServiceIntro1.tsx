@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import WhiteLogoImg from "assets/img/MyElecCar white logo.png";
+import Service1BGImg from "assets/img/Service1BG.png";
 
 function ServiceIntro1() {
   return (
@@ -17,17 +18,13 @@ function ServiceIntro1() {
                 현재 나의 차, 성향, 주유기록을 통해 나에게 딱 맞는 전기차를
                 찾아봐요.
               </Subtitle>
-              <Link to="/">
+              <Link to="/signuplogin">
                 <Section1Button>회원가입하고 찾으러 가기</Section1Button>
               </Link>
             </LeftBackground3>
           </LeftBackground2>
         </LeftBackground>
-        <LoginWrapper>
-          <Link to="/login">
-            <LoginButton>로그인</LoginButton>
-          </Link>
-        </LoginWrapper>
+        <RightBackground />
       </Section1Wrapper>
     </>
   );
@@ -41,6 +38,17 @@ const Section1Wrapper = styled.div`
   height: 100vh;
 `;
 
+const RightBackground = styled.div`
+  display: flex;
+  /* width: 60vw; */
+  width: 80vw;
+  background-image: url(${Service1BGImg});
+  /* background-size: 60vw 100vh; */
+  background-size: 1300px 100vh;
+  background-repeat: no-repeat;
+  background-position: -20px 0;
+`;
+
 const LeftBackground = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,9 +60,12 @@ const LeftBackground2 = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60vw;
+  width: 40vw;
   height: 70%;
   background-color: #0a84ff;
+  @media screen and (max-width: 720px) {
+    width: 80vw;
+  }
 `;
 
 const LeftBackground3 = styled.div`
@@ -69,6 +80,8 @@ const Title1 = styled.span`
   font-size: 30px;
   margin-bottom: 25px;
   color: white;
+    width: 100%
+  }
 `;
 
 const Subtitle = styled.span`
@@ -85,21 +98,14 @@ const Section1Button = styled.button`
   background-color: white;
   border: none;
   cursor: pointer;
+  border-radius: 10px;
+  @media screen and (max-width: 720px) {
+    width: 40vw;
+  }
 `;
 
 const LogoWrapper = styled.img`
   width: 200px;
   margin-top: 5vh;
   margin-left: 10vw;
-`;
-
-const LoginWrapper = styled.div`
-  width: 45vw;
-  height: 100%;
-`;
-
-const LoginButton = styled.div`
-  font-size: 15px;
-  margin-top: 6vh;
-  margin-left: 25vw;
 `;

@@ -1,16 +1,16 @@
 import { axiosInstance } from "./AxiosInstance";
 
-export const CarMbtiTypePost = async (type: string) => {
-  const res = await axiosInstance.post("/type", {
-    type,
-  });
+export const carMbtiTypePost = async (type: object | undefined) => {
+  const res = await axiosInstance.post("/type", type);
+  return res;
+};
+
+export const carMbtiTypeGet = async (user_id: object) => {
+  const res = await axiosInstance.get("/type", user_id);
   return res.data;
 };
 
-// 테스트 타입 반환
-// export const CarMbtiTypeGet = async (user_id: string) => {
-//   const res = await axiosInstance.get("/type", {
-//     // user_id,
-//   });
-//   return res.data;
-// };
+export const carMbtiTypeModify = async (modify: object) => {
+  const res = await axiosInstance.put("/type", modify);
+  return res;
+};

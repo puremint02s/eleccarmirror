@@ -1,95 +1,34 @@
 import React, { useRef, useState } from "react";
+import axios from "axios";
 import Header from "components/common/Header";
 import Main from "components/common/Main";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
-const Title = styled.div`
-  border-bottom: 1px solid #9e9e9e;
-  padding-top: 150px;
-  h2 {
-    height: 60px;
-    line-height: 50px;
-  }
-`;
-
-const UploadContent = styled.form`
-  width: 100%;
-  height: auto;
-`;
-
-const Content = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: space-between;
-  padding-top: 50px;
-
-  div {
-    width: 90%;
-    height: 58px;
-
-    &.contentArea {
-      height: auto;
-    }
-
-    input {
-      width: 100%;
-      height: 100%;
-      display: block;
-      text-indent: 2%;
-      border: 1px solid #303030;
-      outline: none;
-    }
-
-    textarea {
-      padding: 2%;
-      width: 96%;
-      height: 223px;
-      border: 1px solid #303030;
-      outline: none;
-    }
-
-    span {
-      display: block;
-      color: #ff4f18;
-      padding-top: 10px;
-    }
-  }
-`;
-
-const ButtonWrap = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  padding: 40px 0;
-
-  button {
-    width: 173px;
-    height: 52px;
-    cursor: pointer;
-
-    & + button {
-      margin-left: 20px;
-    }
-
-    &:last-child {
-      background-color: #0a84ff;
-      color: #fff;
-    }
-  }
-`;
+import * as uploadStyle from "style/CommunityUploadStyle";
+import * as CommunityApi from "apis/CommunityApi";
+import * as ImageUploadApi from "apis/ImageUpload";
 
 const CommunityUpload = () => {
   const navigate = useNavigate();
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
-
+  const hashTagsRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [hashtags, setHashtags] = useState([]);
   const [titleWarn, setTitleWarn] = useState("");
   const [contentWarn, setContentWarn] = useState("");
+  const [textLength, setTextLength] = useState(0);
+  // const [imageContent, setImageContent] = useState<Blob | string>("");
+  const [imageContent, setImageContent] = useState<any>("");
+  const [uploadImages, setUploadImages] = useState<{
+    file: File;
+    thumbnail: string;
+    type: string;
+  }>();
+
+  const BACK_SERVER_URL = process.env.REACT_APP_BACK_SERVER_URL;
+
   const toPreviousPage = () => {
     navigate(`/community`);
   };
@@ -126,9 +65,8 @@ const CommunityUpload = () => {
     }
   };
   let uploadData;
-  const uploadContent = (e: React.FormEvent) => {
+  const uploadContent = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validation()) {
       return;
     }
@@ -136,18 +74,66 @@ const CommunityUpload = () => {
     uploadData = {
       title,
       content,
+      hashtags: hashTagsRef?.current?.value,
+      file: imageContent,
     };
+    try {
+      const res = await CommunityApi.uploadCommunity(uploadData);
+      console.log("res", res);
+    } catch (err) {
+      console.log("err=>", err);
+    }
+
     navigate(`/community`);
   };
+
+  console.log("imageContent ====> ", imageContent);
+
+  const checkTextLength = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const maxLength = 800;
+    if (e.currentTarget.value.length <= maxLength) {
+      setTextLength(e.currentTarget.value.length);
+    } else {
+      e.currentTarget.value = e.currentTarget.value.substring(0, maxLength);
+    }
+  };
+
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      // Blob 타입의 이미지 파일을 base64 형태로 변환합니다.
+      const getBase64 = (file: File) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setImageContent(reader.result);
+        };
+        reader.readAsDataURL(file);
+        reader.onerror = error => console.log(error);
+      };
+
+      getBase64(e.target.files[0]);
+
+      const url = URL.createObjectURL(e.target.files[0]);
+      setUploadImages({
+        file: e.target.files[0],
+        thumbnail: url,
+        type: e.target.files[0].type.slice(0, 5),
+      });
+    }
+  };
+
+  const clickFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <>
       <Header />
       <Main width="950px">
-        <Title>
+        <uploadStyle.Title>
           <h2>커뮤니티 글쓰기</h2>
-        </Title>
-        <UploadContent onSubmit={uploadContent}>
-          <Content>
+        </uploadStyle.Title>
+        <uploadStyle.UploadContent onSubmit={uploadContent}>
+          <uploadStyle.Content>
             <p>제목</p>
             <div>
               <input
@@ -160,27 +146,65 @@ const CommunityUpload = () => {
               />
               <span>{titleWarn}</span>
             </div>
-          </Content>
-          <Content>
+          </uploadStyle.Content>
+
+          <uploadStyle.Content>
             <p>내용</p>
             <div className="contentArea">
-              <textarea
-                placeholder="내용을 입력해주세요"
-                ref={contentRef}
-                onChange={e => {
-                  setContent(e.target.value);
-                }}
-              ></textarea>
-              <span>{contentWarn}</span>
+              <div>
+                <div className="textArea_wrap">
+                  <textarea
+                    placeholder="내용을 입력해주세요"
+                    ref={contentRef}
+                    onChange={e => {
+                      setContent(e.target.value);
+                    }}
+                    onKeyUp={checkTextLength}
+                  ></textarea>
+                  <p className="textlength">{textLength}/800</p>
+                </div>
+                {/* <div>
+                  <p className="imgBox">
+                    <img
+                      src={uploadImages?.thumbnail}
+                      alt={uploadImages?.thumbnail}
+                    />
+                  </p>
+
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={uploadImage}
+                  />
+                  <button type="button" onClick={clickFileInput}>
+                    파일 업로드
+                  </button>
+                </div> */}
+              </div>
             </div>
-          </Content>
-          <ButtonWrap>
+          </uploadStyle.Content>
+          <uploadStyle.HashTags>
+            <p>관련검색어</p>
+            <div className="contentArea">
+              <input
+                placeholder="내용을 입력해주세요"
+                ref={hashTagsRef}
+              ></input>
+              <span className="hashtags-tip">
+                콤마로 관련검색어를 나눠주세요
+              </span>
+            </div>
+          </uploadStyle.HashTags>
+          <uploadStyle.ButtonWrap>
             <button type="button" onClick={toPreviousPage}>
               취소하기
             </button>
             <button>등록하기</button>
-          </ButtonWrap>
-        </UploadContent>
+          </uploadStyle.ButtonWrap>
+        </uploadStyle.UploadContent>
       </Main>
     </>
   );

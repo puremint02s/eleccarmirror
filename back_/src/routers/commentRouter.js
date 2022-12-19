@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required.js";
 import { commentService } from "../services/commentService.js";
+import { userAuthService } from "../services/userAuthService.js";
 
 const commentRouter = Router();
 
@@ -8,15 +9,20 @@ const commentRouter = Router();
 commentRouter.post("/comment", login_required, async function (req, res, next) {
     try {
         const user_id = req.currentUserId;
+        const user = await userAuthService.getUserInfo(user_id);
+
+        // console.log("user nickname", user.nickname);
+
         const { community_id, content } = req.body;
 
         const comment = {
             user_id,
+            nickname: user.nickname,
             community_id,
             content,
         };
 
-        console.log("comment ===>", comment);
+        // console.log("comment ===>", comment);
 
         const newComment = await commentService.addComment(comment);
 
@@ -37,6 +43,23 @@ commentRouter.get(
             const getComment = await commentService.getComment(id);
 
             return res.status(201).json(getComment);
+        } catch (err) {
+            next(err);
+        }
+    }
+);
+
+//댓글 전부 불러오기
+commentRouter.get(
+    "/comments/all",
+    login_required,
+    async function (req, res, next) {
+        try {
+            // const { id } = req.body;
+
+            const getCommunityComment = await commentService.getAllComment();
+
+            return res.status(201).json(getCommunityComment);
         } catch (err) {
             next(err);
         }

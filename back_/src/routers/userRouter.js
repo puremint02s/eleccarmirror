@@ -61,9 +61,6 @@ userRouter.get(
     async function (req, res, next) {
         try {
             const user_id = req.currentUserId;
-
-            console.log("currentUserId", user_id);
-
             const currentUserInfo = await userAuthService.getUserInfo(user_id);
 
             res.status(200).send(currentUserInfo);
@@ -77,22 +74,21 @@ userRouter.get(
 userRouter.put("/user", login_required, async function (req, res, next) {
     try {
         const user_id = req.currentUserId;
-        const {
-            email,
-            id,
-            nickname,
-            password,
-            age,
-            address,
-            car_owned,
-            elec_car_owned,
-        } = req.body;
+
+        const email = req.body.email ?? null;
+        const id = req.body.id ?? null;
+        const nickname = req.body.nickname ?? null;
+        // const password = req.body.password ?? null;
+        const age = req.body.age ?? null;
+        const address = req.body.address ?? null;
+        const car_owned = req.body.car_owned ?? null;
+        const elec_car_owned = req.body.elec_car_owned ?? null;
+
         const newInput = {
             user_id,
             email,
             id,
             nickname,
-            password,
             age,
             address,
             car_owned,
@@ -100,6 +96,10 @@ userRouter.put("/user", login_required, async function (req, res, next) {
         };
 
         const updateUserInfo = await userAuthService.updateUser(newInput);
+
+        if (updateUserInfo.errorMessage) {
+            throw new Error(updateUserInfo.errorMessage);
+        }
 
         return res.status(201).json(updateUserInfo);
     } catch (err) {
@@ -116,6 +116,21 @@ userRouter.get("/user/:id", login_required, async function (req, res, next) {
 
         res.status(201).send(currentUser);
     } catch (err) {
+        next(err);
+    }
+});
+
+//유저정보 중복체크
+userRouter.get("/users/same", async function (req, res, next) {
+    try {
+        const { id } = req.body;
+        // const user = await userAuthService.getUser({ id, password });
+        const sameUser = await userAuthService.getUserInfomation({ id });
+
+        res.status(201).send(sameUser);
+    } catch (err) {
+        const errorMessage = "중복된 아이디 입니다.";
+        return { errorMessage };
         next(err);
     }
 });

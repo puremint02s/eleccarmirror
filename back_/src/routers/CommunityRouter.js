@@ -1,6 +1,8 @@
 import is from "@sindresorhus/is";
+import fs from "fs";
 import { Router } from "express";
 import { communityService } from "../services/communityService.js";
+import { userAuthService } from "../services/userAuthService.js";
 import { login_required } from "../middlewares/login_required.js";
 
 const communityRouter = Router();
@@ -13,14 +15,47 @@ communityRouter.post(
         try {
             const user_id = req.currentUserId;
 
-            const { title, content, hashtags } = req.body;
+            const user = await userAuthService.getUserInfo(user_id);
+
+            const { title, content, hashtags, file } = req.body;
+
+            const filteredHashtags = hashtags.replace(/\s/g, "").split(",");
+
+            // const block = file.split(";");
+            // const contentType = block[0].split(":")[1].substr(6); //image/png= //png
+            // const realData = block[1].split(",")[1];
+
+            // const random = Math.random() * 1000000;
+
+            // fs.writeFile(
+            //     `C:/Users/Ryu/Desktop/3rd_project/11/back_/communityUploads/${random}.${contentType}`,
+            //     realData,
+            //     "base64",
+            //     function (err) {
+            //         console.log(err);
+            //     }
+            // );
+            // let yourfile;
+
+            // fs.readFile(
+            //     `C:/Users/Ryu/Desktop/3rd_project/11/back_/communityUploads/${random}.${contentType}`,
+            //     (err, file) => {
+            //         if (err) {
+            //             console.log(err);
+            //         }
+            //         console.log("file", file);
+            //         yourfile = file;
+            //     }
+            // );
 
             const data = {
                 user_id,
+                nickname: user.nickname,
                 title,
                 content,
-                hashtags,
+                hashtags: filteredHashtags,
                 creator: req.user_id,
+                // file: yourfile,
             };
 
             const uploadedContent = await communityService.addContent(data);
@@ -41,10 +76,25 @@ communityRouter.get(
             const page = Number(req.query.page || 1);
             const perPage = Number(req.query.perPage || 10);
 
-            console.log("page =>", page);
-            console.log("perPage =>", perPage);
+            // console.log("page =>", page);
+            // console.log("perPage =>", perPage);
 
             const content = await communityService.getContents(page, perPage);
+
+            return res.status(201).json(content);
+        } catch (err) {
+            next(err);
+        }
+    }
+);
+
+//커뮤니티 글 가져오기 - 모두
+communityRouter.get(
+    "/community/all",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const content = await communityService.getContentsAll();
 
             return res.status(201).json(content);
         } catch (err) {
@@ -95,11 +145,41 @@ communityRouter.put(
 
             const newInput = { _id, title, content, hashtags };
 
+            console.log("newInput 라우터 감지", newInput);
+
             const updateContent = await communityService.updateContent(
                 newInput
             );
 
-            return res.status(201).json(updateContent);
+            return res
+                .status(201)
+                .json({ message: "커뮤니티 글이 업데이트 되었습니다!" });
+        } catch (err) {
+            next(err);
+        }
+    }
+);
+
+//유저의 커뮤니티 글 모두 수정
+communityRouter.put(
+    "/community/users",
+    login_required,
+    async function (req, res, next) {
+        try {
+            const user_id = req.currentUserId;
+            const { nickname } = req.body;
+
+            const newInput = { user_id, nickname };
+
+            // console.log("newInput 라우터 감지", newInput);
+
+            const updateUsersContent = await communityService.updateAllContent(
+                newInput
+            );
+
+            return res.status(201).json({
+                message: "해당 유저의 커뮤니티 글이 모두 업데이트 되었습니다",
+            });
         } catch (err) {
             next(err);
         }

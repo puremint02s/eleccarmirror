@@ -6,21 +6,25 @@ const CarSchema = new Schema(
             type: String,
             required: true,
         },
-        brand: {
-            type: String,
-            required: true,
+        current: {
+            brand: {
+                type: String,
+                required: true,
+            },
+            model: {
+                type: String,
+                required: true,
+            },
         },
-        model: {
-            type: String,
-            required: true,
-        },
-        year: {
-            type: String,
-            required: true,
-        },
-        car_image: {
-            type: String,
-            required: true,
+        recommended: {
+            brand: {
+                type: String,
+                required: true,
+            },
+            model: {
+                type: String,
+                required: true,
+            },
         },
     },
     {

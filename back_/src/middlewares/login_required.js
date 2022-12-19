@@ -18,11 +18,11 @@ function login_required(req, res, next) {
     // try {
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
     const jwtDecoded = jwt.verify(userToken, secretKey);
-    console.log("jwtDecoded", jwtDecoded);
+    // console.log("jwtDecoded", jwtDecoded);
     const user_id = jwtDecoded.user_id;
     req.currentUserId = user_id;
 
-    console.log("currentUserId", req.currentUserId);
+    // console.log("currentUserId", req.currentUserId);
 
     next();
     // } catch (error) {

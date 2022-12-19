@@ -30,8 +30,8 @@ function SocialShare() {
         onClick={() =>
           copyClipboard(
             currentUrl,
-            () => console.log("link copy success"),
-            () => console.log("link copy fail"),
+            () => window.alert("링크가 복사되었습니다."),
+            () => window.alert("링크 복사에 실패하였습니다."),
           )
         }
       >

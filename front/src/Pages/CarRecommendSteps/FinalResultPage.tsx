@@ -1,9 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserStateContext } from "App";
 import Header from "components/common/Header";
 import styled from "styled-components";
 import BlueCarImg from "assets/img/BlueCar.png";
-import Modal from "../../components/common/Modal";
-import CarRecommendResult from "../../components/FinalRecommendReport/CarRecommendResult";
+import GreyCarImg from "assets/img/GreyQuestionCar.png";
+import Modal from "components/common/Modal";
+import CarRecommendResult from "components/FinalRecommendReport/CarRecommendResult";
+import CalcAverageEfficiency from "hooks/CalcAverageEfficiency";
+import { carMbtiTypeGet } from "apis/CarMbtiTestApi";
+import { getCarInfo } from "apis/CarRegisterApi";
+import { MbtiRecommendCar } from "assets/data/MbtiRecommendCarList";
+import {
+  ListA,
+  ListB,
+  ListC,
+  ListD,
+  ListE,
+  ListF,
+  ListG,
+  ListH,
+  ListI,
+} from "assets/data/RecommendElecCarList";
+import { Result as ImageRecommend } from "assets/data/CarOutputList";
 
 interface CarData {
   brand: string;
@@ -14,12 +32,6 @@ interface CarData {
   cost: number;
   homepage: string;
 }
-
-const dummyUserData = {
-  mbti: "CFBH",
-  efficiency: 10,
-  currentCar: "아반떼",
-};
 
 const dummyCarData: CarData = {
   brand: "테슬라",
@@ -36,6 +48,87 @@ function FinalResultPage() {
   const [userCarRecommendResult, setUserCarRecommendResult] = useState(false);
   const [calcEfficiencyRecommendResult, setCalcEfficiencyRecommendResult] =
     useState(false);
+  const [userMbtiType, setUserMbtiType] = useState("");
+  const [currentCarModel, setCurrentCarModel] = useState("");
+  const [recommendedCarModel, setRecomendedCarModel] = useState("");
+  const [recommendedCarBrand, setRecomendedCarBrand] = useState("");
+  const [currentUserMPGtype, setCurrentUserMPGtype] = useState("");
+  const [recommendedIndex, setRecommendedIndex] = useState(0);
+
+  const currentUser = useContext(UserStateContext);
+
+  const currentUserCalcEfficiency = CalcAverageEfficiency(
+    currentUser.user.user_id,
+  );
+  const currentUserCalcMPG =
+    (currentUserCalcEfficiency.averageEfficiency / 1559) * 324;
+
+  useEffect(() => {
+    const i = currentUserCalcMPG;
+    if (!isNaN(i)) {
+      if (i < 3) {
+        setCurrentUserMPGtype("A");
+        setRecommendedIndex(Math.floor(Math.random() * (4 - 1) + 1));
+      } else if (i >= 3 && i < 3.5) {
+        setCurrentUserMPGtype("B");
+        setRecommendedIndex(Math.floor(Math.random() * (4 - 1) + 1));
+      } else if (i >= 3.5 && i < 4) {
+        setCurrentUserMPGtype("C");
+        setRecommendedIndex(Math.floor(Math.random() * (5 - 1) + 1));
+      } else if (i >= 4 && i < 4.5) {
+        setCurrentUserMPGtype("D");
+        setRecommendedIndex(Math.floor(Math.random() * (12 - 1) + 1));
+      } else if (i >= 4.5 && i < 5) {
+        setCurrentUserMPGtype("E");
+        setRecommendedIndex(Math.floor(Math.random() * (4 - 1) + 1));
+      } else if (i >= 5 && i < 5.5) {
+        setCurrentUserMPGtype("F");
+        setRecommendedIndex(Math.floor(Math.random() * (6 - 1) + 1));
+      } else if (i >= 5.5 && i < 6) {
+        setCurrentUserMPGtype("G");
+        setRecommendedIndex(1);
+      } else if (i >= 6 && i < 6.5) {
+        setCurrentUserMPGtype("H");
+        setRecommendedIndex(1);
+      } else if (i >= 6.5) {
+        setCurrentUserMPGtype("I");
+        setRecommendedIndex(1);
+      }
+    } else {
+      setCurrentUserMPGtype("none");
+      console.log("dkdk");
+    }
+  }, [currentUserCalcMPG]);
+
+  useEffect(() => {
+    async function getCurrentUserType() {
+      const currentUserId = currentUser.user.user_id;
+      const res = await carMbtiTypeGet(currentUserId);
+      setUserMbtiType(res[0].type);
+    }
+    getCurrentUserType();
+  }, []);
+
+  useEffect(() => {
+    async function setCurrentUserCarInfo() {
+      const res = await getCarInfo();
+      const carInformation = res?.data?.current;
+      const recommendedInfo = res?.data?.recommended;
+      if (carInformation) {
+        setCurrentCarModel(carInformation.model);
+        setRecomendedCarModel(recommendedInfo.model);
+        setRecomendedCarBrand(recommendedInfo.brand);
+      }
+    }
+    setCurrentUserCarInfo();
+  }, []);
+
+  function isMatch(element: any) {
+    if (element.model === recommendedCarModel) {
+      return true;
+    }
+  }
+  const ImageRecommendResult = ImageRecommend.find(isMatch);
 
   return (
     <>
@@ -54,20 +147,21 @@ function FinalResultPage() {
               src={BlueCarImg}
               alt="유형 이미지"
             />
-            <p>{dummyUserData.mbti}</p>
+            <p>{userMbtiType}</p>
           </ResultButton>
           {mbtiRecommendResult && (
             <Modal
               closeModal={() => setMbtiRecommendResult(!mbtiRecommendResult)}
             >
               <CarRecommendResult
-                brand={dummyCarData.brand}
-                model={dummyCarData.model}
-                distance={dummyCarData.distance}
-                battery={dummyCarData.battery}
-                MPG={dummyCarData.MPG}
-                cost={dummyCarData.cost}
-                homepage={dummyCarData.homepage}
+                brand={MbtiRecommendCar[userMbtiType].brand}
+                model={MbtiRecommendCar[userMbtiType].model}
+                distance={MbtiRecommendCar[userMbtiType].distance}
+                battery={MbtiRecommendCar[userMbtiType].battery}
+                MPG={MbtiRecommendCar[userMbtiType].MPG}
+                cost={MbtiRecommendCar[userMbtiType].cost}
+                homepage={MbtiRecommendCar[userMbtiType].homepage}
+                img={MbtiRecommendCar[userMbtiType].img}
               />
             </Modal>
           )}
@@ -82,9 +176,9 @@ function FinalResultPage() {
             <img
               style={{ width: 100, paddingBottom: 15 }}
               src={BlueCarImg}
-              alt="유형 이미지"
+              alt="현재 차량 이미지"
             />
-            <p>{dummyUserData.currentCar}</p>
+            <p>{currentCarModel}</p>
           </ResultButton>
           {userCarRecommendResult && (
             <Modal
@@ -93,13 +187,14 @@ function FinalResultPage() {
               }
             >
               <CarRecommendResult
-                brand={dummyCarData.brand}
-                model={dummyCarData.model}
-                distance={dummyCarData.distance}
-                battery={dummyCarData.battery}
-                MPG={dummyCarData.MPG}
-                cost={dummyCarData.cost}
-                homepage={dummyCarData.homepage}
+                brand={ImageRecommendResult.brand}
+                model={ImageRecommendResult.model}
+                distance={ImageRecommendResult.distance}
+                battery={ImageRecommendResult.battery}
+                MPG={ImageRecommendResult.MPG}
+                cost={ImageRecommendResult.cost}
+                homepage={ImageRecommendResult.homepage}
+                img={ImageRecommendResult.img}
               />
             </Modal>
           )}
@@ -114,9 +209,9 @@ function FinalResultPage() {
             <img
               style={{ width: 100, paddingBottom: 15 }}
               src={BlueCarImg}
-              alt="유형 이미지"
+              alt="평균연비 이미지"
             />
-            <p>{dummyUserData.efficiency} km/L</p>
+            <p>{currentUserCalcEfficiency.averageEfficiency} km/L</p>
           </ResultButton>
           {calcEfficiencyRecommendResult && (
             <Modal
@@ -124,15 +219,117 @@ function FinalResultPage() {
                 setCalcEfficiencyRecommendResult(!calcEfficiencyRecommendResult)
               }
             >
-              <CarRecommendResult
-                brand={dummyCarData.brand}
-                model={dummyCarData.model}
-                distance={dummyCarData.distance}
-                battery={dummyCarData.battery}
-                MPG={dummyCarData.MPG}
-                cost={dummyCarData.cost}
-                homepage={dummyCarData.homepage}
-              />
+              {currentUserMPGtype === "A" && (
+                <CarRecommendResult
+                  brand={ListA[recommendedIndex].brand}
+                  model={ListA[recommendedIndex].model}
+                  distance={ListA[recommendedIndex].distance}
+                  battery={ListA[recommendedIndex].battery}
+                  MPG={ListA[recommendedIndex].MPG}
+                  cost={ListA[recommendedIndex].cost}
+                  homepage={ListA[recommendedIndex].homepage}
+                  img={ListA[recommendedIndex].img}
+                />
+              )}
+              {currentUserMPGtype === "B" && (
+                <CarRecommendResult
+                  brand={ListB[recommendedIndex].brand}
+                  model={ListB[recommendedIndex].model}
+                  distance={ListB[recommendedIndex].distance}
+                  battery={ListB[recommendedIndex].battery}
+                  MPG={ListB[recommendedIndex].MPG}
+                  cost={ListB[recommendedIndex].cost}
+                  homepage={ListB[recommendedIndex].homepage}
+                  img={ListB[recommendedIndex].img}
+                />
+              )}
+              {currentUserMPGtype === "C" && (
+                <CarRecommendResult
+                  brand={ListC[recommendedIndex].brand}
+                  model={ListC[recommendedIndex].model}
+                  distance={ListC[recommendedIndex].distance}
+                  battery={ListC[recommendedIndex].battery}
+                  MPG={ListC[recommendedIndex].MPG}
+                  cost={ListC[recommendedIndex].cost}
+                  homepage={ListC[recommendedIndex].homepage}
+                  img={ListC[recommendedIndex].img}
+                />
+              )}
+              {currentUserMPGtype === "D" && (
+                <CarRecommendResult
+                  brand={ListD[recommendedIndex].brand}
+                  model={ListD[recommendedIndex].model}
+                  distance={ListD[recommendedIndex].distance}
+                  battery={ListD[recommendedIndex].battery}
+                  MPG={ListD[recommendedIndex].MPG}
+                  cost={ListD[recommendedIndex].cost}
+                  homepage={ListD[recommendedIndex].homepage}
+                  img={ListD[recommendedIndex].img}
+                />
+              )}
+              {currentUserMPGtype === "E" && (
+                <CarRecommendResult
+                  brand={ListE[recommendedIndex].brand}
+                  model={ListE[recommendedIndex].model}
+                  distance={ListE[recommendedIndex].distance}
+                  battery={ListE[recommendedIndex].battery}
+                  MPG={ListE[recommendedIndex].MPG}
+                  cost={ListE[recommendedIndex].cost}
+                  homepage={ListE[recommendedIndex].homepage}
+                  img={ListE[recommendedIndex].img}
+                />
+              )}
+              {currentUserMPGtype === "F" && (
+                <CarRecommendResult
+                  brand={ListF[recommendedIndex].brand}
+                  model={ListF[recommendedIndex].model}
+                  distance={ListF[recommendedIndex].distance}
+                  battery={ListF[recommendedIndex].battery}
+                  MPG={ListF[recommendedIndex].MPG}
+                  cost={ListF[recommendedIndex].cost}
+                  homepage={ListF[recommendedIndex].homepage}
+                  img={ListF[recommendedIndex].img}
+                />
+              )}
+              {currentUserMPGtype === "G" && (
+                <CarRecommendResult
+                  brand={ListG[1].brand}
+                  model={ListG[1].model}
+                  distance={ListG[1].distance}
+                  battery={ListG[1].battery}
+                  MPG={ListG[1].MPG}
+                  cost={ListG[1].cost}
+                  homepage={ListG[1].homepage}
+                  img={ListG[1].img}
+                />
+              )}
+              {currentUserMPGtype === "H" && (
+                <CarRecommendResult
+                  brand={ListH[1].brand}
+                  model={ListH[1].model}
+                  distance={ListH[1].distance}
+                  battery={ListH[1].battery}
+                  MPG={ListH[1].MPG}
+                  cost={ListH[1].cost}
+                  homepage={ListH[1].homepage}
+                  img={ListH[1].img}
+                />
+              )}
+              {currentUserMPGtype === "I" && (
+                <CarRecommendResult
+                  brand={ListI[1].brand}
+                  model={ListI[1].model}
+                  distance={ListI[1].distance}
+                  battery={ListI[1].battery}
+                  MPG={ListI[1].MPG}
+                  cost={ListI[1].cost}
+                  homepage={ListI[1].homepage}
+                  img={ListI[1].img}
+                />
+              )}
+              {currentUserMPGtype === "none" && (
+                <>계산된 평균연비가 존재하지 않습니다.</>
+              )}
             </Modal>
           )}
         </ResultButtonWrapper>
@@ -168,7 +365,8 @@ const ResultButtonTitleWrapper = styled.p`
 `;
 
 export const ResultButton = styled.button`
-  padding: 40px;
+  width: 200px;
+  height: 200px;
   font-size: 16px;
   margin-top: 1rem;
   cursor: pointer;
